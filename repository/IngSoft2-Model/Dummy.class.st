@@ -9,8 +9,3 @@ Dummy >> isDummy [
 
 	^ true
 ]
-
-{ #category : #testing }
-Dummy >> isNotDummy [
-	^false
-]
