@@ -25,7 +25,7 @@ self should: [Game withBoard: aBoard diceCollection:aDiceRoller players:{}] rais
 ]
 
 { #category : #tests }
-GameTest >> testPlayerStartsAtTileNumberOne [ [
+GameTest >> testPlayerStartsAtTileNumberOne [
 
 	| aGame aTile1 aTile2 aTile3 aBoard aDie1 aDiceRoller |
 
@@ -43,12 +43,11 @@ GameTest >> testPlayerStartsAtTileNumberOne [ [
 				players: ( {'Danny'. 'Walter'.} ).
 
 	self assert: ( aGame positionOf: 'Danny' ) tileNumber equals: 1.
-	self assert: ( aGame positionOf: 'Walter' ) tileNumber equals: 1
-]
+	self assert: ( aGame positionOf: 'Walter' ) tileNumber equals: 1.
 ]
 
 { #category : #tests }
-GameTest >> testPlayingUntilWinning [ [
+GameTest >> testPlayingUntilWinning [
 
 	| aGame aTile1 aTile2 aTile3 aBoard aDie1 aDiceRoller |
 
@@ -66,6 +65,4 @@ GameTest >> testPlayingUntilWinning [ [
 				players: ( {'Danny'. 'Walter'} ).
 				
 	self deny: (aGame hasEnded).	
-	
-]
 ]

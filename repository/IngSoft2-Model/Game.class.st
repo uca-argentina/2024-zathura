@@ -8,7 +8,6 @@ Class {
 		'players',
 		'status',
 		'diceCollection',
-		'player',
 		'tileNumber'
 	],
 	#category : #'IngSoft2-Model'
@@ -43,11 +42,11 @@ Game >> initializeWithBoard: aBoard diceCollection: aDiceCollection players: aPl
 	diceCollection := aDiceCollection.
 	players := aPlayers.
 	status := false.
-	playerPositions := (players collect: [ :onePlayer |SpaceshipPosition startingOfPlayer: player ]).
+	playerPositions := (players collect: [ :player |SpaceshipPosition startingOfPlayer: player ]) asOrderedCollection.
 ]
 
 { #category : #'as yet unclassified' }
 Game >> positionOf: aPlayer [
 
-^(playerPositions select:[:position|position player=aPlayer])
+^(playerPositions select:[:position|position player=aPlayer]) last
 ]
