@@ -30,6 +30,12 @@ Game class >> withBoard: aBoard diceCollection: aDiceCollection players: aPlayer
 		  players: aPlayers
 ]
 
+{ #category : #adding }
+Game >> addPosition: aPlayerPosition [
+	playerPositions add: aPlayerPosition
+
+]
+
 { #category : #testing }
 Game >> hasEnded [
 ^status
@@ -53,6 +59,13 @@ Game >> movePlayer: aPlayer withRollingResult: aResult [
 	
 	self addPosition: newPosition
 
+]
+
+{ #category : #initialization }
+Game >> positionForPlayer: aPlayerPosition whenRollingResult: aResult [
+	^SpaceShipPosition
+		ofPlayer: aPlayerPosition player
+		tileNumber: aPlayerPosition tileNumber + aResult 
 ]
 
 { #category : #accessing }
