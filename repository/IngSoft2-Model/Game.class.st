@@ -13,14 +13,14 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #asserting }
 Game class >> assertValidNumberOfPlayers: aPlayers [
 
 	aPlayers isEmpty ifTrue: [
 		Error signal: 'Game must have at least one player' ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 Game class >> withBoard: aBoard diceCollection: aDiceCollection players: aPlayers [
 
 	self assertValidNumberOfPlayers: aPlayers.
@@ -30,7 +30,7 @@ Game class >> withBoard: aBoard diceCollection: aDiceCollection players: aPlayer
 		  players: aPlayers
 ]
 
-{ #category : #adding }
+{ #category : #testing }
 Game >> hasEnded [
 ^status
 ]
@@ -42,11 +42,27 @@ Game >> initializeWithBoard: aBoard diceCollection: aDiceCollection players: aPl
 	diceCollection := aDiceCollection.
 	players := aPlayers.
 	status := false.
-	playerPositions := (players collect: [ :player |SpaceshipPosition startingOfPlayer: player ]) asOrderedCollection.
+	playerPositions := (players collect: [ :player |SpaceShipPosition startingOfPlayer: player ]) asOrderedCollection.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #playing }
+Game >> movePlayer: aPlayer withRollingResult: aResult [
+	| newPosition |
+	
+	newPosition:= self positionForPlayer: (self positionOf: aPlayer) whenRollingResult: aResult.
+	
+	self addPosition: newPosition
+
+]
+
+{ #category : #accessing }
 Game >> positionOf: aPlayer [
 
 ^(playerPositions select:[:position|position player=aPlayer]) last
+]
+
+{ #category : #playing }
+Game >> rollDiceCupFor: aPLayer [
+	| rollingResult |
+	rollingResult:=diceCollection roll.
 ]
