@@ -78,36 +78,6 @@ aGame rollDiceCupFor: 'Danny'.
 ]
 
 { #category : #tests }
-GameTest >> testGameHasNotEndedAsNoPlayerReachTheEnd [
-
-| aGame aTile1 aTile2 aTile3 aTile4 aTile5 aTile6 aTile7 aBoard aDie1 aDiceRoller|
-
-aTile1:=Tile new.
-aTile2:=Tile new.
-aTile3:=Tile new.
-aTile4:=Tile new.
-aTile5:=Tile new.
-aTile6:=Tile new.
-aTile7:=Tile new.
-
-aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
-
-aDie1:=LoadedDie of: 3.
-aDiceRoller:=DiceRoller of:{aDie1}.
-
-aGame:= Game withBoard: aBoard diceCollection:aDiceRoller players: ({'Danny'.'Walter'}).
-
-self deny: (aGame hasEnded).
-	self assert: ( aGame positionOf: 'Danny' ) tileNumber equals: 1.
-	self assert: ( aGame positionOf: 'Walter' ) tileNumber equals: 1.
-	
-aGame rollDiceCupFor: 'Danny'.
-
-self assert: (aGame positionOf: 'Danny') tileNumber equals: 4.
-self deny: (aGame hasEnded).
-]
-
-{ #category : #tests }
 GameTest >> testGameHasNotEndedAsNoPlayerReachedTheEnd [
 
 | aGame aTile1 aTile2 aTile3 aTile4 aTile5 aTile6 aTile7 aBoard aDie1 aDiceRoller|
@@ -213,7 +183,7 @@ aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
 { #category : #tests }
 GameTest >> testPlayingUntilWinning [
 
-	| aGame aTile1 aTile2 aTile3 aTile4 aTile5 aTile6 aTile7 aBoard aDie1 aDiceRoller|
+| aGame aTile1 aTile2 aTile3 aTile4 aTile5 aTile6 aTile7 aBoard aDie1 aDiceRoller|
 aTile1:=Tile new.
 aTile2:=Tile new.
 aTile3:=Tile new.
