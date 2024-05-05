@@ -13,13 +13,13 @@ DiceRoller class >> of: dice [
 ^self new initializeOf: dice
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 DiceRoller >> initializeOf: aDice [
 
 dice:=aDice
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #rolling }
 DiceRoller >> roll [
 
 ^dice sum:[:die|die throw]
