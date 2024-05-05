@@ -8,7 +8,9 @@ Class {
 		'players',
 		'status',
 		'diceCollection',
-		'tileNumber'
+		'tileNumber',
+		'wormholeTile1',
+		'wormholeTile2'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -39,6 +41,13 @@ Game >> addPosition: aPlayerPosition [
 { #category : #testing }
 Game >> hasEnded [
 ^status
+]
+
+{ #category : #testing }
+Game >> hasWormholeFrom: aTile to: aTile2 [ 
+	wormholeTile1:=aTile.
+	wormholeTile2:=aTile2.
+	
 ]
 
 { #category : #initialization }
@@ -75,7 +84,15 @@ Game >> positionOf: aPlayer [
 ]
 
 { #category : #playing }
-Game >> rollDiceCupFor: aPLayer [
+Game >> rollDiceCupFor: aPlayer [
 	| rollingResult |
-	rollingResult:=diceCollection roll.
+	status ifFalse:[
+		rollingResult:=diceCollection roll.
+		self movePlayer: aPlayer withRollingResult:rollingResult.
+		(self positionOf: aPlayer) tileNumber >= (board tiles) size ifTrue:[status:=true].
+		(self positionOf: aPlayer) tileNumber == wormholeTile1 ifTrue:[self movePlayer: aPlayer withRollingResult: (wormholeTile2-wormholeTile1)] ifFalse:[(self positionOf: aPlayer) tileNumber == wormholeTile2 ifTrue:[self movePlayer: aPlayer withRollingResult: (wormholeTile1-wormholeTile2)]].
+	]
+	ifTrue:[Error signal: 'Game has already ended']
+
+	
 ]
