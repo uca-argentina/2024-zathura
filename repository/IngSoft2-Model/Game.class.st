@@ -77,7 +77,10 @@ Game >> positionOf: aPlayer [
 { #category : #playing }
 Game >> rollDiceCupFor: aPlayer [
 	| rollingResult |
-	rollingResult:=diceCollection roll.
-	self movePlayer: aPlayer withRollingResult:rollingResult.
-	(self positionOf: aPlayer) tileNumber >= (board tiles) size ifTrue:[status:=true]
+	status ifFalse:[
+		rollingResult:=diceCollection roll.
+		self movePlayer: aPlayer withRollingResult:rollingResult.
+		(self positionOf: aPlayer) tileNumber >= (board tiles) size ifTrue:[status:=true]
+	]
+	ifTrue:[Error signal: 'Game has already ended']
 ]
