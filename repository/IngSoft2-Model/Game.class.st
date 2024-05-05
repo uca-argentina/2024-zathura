@@ -10,7 +10,8 @@ Class {
 		'diceCollection',
 		'tileNumber',
 		'wormholeTile1',
-		'wormholeTile2'
+		'wormholeTile2',
+		'playerTurn'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -58,6 +59,7 @@ Game >> initializeWithBoard: aBoard diceCollection: aDiceCollection players: aPl
 	players := aPlayers.
 	status := false.
 	playerPositions := (players collect: [ :player |SpaceShipPosition startingOfPlayer: player ]) asOrderedCollection.
+	playerTurn:=(players at:1)
 ]
 
 { #category : #playing }
@@ -95,4 +97,9 @@ Game >> rollDiceCupFor: aPlayer [
 	ifTrue:[Error signal: 'Game has already ended']
 
 	
+]
+
+{ #category : #'as yet unclassified' }
+Game >> turnOf: aPlayer [ 
+	(playerTurn = aPlayer)ifTrue: [^true]ifFalse:[^false]
 ]

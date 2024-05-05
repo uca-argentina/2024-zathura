@@ -44,6 +44,35 @@ self should:[aGame rollDiceCupFor:'Danny'] raise: Error withMessage: 'Game has a
 ]
 
 { #category : #tests }
+GameTest >> testDannyCanRollTheDiceAfterWalterTurn [
+
+| aGame aTile1 aTile2 aTile3 aBoard aDie1 aDiceCup aTile4 aTile5|
+
+	aTile1 := Tile new.
+	aTile2 := Tile new.
+	aTile3 := Tile new.
+	aTile4 := Tile new.
+	aTile5 := Tile new.
+	
+	aBoard := Board ofTiles: { aTile1. aTile2. aTile3. aTile4. aTile5.}.
+	
+	aDie1 := LoadedDie of: 3.
+	aDiceCup := DiceRoller of: { aDie1 }.
+
+	aGame := Game 
+				withBoard: aBoard
+				diceCollection: aDiceCup
+				players: ( {'Danny'. 'Walter'.} ).
+	
+	aGame rollDiceCupFor: 'Danny'.
+	aGame rollDiceCupFor: 'Walter'.
+	
+	self assert: ( aGame positionOf: 'Danny' ) tileNumber equals: 4.
+	self assert: ( aGame positionOf: 'Walter' ) tileNumber equals: 4.
+	self assert: ( aGame turnOf: 'Danny' ).
+]
+
+{ #category : #tests }
 GameTest >> testGameHasEndedAsOnePlayerReachTheEnd [
 
 | aGame aTile1 aTile2 aTile3 aTile4 aTile5 aTile6 aTile7 aBoard aDie1 aDiceRoller|
