@@ -13,6 +13,7 @@ GameTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage
 GameTest >> testMustHaveAtLeastOnePlayer [
 
 | aTile1 aTile2 aTile3 aBoard aDie1 aDiceRoller|
+
 aTile1:=Tile new.
 aTile2:=Tile new.
 aTile3:=Tile new.
