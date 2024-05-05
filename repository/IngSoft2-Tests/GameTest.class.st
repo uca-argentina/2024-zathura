@@ -13,13 +13,13 @@ GameTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage
 GameTest >> testCantRollAfterGameEnded [
 
 | aGame aTile1 aTile2 aTile3 aTile4 aTile5 aTile6 aTile7 aBoard aDie1 aDiceRoller|
-aTile1:=Tile new.
-aTile2:=Tile new.
-aTile3:=Tile new.
-aTile4:=Tile new.
-aTile5:=Tile new.
-aTile6:=Tile new.
-aTile7:=Tile new.
+	aTile1 := Tile ofTiles .
+	aTile2 := Tile ofTiles .
+	aTile3 := Tile ofTiles .
+	aTile4 := Tile ofTiles .
+	aTile5 := Tile ofTiles .
+	aTile6 := Tile ofTiles .
+	aTile7 := Tile ofTiles .
 
 aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
 	
@@ -32,13 +32,13 @@ aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
 				players: ( {'Danny'. 'Walter'} ).
 				
 	self deny: (aGame hasEnded).
-	self assert: (aGame positionOf: 'Danny') tileNumber equals: 1.
-	self assert: ( aGame positionOf: 'Walter' ) tileNumber equals: 1.
+	self assert: (aGame positionOf: 'Danny')  equals: 1.
+	self assert: ( aGame positionOf: 'Walter' )  equals: 1.
 	
 aGame rollDiceCupFor: 'Danny'.
 	self assert: (aGame hasEnded).
-	self assert: (aGame positionOf: 'Danny') tileNumber equals: 7.
-	self assert: ( aGame positionOf: 'Walter' ) tileNumber equals: 1.
+	self assert: (aGame positionOf: 'Danny')  equals: 7.
+	self assert: ( aGame positionOf: 'Walter' )  equals: 1.
 	
 self should:[aGame rollDiceCupFor:'Danny'] raise: Error withMessage: 'Game has already ended'
 ]
@@ -48,13 +48,13 @@ GameTest >> testGameHasEndedAsOnePlayerReachTheEnd [
 
 | aGame aTile1 aTile2 aTile3 aTile4 aTile5 aTile6 aTile7 aBoard aDie1 aDiceRoller|
 
-aTile1:=Tile new.
-aTile2:=Tile new.
-aTile3:=Tile new.
-aTile4:=Tile new.
-aTile5:=Tile new.
-aTile6:=Tile new.
-aTile7:=Tile new.
+	aTile1 := Tile ofTiles .
+	aTile2 := Tile ofTiles .
+	aTile3 := Tile ofTiles .
+	aTile4 := Tile ofTiles .
+	aTile5 := Tile ofTiles .
+	aTile6 := Tile ofTiles .
+	aTile7 := Tile ofTiles .
 
 aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
 
@@ -63,18 +63,18 @@ aDiceRoller:=DiceRoller of:{aDie1}.
 
 aGame:= Game withBoard: aBoard diceCollection:aDiceRoller players: ({'Danny'.'Walter'}).
 
-	self assert: ( aGame positionOf: 'Danny' ) tileNumber equals: 1.
-	self assert: ( aGame positionOf: 'Walter' ) tileNumber equals: 1.
+	self assert: ( aGame positionOf: 'Danny' )  equals: 1.
+	self assert: ( aGame positionOf: 'Walter' )  equals: 1.
 	
 aGame rollDiceCupFor: 'Danny'.
 	self deny: (aGame hasEnded).
-	self assert: (aGame positionOf: 'Danny') tileNumber equals: 4.
-	self assert: ( aGame positionOf: 'Walter' ) tileNumber equals: 1.
+	self assert: (aGame positionOf: 'Danny')  equals: 4.
+	self assert: ( aGame positionOf: 'Walter' )  equals: 1.
 	
 aGame rollDiceCupFor: 'Danny'.
 	self assert: (aGame hasEnded).
-	self assert: (aGame positionOf: 'Danny') tileNumber equals: 7.
-	self assert: ( aGame positionOf: 'Walter' ) tileNumber equals: 1.
+	self assert: (aGame positionOf: 'Danny')  equals: 7.
+	self assert: ( aGame positionOf: 'Walter' )  equals: 1.
 ]
 
 { #category : #tests }
@@ -82,13 +82,13 @@ GameTest >> testGameHasNotEndedAsNoPlayerReachedTheEnd [
 
 | aGame aTile1 aTile2 aTile3 aTile4 aTile5 aTile6 aTile7 aBoard aDie1 aDiceRoller|
 
-aTile1:=Tile new.
-aTile2:=Tile new.
-aTile3:=Tile new.
-aTile4:=Tile new.
-aTile5:=Tile new.
-aTile6:=Tile new.
-aTile7:=Tile new.
+	aTile1 := Tile ofTiles .
+	aTile2 := Tile ofTiles .
+	aTile3 := Tile ofTiles .
+	aTile4 := Tile ofTiles .
+	aTile5 := Tile ofTiles .
+	aTile6 := Tile ofTiles .
+	aTile7 := Tile ofTiles .
 
 aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
 
@@ -98,12 +98,12 @@ aDiceRoller:=DiceRoller of:{aDie1}.
 aGame:= Game withBoard: aBoard diceCollection:aDiceRoller players: ({'Danny'.'Walter'}).
 
 self deny: (aGame hasEnded).
-	self assert: ( aGame positionOf: 'Danny' ) tileNumber equals: 1.
-	self assert: ( aGame positionOf: 'Walter' ) tileNumber equals: 1.
+	self assert: ( aGame positionOf: 'Danny' ) equals: 1.
+	self assert: ( aGame positionOf: 'Walter' ) equals: 1.
 	
 aGame rollDiceCupFor: 'Danny'.
 
-self assert: (aGame positionOf: 'Danny') tileNumber equals: 4.
+self assert: (aGame positionOf: 'Danny') equals: 4.
 self deny: (aGame hasEnded).
 ]
 
@@ -134,13 +134,13 @@ withMessage: 'Game must have at least one player'.
 GameTest >> testIsInvalidWhenThereIsNoWinner [
 
 | aGame aTile1 aTile2 aTile3 aTile4 aTile5 aTile6 aTile7 aBoard aDie1 aDiceRoller|
-aTile1:=Tile new.
-aTile2:=Tile new.
-aTile3:=Tile new.
-aTile4:=Tile new.
-aTile5:=Tile new.
-aTile6:=Tile new.
-aTile7:=Tile new.
+	aTile1 := Tile ofTiles .
+	aTile2 := Tile ofTiles .
+	aTile3 := Tile ofTiles .
+	aTile4 := Tile ofTiles .
+	aTile5 := Tile ofTiles .
+	aTile6 := Tile ofTiles .
+	aTile7 := Tile ofTiles .
 
 aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
 	
@@ -159,13 +159,13 @@ aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
 GameTest >> testIsValidWhenThereIsWinner [
 
 	| aGame aTile1 aTile2 aTile3 aTile4 aTile5 aTile6 aTile7 aBoard aDie1 aDiceRoller |
-	aTile1 := Tile new.
-	aTile2 := Tile new.
-	aTile3 := Tile new.
-	aTile4 := Tile new.
-	aTile5 := Tile new.
-	aTile6 := Tile new.
-	aTile7 := Tile new.
+	aTile1 := Tile ofTiles .
+	aTile2 := Tile ofTiles .
+	aTile3 := Tile ofTiles .
+	aTile4 := Tile ofTiles .
+	aTile5 := Tile ofTiles .
+	aTile6 := Tile ofTiles .
+	aTile7 := Tile ofTiles .
 
 	aBoard := Board ofTiles: {
 			          aTile1.
@@ -183,22 +183,22 @@ GameTest >> testIsValidWhenThereIsWinner [
 		         withBoard: aBoard
 		         diceCollection: aDiceRoller
 		         players: { 'Danny'. 'Walter' }.
-	aGame rollDiceCupFor: 'Danny'.
-	aGame rollDiceCupFor: 'Danny'.
-	self assert: aGame winner equals: 'Danny'
+	aGame rollDiceCupFor: 'Walter'.
+	aGame rollDiceCupFor: 'Walter'.
+	self assert: aGame winner equals: 'Walter'
 ]
 
 { #category : #tests }
 GameTest >> testPlayerMovesFiveTiles [
 | aGame aTile1 aTile2 aTile3 aTile4 aTile5 aTile6 aTile7 aBoard aDie1 aDiceRoller|
 
-aTile1:=Tile new.
-aTile2:=Tile new.
-aTile3:=Tile new.
-aTile4:=Tile new.
-aTile5:=Tile new.
-aTile6:=Tile new.
-aTile7:=Tile new.
+	aTile1 := NormalTile  ofTiles .
+	aTile2 := NormalTile ofTiles .
+	aTile3 := NormalTile ofTiles .
+	aTile4 := NormalTile ofTiles .
+	aTile5 := NormalTile ofTiles .
+	aTile6 := NormalTile ofTiles .
+	aTile7 := NormalTile ofTiles .
 
 aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
 
@@ -206,23 +206,23 @@ aDie1:=LoadedDie of: 5.
 aDiceRoller:=DiceRoller of:{aDie1}.
 
 aGame:= Game withBoard: aBoard diceCollection:aDiceRoller players: ({'Danny'.'Walter'}).
-	self assert: ( aGame positionOf: 'Walter' ) tileNumber equals: 1.
+	self assert: ( aGame positionOf: 'Walter' ) equals: 1.
 	
 aGame rollDiceCupFor: 'Walter'.
-	self assert: ( aGame positionOf: 'Walter' ) tileNumber equals: 6.
+	self assert: ( aGame positionOf: 'Walter' ) equals: 6.
 ]
 
 { #category : #tests }
 GameTest >> testPlayersStartAtFirstTile [
 
 | aGame aTile1 aTile2 aTile3 aTile4 aTile5 aTile6 aTile7 aBoard aDie1 aDiceRoller|
-aTile1:=Tile new.
-aTile2:=Tile new.
-aTile3:=Tile new.
-aTile4:=Tile new.
-aTile5:=Tile new.
-aTile6:=Tile new.
-aTile7:=Tile new.
+	aTile1 := Tile ofTiles .
+	aTile2 := Tile ofTiles .
+	aTile3 := Tile ofTiles .
+	aTile4 := Tile ofTiles .
+	aTile5 := Tile ofTiles .
+	aTile6 := Tile ofTiles .
+	aTile7 := Tile ofTiles .
 
 aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
 	
@@ -234,21 +234,21 @@ aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
 				diceCollection: aDiceRoller
 				players: ( {'Danny'. 'Walter'} ).
 				
-	self assert: (aGame positionOf: 'Danny') tileNumber equals: 1.
-	self assert: (aGame positionOf: 'Walter') tileNumber equals: 1.
+	self assert: (aGame positionOf: 'Danny') equals: 1.
+	self assert: (aGame positionOf: 'Walter') equals: 1.
 ]
 
 { #category : #tests }
 GameTest >> testPlayingUntilWinning [
 
 | aGame aTile1 aTile2 aTile3 aTile4 aTile5 aTile6 aTile7 aBoard aDie1 aDiceRoller|
-aTile1:=Tile new.
-aTile2:=Tile new.
-aTile3:=Tile new.
-aTile4:=Tile new.
-aTile5:=Tile new.
-aTile6:=Tile new.
-aTile7:=Tile new.
+	aTile1 := Tile ofTiles .
+	aTile2 := Tile ofTiles .
+	aTile3 := Tile ofTiles .
+	aTile4 := Tile ofTiles .
+	aTile5 := Tile ofTiles .
+	aTile6 := Tile ofTiles .
+	aTile7 := Tile ofTiles .
 
 aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
 	
@@ -264,69 +264,47 @@ aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
 ]
 
 { #category : #tests }
+GameTest >> testScoreboardIsValidWhenSomeonesWins [
+
+| aGame aTile1 aTile2 aTile3 aTile4 aTile5 aTile6 aTile7 aBoard aDie1 aDiceRoller|
+	aTile1 := Tile ofTiles .
+	aTile2 := Tile ofTiles .
+	aTile3 := Tile ofTiles .
+	aTile4 := Tile ofTiles .
+	aTile5 := Tile ofTiles .
+	aTile6 := Tile ofTiles .
+	aTile7 := Tile ofTiles .
+
+aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
+	
+	aDie1 := LoadedDie of: 3.
+	aDiceRoller := DiceRoller of: { aDie1 }.
+
+	aGame := Game 
+				withBoard: aBoard
+				diceCollection: aDiceRoller
+				players: ( {'Danny'. 'Walter'} ).
+	aGame rollDiceCupFor: 'Danny'.
+	aGame rollDiceCupFor: 'Danny'.
+	self assert: (aGame hasEnded).	
+]
+
+{ #category : #tests }
 GameTest >> testWormholeGoesBackwards [
 
-	| aGame aTile1 aTile2 aTile3 aBoard aDie1 aDiceRoller aTile4 aTile5 |
+	| aGame aTile1 aTile2 wormholeTile3 aTile4 wormholeTile5 aTile6 aTile7 aBoard  aDie1 aDiceRoller    |
 
-	aTile1 := Tile new.
-	aTile2 := Tile new.
-	aTile3 := Tile new.
-	aTile4 := Tile new.
-	aTile5 := Tile new.
-	aBoard := Board ofTiles: { aTile1. aTile2. aTile3. aTile4. aTile5.}.
+	aTile1 := Tile ofTiles .
+	aTile2 := Tile ofTiles .
+	wormholeTile3 := WormholeTile ofTiles .
+	aTile4 := Tile ofTiles .
+	wormholeTile5 := WormholeTile ofTiles .
+	aTile6 := Tile ofTiles .
+	aTile7 := Tile ofTiles .
+	wormholeTile5 linkATileToTheWormhole: wormholeTile3.
+	wormholeTile3 linkATileToTheWormhole: wormholeTile5.
 	
-	aDie1 := LoadedDie of: 3.
-	aDiceRoller := DiceRoller of: { aDie1 }.
-
-	aGame := Game 
-				withBoard: aBoard
-				diceCollection: aDiceRoller
-				players: ( {'Danny'. 'Walter'.} ).
-	
-	aGame hasWormholeFrom: 2 to:4.
-	aGame rollDiceCupFor: 'Danny'.
-
-	self assert: ( aGame positionOf: 'Danny' ) tileNumber equals: 2.
-]
-
-{ #category : #tests }
-GameTest >> testWormholeGoesForward [
-
-	| aGame aTile1 aTile2 aTile3 aBoard aDie1 aDiceRoller aTile4 aTile5 |
-
-	aTile1 := Tile new.
-	aTile2 := Tile new.
-	aTile3 := Tile new.
-	aTile4 := Tile new.
-	aTile5 := Tile new.
-	aBoard := Board ofTiles: { aTile1. aTile2. aTile3. aTile4. aTile5.}.
-	
-	aDie1 := LoadedDie of: 3.
-	aDiceRoller := DiceRoller of: { aDie1 }.
-
-	aGame := Game 
-				withBoard: aBoard
-				diceCollection: aDiceRoller
-				players: ( {'Danny'. 'Walter'.} ).
-	
-	aGame hasWormholeFrom: 4 to:5. 
-	aGame rollDiceCupFor: 'Danny'.
-
-	self assert: ( aGame positionOf: 'Danny' ) tileNumber equals: 5.
-]
-
-{ #category : #tests }
-GameTest >> testWormholeIsNotOnANormalTile [
-
-	| aGame aTile1 aTile2 aTile3 aBoard aDie1 aDiceRoller aTile4 aTile5 aTile6 |
-
-	aTile1 := Tile new.
-	aTile2 := Tile new.
-	aTile3 := Tile new.
-	aTile4 := Tile new.
-	aTile5 := Tile new.
-	aTile6 := Tile new.
-	aBoard := Board ofTiles: { aTile1. aTile2. aTile3. aTile4. aTile5. aTile6}.
+	aBoard := Board ofTiles: { aTile1. aTile2. wormholeTile3. aTile4. wormholeTile5. aTile6. aTile7}.
 	
 	aDie1 := LoadedDie of: 4.
 	aDiceRoller := DiceRoller of: { aDie1 }.
@@ -336,8 +314,64 @@ GameTest >> testWormholeIsNotOnANormalTile [
 				diceCollection: aDiceRoller
 				players: ( {'Danny'. 'Walter'.} ).
 	
-	aGame hasWormholeFrom: 4 to:6. 
 	aGame rollDiceCupFor: 'Danny'.
 
-	self assert: ( aGame positionOf: 'Danny' ) tileNumber equals: 5.
+	self assert: ( aGame positionOf: 'Danny' ) equals: 3.
+]
+
+{ #category : #tests }
+GameTest >> testWormholeGoesForward [
+
+	| aGame aTile1 aTile2 aTile3 wormholeTile4 aTile5 wormholeTile7 aTile6  aBoard  aDie1 aDiceRoller    |
+
+	aTile1 := Tile ofTiles .
+	aTile2 := Tile ofTiles .
+	aTile3 := Tile ofTiles .
+	wormholeTile4 := WormholeTile ofTiles .
+	aTile6 := Tile ofTiles .
+	aTile5 := Tile ofTiles .
+	wormholeTile7 := WormholeTile ofTiles .
+	wormholeTile7 linkATileToTheWormhole: wormholeTile4.
+	wormholeTile4 linkATileToTheWormhole: wormholeTile7.
+	aBoard := Board ofTiles: { aTile1. aTile2. aTile3. wormholeTile4. aTile5.  aTile6. wormholeTile7}.
+	aDie1 := LoadedDie of: 3.
+	aDiceRoller := DiceRoller of: { aDie1 }.
+
+	aGame := Game 
+				withBoard: aBoard
+				diceCollection: aDiceRoller
+				players: ( {'Danny'. 'Walter'.} ).
+	
+	aGame rollDiceCupFor: 'Danny'.
+
+	self assert: ( aGame positionOf: 'Danny' ) equals: 7.
+]
+
+{ #category : #tests }
+GameTest >> testWormholeIsNotOnANormalTile [
+
+| aGame aTile1 aTile2 wormholeTile3 aTile4 aTile5 aTile6 wormholeTile7 aBoard  aDie1 aDiceRoller    |
+
+	aTile1 := Tile ofTiles .
+	aTile2 := Tile ofTiles .
+	wormholeTile3 := WormholeTile ofTiles .
+	aTile4 := Tile ofTiles .
+	wormholeTile7 := WormholeTile ofTiles .
+	aTile6 := Tile ofTiles .
+	aTile5 := Tile ofTiles .
+	wormholeTile3 linkATileToTheWormhole: wormholeTile7.
+	wormholeTile7 linkATileToTheWormhole: wormholeTile3.
+	aBoard := Board ofTiles: { aTile1. aTile2. wormholeTile3. aTile4. aTile5. aTile6. wormholeTile7}.
+	
+	aDie1 := LoadedDie of: 4.
+	aDiceRoller := DiceRoller of: { aDie1 }.
+
+	aGame := Game 
+				withBoard: aBoard
+				diceCollection: aDiceRoller
+				players: ( {'Danny'. 'Walter'.} ).
+	
+	aGame rollDiceCupFor: 'Danny'.
+
+	self assert: ( aGame positionOf: 'Danny' ) equals: 5.
 ]

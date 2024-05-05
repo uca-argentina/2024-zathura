@@ -2,15 +2,10 @@ Class {
 	#name : #Game,
 	#superclass : #Object,
 	#instVars : [
-		'playerPositions',
 		'board',
-		'dice',
 		'players',
 		'status',
-		'diceCollection',
-		'tileNumber',
-		'wormholeTile1',
-		'wormholeTile2'
+		'diceCollection'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -32,55 +27,35 @@ Game class >> withBoard: aBoard diceCollection: aDiceCollection players: aPlayer
 		  players: aPlayers
 ]
 
-{ #category : #adding }
-Game >> addPosition: aPlayerPosition [
-	playerPositions add: aPlayerPosition
-
-]
-
 { #category : #testing }
 Game >> hasEnded [
 ^status
 ]
 
-{ #category : #testing }
-Game >> hasWormholeFrom: aTile to: aTile2 [ 
-	wormholeTile1:=aTile.
-	wormholeTile2:=aTile2.
-	
-]
-
 { #category : #initialization }
 Game >> initializeWithBoard: aBoard diceCollection: aDiceCollection players: aPlayers [
+    board := aBoard.
+    diceCollection := aDiceCollection.
+    players := aPlayers.
+    status := false.
+    aPlayers do: [ :aPlayer | aBoard addPlayerToATile: aPlayer aTileNumber: 1 ].
 
-	board := aBoard.
-	diceCollection := aDiceCollection.
-	players := aPlayers.
-	status := false.
-	playerPositions := (players collect: [ :player |SpaceShipPosition startingOfPlayer: player ]) asOrderedCollection.
 ]
 
 { #category : #playing }
 Game >> movePlayer: aPlayer withRollingResult: aResult [
-	| newPosition |
 	
-	newPosition:= self positionForPlayer: (self positionOf: aPlayer) whenRollingResult: aResult.
+	board movePlayerToAnotherTile: aPlayer aTileNumber: aResult.
 	
-	self addPosition: newPosition
+	
 
-]
 
-{ #category : #initialization }
-Game >> positionForPlayer: aPlayerPosition whenRollingResult: aResult [
-	^SpaceShipPosition
-		ofPlayer: aPlayerPosition player
-		tileNumber: aPlayerPosition tileNumber + aResult 
 ]
 
 { #category : #accessing }
 Game >> positionOf: aPlayer [
 
-^(playerPositions select:[:position|position player=aPlayer]) last
+	^(board positionOf: aPlayer ).
 ]
 
 { #category : #playing }
@@ -89,8 +64,7 @@ Game >> rollDiceCupFor: aPlayer [
 	status ifFalse:[
 		rollingResult:=diceCollection roll.
 		self movePlayer: aPlayer withRollingResult:rollingResult.
-		(self positionOf: aPlayer) tileNumber >= (board tiles) size ifTrue:[status:=true].
-		(self positionOf: aPlayer) tileNumber == wormholeTile1 ifTrue:[self movePlayer: aPlayer withRollingResult: (wormholeTile2-wormholeTile1)] ifFalse:[(self positionOf: aPlayer) tileNumber == wormholeTile2 ifTrue:[self movePlayer: aPlayer withRollingResult: (wormholeTile1-wormholeTile2)]].
+		(self positionOf: aPlayer) >= (board tiles) size ifTrue:[status:=true].
 	]
 	ifTrue:[Error signal: 'Game has already ended']
 
@@ -99,9 +73,10 @@ Game >> rollDiceCupFor: aPlayer [
 
 { #category : #asserting }
 Game >> winner [
-	|ganador|
+	|ganador lastTile|
 	(self hasEnded) ifFalse:[^ self hasEnded ].
-	ganador :=  players detect: [:aPlayer|((self positionOf: aPlayer)tileNumber) = board tiles size].
+	lastTile := (board tiles) last.
+	ganador :=  players detect: [:aPlayer|lastTile isPlayerAtTile: aPlayer].
 	^ ganador
 	
 ]

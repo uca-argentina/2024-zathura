@@ -22,10 +22,33 @@ Board class >> ofTiles: aTileCollection [
 ]
 
 { #category : #initialization }
+Board >> addPlayerToATile: aPlayer aTileNumber: aTileNumber [
+	(tiles at: aTileNumber)addPlayerToTile: aPlayer.
+
+]
+
+{ #category : #initialization }
 Board >> initializeOfTiles: aTileCollection [
 
 tiles:=aTileCollection
 
+]
+
+{ #category : #accessing }
+Board >> movePlayerToAnotherTile: aPlayer aTileNumber: aTileNumber [
+	|beforeMovementTide afterMovementTide|
+	beforeMovementTide := tiles at:(self positionOf:aPlayer).
+	afterMovementTide:= tiles at:((self positionOf: aPlayer)+aTileNumber).
+	beforeMovementTide removePlayerFromTiles: aPlayer. 
+	afterMovementTide addPlayerToTile: aPlayer.
+	
+]
+
+{ #category : #accessing }
+Board >> positionOf: aPlayer [
+	|tileThatHasThePlayer|
+	tileThatHasThePlayer := tiles detect: [:tile | tile isPlayerAtTile: aPlayer].
+	^ (tiles indexOf: tileThatHasThePlayer).
 ]
 
 { #category : #'as yet unclassified' }
