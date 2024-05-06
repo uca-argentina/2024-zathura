@@ -112,13 +112,13 @@ GameTest >> testGameMustHaveAtLeastOnePlayer [
 
 | aTile1 aTile2 aTile3 aTile4 aTile5 aTile6 aTile7 aBoard aDie1 aDiceRoller|
 
-aTile1:=Tile new.
-aTile2:=Tile new.
-aTile3:=Tile new.
-aTile4:=Tile new.
-aTile5:=Tile new.
-aTile6:=Tile new.
-aTile7:=Tile new.
+	aTile1 := Tile ofTiles .
+	aTile2 := Tile ofTiles .
+	aTile3 := Tile ofTiles .
+	aTile4 := Tile ofTiles .
+	aTile5 := Tile ofTiles .
+	aTile6 := Tile ofTiles .
+	aTile7 := Tile ofTiles .
 
 aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
 
