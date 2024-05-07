@@ -160,6 +160,64 @@ withMessage: 'Game must have at least one player'.
 ]
 
 { #category : #tests }
+GameTest >> testIsInvalidWhenThereIsNoWinner [
+
+| aGame aTile1 aTile2 aTile3 aTile4 aTile5 aTile6 aTile7 aBoard aDie1 aDiceRoller|
+aTile1:=Tile new.
+aTile2:=Tile new.
+aTile3:=Tile new.
+aTile4:=Tile new.
+aTile5:=Tile new.
+aTile6:=Tile new.
+aTile7:=Tile new.
+
+aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
+	
+	aDie1 := LoadedDie of: 3.
+	aDiceRoller := DiceRoller of: { aDie1 }.
+
+	aGame := Game 
+				withBoard: aBoard
+				diceCollection: aDiceRoller
+				players: ( {'Danny'. 'Walter'} ).
+				
+	self deny: (aGame winner).		
+]
+
+{ #category : #tests }
+GameTest >> testIsValidWhenThereIsWinner [
+
+	| aGame aTile1 aTile2 aTile3 aTile4 aTile5 aTile6 aTile7 aBoard aDie1 aDiceRoller |
+	aTile1 := Tile new.
+	aTile2 := Tile new.
+	aTile3 := Tile new.
+	aTile4 := Tile new.
+	aTile5 := Tile new.
+	aTile6 := Tile new.
+	aTile7 := Tile new.
+
+	aBoard := Board ofTiles: {
+			          aTile1.
+			          aTile2.
+			          aTile3.
+			          aTile4.
+			          aTile5.
+			          aTile6.
+			          aTile7 }.
+
+	aDie1 := LoadedDie of: 3.
+	aDiceRoller := DiceRoller of: { aDie1 }.
+
+	aGame := Game
+		         withBoard: aBoard
+		         diceCollection: aDiceRoller
+		         players: { 'Danny'. 'Walter' }.
+	aGame rollDiceCupFor: 'Danny'.
+	aGame rollDiceCupFor: 'Danny'.
+	self assert: aGame winner equals: 'Danny'
+]
+
+{ #category : #tests }
 GameTest >> testPlayerMovesFiveTiles [
 | aGame aTile1 aTile2 aTile3 aTile4 aTile5 aTile6 aTile7 aBoard aDie1 aDiceRoller|
 

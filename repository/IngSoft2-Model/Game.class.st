@@ -111,4 +111,12 @@ Game >> rollDiceCupFor: aPlayer [
 { #category : #'as yet unclassified' }
 Game >> turnOf: aPlayer [ 
 	(playerTurn = aPlayer)ifTrue: [^true]ifFalse:[^false]
+
+{ #category : #asserting }
+Game >> winner [
+	|ganador|
+	(self hasEnded) ifFalse:[^ self hasEnded ].
+	ganador :=  players detect: [:aPlayer|((self positionOf: aPlayer)tileNumber) = board tiles size].
+	^ ganador
+
 ]
