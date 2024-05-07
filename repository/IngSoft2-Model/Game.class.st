@@ -10,7 +10,8 @@ Class {
 		'diceCollection',
 		'tileNumber',
 		'wormholeTile1',
-		'wormholeTile2'
+		'wormholeTile2',
+		'playerTurn'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -58,6 +59,7 @@ Game >> initializeWithBoard: aBoard diceCollection: aDiceCollection players: aPl
 	players := aPlayers.
 	status := false.
 	playerPositions := (players collect: [ :player |SpaceShipPosition startingOfPlayer: player ]) asOrderedCollection.
+	playerTurn:=(players at:1)
 ]
 
 { #category : #playing }
@@ -67,6 +69,14 @@ Game >> movePlayer: aPlayer withRollingResult: aResult [
 	newPosition:= self positionForPlayer: (self positionOf: aPlayer) whenRollingResult: aResult.
 	
 	self addPosition: newPosition
+
+]
+
+{ #category : #playing }
+Game >> nextTurnOf:aPlayer [
+
+players:=(players reject: [ :each|each=aPlayer ]),{aPlayer}.
+playerTurn:=(players at:1)
 
 ]
 
@@ -90,6 +100,7 @@ Game >> rollDiceCupFor: aPlayer [
 		rollingResult:=diceCollection roll.
 		self movePlayer: aPlayer withRollingResult:rollingResult.
 		(self positionOf: aPlayer) tileNumber >= (board tiles) size ifTrue:[status:=true].
+		(self nextTurnOf: aPlayer).
 		(self positionOf: aPlayer) tileNumber == wormholeTile1 ifTrue:[self movePlayer: aPlayer withRollingResult: (wormholeTile2-wormholeTile1)] ifFalse:[(self positionOf: aPlayer) tileNumber == wormholeTile2 ifTrue:[self movePlayer: aPlayer withRollingResult: (wormholeTile1-wormholeTile2)]].
 	]
 	ifTrue:[Error signal: 'Game has already ended']
@@ -97,11 +108,15 @@ Game >> rollDiceCupFor: aPlayer [
 	
 ]
 
+{ #category : #'as yet unclassified' }
+Game >> turnOf: aPlayer [ 
+	(playerTurn = aPlayer)ifTrue: [^true]ifFalse:[^false]
+
 { #category : #asserting }
 Game >> winner [
 	|ganador|
 	(self hasEnded) ifFalse:[^ self hasEnded ].
 	ganador :=  players detect: [:aPlayer|((self positionOf: aPlayer)tileNumber) = board tiles size].
 	^ ganador
-	
+
 ]
