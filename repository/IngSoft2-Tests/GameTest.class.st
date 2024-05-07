@@ -189,6 +189,60 @@ GameTest >> testIsValidWhenThereIsWinner [
 ]
 
 { #category : #tests }
+GameTest >> testPlayer1CanRollTheDiceAfterPlayer2Turn [
+
+| aGame aTile1 aTile2 aTile3 aTile4 aTile5 aTile6 aTile7 aBoard aDie1 aDiceRoller|
+
+	aTile1 := Tile ofTiles .
+	aTile2 := Tile ofTiles .
+	aTile3 := Tile ofTiles .
+	aTile4 := Tile ofTiles .
+	aTile5 := Tile ofTiles .
+	aTile6 := Tile ofTiles .
+	aTile7 := Tile ofTiles .
+
+aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
+
+aDie1:=LoadedDie of: 3.
+aDiceRoller:=DiceRoller of:{aDie1}.
+
+aGame:= Game withBoard: aBoard diceCollection:aDiceRoller players: ({'Player1'.'Player2'}).
+	
+aGame rollDiceCupFor: 'Player1'.
+aGame rollDiceCupFor: 'Player2'.
+	self assert: (aGame positionOf: 'Player1')  equals: 4.
+	self assert: ( aGame positionOf: 'Player2' )  equals: 4.
+	self assert: ( aGame turnOf: 'Player1' ).
+	
+]
+
+{ #category : #tests }
+GameTest >> testPlayer2CanRollTheDiceAfterPlayer1Turn [
+
+| aGame aTile1 aTile2 aTile3 aTile4 aTile5 aTile6 aTile7 aBoard aDie1 aDiceRoller|
+
+	aTile1 := Tile ofTiles .
+	aTile2 := Tile ofTiles .
+	aTile3 := Tile ofTiles .
+	aTile4 := Tile ofTiles .
+	aTile5 := Tile ofTiles .
+	aTile6 := Tile ofTiles .
+	aTile7 := Tile ofTiles .
+
+aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
+
+aDie1:=LoadedDie of: 3.
+aDiceRoller:=DiceRoller of:{aDie1}.
+
+aGame:= Game withBoard: aBoard diceCollection:aDiceRoller players: ({'Player1'.'Player2'}).
+	
+aGame rollDiceCupFor: 'Player1'.
+	self assert: (aGame positionOf: 'Player1')  equals: 4.
+	self assert: ( aGame turnOf: 'Player2' ).
+	
+]
+
+{ #category : #tests }
 GameTest >> testPlayerMovesFiveTiles [
 | aGame aTile1 aTile2 aTile3 aTile4 aTile5 aTile6 aTile7 aBoard aDie1 aDiceRoller|
 
@@ -287,6 +341,32 @@ aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
 	aGame rollDiceCupFor: 'Danny'.
 	aGame rollDiceCupFor: 'Danny'.
 	self assert: (aGame hasEnded).	
+]
+
+{ #category : #tests }
+GameTest >> testWhenItIsPlayer2TurnPlayer1CantRoll [
+
+| aGame aTile1 aTile2 aTile3 aTile4 aTile5 aTile6 aTile7 aBoard aDie1 aDiceRoller|
+
+	aTile1 := Tile ofTiles .
+	aTile2 := Tile ofTiles .
+	aTile3 := Tile ofTiles .
+	aTile4 := Tile ofTiles .
+	aTile5 := Tile ofTiles .
+	aTile6 := Tile ofTiles .
+	aTile7 := Tile ofTiles .
+
+aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
+
+aDie1:=LoadedDie of: 3.
+aDiceRoller:=DiceRoller of:{aDie1}.
+
+aGame:= Game withBoard: aBoard diceCollection:aDiceRoller players: ({'Player1'.'Player2'}).
+	
+aGame rollDiceCupFor: 'Player1'.
+	self assert: (aGame positionOf: 'Player1')  equals: 4.
+	self deny: ( aGame turnOf: 'Player1' ).
+	
 ]
 
 { #category : #tests }
