@@ -8,17 +8,17 @@ Class {
 }
 
 { #category : #'instance creation' }
-Board class >> isValid: aTileCollection [
+Board class >> isValid: tiles [
 
-	aTileCollection size < 2 ifTrue: [
+	tiles size < 2 ifTrue: [
 		Error signal: 'Tiles should be 2 or more' ]
 ]
 
 { #category : #'instance initialization' }
-Board class >> ofTiles: aTileCollection [
+Board class >> ofTiles: tiles [
 
-	self isValid: aTileCollection.
-	^ self new initializeOfTiles: aTileCollection
+	self isValid: tiles.
+	^ self new initializeOfTiles: tiles
 ]
 
 { #category : #initialization }

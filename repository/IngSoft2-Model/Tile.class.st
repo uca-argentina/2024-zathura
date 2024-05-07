@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-Tile class >> ofTiles [
+Tile class >> create [
 
 	^ self new initializeOfTiles: OrderedCollection new.
 ]
@@ -32,12 +32,12 @@ Tile >> initializeOfTiles: emptySpaceshipCollection [
 ]
 
 { #category : #'as yet unclassified' }
-Tile >> isSpaceshipAtTile:aPlayer [
-	^ spaceshipsAtTile includes: aPlayer
+Tile >> isSpaceshipAtTile:aSpaceship [
+	^ spaceshipsAtTile includes: aSpaceship
 	
 ]
 
 { #category : #removing }
-Tile >> removeSpaceshipFromTiles: aPlayer [
-	spaceshipsAtTile remove: aPlayer
+Tile >> removeSpaceshipFromTiles: aSpaceship [
+	spaceshipsAtTile remove: aSpaceship
 ]

@@ -8,8 +8,8 @@ Class {
 BoardTest >> testBoardTilesSizeEqualsTilesCollectionInTestSize [
 
 | aTile1 aTile2 tiles aBoard |
-aTile1:=Tile ofTiles.
-aTile2:=Tile ofTiles.
+aTile1:=Tile create.
+aTile2:=Tile create.
 tiles:={aTile1. aTile2.}.
 
 aBoard:=Board ofTiles: tiles.
@@ -18,11 +18,11 @@ self assert: aBoard tiles size equals: tiles size.
 ]
 
 { #category : #tests }
-BoardTest >> testIsValidWhenPlayerAtSecondTile [
+BoardTest >> testIsValidWhenSpaceshipAtSecondTile [
 
 | firstTile secondTile tiles board |
-firstTile:=Tile ofTiles.
-secondTile:=Tile ofTiles.
+firstTile:=Tile create.
+secondTile:=Tile create.
 
 tiles:={firstTile. secondTile.}.
 board:=Board ofTiles:tiles.
@@ -33,11 +33,11 @@ self assert:(board positionOf: 'Danny' ) equals: 1.
 ]
 
 { #category : #tests }
-BoardTest >> testPlayerIsAtSecondTile [
+BoardTest >> testSpaceshipIsAtSecondTile [
 
 | firstTile secondTile tiles board |
-firstTile:=Tile ofTiles.
-secondTile:=Tile ofTiles.
+firstTile:=Tile create.
+secondTile:=Tile create.
 
 tiles:={firstTile. secondTile.}.
 
@@ -51,11 +51,11 @@ self assert:(board tileNumber:2) equals:secondTile.
 ]
 
 { #category : #tests }
-BoardTest >> testStartPlayingWithTwoPlayers [
+BoardTest >> testStartPlayingWithTwoSpaceships [
 
 | firstTile secondTile tiles board |
-firstTile:=Tile ofTiles.
-secondTile:=Tile ofTiles.
+firstTile:=Tile create.
+secondTile:=Tile create.
 
 tiles:={firstTile. secondTile.}.
 
@@ -72,8 +72,8 @@ self deny:(secondTile anySpaceshipAtTile ).
 BoardTest >> testTileIndexIsCorrect [
 
 | firstTile secondTile tiles board |
-firstTile:=Tile ofTiles.
-secondTile:=Tile ofTiles.
+firstTile:=Tile create.
+secondTile:=Tile create.
 
 tiles:={firstTile. secondTile.}.
 
@@ -87,8 +87,8 @@ self assert:(board tileNumber:2) equals:secondTile.
 BoardTest >> testTileIndexIsWrong [
 
 | firstTile secondTile tiles board |
-firstTile:=Tile ofTiles.
-secondTile:=Tile ofTiles.
+firstTile:=Tile create.
+secondTile:=Tile create.
 
 tiles:={firstTile. secondTile.}.
 

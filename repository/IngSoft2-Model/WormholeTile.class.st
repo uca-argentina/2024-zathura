@@ -9,20 +9,20 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-WormholeTile class >> ofTiles [
+WormholeTile class >> create [
 
 	^ self new initializeOfTiles: OrderedCollection new.
 ]
 
 { #category : #adding }
-WormholeTile >> addSpaceshipToTile: aPlayer [
-	linkedTile travelTroughWormhole:aPlayer.
+WormholeTile >> addSpaceshipToTile: aSpaceship [
+	linkedTile travelTroughWormhole:aSpaceship.
 ]
 
 { #category : #initialization }
-WormholeTile >> initializeOfTiles: emptyPlayerCollection [
+WormholeTile >> initializeOfTiles: emptySpaceshipCollection [
 
-	spaceshipsAtTile :=emptyPlayerCollection.
+	spaceshipsAtTile :=emptySpaceshipCollection.
 ]
 
 { #category : #accessing }

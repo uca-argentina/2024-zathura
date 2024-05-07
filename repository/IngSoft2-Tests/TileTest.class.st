@@ -5,35 +5,35 @@ Class {
 }
 
 { #category : #tests }
-TileTest >> testCanAddAnotherPlayer [
+TileTest >> testCanAddAnotherSpaceship [
 
 | aTile |
-aTile:= Tile ofTiles.
+aTile:= Tile create.
 aTile addSpaceshipToTile: 'Danny'.
 self assert:(aTile anySpaceshipAtTile)
 ]
 
 { #category : #tests }
-TileTest >> testIsInavlidWhenThereAreNoPlayersAtATile [
+TileTest >> testIsInavlidWhenThereAreNoSpaceshipsAtATile [
 
 | aTile |
-aTile:= Tile ofTiles.
+aTile:= Tile create.
 self deny:(aTile anySpaceshipAtTile).
 ]
 
 { #category : #tests }
-TileTest >> testIsValidWhenThereIsAPlayerAtATile [
+TileTest >> testIsValidWhenThereIsASpaceshipAtATile [
 | aTile |
-aTile:= Tile ofTiles.
+aTile:= Tile create.
 aTile addSpaceshipToTile: 'Danny'.
 self assert:(aTile isSpaceshipAtTile: 'Danny').
 self deny:(aTile isSpaceshipAtTile: 'Walter').
 ]
 
 { #category : #tests }
-TileTest >> testRemoveAPlayer [
+TileTest >> testRemoveASpaceship [
 | aTile |
-aTile:= Tile ofTiles.
+aTile:= Tile create.
 aTile addSpaceshipToTile: 'Danny'.
 aTile addSpaceshipToTile: 'Walter'.
 self assert:(aTile anySpaceshipAtTile).

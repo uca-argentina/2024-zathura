@@ -7,8 +7,8 @@ Class {
 { #category : #'as yet unclassified' }
 WormholeTileTest >> testIsValidWhenWormHoleHasALinkedTile [
 | aWormHoleTile1 aWormHoleTile2|
-aWormHoleTile1:=WormholeTile ofTiles.
-aWormHoleTile2:= WormholeTile ofTiles.
+aWormHoleTile1:=WormholeTile create.
+aWormHoleTile2:= WormholeTile create.
 aWormHoleTile1 linkATileToTheWormhole: aWormHoleTile2.
 self assert:(aWormHoleTile1 tileLinkedToWormhole )equals: aWormHoleTile2.
 ]
@@ -16,8 +16,8 @@ self assert:(aWormHoleTile1 tileLinkedToWormhole )equals: aWormHoleTile2.
 { #category : #'as yet unclassified' }
 WormholeTileTest >> testIsValidWhenWormHoleIsConnected [
 | aWormHoleTile1 aWormHoleTile2|
-aWormHoleTile1:=WormholeTile ofTiles.
-aWormHoleTile2:= WormholeTile ofTiles.
+aWormHoleTile1:=WormholeTile create.
+aWormHoleTile2:= WormholeTile create.
 aWormHoleTile1 linkATileToTheWormhole: aWormHoleTile2.
 aWormHoleTile2 linkATileToTheWormhole: aWormHoleTile1.
 aWormHoleTile1 addSpaceshipToTile: 'Danny'.

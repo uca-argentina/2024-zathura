@@ -14,7 +14,7 @@ LoadedDieTest >> testDieCanBeCreatedWithAnAmountOfFaces [
 
 | aDie |
 aDie:= LoadedDie of:5.
-self assert: aDie throw equals:5.
+self assert: aDie roll equals:5.
 ]
 
 { #category : #tests }

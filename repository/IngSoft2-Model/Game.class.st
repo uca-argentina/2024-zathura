@@ -3,9 +3,9 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'board',
-		'players',
-		'status',
-		'diceCollection'
+		'spaceships',
+		'diceCollection',
+		'hasEnded'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -18,27 +18,27 @@ Game class >> assertValidNumberOfSpaceships: aSpaceships [
 ]
 
 { #category : #'instance creation' }
-Game class >> withBoard: aBoard diceCollection: aDiceCollection spaceships: aSpaceships [
+Game class >> playedBy: aSpaceships on: aBoard rolling: dice [
 
 	self assertValidNumberOfSpaceships: aSpaceships.
 	^ self new
-		  initializeWithBoard: aBoard
-		  diceCollection: aDiceCollection
-		  spaceships: aSpaceships
+		  initializePlayedBy: aSpaceships
+		  on: aBoard
+		  rolling: dice
 ]
 
 { #category : #testing }
 Game >> hasEnded [
-^status
+^hasEnded
 ]
 
 { #category : #initialization }
-Game >> initializeWithBoard: aBoard diceCollection: aDiceCollection spaceships: aSpaceships [
+Game >> initializePlayedBy: aSpaceships on: aBoard rolling: dice [
     board := aBoard.
-    diceCollection := aDiceCollection.
-	 players := aSpaceships asOrderedCollection.
-    status := false.
-    aSpaceships do: [ :aPlayer | aBoard addSpaceshipToATile: aPlayer aTileNumber: 1 ].
+    diceCollection := dice.
+	 spaceships := aSpaceships asOrderedCollection.
+    hasEnded := false.
+    aSpaceships do: [ :aSpaceship | aBoard addSpaceshipToATile: aSpaceship aTileNumber: 1 ].
 
 ]
 
@@ -54,12 +54,12 @@ Game >> moveSpaceship: aSpaceship withRollingResult: aResult [
 
 { #category : #playing }
 Game >> playNextTurn [
-	| rollingResult playerTurn|
-	status ifFalse:[
-		playerTurn:= self turnOf.
+	| rollingResult spaceshipTurn|
+	hasEnded ifFalse:[
+		spaceshipTurn:= self turnOf.
 		rollingResult:=diceCollection roll.
-		self moveSpaceship: playerTurn withRollingResult:rollingResult.
-		(self positionOf: playerTurn) >= (board tiles) size ifTrue:[status:=true].
+		self moveSpaceship: spaceshipTurn withRollingResult:rollingResult.
+		(self positionOf: spaceshipTurn) >= (board tiles) size ifTrue:[hasEnded:=true].
 	]
 	ifTrue:[Error signal: 'Game has already ended']
 
@@ -74,21 +74,21 @@ Game >> positionOf: aSpaceship [
 
 { #category : #playing }
 Game >> turnOf [
-		|playerTurn|
-		playerTurn := players first.
-		players add: playerTurn.
-		players removeAt:1.
-		^playerTurn 
+		|spaceshipTurn|
+		spaceshipTurn := spaceships first.
+		spaceships add: spaceshipTurn.
+		spaceships removeAt:1.
+		^spaceshipTurn 
 
 	
 ]
 
 { #category : #asserting }
 Game >> winner [
-	|ganador lastTile|
+	|winner lastTile|
 	(self hasEnded) ifFalse:[^ self hasEnded ].
 	lastTile := (board tiles) last.
-	ganador :=  players detect: [:aPlayer|lastTile isSpaceshipAtTile: aPlayer].
-	^ ganador
+	winner :=  spaceships detect: [:aSpaceship|lastTile isSpaceshipAtTile: aSpaceship].
+	^ winner
 	
 ]
