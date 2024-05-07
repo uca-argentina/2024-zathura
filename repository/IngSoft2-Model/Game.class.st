@@ -5,8 +5,7 @@ Class {
 		'board',
 		'players',
 		'status',
-		'diceCollection',
-		'playerTurn'
+		'diceCollection'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -37,10 +36,9 @@ Game >> hasEnded [
 Game >> initializeWithBoard: aBoard diceCollection: aDiceCollection players: aPlayers [
     board := aBoard.
     diceCollection := aDiceCollection.
-    players := aPlayers.
+	 players := aPlayers asOrderedCollection.
     status := false.
     aPlayers do: [ :aPlayer | aBoard addPlayerToATile: aPlayer aTileNumber: 1 ].
-	 playerTurn:=(players at:1).
 
 ]
 
@@ -54,17 +52,24 @@ Game >> movePlayer: aPlayer withRollingResult: aResult [
 
 ]
 
-{ #category : #'as yet unclassified' }
-Game >> nextTurnOf:aPlayer [
-
-players:=(players reject:[:each|each=aPlayer]),{aPlayer}.
-playerTurn:=(players at:1).
-]
-
 { #category : #accessing }
 Game >> positionOf: aPlayer [
 
 	^(board positionOf: aPlayer ).
+]
+
+{ #category : #playing }
+Game >> rollDiceCup [
+	| rollingResult playerTurn|
+	status ifFalse:[
+		playerTurn:= self turnOf.
+		rollingResult:=diceCollection roll.
+		self movePlayer: playerTurn withRollingResult:rollingResult.
+		(self positionOf: playerTurn) >= (board tiles) size ifTrue:[status:=true].
+	]
+	ifTrue:[Error signal: 'Game has already ended']
+
+	
 ]
 
 { #category : #playing }
@@ -74,16 +79,21 @@ Game >> rollDiceCupFor: aPlayer [
 		rollingResult:=diceCollection roll.
 		self movePlayer: aPlayer withRollingResult:rollingResult.
 		(self positionOf: aPlayer) >= (board tiles) size ifTrue:[status:=true].
-		(self nextTurnOf: aPlayer).
 	]
 	ifTrue:[Error signal: 'Game has already ended']
 
 	
 ]
 
-{ #category : #'as yet unclassified' }
-Game >> turnOf:aPlayer [
-^(playerTurn==aPlayer)
+{ #category : #playing }
+Game >> turnOf [
+		|playerTurn|
+		playerTurn := players first.
+		players add: playerTurn.
+		players removeAt:1.
+		^playerTurn 
+
+	
 ]
 
 { #category : #asserting }

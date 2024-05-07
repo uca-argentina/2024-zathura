@@ -35,12 +35,12 @@ aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
 	self assert: (aGame positionOf: 'Danny')  equals: 1.
 	self assert: ( aGame positionOf: 'Walter' )  equals: 1.
 	
-aGame rollDiceCupFor: 'Danny'.
+aGame rollDiceCup.
 	self assert: (aGame hasEnded).
 	self assert: (aGame positionOf: 'Danny')  equals: 7.
 	self assert: ( aGame positionOf: 'Walter' )  equals: 1.
 	
-self should:[aGame rollDiceCupFor:'Danny'] raise: Error withMessage: 'Game has already ended'
+self should:[aGame rollDiceCup] raise: Error withMessage: 'Game has already ended'
 ]
 
 { #category : #tests }
@@ -66,15 +66,15 @@ aGame:= Game withBoard: aBoard diceCollection:aDiceRoller players: ({'Danny'.'Wa
 	self assert: ( aGame positionOf: 'Danny' )  equals: 1.
 	self assert: ( aGame positionOf: 'Walter' )  equals: 1.
 	
-aGame rollDiceCupFor: 'Danny'.
+aGame rollDiceCup.
 	self deny: (aGame hasEnded).
 	self assert: (aGame positionOf: 'Danny')  equals: 4.
 	self assert: ( aGame positionOf: 'Walter' )  equals: 1.
-	
-aGame rollDiceCupFor: 'Danny'.
+aGame rollDiceCup.
+aGame rollDiceCup.
 	self assert: (aGame hasEnded).
 	self assert: (aGame positionOf: 'Danny')  equals: 7.
-	self assert: ( aGame positionOf: 'Walter' )  equals: 1.
+	self assert: ( aGame positionOf: 'Walter' )  equals: 4.
 ]
 
 { #category : #tests }
@@ -101,7 +101,7 @@ self deny: (aGame hasEnded).
 	self assert: ( aGame positionOf: 'Danny' ) equals: 1.
 	self assert: ( aGame positionOf: 'Walter' ) equals: 1.
 	
-aGame rollDiceCupFor: 'Danny'.
+aGame rollDiceCup.
 
 self assert: (aGame positionOf: 'Danny') equals: 4.
 self deny: (aGame hasEnded).
@@ -183,9 +183,10 @@ GameTest >> testIsValidWhenThereIsWinner [
 		         withBoard: aBoard
 		         diceCollection: aDiceRoller
 		         players: { 'Danny'. 'Walter' }.
-	aGame rollDiceCupFor: 'Walter'.
-	aGame rollDiceCupFor: 'Walter'.
-	self assert: aGame winner equals: 'Walter'
+	aGame rollDiceCup.
+	aGame rollDiceCup.
+	aGame rollDiceCup.
+	self assert: aGame winner equals: 'Danny'
 ]
 
 { #category : #tests }
@@ -208,11 +209,11 @@ aDiceRoller:=DiceRoller of:{aDie1}.
 
 aGame:= Game withBoard: aBoard diceCollection:aDiceRoller players: ({'Player1'.'Player2'}).
 	
-aGame rollDiceCupFor: 'Player1'.
-aGame rollDiceCupFor: 'Player2'.
+aGame rollDiceCup.
+aGame rollDiceCup.
 	self assert: (aGame positionOf: 'Player1')  equals: 4.
 	self assert: ( aGame positionOf: 'Player2' )  equals: 4.
-	self assert: ( aGame turnOf: 'Player1' ).
+	self assert: ( aGame turnOf) equals: 'Player1' .
 	
 ]
 
@@ -236,9 +237,9 @@ aDiceRoller:=DiceRoller of:{aDie1}.
 
 aGame:= Game withBoard: aBoard diceCollection:aDiceRoller players: ({'Player1'.'Player2'}).
 	
-aGame rollDiceCupFor: 'Player1'.
+aGame rollDiceCup.
 	self assert: (aGame positionOf: 'Player1')  equals: 4.
-	self assert: ( aGame turnOf: 'Player2' ).
+	self assert: ( aGame turnOf) equals: 'Player2'.
 	
 ]
 
@@ -259,10 +260,10 @@ aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
 aDie1:=LoadedDie of: 5.
 aDiceRoller:=DiceRoller of:{aDie1}.
 
-aGame:= Game withBoard: aBoard diceCollection:aDiceRoller players: ({'Danny'.'Walter'}).
+aGame:= Game withBoard: aBoard diceCollection:aDiceRoller players: ({'Walter'.'Danny'}).
 	self assert: ( aGame positionOf: 'Walter' ) equals: 1.
 	
-aGame rollDiceCupFor: 'Walter'.
+aGame rollDiceCup.
 	self assert: ( aGame positionOf: 'Walter' ) equals: 6.
 ]
 
@@ -338,8 +339,9 @@ aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
 				withBoard: aBoard
 				diceCollection: aDiceRoller
 				players: ( {'Danny'. 'Walter'} ).
-	aGame rollDiceCupFor: 'Danny'.
-	aGame rollDiceCupFor: 'Danny'.
+	aGame rollDiceCup.
+	aGame rollDiceCup.
+	aGame rollDiceCup.
 	self assert: (aGame hasEnded).	
 ]
 
@@ -363,9 +365,9 @@ aDiceRoller:=DiceRoller of:{aDie1}.
 
 aGame:= Game withBoard: aBoard diceCollection:aDiceRoller players: ({'Player1'.'Player2'}).
 	
-aGame rollDiceCupFor: 'Player1'.
+aGame rollDiceCup.
 	self assert: (aGame positionOf: 'Player1')  equals: 4.
-	self deny: ( aGame turnOf: 'Player1' ).
+	self deny: ( aGame turnOf) equals: 'Player1' .
 	
 ]
 
