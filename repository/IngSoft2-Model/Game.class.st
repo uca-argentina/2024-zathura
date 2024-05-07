@@ -72,6 +72,14 @@ Game >> movePlayer: aPlayer withRollingResult: aResult [
 
 ]
 
+{ #category : #playing }
+Game >> nextTurnOf:aPlayer [
+
+players:=(players reject: [ :each|each=aPlayer ]),{aPlayer}.
+playerTurn:=(players at:1)
+
+]
+
 { #category : #initialization }
 Game >> positionForPlayer: aPlayerPosition whenRollingResult: aResult [
 	^SpaceShipPosition
@@ -92,6 +100,7 @@ Game >> rollDiceCupFor: aPlayer [
 		rollingResult:=diceCollection roll.
 		self movePlayer: aPlayer withRollingResult:rollingResult.
 		(self positionOf: aPlayer) tileNumber >= (board tiles) size ifTrue:[status:=true].
+		(self nextTurnOf: aPlayer).
 		(self positionOf: aPlayer) tileNumber == wormholeTile1 ifTrue:[self movePlayer: aPlayer withRollingResult: (wormholeTile2-wormholeTile1)] ifFalse:[(self positionOf: aPlayer) tileNumber == wormholeTile2 ifTrue:[self movePlayer: aPlayer withRollingResult: (wormholeTile1-wormholeTile2)]].
 	]
 	ifTrue:[Error signal: 'Game has already ended']
