@@ -29,6 +29,6 @@ faces:=anAmountOfFaces
 ]
 
 { #category : #initialization }
-Die >> throw [ 
+Die >> roll [ 
 ^faces atRandom.
 ]

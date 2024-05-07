@@ -28,7 +28,7 @@ faces:= anAmountOfFaces
 ]
 
 { #category : #'as yet unclassified' }
-LoadedDie >> throw [
+LoadedDie >> roll [
 
 ^faces.
 ]

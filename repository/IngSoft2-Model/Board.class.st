@@ -7,18 +7,24 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
-Board class >> isValid: aTileCollection [
+{ #category : #'instance creation' }
+Board class >> isValid: tiles [
 
-	aTileCollection size < 2 ifTrue: [
+	tiles size < 2 ifTrue: [
 		Error signal: 'Tiles should be 2 or more' ]
 ]
 
-{ #category : #'as yet unclassified' }
-Board class >> ofTiles: aTileCollection [
+{ #category : #'instance initialization' }
+Board class >> ofTiles: tiles [
 
-	self isValid: aTileCollection.
-	^ self new initializeOfTiles: aTileCollection
+	self isValid: tiles.
+	^ self new initializeOfTiles: tiles
+]
+
+{ #category : #initialization }
+Board >> addSpaceshipToATile: aSpaceship aTileNumber: aTileNumber [
+	(tiles at: aTileNumber)addSpaceshipToTile: aSpaceship.
+
 ]
 
 { #category : #initialization }
@@ -28,7 +34,25 @@ tiles:=aTileCollection
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
+Board >> moveSpaceshipToAnotherTile: aSpaceship aTileNumber: aTileNumber [
+	|beforeMovementTide afterMovementTide afterMovementPosition|
+	beforeMovementTide := tiles at:(self positionOf:aSpaceship).
+	afterMovementPosition := ((self positionOf: aSpaceship) + aTileNumber) min: (self tiles size).
+	afterMovementTide:= tiles at:(afterMovementPosition).
+	beforeMovementTide removeSpaceshipFromTiles: aSpaceship. 
+	afterMovementTide addSpaceshipToTile: aSpaceship.
+	
+]
+
+{ #category : #accessing }
+Board >> positionOf: aSpaceship [
+	|tileThatHasTheSpaceship|
+	tileThatHasTheSpaceship := tiles detect: [:tile | tile isSpaceshipAtTile: aSpaceship].
+	^ (tiles indexOf: tileThatHasTheSpaceship).
+]
+
+{ #category : #accessing }
 Board >> tileNumber: number [
 	^tiles at: number
 ]

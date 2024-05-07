@@ -14,7 +14,7 @@ DieTest >> testDieCanBeCreatedWithAnAmountOfFaces [
 
 | aDie |
 aDie:= Die of:3.
-self assert: ((aDie throw) between: 1 and:3).
+self assert: ((aDie roll) between: 1 and:3).
 ]
 
 { #category : #tests }
@@ -29,5 +29,5 @@ DieTest >> testWhenDieIsThrownThenValueIsBetweenOneAndNumberedFaces [
 | aDie |
 aDie:=Die of:4.
 
-self assert:((aDie throw) between: 1 and:4).
+self assert:((aDie roll) between: 1 and:4).
 ]

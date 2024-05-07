@@ -2,106 +2,93 @@ Class {
 	#name : #Game,
 	#superclass : #Object,
 	#instVars : [
-		'playerPositions',
 		'board',
-		'dice',
-		'players',
-		'status',
+		'spaceships',
 		'diceCollection',
-		'tileNumber',
-		'wormholeTile1',
-		'wormholeTile2'
+		'hasEnded'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #asserting }
-Game class >> assertValidNumberOfPlayers: aPlayers [
+Game class >> assertValidNumberOfSpaceships: aSpaceships [
 
-	aPlayers isEmpty ifTrue: [
+	aSpaceships isEmpty ifTrue: [
 		Error signal: 'Game must have at least one player' ]
 ]
 
 { #category : #'instance creation' }
-Game class >> withBoard: aBoard diceCollection: aDiceCollection players: aPlayers [
+Game class >> playedBy: aSpaceships on: aBoard rolling: dice [
 
-	self assertValidNumberOfPlayers: aPlayers.
+	self assertValidNumberOfSpaceships: aSpaceships.
 	^ self new
-		  initializeWithBoard: aBoard
-		  diceCollection: aDiceCollection
-		  players: aPlayers
-]
-
-{ #category : #adding }
-Game >> addPosition: aPlayerPosition [
-	playerPositions add: aPlayerPosition
-
+		  initializePlayedBy: aSpaceships
+		  on: aBoard
+		  rolling: dice
 ]
 
 { #category : #testing }
 Game >> hasEnded [
-^status
-]
-
-{ #category : #testing }
-Game >> hasWormholeFrom: aTile to: aTile2 [ 
-	wormholeTile1:=aTile.
-	wormholeTile2:=aTile2.
-	
+^hasEnded
 ]
 
 { #category : #initialization }
-Game >> initializeWithBoard: aBoard diceCollection: aDiceCollection players: aPlayers [
+Game >> initializePlayedBy: aSpaceships on: aBoard rolling: dice [
+    board := aBoard.
+    diceCollection := dice.
+	 spaceships := aSpaceships asOrderedCollection.
+    hasEnded := false.
+    aSpaceships do: [ :aSpaceship | aBoard addSpaceshipToATile: aSpaceship aTileNumber: 1 ].
 
-	board := aBoard.
-	diceCollection := aDiceCollection.
-	players := aPlayers.
-	status := false.
-	playerPositions := (players collect: [ :player |SpaceShipPosition startingOfPlayer: player ]) asOrderedCollection.
 ]
 
 { #category : #playing }
-Game >> movePlayer: aPlayer withRollingResult: aResult [
-	| newPosition |
+Game >> moveSpaceship: aSpaceship withRollingResult: aResult [
 	
-	newPosition:= self positionForPlayer: (self positionOf: aPlayer) whenRollingResult: aResult.
+	board moveSpaceshipToAnotherTile: aSpaceship aTileNumber: aResult.
 	
-	self addPosition: newPosition
+	
 
-]
 
-{ #category : #initialization }
-Game >> positionForPlayer: aPlayerPosition whenRollingResult: aResult [
-	^SpaceShipPosition
-		ofPlayer: aPlayerPosition player
-		tileNumber: aPlayerPosition tileNumber + aResult 
-]
-
-{ #category : #accessing }
-Game >> positionOf: aPlayer [
-
-^(playerPositions select:[:position|position player=aPlayer]) last
 ]
 
 { #category : #playing }
-Game >> rollDiceCupFor: aPlayer [
-	| rollingResult |
-	status ifFalse:[
+Game >> playNextTurn [
+	| rollingResult spaceshipTurn|
+	hasEnded ifFalse:[
+		spaceshipTurn:= self turnOf.
 		rollingResult:=diceCollection roll.
-		self movePlayer: aPlayer withRollingResult:rollingResult.
-		(self positionOf: aPlayer) tileNumber >= (board tiles) size ifTrue:[status:=true].
-		(self positionOf: aPlayer) tileNumber == wormholeTile1 ifTrue:[self movePlayer: aPlayer withRollingResult: (wormholeTile2-wormholeTile1)] ifFalse:[(self positionOf: aPlayer) tileNumber == wormholeTile2 ifTrue:[self movePlayer: aPlayer withRollingResult: (wormholeTile1-wormholeTile2)]].
+		self moveSpaceship: spaceshipTurn withRollingResult:rollingResult.
+		(self positionOf: spaceshipTurn) >= (board tiles) size ifTrue:[hasEnded:=true].
 	]
 	ifTrue:[Error signal: 'Game has already ended']
 
 	
 ]
 
+{ #category : #accessing }
+Game >> positionOf: aSpaceship [
+
+	^(board positionOf: aSpaceship ).
+]
+
+{ #category : #playing }
+Game >> turnOf [
+		|spaceshipTurn|
+		spaceshipTurn := spaceships first.
+		spaceships add: spaceshipTurn.
+		spaceships removeAt:1.
+		^spaceshipTurn 
+
+	
+]
+
 { #category : #asserting }
 Game >> winner [
-	|ganador|
+	|winner lastTile|
 	(self hasEnded) ifFalse:[^ self hasEnded ].
-	ganador :=  players detect: [:aPlayer|((self positionOf: aPlayer)tileNumber) = board tiles size].
-	^ ganador
+	lastTile := (board tiles) last.
+	winner :=  spaceships detect: [:aSpaceship|lastTile isSpaceshipAtTile: aSpaceship].
+	^ winner
 	
 ]
