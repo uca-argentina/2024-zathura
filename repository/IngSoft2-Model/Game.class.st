@@ -83,7 +83,7 @@ Game >> rollDiceCupFor: aPlayer [
 
 { #category : #'as yet unclassified' }
 Game >> turnOf:aPlayer [
-
+^(playerTurn==aPlayer)
 ]
 
 { #category : #asserting }
