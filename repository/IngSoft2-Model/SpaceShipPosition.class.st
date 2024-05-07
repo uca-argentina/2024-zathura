@@ -29,6 +29,7 @@ tileNumber:=aTileNumber.
 
 { #category : #accessing }
 SpaceShipPosition >> player [ 
+
 ^player
 ]
 
