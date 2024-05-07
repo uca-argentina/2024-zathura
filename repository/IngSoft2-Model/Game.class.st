@@ -73,19 +73,6 @@ Game >> rollDiceCup [
 ]
 
 { #category : #playing }
-Game >> rollDiceCupFor: aPlayer [
-	| rollingResult |
-	status ifFalse:[
-		rollingResult:=diceCollection roll.
-		self movePlayer: aPlayer withRollingResult:rollingResult.
-		(self positionOf: aPlayer) >= (board tiles) size ifTrue:[status:=true].
-	]
-	ifTrue:[Error signal: 'Game has already ended']
-
-	
-]
-
-{ #category : #playing }
 Game >> turnOf [
 		|playerTurn|
 		playerTurn := players first.

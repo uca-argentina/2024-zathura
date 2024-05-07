@@ -396,7 +396,7 @@ GameTest >> testWormholeGoesBackwards [
 				diceCollection: aDiceRoller
 				players: ( {'Danny'. 'Walter'.} ).
 	
-	aGame rollDiceCupFor: 'Danny'.
+	aGame rollDiceCup.
 
 	self assert: ( aGame positionOf: 'Danny' ) equals: 3.
 ]
@@ -424,7 +424,7 @@ GameTest >> testWormholeGoesForward [
 				diceCollection: aDiceRoller
 				players: ( {'Danny'. 'Walter'.} ).
 	
-	aGame rollDiceCupFor: 'Danny'.
+	aGame rollDiceCup.
 
 	self assert: ( aGame positionOf: 'Danny' ) equals: 7.
 ]
@@ -453,7 +453,7 @@ GameTest >> testWormholeIsNotOnANormalTile [
 				diceCollection: aDiceRoller
 				players: ( {'Danny'. 'Walter'.} ).
 	
-	aGame rollDiceCupFor: 'Danny'.
+	aGame rollDiceCup.
 
 	self assert: ( aGame positionOf: 'Danny' ) equals: 5.
 ]
