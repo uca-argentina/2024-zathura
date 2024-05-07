@@ -4,6 +4,11 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
+{ #category : #playing }
+GameTest >> playUntilFinished: aGame [ 
+	[aGame hasEnded] whileFalse:[aGame playNextTurn]
+]
+
 { #category : #asserting }
 GameTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage [ 
 	self should:anErrorBlock raise:anErrorClass withExceptionDo:[:error|self assert:error messageText equals:anErrorMessage].
@@ -188,11 +193,11 @@ aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5.}.
 	self assert: (aGame positionOf: 'Danny')  equals: 1.
 	self assert: ( aGame positionOf: 'Walter' )  equals: 1.
 	
-	aGame playNextTurn.
-	aGame playNextTurn.
-	aGame playNextTurn.
-	self assert:(aGame hasEnded).
-	
+	self deny: aGame hasEnded.
+
+	self playUntilFinished: aGame.
+
+	self assert: aGame hasEnded
 
 ]
 
