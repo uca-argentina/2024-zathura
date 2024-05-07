@@ -7,14 +7,14 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 Board class >> isValid: aTileCollection [
 
 	aTileCollection size < 2 ifTrue: [
 		Error signal: 'Tiles should be 2 or more' ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance initialization' }
 Board class >> ofTiles: aTileCollection [
 
 	self isValid: aTileCollection.
@@ -22,8 +22,8 @@ Board class >> ofTiles: aTileCollection [
 ]
 
 { #category : #initialization }
-Board >> addPlayerToATile: aPlayer aTileNumber: aTileNumber [
-	(tiles at: aTileNumber)addPlayerToTile: aPlayer.
+Board >> addSpaceshipToATile: aSpaceship aTileNumber: aTileNumber [
+	(tiles at: aTileNumber)addSpaceshipToTile: aSpaceship.
 
 ]
 
@@ -35,23 +35,24 @@ tiles:=aTileCollection
 ]
 
 { #category : #accessing }
-Board >> movePlayerToAnotherTile: aPlayer aTileNumber: aTileNumber [
-	|beforeMovementTide afterMovementTide|
-	beforeMovementTide := tiles at:(self positionOf:aPlayer).
-	afterMovementTide:= tiles at:((self positionOf: aPlayer)+aTileNumber).
-	beforeMovementTide removePlayerFromTiles: aPlayer. 
-	afterMovementTide addPlayerToTile: aPlayer.
+Board >> moveSpaceshipToAnotherTile: aSpaceship aTileNumber: aTileNumber [
+	|beforeMovementTide afterMovementTide afterMovementPosition|
+	beforeMovementTide := tiles at:(self positionOf:aSpaceship).
+	afterMovementPosition := ((self positionOf: aSpaceship) + aTileNumber) min: (self tiles size).
+	afterMovementTide:= tiles at:(afterMovementPosition).
+	beforeMovementTide removeSpaceshipFromTiles: aSpaceship. 
+	afterMovementTide addSpaceshipToTile: aSpaceship.
 	
 ]
 
 { #category : #accessing }
-Board >> positionOf: aPlayer [
-	|tileThatHasThePlayer|
-	tileThatHasThePlayer := tiles detect: [:tile | tile isPlayerAtTile: aPlayer].
-	^ (tiles indexOf: tileThatHasThePlayer).
+Board >> positionOf: aSpaceship [
+	|tileThatHasTheSpaceship|
+	tileThatHasTheSpaceship := tiles detect: [:tile | tile isSpaceshipAtTile: aSpaceship].
+	^ (tiles indexOf: tileThatHasTheSpaceship).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Board >> tileNumber: number [
 	^tiles at: number
 ]

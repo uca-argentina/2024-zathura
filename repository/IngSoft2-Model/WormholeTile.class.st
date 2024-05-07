@@ -14,36 +14,29 @@ WormholeTile class >> ofTiles [
 	^ self new initializeOfTiles: OrderedCollection new.
 ]
 
-{ #category : #'as yet unclassified' }
-WormholeTile class >> ofTiles: anotherTile [
-	^ self new 
-		initializeOfTiles: OrderedCollection new
-		linkedTile: anotherTile
-]
-
 { #category : #adding }
-WormholeTile >> addPlayerToTile: aPlayer [
+WormholeTile >> addSpaceshipToTile: aPlayer [
 	linkedTile travelTroughWormhole:aPlayer.
 ]
 
 { #category : #initialization }
 WormholeTile >> initializeOfTiles: emptyPlayerCollection [
 
-	playersAtTile :=emptyPlayerCollection.
+	spaceshipsAtTile :=emptyPlayerCollection.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 WormholeTile >> linkATileToTheWormhole: aTileToLink [
 	linkedTile :=aTileToLink.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 WormholeTile >> tileLinkedToWormhole [
 	^linkedTile .
 ]
 
-{ #category : #'as yet unclassified' }
-WormholeTile >> travelTroughWormhole: aPlayer [
-	playersAtTile add: aPlayer
+{ #category : #playing }
+WormholeTile >> travelTroughWormhole: aSpaceship [
+	spaceshipsAtTile add: aSpaceship
 	
 ]

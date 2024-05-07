@@ -9,8 +9,8 @@ TileTest >> testCanAddAnotherPlayer [
 
 | aTile |
 aTile:= Tile ofTiles.
-aTile addPlayerToTile: 'Danny'.
-self assert:(aTile anyPlayerAtTile)
+aTile addSpaceshipToTile: 'Danny'.
+self assert:(aTile anySpaceshipAtTile)
 ]
 
 { #category : #tests }
@@ -18,27 +18,27 @@ TileTest >> testIsInavlidWhenThereAreNoPlayersAtATile [
 
 | aTile |
 aTile:= Tile ofTiles.
-self deny:(aTile anyPlayerAtTile).
+self deny:(aTile anySpaceshipAtTile).
 ]
 
 { #category : #tests }
 TileTest >> testIsValidWhenThereIsAPlayerAtATile [
 | aTile |
 aTile:= Tile ofTiles.
-aTile addPlayerToTile: 'Danny'.
-self assert:(aTile isPlayerAtTile: 'Danny').
-self deny:(aTile isPlayerAtTile: 'Walter').
+aTile addSpaceshipToTile: 'Danny'.
+self assert:(aTile isSpaceshipAtTile: 'Danny').
+self deny:(aTile isSpaceshipAtTile: 'Walter').
 ]
 
 { #category : #tests }
 TileTest >> testRemoveAPlayer [
 | aTile |
 aTile:= Tile ofTiles.
-aTile addPlayerToTile: 'Danny'.
-aTile addPlayerToTile: 'Walter'.
-self assert:(aTile anyPlayerAtTile).
-aTile removePlayerFromTiles: 'Danny'.
-self assert:(aTile anyPlayerAtTile).
-aTile removePlayerFromTiles: 'Walter'.
-self deny:(aTile anyPlayerAtTile).
+aTile addSpaceshipToTile: 'Danny'.
+aTile addSpaceshipToTile: 'Walter'.
+self assert:(aTile anySpaceshipAtTile).
+aTile removeSpaceshipFromTiles: 'Danny'.
+self assert:(aTile anySpaceshipAtTile).
+aTile removeSpaceshipFromTiles: 'Walter'.
+self deny:(aTile anySpaceshipAtTile).
 ]

@@ -29,18 +29,18 @@ aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
 	aGame := Game 
 				withBoard: aBoard
 				diceCollection: aDiceRoller
-				players: ( {'Danny'. 'Walter'} ).
+				spaceships: ( {'Danny'. 'Walter'} ).
 				
 	self deny: (aGame hasEnded).
 	self assert: (aGame positionOf: 'Danny')  equals: 1.
 	self assert: ( aGame positionOf: 'Walter' )  equals: 1.
 	
-aGame rollDiceCup.
+aGame playNextTurn.
 	self assert: (aGame hasEnded).
 	self assert: (aGame positionOf: 'Danny')  equals: 7.
 	self assert: ( aGame positionOf: 'Walter' )  equals: 1.
 	
-self should:[aGame rollDiceCup] raise: Error withMessage: 'Game has already ended'
+self should:[aGame playNextTurn] raise: Error withMessage: 'Game has already ended'
 ]
 
 { #category : #tests }
@@ -61,17 +61,17 @@ aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
 aDie1:=LoadedDie of: 3.
 aDiceRoller:=DiceRoller of:{aDie1}.
 
-aGame:= Game withBoard: aBoard diceCollection:aDiceRoller players: ({'Danny'.'Walter'}).
+aGame:= Game withBoard: aBoard diceCollection:aDiceRoller spaceships: ({'Danny'.'Walter'}).
 
 	self assert: ( aGame positionOf: 'Danny' )  equals: 1.
 	self assert: ( aGame positionOf: 'Walter' )  equals: 1.
 	
-aGame rollDiceCup.
+aGame playNextTurn.
 	self deny: (aGame hasEnded).
 	self assert: (aGame positionOf: 'Danny')  equals: 4.
 	self assert: ( aGame positionOf: 'Walter' )  equals: 1.
-aGame rollDiceCup.
-aGame rollDiceCup.
+aGame playNextTurn.
+aGame playNextTurn.
 	self assert: (aGame hasEnded).
 	self assert: (aGame positionOf: 'Danny')  equals: 7.
 	self assert: ( aGame positionOf: 'Walter' )  equals: 4.
@@ -95,16 +95,49 @@ aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
 aDie1:=LoadedDie of: 3.
 aDiceRoller:=DiceRoller of:{aDie1}.
 
-aGame:= Game withBoard: aBoard diceCollection:aDiceRoller players: ({'Danny'.'Walter'}).
+aGame:= Game withBoard: aBoard diceCollection:aDiceRoller spaceships: ({'Danny'.'Walter'}).
 
 self deny: (aGame hasEnded).
 	self assert: ( aGame positionOf: 'Danny' ) equals: 1.
 	self assert: ( aGame positionOf: 'Walter' ) equals: 1.
 	
-aGame rollDiceCup.
+aGame playNextTurn.
 
 self assert: (aGame positionOf: 'Danny') equals: 4.
 self deny: (aGame hasEnded).
+]
+
+{ #category : #tests }
+GameTest >> testGameIsPlayedWith2Dice [
+
+| aGame aTile1 aTile2 aTile3 aTile4 aTile5 aTile6 aTile7 aTile8 aBoard aDie1 aDie2 aDiceRoller|
+
+	aTile1 := Tile ofTiles .
+	aTile2 := Tile ofTiles .
+	aTile3 := Tile ofTiles .
+	aTile4 := Tile ofTiles .
+	aTile5 := Tile ofTiles .
+	aTile6 := Tile ofTiles .
+	aTile7 := Tile ofTiles .
+	aTile8 := Tile ofTiles .
+
+aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7. aTile8.}.
+
+aDie1:=LoadedDie of: 3.
+aDie2:=LoadedDie of: 3.
+
+aDiceRoller:=DiceRoller of:{aDie1.aDie2}.
+
+aGame:= Game withBoard: aBoard diceCollection:aDiceRoller spaceships: ({'Danny'.'Walter'}).
+
+	self assert: ( aGame positionOf: 'Danny' )  equals: 1.
+	self assert: ( aGame positionOf: 'Walter' )  equals: 1.
+	
+aGame playNextTurn.
+	self deny: (aGame hasEnded).
+	self assert: (aGame positionOf: 'Danny')  equals: 7.
+	self assert: ( aGame positionOf: 'Walter' )  equals: 1.
+
 ]
 
 { #category : #tests }
@@ -126,8 +159,41 @@ aDie1:=LoadedDie of: 3.
 aDiceRoller:=DiceRoller of:{aDie1}.
 
 
-self should:[Game withBoard: aBoard diceCollection:aDiceRoller players: {}] raise: Error 
+self should:[Game withBoard: aBoard diceCollection:aDiceRoller spaceships: {}] raise: Error 
 withMessage: 'Game must have at least one player'.
+]
+
+{ #category : #tests }
+GameTest >> testGameWithRandomDie [
+
+| aGame aTile1 aTile2 aTile3 aTile4 aTile5 aBoard aDie1 aDiceRoller|
+	aTile1 := Tile ofTiles .
+	aTile2 := Tile ofTiles .
+	aTile3 := Tile ofTiles .
+	aTile4 := Tile ofTiles .
+	aTile5 := Tile ofTiles .
+
+
+aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5.}.
+	
+	aDie1 := Die of: 3.
+	aDiceRoller := DiceRoller of: { aDie1 }.
+
+	aGame := Game 
+				withBoard: aBoard
+				diceCollection: aDiceRoller
+				spaceships: ( {'Danny'. 'Walter'} ).
+				
+	self deny: (aGame hasEnded).
+	self assert: (aGame positionOf: 'Danny')  equals: 1.
+	self assert: ( aGame positionOf: 'Walter' )  equals: 1.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	aGame playNextTurn.
+	self assert:(aGame hasEnded).
+	
+
 ]
 
 { #category : #tests }
@@ -150,7 +216,7 @@ aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
 	aGame := Game 
 				withBoard: aBoard
 				diceCollection: aDiceRoller
-				players: ( {'Danny'. 'Walter'} ).
+				spaceships: ( {'Danny'. 'Walter'} ).
 				
 	self deny: (aGame winner).		
 ]
@@ -182,10 +248,10 @@ GameTest >> testIsValidWhenThereIsWinner [
 	aGame := Game
 		         withBoard: aBoard
 		         diceCollection: aDiceRoller
-		         players: { 'Danny'. 'Walter' }.
-	aGame rollDiceCup.
-	aGame rollDiceCup.
-	aGame rollDiceCup.
+		         spaceships: { 'Danny'. 'Walter' }.
+	aGame playNextTurn.
+	aGame playNextTurn.
+	aGame playNextTurn.
 	self assert: aGame winner equals: 'Danny'
 ]
 
@@ -207,10 +273,10 @@ aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
 aDie1:=LoadedDie of: 3.
 aDiceRoller:=DiceRoller of:{aDie1}.
 
-aGame:= Game withBoard: aBoard diceCollection:aDiceRoller players: ({'Player1'.'Player2'}).
+aGame:= Game withBoard: aBoard diceCollection:aDiceRoller spaceships: ({'Player1'.'Player2'}).
 	
-aGame rollDiceCup.
-aGame rollDiceCup.
+aGame playNextTurn.
+aGame playNextTurn.
 	self assert: (aGame positionOf: 'Player1')  equals: 4.
 	self assert: ( aGame positionOf: 'Player2' )  equals: 4.
 	self assert: ( aGame turnOf) equals: 'Player1' .
@@ -235,9 +301,9 @@ aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
 aDie1:=LoadedDie of: 3.
 aDiceRoller:=DiceRoller of:{aDie1}.
 
-aGame:= Game withBoard: aBoard diceCollection:aDiceRoller players: ({'Player1'.'Player2'}).
+aGame:= Game withBoard: aBoard diceCollection:aDiceRoller spaceships: ({'Player1'.'Player2'}).
 	
-aGame rollDiceCup.
+aGame playNextTurn.
 	self assert: (aGame positionOf: 'Player1')  equals: 4.
 	self assert: ( aGame turnOf) equals: 'Player2'.
 	
@@ -260,10 +326,10 @@ aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
 aDie1:=LoadedDie of: 5.
 aDiceRoller:=DiceRoller of:{aDie1}.
 
-aGame:= Game withBoard: aBoard diceCollection:aDiceRoller players: ({'Walter'.'Danny'}).
+aGame:= Game withBoard: aBoard diceCollection:aDiceRoller spaceships: ({'Walter'.'Danny'}).
 	self assert: ( aGame positionOf: 'Walter' ) equals: 1.
 	
-aGame rollDiceCup.
+aGame playNextTurn.
 	self assert: ( aGame positionOf: 'Walter' ) equals: 6.
 ]
 
@@ -287,7 +353,7 @@ aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
 	aGame := Game 
 				withBoard: aBoard
 				diceCollection: aDiceRoller
-				players: ( {'Danny'. 'Walter'} ).
+				spaceships: ( {'Danny'. 'Walter'} ).
 				
 	self assert: (aGame positionOf: 'Danny') equals: 1.
 	self assert: (aGame positionOf: 'Walter') equals: 1.
@@ -313,7 +379,7 @@ aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
 	aGame := Game 
 				withBoard: aBoard
 				diceCollection: aDiceRoller
-				players: ( {'Danny'. 'Walter'} ).
+				spaceships: ( {'Danny'. 'Walter'} ).
 				
 	self deny: (aGame hasEnded).	
 ]
@@ -338,10 +404,10 @@ aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
 	aGame := Game 
 				withBoard: aBoard
 				diceCollection: aDiceRoller
-				players: ( {'Danny'. 'Walter'} ).
-	aGame rollDiceCup.
-	aGame rollDiceCup.
-	aGame rollDiceCup.
+				spaceships: ( {'Danny'. 'Walter'} ).
+	aGame playNextTurn.
+	aGame playNextTurn.
+	aGame playNextTurn.
 	self assert: (aGame hasEnded).	
 ]
 
@@ -363,9 +429,9 @@ aBoard:=Board ofTiles:{aTile1. aTile2. aTile3. aTile4. aTile5. aTile6. aTile7.}.
 aDie1:=LoadedDie of: 3.
 aDiceRoller:=DiceRoller of:{aDie1}.
 
-aGame:= Game withBoard: aBoard diceCollection:aDiceRoller players: ({'Player1'.'Player2'}).
+aGame:= Game withBoard: aBoard diceCollection:aDiceRoller spaceships: ({'Player1'.'Player2'}).
 	
-aGame rollDiceCup.
+aGame playNextTurn.
 	self assert: (aGame positionOf: 'Player1')  equals: 4.
 	self deny: ( aGame turnOf) equals: 'Player1' .
 	
@@ -394,9 +460,9 @@ GameTest >> testWormholeGoesBackwards [
 	aGame := Game 
 				withBoard: aBoard
 				diceCollection: aDiceRoller
-				players: ( {'Danny'. 'Walter'.} ).
+				spaceships: ( {'Danny'. 'Walter'.} ).
 	
-	aGame rollDiceCup.
+	aGame playNextTurn.
 
 	self assert: ( aGame positionOf: 'Danny' ) equals: 3.
 ]
@@ -422,9 +488,9 @@ GameTest >> testWormholeGoesForward [
 	aGame := Game 
 				withBoard: aBoard
 				diceCollection: aDiceRoller
-				players: ( {'Danny'. 'Walter'.} ).
+				spaceships: ( {'Danny'. 'Walter'.} ).
 	
-	aGame rollDiceCup.
+	aGame playNextTurn.
 
 	self assert: ( aGame positionOf: 'Danny' ) equals: 7.
 ]
@@ -451,9 +517,9 @@ GameTest >> testWormholeIsNotOnANormalTile [
 	aGame := Game 
 				withBoard: aBoard
 				diceCollection: aDiceRoller
-				players: ( {'Danny'. 'Walter'.} ).
+				spaceships: ( {'Danny'. 'Walter'.} ).
 	
-	aGame rollDiceCup.
+	aGame playNextTurn.
 
 	self assert: ( aGame positionOf: 'Danny' ) equals: 5.
 ]

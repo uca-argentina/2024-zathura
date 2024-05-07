@@ -11,20 +11,20 @@ Class {
 }
 
 { #category : #asserting }
-Game class >> assertValidNumberOfPlayers: aPlayers [
+Game class >> assertValidNumberOfSpaceships: aSpaceships [
 
-	aPlayers isEmpty ifTrue: [
+	aSpaceships isEmpty ifTrue: [
 		Error signal: 'Game must have at least one player' ]
 ]
 
 { #category : #'instance creation' }
-Game class >> withBoard: aBoard diceCollection: aDiceCollection players: aPlayers [
+Game class >> withBoard: aBoard diceCollection: aDiceCollection spaceships: aSpaceships [
 
-	self assertValidNumberOfPlayers: aPlayers.
+	self assertValidNumberOfSpaceships: aSpaceships.
 	^ self new
 		  initializeWithBoard: aBoard
 		  diceCollection: aDiceCollection
-		  players: aPlayers
+		  spaceships: aSpaceships
 ]
 
 { #category : #testing }
@@ -33,43 +33,43 @@ Game >> hasEnded [
 ]
 
 { #category : #initialization }
-Game >> initializeWithBoard: aBoard diceCollection: aDiceCollection players: aPlayers [
+Game >> initializeWithBoard: aBoard diceCollection: aDiceCollection spaceships: aSpaceships [
     board := aBoard.
     diceCollection := aDiceCollection.
-	 players := aPlayers asOrderedCollection.
+	 players := aSpaceships asOrderedCollection.
     status := false.
-    aPlayers do: [ :aPlayer | aBoard addPlayerToATile: aPlayer aTileNumber: 1 ].
+    aSpaceships do: [ :aPlayer | aBoard addSpaceshipToATile: aPlayer aTileNumber: 1 ].
 
 ]
 
 { #category : #playing }
-Game >> movePlayer: aPlayer withRollingResult: aResult [
+Game >> moveSpaceship: aSpaceship withRollingResult: aResult [
 	
-	board movePlayerToAnotherTile: aPlayer aTileNumber: aResult.
+	board moveSpaceshipToAnotherTile: aSpaceship aTileNumber: aResult.
 	
 	
 
 
-]
-
-{ #category : #accessing }
-Game >> positionOf: aPlayer [
-
-	^(board positionOf: aPlayer ).
 ]
 
 { #category : #playing }
-Game >> rollDiceCup [
+Game >> playNextTurn [
 	| rollingResult playerTurn|
 	status ifFalse:[
 		playerTurn:= self turnOf.
 		rollingResult:=diceCollection roll.
-		self movePlayer: playerTurn withRollingResult:rollingResult.
+		self moveSpaceship: playerTurn withRollingResult:rollingResult.
 		(self positionOf: playerTurn) >= (board tiles) size ifTrue:[status:=true].
 	]
 	ifTrue:[Error signal: 'Game has already ended']
 
 	
+]
+
+{ #category : #accessing }
+Game >> positionOf: aSpaceship [
+
+	^(board positionOf: aSpaceship ).
 ]
 
 { #category : #playing }
@@ -88,7 +88,7 @@ Game >> winner [
 	|ganador lastTile|
 	(self hasEnded) ifFalse:[^ self hasEnded ].
 	lastTile := (board tiles) last.
-	ganador :=  players detect: [:aPlayer|lastTile isPlayerAtTile: aPlayer].
+	ganador :=  players detect: [:aPlayer|lastTile isSpaceshipAtTile: aPlayer].
 	^ ganador
 	
 ]

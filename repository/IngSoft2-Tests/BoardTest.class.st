@@ -26,8 +26,8 @@ secondTile:=Tile ofTiles.
 
 tiles:={firstTile. secondTile.}.
 board:=Board ofTiles:tiles.
-board addPlayerToATile: 'Danny' aTileNumber:1. 
-board addPlayerToATile: 'Walter' aTileNumber:2. 
+board addSpaceshipToATile: 'Danny' aTileNumber:1. 
+board addSpaceshipToATile: 'Walter' aTileNumber:2. 
 self assert:(board positionOf: 'Walter' ) equals: 2.
 self assert:(board positionOf: 'Danny' ) equals: 1.
 ]
@@ -60,12 +60,12 @@ secondTile:=Tile ofTiles.
 tiles:={firstTile. secondTile.}.
 
 board:=Board ofTiles:tiles.
-self deny:(firstTile anyPlayerAtTile ).
-self deny:(secondTile anyPlayerAtTile ).
-board addPlayerToATile: 'Danny' aTileNumber:1. 
-board addPlayerToATile: 'Walter' aTileNumber:1. 
-self assert:(firstTile anyPlayerAtTile ).
-self deny:(secondTile anyPlayerAtTile ).
+self deny:(firstTile anySpaceshipAtTile ).
+self deny:(secondTile anySpaceshipAtTile ).
+board addSpaceshipToATile: 'Danny' aTileNumber:1. 
+board addSpaceshipToATile: 'Walter' aTileNumber:1. 
+self assert:(firstTile anySpaceshipAtTile ).
+self deny:(secondTile anySpaceshipAtTile ).
 ]
 
 { #category : #tests }

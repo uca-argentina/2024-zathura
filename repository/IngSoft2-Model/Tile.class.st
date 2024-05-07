@@ -2,7 +2,7 @@ Class {
 	#name : #Tile,
 	#superclass : #Object,
 	#instVars : [
-		'playersAtTile'
+		'spaceshipsAtTile'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -14,30 +14,30 @@ Tile class >> ofTiles [
 ]
 
 { #category : #adding }
-Tile >> addPlayerToTile: aPlayer [
-	playersAtTile add: aPlayer
+Tile >> addSpaceshipToTile: aSpaceship [
+	spaceshipsAtTile add: aSpaceship
 ]
 
 { #category : #'as yet unclassified' }
-Tile >> anyPlayerAtTile [
-	playersAtTile isEmpty ifTrue:[^false]
+Tile >> anySpaceshipAtTile [
+	spaceshipsAtTile isEmpty ifTrue:[^false]
 	ifFalse:[^true]
 	
 ]
 
 { #category : #initialization }
-Tile >> initializeOfTiles: emptyPlayerCollection [
+Tile >> initializeOfTiles: emptySpaceshipCollection [
 
-	playersAtTile :=emptyPlayerCollection.
+	spaceshipsAtTile :=emptySpaceshipCollection.
 ]
 
 { #category : #'as yet unclassified' }
-Tile >> isPlayerAtTile:aPlayer [
-	^ playersAtTile includes: aPlayer
+Tile >> isSpaceshipAtTile:aPlayer [
+	^ spaceshipsAtTile includes: aPlayer
 	
 ]
 
 { #category : #removing }
-Tile >> removePlayerFromTiles: aPlayer [
-	playersAtTile remove: aPlayer
+Tile >> removeSpaceshipFromTiles: aPlayer [
+	spaceshipsAtTile remove: aPlayer
 ]
