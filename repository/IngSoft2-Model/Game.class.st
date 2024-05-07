@@ -5,7 +5,8 @@ Class {
 		'board',
 		'players',
 		'status',
-		'diceCollection'
+		'diceCollection',
+		'playerTurn'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -39,6 +40,7 @@ Game >> initializeWithBoard: aBoard diceCollection: aDiceCollection players: aPl
     players := aPlayers.
     status := false.
     aPlayers do: [ :aPlayer | aBoard addPlayerToATile: aPlayer aTileNumber: 1 ].
+	 playerTurn:=(players at:1).
 
 ]
 
@@ -50,6 +52,13 @@ Game >> movePlayer: aPlayer withRollingResult: aResult [
 	
 
 
+]
+
+{ #category : #'as yet unclassified' }
+Game >> nextTurnOf:aPlayer [
+
+players:=(players reject:[:each|each=aPlayer]),{aPlayer}.
+playerTurn:=(players at:1).
 ]
 
 { #category : #accessing }
@@ -65,10 +74,16 @@ Game >> rollDiceCupFor: aPlayer [
 		rollingResult:=diceCollection roll.
 		self movePlayer: aPlayer withRollingResult:rollingResult.
 		(self positionOf: aPlayer) >= (board tiles) size ifTrue:[status:=true].
+		(self nextTurnOf: aPlayer).
 	]
 	ifTrue:[Error signal: 'Game has already ended']
 
 	
+]
+
+{ #category : #'as yet unclassified' }
+Game >> turnOf:aPlayer [
+
 ]
 
 { #category : #asserting }
