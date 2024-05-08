@@ -434,6 +434,38 @@ GameTest >> testSpaceshipsStartAtFirstTile [
 ]
 
 { #category : #tests }
+GameTest >> testTurnsWhenThreePlayersArePLaying [
+
+	| aGame aBoard aDie1 |
+
+	aBoard := Board ofTiles: {
+			          Tile create.
+			          Tile create.
+			          Tile create.
+			          Tile create.
+			          Tile create.
+			          Tile create.
+			          Tile create. }.
+
+	aDie1 := LoadedDie of: 3.
+
+	aGame := Game
+		         playedBy: { 'Player1'. 'Player2'.'Player3' }
+		         on: aBoard
+		         rolling: aDie1.
+
+	aGame playNextTurn.
+	self assert: (aGame positionOf: 'Player1') equals: 4.
+		
+	aGame playNextTurn.
+	self assert: (aGame positionOf: 'Player2') equals: 4.
+	
+	aGame playNextTurn.
+	self assert: (aGame positionOf: 'Player3') equals: 4.
+
+]
+
+{ #category : #tests }
 GameTest >> testWhenItIsPlayerTwoTurnPlayerOneCantRoll [
 
 	| aGame aBoard aDie1 |

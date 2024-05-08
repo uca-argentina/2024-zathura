@@ -8,12 +8,6 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
-WormholeTile class >> create [
-
-	^ self new initializeOfTiles: OrderedCollection new.
-]
-
 { #category : #adding }
 WormholeTile >> addSpaceshipToTile: aSpaceship [
 	linkedTile travelTroughWormhole:aSpaceship.

@@ -7,7 +7,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #initializing }
 Tile class >> create [
 
 	^ self new initializeOfTiles: OrderedCollection new.
@@ -18,7 +18,7 @@ Tile >> addSpaceshipToTile: aSpaceship [
 	spaceshipsAtTile add: aSpaceship
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #asserting }
 Tile >> anySpaceshipAtTile [
 	spaceshipsAtTile isEmpty ifTrue:[^false]
 	ifFalse:[^true]
@@ -31,7 +31,7 @@ Tile >> initializeOfTiles: emptySpaceshipCollection [
 	spaceshipsAtTile :=emptySpaceshipCollection.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #asserting }
 Tile >> isSpaceshipAtTile:aSpaceship [
 	^ spaceshipsAtTile includes: aSpaceship
 	
