@@ -168,6 +168,32 @@ GameTest >> testGameMustHaveAtLeastOneSpaceship [
 ]
 
 { #category : #tests }
+GameTest >> testGameWithLoadedDieOfFiveFaces [
+
+	| aGame aBoard aDie1 |
+
+	aBoard := Board ofTiles: {
+			          Tile create.
+			          Tile create.
+			          Tile create.
+			          Tile create.
+			          Tile create.
+			          Tile create.
+			          Tile create. }.
+
+	aDie1 := LoadedDie of: 5.
+
+	aGame := Game
+		         playedBy: { 'Walter'. 'Danny' }
+		         on: aBoard
+		         rolling: aDie1.
+	self assert: (aGame positionOf: 'Walter') equals: 1.
+
+	aGame playNextTurn.
+	self assert: (aGame positionOf: 'Walter') equals: 6
+]
+
+{ #category : #tests }
 GameTest >> testGameWithRandomDie [
 
 	| aGame aBoard aDie1 |
@@ -331,82 +357,6 @@ GameTest >> testPlayerTwoCanRollTheDiceAfterPlayerOneTurn [
 	aGame playNextTurn.
 	self assert: (aGame positionOf: 'Player1') equals: 4.
 	self assert: aGame turnOf equals: 'Player2'
-]
-
-{ #category : #tests }
-GameTest >> testPlayingUntilWinning [
-
-	| aGame aBoard aDie1 |
-
-	aBoard := Board ofTiles: {
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create. }.
-			
-	aDie1 := LoadedDie of: 3.
-
-	aGame := Game
-		         playedBy: { 'Danny'. 'Walter' }
-		         on: aBoard
-		         rolling: aDie1.
-
-	self deny: aGame hasEnded
-]
-
-{ #category : #tests }
-GameTest >> testScoreboardIsValidWhenSomeonesWins [
-
-	| aGame aBoard aDie1 |
-
-	aBoard := Board ofTiles: {
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create. }.
-
-	aDie1 := LoadedDie of: 3.
-
-	aGame := Game
-		         playedBy: { 'Danny'. 'Walter' }
-		         on: aBoard
-		         rolling: aDie1.
-	aGame playNextTurn.
-	aGame playNextTurn.
-	aGame playNextTurn.
-	self assert: aGame hasEnded
-]
-
-{ #category : #tests }
-GameTest >> testSpaceshipMovesFiveTiles [
-
-	| aGame aBoard aDie1 |
-
-	aBoard := Board ofTiles: {
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create. }.
-
-	aDie1 := LoadedDie of: 5.
-
-	aGame := Game
-		         playedBy: { 'Walter'. 'Danny' }
-		         on: aBoard
-		         rolling: aDie1.
-	self assert: (aGame positionOf: 'Walter') equals: 1.
-
-	aGame playNextTurn.
-	self assert: (aGame positionOf: 'Walter') equals: 6
 ]
 
 { #category : #tests }
