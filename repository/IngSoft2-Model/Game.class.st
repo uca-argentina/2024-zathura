@@ -27,6 +27,14 @@ Game class >> playedBy: aSpaceships on: aBoard rolling: dice [
 		  rolling: dice
 ]
 
+{ #category : #playing }
+Game >> changeTurns [
+		spaceships add: spaceships first.
+		spaceships removeFirst.
+
+	
+]
+
 { #category : #testing }
 Game >> hasEnded [
 ^hasEnded
@@ -57,6 +65,7 @@ Game >> playNextTurn [
 	| rollingResult spaceshipTurn|
 	hasEnded ifFalse:[
 		spaceshipTurn:= self turnOf.
+		self changeTurns .
 		rollingResult:=diceCollection roll.
 		self moveSpaceship: spaceshipTurn withRollingResult:rollingResult.
 		(self positionOf: spaceshipTurn) >= (board tiles) size ifTrue:[hasEnded:=true].
@@ -76,8 +85,6 @@ Game >> positionOf: aSpaceship [
 Game >> turnOf [
 		|spaceshipTurn|
 		spaceshipTurn := spaceships first.
-		spaceships add: spaceshipTurn.
-		spaceships removeAt:1.
 		^spaceshipTurn 
 
 	
