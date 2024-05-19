@@ -18,7 +18,7 @@ self assert: aBoard tiles size equals: tiles size.
 ]
 
 { #category : #tests }
-BoardTest >> testIsValidWhenSpaceshipAtSecondTile [
+BoardTest >> testBoardTracksSpaceshipPositions [
 
 | firstTile secondTile tiles board |
 firstTile:=Tile create.
@@ -33,25 +33,7 @@ self assert:(board positionOf: 'Danny' ) equals: 1.
 ]
 
 { #category : #tests }
-BoardTest >> testSpaceshipIsAtSecondTile [
-
-| firstTile secondTile tiles board |
-firstTile:=Tile create.
-secondTile:=Tile create.
-
-tiles:={firstTile. secondTile.}.
-
-board:=Board ofTiles:tiles.
-
-
-
-
-self assert:(board tileNumber:1) equals: firstTile.
-self assert:(board tileNumber:2) equals:secondTile.
-]
-
-{ #category : #tests }
-BoardTest >> testStartPlayingWithTwoSpaceships [
+BoardTest >> testStartPlayingWithTwoSpaceshipsThatStartOnFirstTile [
 
 | firstTile secondTile tiles board |
 firstTile:=Tile create.
@@ -69,7 +51,7 @@ self deny:(secondTile anySpaceshipAtTile ).
 ]
 
 { #category : #tests }
-BoardTest >> testTileIndexIsCorrect [
+BoardTest >> testTileIndexIsCorrectlyAssigned [
 
 | firstTile secondTile tiles board |
 firstTile:=Tile create.
@@ -81,19 +63,4 @@ board:=Board ofTiles:tiles.
 
 self assert:(board tileNumber:1) equals: firstTile.
 self assert:(board tileNumber:2) equals:secondTile.
-]
-
-{ #category : #tests }
-BoardTest >> testTileIndexIsWrong [
-
-| firstTile secondTile tiles board |
-firstTile:=Tile create.
-secondTile:=Tile create.
-
-tiles:={firstTile. secondTile.}.
-
-board:=Board ofTiles:tiles.
-
-self deny:(board tileNumber:1) equals: secondTile.
-self deny:(board tileNumber:2) equals: firstTile.
 ]

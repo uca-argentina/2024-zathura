@@ -10,21 +10,13 @@ DieTest >> should: aErrorBlock raise: anErrorClass withMessage: anErrorMessage [
 ]
 
 { #category : #tests }
-DieTest >> testDieCanBeCreatedWithAnAmountOfFaces [
-
-| aDie |
-aDie:= Die of:3.
-self assert: ((aDie roll) between: 1 and:3).
-]
-
-{ #category : #tests }
 DieTest >> testDieCannotBeCreatedWithLessThanThreeFaces [ 
 
 self should:[Die of:2] raise: Error withMessage: 'Faces should be more than 2'
 ]
 
 { #category : #tests }
-DieTest >> testWhenDieIsThrownThenValueIsBetweenOneAndNumberedFaces [ 
+DieTest >> testDieIsCreatedWithAnAmountOfFacesAndRollsBetweenOneAndAmountOfFaces [ 
 
 | aDie |
 aDie:=Die of:4.

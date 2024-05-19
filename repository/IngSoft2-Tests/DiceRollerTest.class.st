@@ -5,6 +5,20 @@ Class {
 }
 
 { #category : #tests }
+DiceRollerTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage [ 
+	self should:anErrorBlock raise:anErrorClass withExceptionDo:[:error|self assert:error messageText equals:anErrorMessage].
+]
+
+{ #category : #tests }
+DiceRollerTest >> testDiceRollerMustBeCreatedWithAtLeastTwoDice [
+
+| aDie1 aDiceRoller|
+aDie1:=LoadedDie of:3.
+
+self should:[aDiceRoller:=DiceRoller of:{aDie1.}.] raise: Error withMessage: 'A DiceRoller must have more than one die'
+]
+
+{ #category : #tests }
 DiceRollerTest >> testDiceRollerRollEqualsTheSumOfEachDieThrow [
 
 | aDie1 aDie2 aDie3 aDiceRoller|
