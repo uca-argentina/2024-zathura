@@ -19,7 +19,7 @@ GameTest >> testCantRollAfterGameEnded [
 
 	| aGame aBoard aDie1 |
 
-	aBoard := Board ofTiles: {
+	aBoard := Board of: {
 			          Tile create.
 			          Tile create.
 			          Tile create.
@@ -54,7 +54,7 @@ GameTest >> testCantRollAfterGameEnded [
 GameTest >> testGameHasEndedAsOneSpaceshipReachTheEnd [
 	| aGame aBoard aDie1 |
 
-	aBoard := Board ofTiles: {
+	aBoard := Board of: {
 			          Tile create.
 			          Tile create.
 			          Tile create.
@@ -89,7 +89,7 @@ GameTest >> testGameHasNotEndedAsNoSpaceshipReachedTheEnd [
 
 	| aGame aBoard aDie1 |
 
-	aBoard := Board ofTiles: {
+	aBoard := Board of: {
 			          Tile create.
 			          Tile create.
 			          Tile create.
@@ -113,7 +113,7 @@ GameTest >> testGameIsPlayedWithTwoDice [
 
 	| aGame aBoard aDie1 aDie2 aDiceRoller|
 
-	aBoard := Board ofTiles: {
+	aBoard := Board of: {
 			          Tile create.
 			          Tile create.
 			          Tile create.
@@ -149,7 +149,7 @@ GameTest >> testGameMustHaveAtLeastOneSpaceship [
 
 	|aBoard aDie1 |
 
-	aBoard := Board ofTiles: {
+	aBoard := Board of: {
 			          Tile create.
 			          Tile create.
 			          Tile create.
@@ -172,7 +172,7 @@ GameTest >> testGameWithLoadedDieOfFiveFaces [
 
 	| aGame aBoard aDie1 |
 
-	aBoard := Board ofTiles: {
+	aBoard := Board of: {
 			          Tile create.
 			          Tile create.
 			          Tile create.
@@ -198,7 +198,7 @@ GameTest >> testGameWithRandomDie [
 
 	| aGame aBoard aDie1 |
 
-	aBoard := Board ofTiles: {
+	aBoard := Board of: {
 			          Tile create.
 			          Tile create.
 			          Tile create.
@@ -228,7 +228,7 @@ GameTest >> testGameWithTwoRandomDice [
 
 	| aGame aBoard aDie1 aDie2 aDiceRoller |
 
-	aBoard := Board ofTiles: {
+	aBoard := Board of: {
 			          Tile create.
 			          Tile create.
 			          Tile create.
@@ -260,7 +260,7 @@ GameTest >> testIsInvalidWhenThereIsNoWinner [
 
 	| aGame aBoard aDie1 |
 
-	aBoard := Board ofTiles: {
+	aBoard := Board of: {
 			          Tile create.
 			          Tile create.
 			          Tile create.
@@ -276,7 +276,10 @@ GameTest >> testIsInvalidWhenThereIsNoWinner [
 		         on: aBoard
 		         rolling: aDie1.
 
-	self deny: aGame winner
+	self
+		should: [ aGame winner ]
+		raise: Error
+		withMessage: 'Game is still playing.'
 ]
 
 { #category : #tests }
@@ -284,7 +287,7 @@ GameTest >> testIsValidWhenThereIsWinner [
 
 	| aGame aBoard aDie1 |
 
-	aBoard := Board ofTiles: {
+	aBoard := Board of: {
 			          Tile create.
 			          Tile create.
 			          Tile create.
@@ -310,7 +313,7 @@ GameTest >> testPlayerOneCanRollTheDiceAfterPlayerTwoTurn [
 
 	| aGame aBoard aDie1 |
 
-	aBoard := Board ofTiles: {
+	aBoard := Board of: {
 			          Tile create.
 			          Tile create.
 			          Tile create.
@@ -338,7 +341,7 @@ GameTest >> testPlayerTwoCanRollTheDiceAfterPlayerOneTurn [
 
 	| aGame aBoard aDie1 |
 
-	aBoard := Board ofTiles: {
+	aBoard := Board of: {
 			          Tile create.
 			          Tile create.
 			          Tile create.
@@ -364,7 +367,7 @@ GameTest >> testSpaceshipsStartAtFirstTile [
 
 	| aGame aBoard aDie1 |
 
-	aBoard := Board ofTiles: {
+	aBoard := Board of: {
 			          Tile create.
 			          Tile create.
 			          Tile create.
@@ -388,7 +391,7 @@ GameTest >> testTurnsWhenThreePlayersArePLaying [
 
 	| aGame aBoard aDie1 |
 
-	aBoard := Board ofTiles: {
+	aBoard := Board of: {
 			          Tile create.
 			          Tile create.
 			          Tile create.
@@ -420,7 +423,7 @@ GameTest >> testWhenItIsPlayerTwoTurnPlayerOneCantRoll [
 
 	| aGame aBoard aDie1 |
 
-	aBoard := Board ofTiles: {
+	aBoard := Board of: {
 			          Tile create.
 			          Tile create.
 			          Tile create.
@@ -450,7 +453,7 @@ GameTest >> testWormholeGoesBackwards [
 	wormholeTile5 linkATileToTheWormhole: wormholeTile3.
 	wormholeTile3 linkATileToTheWormhole: wormholeTile5.
 
-	aBoard := Board ofTiles: {
+	aBoard := Board of: {
 			          Tile create.
 			          Tile create.
 			          wormholeTile3.
@@ -479,7 +482,7 @@ GameTest >> testWormholeGoesForward [
 	wormholeTile7 := WormholeTile create.
 	wormholeTile7 linkATileToTheWormhole: wormholeTile4.
 	wormholeTile4 linkATileToTheWormhole: wormholeTile7.
-	aBoard := Board ofTiles: {
+	aBoard := Board of: {
 			          Tile create.
 			          Tile create.
 			          Tile create.
@@ -507,7 +510,7 @@ GameTest >> testWormholeIsNotOnANormalTile [
 	wormholeTile7 := WormholeTile create.
 	wormholeTile3 linkATileToTheWormhole: wormholeTile7.
 	wormholeTile7 linkATileToTheWormhole: wormholeTile3.
-	aBoard := Board ofTiles: {
+	aBoard := Board of: {
 			          Tile create.
 			          Tile create.
 			          wormholeTile3.

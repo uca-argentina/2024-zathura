@@ -12,7 +12,7 @@ aTile1:=Tile create.
 aTile2:=Tile create.
 tiles:={aTile1. aTile2.}.
 
-aBoard:=Board ofTiles: tiles.
+aBoard:=Board of: tiles.
 
 self assert: aBoard tiles size equals: tiles size.
 ]
@@ -25,9 +25,9 @@ firstTile:=Tile create.
 secondTile:=Tile create.
 
 tiles:={firstTile. secondTile.}.
-board:=Board ofTiles:tiles.
-board addSpaceshipToATile: 'Danny' aTileNumber:1. 
-board addSpaceshipToATile: 'Walter' aTileNumber:2. 
+board:=Board of:tiles.
+board add: 'Danny' to:1. 
+board add: 'Walter' to:2. 
 self assert:(board positionOf: 'Walter' ) equals: 2.
 self assert:(board positionOf: 'Danny' ) equals: 1.
 ]
@@ -41,13 +41,13 @@ secondTile:=Tile create.
 
 tiles:={firstTile. secondTile.}.
 
-board:=Board ofTiles:tiles.
+board:=Board of:tiles.
 
 
 
 
-self assert:(board tileNumber:1) equals: firstTile.
-self assert:(board tileNumber:2) equals:secondTile.
+self assert:(board tiles at:1) equals: firstTile.
+self assert:(board tiles at:2) equals:secondTile.
 ]
 
 { #category : #tests }
@@ -59,13 +59,13 @@ secondTile:=Tile create.
 
 tiles:={firstTile. secondTile.}.
 
-board:=Board ofTiles:tiles.
-self deny:(firstTile anySpaceshipAtTile ).
-self deny:(secondTile anySpaceshipAtTile ).
-board addSpaceshipToATile: 'Danny' aTileNumber:1. 
-board addSpaceshipToATile: 'Walter' aTileNumber:1. 
-self assert:(firstTile anySpaceshipAtTile ).
-self deny:(secondTile anySpaceshipAtTile ).
+board:=Board of:tiles.
+self deny:(firstTile anySpaceship ).
+self deny:(secondTile anySpaceship ).
+board add: 'Danny' to:1. 
+board add: 'Walter' to:1. 
+self assert:(firstTile anySpaceship ).
+self deny:(secondTile anySpaceship).
 ]
 
 { #category : #tests }
@@ -77,10 +77,10 @@ secondTile:=Tile create.
 
 tiles:={firstTile. secondTile.}.
 
-board:=Board ofTiles:tiles.
+board:=Board of:tiles.
 
-self assert:(board tileNumber:1) equals: firstTile.
-self assert:(board tileNumber:2) equals:secondTile.
+self assert:(board tiles at:1) equals: firstTile.
+self assert:(board tiles at:2) equals:secondTile.
 ]
 
 { #category : #tests }
@@ -92,8 +92,8 @@ secondTile:=Tile create.
 
 tiles:={firstTile. secondTile.}.
 
-board:=Board ofTiles:tiles.
+board:=Board of:tiles.
 
-self deny:(board tileNumber:1) equals: secondTile.
-self deny:(board tileNumber:2) equals: firstTile.
+self deny:(board tiles at:1) equals: secondTile.
+self deny:(board tiles at:2) equals: firstTile.
 ]

@@ -10,7 +10,7 @@ TileTest >> testCanAddAnotherSpaceship [
 | aTile |
 aTile:= Tile create.
 aTile addSpaceshipToTile: 'Danny'.
-self assert:(aTile anySpaceshipAtTile)
+self assert:(aTile anySpaceship)
 ]
 
 { #category : #tests }
@@ -18,7 +18,7 @@ TileTest >> testIsInavlidWhenThereAreNoSpaceshipsAtATile [
 
 | aTile |
 aTile:= Tile create.
-self deny:(aTile anySpaceshipAtTile).
+self deny:(aTile anySpaceship).
 ]
 
 { #category : #tests }
@@ -36,9 +36,9 @@ TileTest >> testRemoveASpaceship [
 aTile:= Tile create.
 aTile addSpaceshipToTile: 'Danny'.
 aTile addSpaceshipToTile: 'Walter'.
-self assert:(aTile anySpaceshipAtTile).
+self assert:(aTile anySpaceship).
 aTile removeSpaceshipFromTiles: 'Danny'.
-self assert:(aTile anySpaceshipAtTile).
+self assert:(aTile anySpaceship).
 aTile removeSpaceshipFromTiles: 'Walter'.
-self deny:(aTile anySpaceshipAtTile).
+self deny:(aTile anySpaceship).
 ]

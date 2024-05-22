@@ -2,7 +2,6 @@ Class {
 	#name : #WormholeTile,
 	#superclass : #Tile,
 	#instVars : [
-		'playersAtWormholeTile',
 		'linkedTile'
 	],
 	#category : #'IngSoft2-Model'

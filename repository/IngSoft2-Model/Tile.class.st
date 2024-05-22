@@ -19,9 +19,9 @@ Tile >> addSpaceshipToTile: aSpaceship [
 ]
 
 { #category : #asserting }
-Tile >> anySpaceshipAtTile [
-	spaceshipsAtTile isEmpty ifTrue:[^false]
-	ifFalse:[^true]
+Tile >> anySpaceship [
+	^ spaceshipsAtTile isNotEmpty
+
 	
 ]
 

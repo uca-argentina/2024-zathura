@@ -15,14 +15,14 @@ Board class >> isValid: tiles [
 ]
 
 { #category : #'instance initialization' }
-Board class >> ofTiles: tiles [
+Board class >> of: tiles [
 
 	self isValid: tiles.
 	^ self new initializeOfTiles: tiles
 ]
 
 { #category : #initialization }
-Board >> addSpaceshipToATile: aSpaceship aTileNumber: aTileNumber [
+Board >> add: aSpaceship to: aTileNumber [
 	(tiles at: aTileNumber)addSpaceshipToTile: aSpaceship.
 
 ]
@@ -35,7 +35,7 @@ tiles:=aTileCollection
 ]
 
 { #category : #accessing }
-Board >> moveSpaceshipToAnotherTile: aSpaceship aTileNumber: aTileNumber [
+Board >> move: aSpaceship by: aTileNumber [
 	|beforeMovementTide afterMovementTide afterMovementPosition|
 	beforeMovementTide := tiles at:(self positionOf:aSpaceship).
 	afterMovementPosition := ((self positionOf: aSpaceship) + aTileNumber) min: (self tiles size).
@@ -50,11 +50,6 @@ Board >> positionOf: aSpaceship [
 	|tileThatHasTheSpaceship|
 	tileThatHasTheSpaceship := tiles detect: [:tile | tile isSpaceshipAtTile: aSpaceship].
 	^ (tiles indexOf: tileThatHasTheSpaceship).
-]
-
-{ #category : #accessing }
-Board >> tileNumber: number [
-	^tiles at: number
 ]
 
 { #category : #initialization }
