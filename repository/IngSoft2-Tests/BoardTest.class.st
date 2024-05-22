@@ -5,95 +5,34 @@ Class {
 }
 
 { #category : #tests }
-BoardTest >> testBoardTilesSizeEqualsTilesCollectionInTestSize [
+BoardTest >> testBoardCannotMoveSpaceshipOutOfIndex [
 
-| aTile1 aTile2 tiles aBoard |
-aTile1:=Tile create.
-aTile2:=Tile create.
-tiles:={aTile1. aTile2.}.
+	| firstTile secondTile tiles board aSpaceShip |
+	firstTile := NullEffect create.
+	secondTile := NullEffect create.
+	aSpaceShip := SpaceShip named: 'Walter'.
+	tiles := {
+		         firstTile.
+		         secondTile }.
 
-aBoard:=Board of: tiles.
-
-self assert: aBoard tiles size equals: tiles size.
+	board := Board of: tiles.
+	board move: aSpaceShip by: 4.
+	self assert: aSpaceShip position equals: 2
 ]
 
 { #category : #tests }
-BoardTest >> testIsValidWhenSpaceshipAtSecondTile [
+BoardTest >> testBoardTracksSpaceshipPositions [
 
-| firstTile secondTile tiles board |
-firstTile:=Tile create.
-secondTile:=Tile create.
-
-tiles:={firstTile. secondTile.}.
-board:=Board of:tiles.
-board add: 'Danny' to:1. 
-board add: 'Walter' to:2. 
-self assert:(board positionOf: 'Walter' ) equals: 2.
-self assert:(board positionOf: 'Danny' ) equals: 1.
-]
-
-{ #category : #tests }
-BoardTest >> testSpaceshipIsAtSecondTile [
-
-| firstTile secondTile tiles board |
-firstTile:=Tile create.
-secondTile:=Tile create.
-
-tiles:={firstTile. secondTile.}.
-
-board:=Board of:tiles.
-
-
-
-
-self assert:(board tiles at:1) equals: firstTile.
-self assert:(board tiles at:2) equals:secondTile.
-]
-
-{ #category : #tests }
-BoardTest >> testStartPlayingWithTwoSpaceships [
-
-| firstTile secondTile tiles board |
-firstTile:=Tile create.
-secondTile:=Tile create.
-
-tiles:={firstTile. secondTile.}.
-
-board:=Board of:tiles.
-self deny:(firstTile anySpaceship ).
-self deny:(secondTile anySpaceship ).
-board add: 'Danny' to:1. 
-board add: 'Walter' to:1. 
-self assert:(firstTile anySpaceship ).
-self deny:(secondTile anySpaceship).
-]
-
-{ #category : #tests }
-BoardTest >> testTileIndexIsCorrect [
-
-| firstTile secondTile tiles board |
-firstTile:=Tile create.
-secondTile:=Tile create.
-
-tiles:={firstTile. secondTile.}.
-
-board:=Board of:tiles.
-
-self assert:(board tiles at:1) equals: firstTile.
-self assert:(board tiles at:2) equals:secondTile.
-]
-
-{ #category : #tests }
-BoardTest >> testTileIndexIsWrong [
-
-| firstTile secondTile tiles board |
-firstTile:=Tile create.
-secondTile:=Tile create.
-
-tiles:={firstTile. secondTile.}.
-
-board:=Board of:tiles.
-
-self deny:(board tiles at:1) equals: secondTile.
-self deny:(board tiles at:2) equals: firstTile.
+	| firstTile secondTile tiles board spaceShip1 spaceShip2 |
+	firstTile := NullEffect create.
+	secondTile := NullEffect create.
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+	tiles := {
+		         firstTile.
+		         secondTile }.
+	board := Board of: tiles.
+	board move: spaceShip1 by: 1.
+	self assert: (board positionOf: spaceShip1) equals: 2.
+	self assert: (board positionOf: spaceShip2) equals: 1
 ]

@@ -10,51 +10,50 @@ Class {
 { #category : #'instance creation' }
 Board class >> isValid: tiles [
 
-	tiles size < 2 ifTrue: [
-		Error signal: 'Tiles should be 2 or more' ]
+	tiles size < 2 ifTrue: [ Error signal: 'Tiles should be 2 or more' ]
 ]
 
 { #category : #'instance initialization' }
 Board class >> of: tiles [
 
 	self isValid: tiles.
-	^ self new initializeOfTiles: tiles
+	^ self new initializeOf: tiles
 ]
 
 { #category : #initialization }
-Board >> add: aSpaceship to: aTileNumber [
-	(tiles at: aTileNumber)addSpaceshipToTile: aSpaceship.
+Board >> amountOfTiles [
 
+	^ tiles size
+]
+
+{ #category : #asserting }
+Board >> checkIfOutOfBounds: aSpaceShip [
+
+	| actualPosition |
+	actualPosition := aSpaceShip position.
+	self amountOfTiles - actualPosition < 0 ifTrue: [
+		aSpaceShip moveBy: self amountOfTiles - actualPosition ]
 ]
 
 { #category : #initialization }
-Board >> initializeOfTiles: aTileCollection [
+Board >> initializeOf: aTileCollection [
 
-tiles:=aTileCollection
-
+	tiles := aTileCollection
 ]
 
 { #category : #accessing }
-Board >> move: aSpaceship by: aTileNumber [
-	|beforeMovementTide afterMovementTide afterMovementPosition|
-	beforeMovementTide := tiles at:(self positionOf:aSpaceship).
-	afterMovementPosition := ((self positionOf: aSpaceship) + aTileNumber) min: (self tiles size).
-	afterMovementTide:= tiles at:(afterMovementPosition).
-	beforeMovementTide removeSpaceshipFromTiles: aSpaceship. 
-	afterMovementTide addSpaceshipToTile: aSpaceship.
-	
+Board >> move: aSpaceship by: diceRollerNumber [
+
+	| effectToApply |
+	aSpaceship moveBy: diceRollerNumber.
+	self checkIfOutOfBounds: aSpaceship.
+	effectToApply := tiles at: aSpaceship position.
+	effectToApply triggeredBy: aSpaceship.
+	self checkIfOutOfBounds: aSpaceship
 ]
 
 { #category : #accessing }
 Board >> positionOf: aSpaceship [
-	|tileThatHasTheSpaceship|
-	tileThatHasTheSpaceship := tiles detect: [:tile | tile isSpaceshipAtTile: aSpaceship].
-	^ (tiles indexOf: tileThatHasTheSpaceship).
-]
 
-{ #category : #initialization }
-Board >> tiles [
-
-^tiles
-
+	^ aSpaceship position
 ]

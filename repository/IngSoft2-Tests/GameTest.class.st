@@ -4,45 +4,80 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
-{ #category : #playing }
-GameTest >> playUntilFinished: aGame [ 
-	[aGame hasEnded] whileFalse:[aGame playNextTurn]
+{ #category : #initialization }
+GameTest >> initializeGameWithLoadedDieOf3And2PlayersAnd7NormalTiles [
+
+	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+	aBoard := Board of: {
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create }.
+
+	aDie1 := LoadedDie of: 3.
+
+	aGame := Game
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
+		         on: aBoard
+		         rolling: aDie1.
+	^ aGame
 ]
 
-{ #category : #asserting }
-GameTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage [ 
-	self should:anErrorBlock raise:anErrorClass withExceptionDo:[:error|self assert:error messageText equals:anErrorMessage].
+{ #category : #playing }
+GameTest >> playUntilFinished: aGame [
+
+	[ aGame hasEnded ] whileFalse: [ aGame playNextTurn ]
+]
+
+{ #category : #tests }
+GameTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage [
+
+	self
+		should: anErrorBlock
+		raise: anErrorClass
+		withExceptionDo: [ :error |
+		self assert: error messageText equals: anErrorMessage ]
 ]
 
 { #category : #tests }
 GameTest >> testCantRollAfterGameEnded [
 
-	| aGame aBoard aDie1 |
-
+	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
 	aBoard := Board of: {
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create. }.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create }.
 
 	aDie1 := LoadedDie of: 6.
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
 
 	aGame := Game
-		         playedBy: { 'Danny'. 'Walter' }
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
 		         on: aBoard
 		         rolling: aDie1.
 
 	self deny: aGame hasEnded.
-	self assert: (aGame positionOf: 'Danny') equals: 1.
-	self assert: (aGame positionOf: 'Walter') equals: 1.
+	self assert: (aGame positionOf: spaceShip1) equals: 1.
+	self assert: (aGame positionOf: spaceShip2) equals: 1.
 
 	aGame playNextTurn.
 	self assert: aGame hasEnded.
-	self assert: (aGame positionOf: 'Danny') equals: 7.
-	self assert: (aGame positionOf: 'Walter') equals: 1.
+	self assert: (aGame positionOf: spaceShip1) equals: 7.
+	self assert: (aGame positionOf: spaceShip2) equals: 1.
 
 	self
 		should: [ aGame playNextTurn ]
@@ -52,76 +87,57 @@ GameTest >> testCantRollAfterGameEnded [
 
 { #category : #tests }
 GameTest >> testGameHasEndedAsOneSpaceshipReachTheEnd [
-	| aGame aBoard aDie1 |
 
+	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board of: {
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create. }.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create }.
 
 	aDie1 := LoadedDie of: 3.
 
 	aGame := Game
-		         playedBy: { 'Danny'. 'Walter' }
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
 		         on: aBoard
 		         rolling: aDie1.
 
-	self assert: (aGame positionOf: 'Danny') equals: 1.
-	self assert: (aGame positionOf: 'Walter') equals: 1.
+	self assert: (aGame positionOf: spaceShip1) equals: 1.
+	self assert: (aGame positionOf: spaceShip2) equals: 1.
 
 	aGame playNextTurn.
 	self deny: aGame hasEnded.
-	self assert: (aGame positionOf: 'Danny') equals: 4.
-	self assert: (aGame positionOf: 'Walter') equals: 1.
+	self assert: (aGame positionOf: spaceShip1) equals: 4.
+	self assert: (aGame positionOf: spaceShip2) equals: 1.
 	aGame playNextTurn.
 	aGame playNextTurn.
 	self assert: aGame hasEnded.
-	self assert: (aGame positionOf: 'Danny') equals: 7.
-	self assert: (aGame positionOf: 'Walter') equals: 4
-]
-
-{ #category : #tests }
-GameTest >> testGameHasNotEndedAsNoSpaceshipReachedTheEnd [
-
-	| aGame aBoard aDie1 |
-
-	aBoard := Board of: {
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create. }.
-
-	aDie1 := LoadedDie of: 3.
-
-	aGame := Game
-		         playedBy: { 'Danny'. 'Walter' }
-		         on: aBoard
-		         rolling: aDie1.
-
-	self deny: aGame hasEnded
+	self assert: (aGame positionOf: spaceShip1) equals: 7.
+	self assert: (aGame positionOf: spaceShip2) equals: 4
 ]
 
 { #category : #tests }
 GameTest >> testGameIsPlayedWithTwoDice [
 
-	| aGame aBoard aDie1 aDie2 aDiceRoller|
-
+	| aGame aBoard aDie1 aDie2 aDiceRoller spaceShip1 spaceShip2 |
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board of: {
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-						 Tile create. }.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create }.
 
 	aDie1 := LoadedDie of: 3.
 	aDie2 := LoadedDie of: 3.
@@ -131,32 +147,33 @@ GameTest >> testGameIsPlayedWithTwoDice [
 			               aDie2 }.
 
 	aGame := Game
-		         playedBy: { 'Danny'. 'Walter' }
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
 		         on: aBoard
 		         rolling: aDiceRoller.
 
-	self assert: (aGame positionOf: 'Danny') equals: 1.
-	self assert: (aGame positionOf: 'Walter') equals: 1.
+	self assert: (aGame positionOf: spaceShip1) equals: 1.
+	self assert: (aGame positionOf: spaceShip2) equals: 1.
 
 	aGame playNextTurn.
 	self deny: aGame hasEnded.
-	self assert: (aGame positionOf: 'Danny') equals: 7.
-	self assert: (aGame positionOf: 'Walter') equals: 1
+	self assert: (aGame positionOf: spaceShip1) equals: 7.
+	self assert: (aGame positionOf: spaceShip2) equals: 1
 ]
 
 { #category : #tests }
-GameTest >> testGameMustHaveAtLeastOneSpaceship [
+GameTest >> testGameMustHaveAtLeastOnePlayer [
 
-	|aBoard aDie1 |
-
+	| aBoard aDie1 |
 	aBoard := Board of: {
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create. }.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create }.
 
 	aDie1 := LoadedDie of: 3.
 
@@ -170,51 +187,57 @@ GameTest >> testGameMustHaveAtLeastOneSpaceship [
 { #category : #tests }
 GameTest >> testGameWithLoadedDieOfFiveFaces [
 
-	| aGame aBoard aDie1 |
-
+	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board of: {
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create. }.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create }.
 
 	aDie1 := LoadedDie of: 5.
 
 	aGame := Game
-		         playedBy: { 'Walter'. 'Danny' }
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
 		         on: aBoard
 		         rolling: aDie1.
-	self assert: (aGame positionOf: 'Walter') equals: 1.
+	self assert: (aGame positionOf: spaceShip1) equals: 1.
 
 	aGame playNextTurn.
-	self assert: (aGame positionOf: 'Walter') equals: 6
+	self assert: (aGame positionOf: spaceShip1) equals: 6
 ]
 
 { #category : #tests }
 GameTest >> testGameWithRandomDie [
 
-	| aGame aBoard aDie1 |
-
+	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board of: {
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create. }.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create }.
 
 	aDie1 := Die of: 3.
 
 	aGame := Game
-		         playedBy: { 'Danny'. 'Walter' }
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
 		         on: aBoard
 		         rolling: aDie1.
 
 	self deny: aGame hasEnded.
-	self assert: (aGame positionOf: 'Danny') equals: 1.
-	self assert: (aGame positionOf: 'Walter') equals: 1.
+	self assert: (aGame positionOf: spaceShip1) equals: 1.
+	self assert: (aGame positionOf: spaceShip2) equals: 1.
 
 	self deny: aGame hasEnded.
 
@@ -226,27 +249,32 @@ GameTest >> testGameWithRandomDie [
 { #category : #tests }
 GameTest >> testGameWithTwoRandomDice [
 
-	| aGame aBoard aDie1 aDie2 aDiceRoller |
-
+	| aGame aBoard aDie1 aDie2 aDiceRoller spaceShip1 spaceShip2 |
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board of: {
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create. }.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create }.
 
 	aDie1 := Die of: 3.
 	aDie2 := Die of: 5.
-	
-	aDiceRoller :=DiceRoller of:{aDie1. aDie2.}.
+
+	aDiceRoller := DiceRoller of: {
+			               aDie1.
+			               aDie2 }.
 	aGame := Game
-		         playedBy: { 'Danny'. 'Walter' }
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
 		         on: aBoard
 		         rolling: aDie1.
 
 	self deny: aGame hasEnded.
-	self assert: (aGame positionOf: 'Danny') equals: 1.
-	self assert: (aGame positionOf: 'Walter') equals: 1.
+	self assert: (aGame positionOf: spaceShip1) equals: 1.
+	self assert: (aGame positionOf: spaceShip2) equals: 1.
 
 	self deny: aGame hasEnded.
 
@@ -256,277 +284,289 @@ GameTest >> testGameWithTwoRandomDice [
 ]
 
 { #category : #tests }
-GameTest >> testIsInvalidWhenThereIsNoWinner [
+GameTest >> testIsInvalidWhenTheWinnerIsNotAssignedCorrectly [
 
-	| aGame aBoard aDie1 |
-
+	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
 	aBoard := Board of: {
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create. }.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create }.
 
-	aDie1 := LoadedDie of: 3.
+	aDie1 := LoadedDie of: 6.
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
 
 	aGame := Game
-		         playedBy: { 'Danny'. 'Walter' }
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
 		         on: aBoard
 		         rolling: aDie1.
 
-	self
-		should: [ aGame winner ]
-		raise: Error
-		withMessage: 'Game is still playing.'
+	aGame playNextTurn.
+	self deny: aGame winner name equals: 'Walter'
 ]
 
 { #category : #tests }
-GameTest >> testIsValidWhenThereIsWinner [
+GameTest >> testIsValidWhenTheWinnerIsAssignedCorrectly [
 
-	| aGame aBoard aDie1 |
-
-	aBoard := Board of: {
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create. }.
-
-	aDie1 := LoadedDie of: 3.
-
-	aGame := Game
-		         playedBy: { 'Danny'. 'Walter' }
-		         on: aBoard
-		         rolling: aDie1.
+	| aGame |
+	aGame := self
+		         initializeGameWithLoadedDieOf3And2PlayersAnd7NormalTiles.
 	aGame playNextTurn.
 	aGame playNextTurn.
 	aGame playNextTurn.
-	self assert: aGame winner equals: 'Danny'
+	self assert: aGame winner name equals: 'Danny'
 ]
 
 { #category : #tests }
 GameTest >> testPlayerOneCanRollTheDiceAfterPlayerTwoTurn [
 
-	| aGame aBoard aDie1 |
-
+	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board of: {
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create. }.
-			
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create }.
+
 	aDie1 := LoadedDie of: 3.
 
 	aGame := Game
-		         playedBy: { 'Player1'. 'Player2' }
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
 		         on: aBoard
 		         rolling: aDie1.
+	aGame playNextTurn.
+	aGame playNextTurn.
 
-	aGame playNextTurn.
-	aGame playNextTurn.
-	self assert: (aGame positionOf: 'Player1') equals: 4.
-	self assert: (aGame positionOf: 'Player2') equals: 4.
-	self assert: aGame turnOf equals: 'Player1'
+	self assert: (aGame positionOf: spaceShip1) equals: 4.
+	self assert: (aGame positionOf: spaceShip2) equals: 4.
+	self assert: aGame nextTurn equals: spaceShip1
 ]
 
 { #category : #tests }
 GameTest >> testPlayerTwoCanRollTheDiceAfterPlayerOneTurn [
 
-	| aGame aBoard aDie1 |
-
+	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board of: {
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create. }.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create }.
 
 	aDie1 := LoadedDie of: 3.
 
 	aGame := Game
-		         playedBy: { 'Player1'. 'Player2' }
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
 		         on: aBoard
 		         rolling: aDie1.
 
 	aGame playNextTurn.
-	self assert: (aGame positionOf: 'Player1') equals: 4.
-	self assert: aGame turnOf equals: 'Player2'
+	self assert: (aGame positionOf: spaceShip1) equals: 4.
+	self assert: aGame nextTurn equals: spaceShip2
 ]
 
 { #category : #tests }
 GameTest >> testSpaceshipsStartAtFirstTile [
 
-	| aGame aBoard aDie1 |
-
+	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board of: {
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create. }.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create }.
+
 	aDie1 := LoadedDie of: 3.
 
 	aGame := Game
-		         playedBy: { 'Danny'. 'Walter' }
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
 		         on: aBoard
 		         rolling: aDie1.
 
-	self assert: (aGame positionOf: 'Danny') equals: 1.
-	self assert: (aGame positionOf: 'Walter') equals: 1
+	self assert: (aGame positionOf: spaceShip1) equals: 1.
+	self assert: (aGame positionOf: spaceShip2) equals: 1
 ]
 
 { #category : #tests }
 GameTest >> testTurnsWhenThreePlayersArePLaying [
 
-	| aGame aBoard aDie1 |
+	| aGame aBoard aDie1 spaceShip1 spaceShip2 spaceShip3 |
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+	spaceShip3 := SpaceShip named: 'Joseph'.
+
 
 	aBoard := Board of: {
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create. }.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create }.
 
 	aDie1 := LoadedDie of: 3.
 
 	aGame := Game
-		         playedBy: { 'Player1'. 'Player2'.'Player3' }
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2.
+				         spaceShip3 }
 		         on: aBoard
 		         rolling: aDie1.
 
 	aGame playNextTurn.
-	self assert: (aGame positionOf: 'Player1') equals: 4.
-		
-	aGame playNextTurn.
-	self assert: (aGame positionOf: 'Player2') equals: 4.
-	
-	aGame playNextTurn.
-	self assert: (aGame positionOf: 'Player3') equals: 4.
+	self assert: (aGame positionOf: spaceShip1) equals: 4.
 
+	aGame playNextTurn.
+	self assert: (aGame positionOf: spaceShip2) equals: 4.
+
+	aGame playNextTurn.
+	self assert: (aGame positionOf: spaceShip3) equals: 4
 ]
 
 { #category : #tests }
 GameTest >> testWhenItIsPlayerTwoTurnPlayerOneCantRoll [
 
-	| aGame aBoard aDie1 |
-
+	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board of: {
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create.
-			          Tile create. }.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create }.
 
 	aDie1 := LoadedDie of: 3.
 
 	aGame := Game
-		         playedBy: { 'Player1'. 'Player2' }
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
 		         on: aBoard
 		         rolling: aDie1.
 
 	aGame playNextTurn.
-	self assert: (aGame positionOf: 'Player1') equals: 4.
-	self deny: aGame turnOf equals: 'Player1'
+	self assert: (aGame positionOf: spaceShip1) equals: 4.
+	self deny: aGame nextTurn equals: spaceShip1
 ]
 
 { #category : #tests }
 GameTest >> testWormholeGoesBackwards [
 
-	| aGame wormholeTile3 wormholeTile5 aBoard aDie1|
-	wormholeTile3 := WormholeTile create.
-	wormholeTile5 := WormholeTile create.
-	wormholeTile5 linkATileToTheWormhole: wormholeTile3.
-	wormholeTile3 linkATileToTheWormhole: wormholeTile5.
+	| aGame wormholeTile3 wormholeTile5 aBoard aDie1 spaceShip1 spaceShip2 |
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+	wormholeTile3 := WormholeEffect betweenTiles: { 3. 5 }.
+	wormholeTile5 := WormholeEffect betweenTiles: { 5. 3 }.
 
 	aBoard := Board of: {
-			          Tile create.
-			          Tile create.
+			          NullEffect create.
+			          NullEffect create.
 			          wormholeTile3.
-			          Tile create.
+			          NullEffect create.
 			          wormholeTile5.
-			          Tile create.
-			          Tile create. }.
+			          NullEffect create.
+			          NullEffect create }.
 
 	aDie1 := LoadedDie of: 4.
 
 	aGame := Game
-		         playedBy: { 'Danny'. 'Walter' }
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
 		         on: aBoard
 		         rolling: aDie1.
 
 	aGame playNextTurn.
 
-	self assert: (aGame positionOf: 'Danny') equals: 3
+	self assert: (aGame positionOf: spaceShip1) equals: 3
 ]
 
 { #category : #tests }
 GameTest >> testWormholeGoesForward [
 
-	| aGame wormholeTile4 wormholeTile7 aBoard aDie1|
-	wormholeTile4 := WormholeTile create.
-	wormholeTile7 := WormholeTile create.
-	wormholeTile7 linkATileToTheWormhole: wormholeTile4.
-	wormholeTile4 linkATileToTheWormhole: wormholeTile7.
+	| aGame wormholeTile4 wormholeTile7 aBoard aDie1 spaceShip1 spaceShip2 |
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+	wormholeTile4 := WormholeEffect betweenTiles: { 4. 7 }.
+	wormholeTile7 := WormholeEffect betweenTiles: { 7. 4 }.
 	aBoard := Board of: {
-			          Tile create.
-			          Tile create.
-			          Tile create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
 			          wormholeTile4.
-			          Tile create.
-			          Tile create.
+			          NullEffect create.
+			          NullEffect create.
 			          wormholeTile7 }.
 	aDie1 := LoadedDie of: 3.
 
 	aGame := Game
-		         playedBy: { 'Danny'. 'Walter' }
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
 		         on: aBoard
 		         rolling: aDie1.
 
 	aGame playNextTurn.
 
-	self assert: (aGame positionOf: 'Danny') equals: 7
+	self assert: (aGame positionOf: spaceShip1) equals: 7
 ]
 
 { #category : #tests }
 GameTest >> testWormholeIsNotOnANormalTile [
 
-	| aGame wormholeTile3 wormholeTile7 aBoard aDie1|
-	wormholeTile3 := WormholeTile create.
-	wormholeTile7 := WormholeTile create.
-	wormholeTile3 linkATileToTheWormhole: wormholeTile7.
-	wormholeTile7 linkATileToTheWormhole: wormholeTile3.
+	| aGame wormholeTile3 wormholeTile7 aBoard aDie1 spaceShip1 spaceShip2 |
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+	wormholeTile3 := WormholeEffect betweenTiles: { 3. 7 }.
+	wormholeTile7 := WormholeEffect betweenTiles: { 7. 3 }.
 	aBoard := Board of: {
-			          Tile create.
-			          Tile create.
+			          NullEffect create.
+			          NullEffect create.
 			          wormholeTile3.
-			          Tile create.
-			          Tile create.
-			          Tile create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
 			          wormholeTile7 }.
 
 	aDie1 := LoadedDie of: 4.
 
 	aGame := Game
-		         playedBy: { 'Danny'. 'Walter' }
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
 		         on: aBoard
 		         rolling: aDie1.
 
 	aGame playNextTurn.
 
-	self assert: (aGame positionOf: 'Danny') equals: 5
+	self assert: (aGame positionOf: spaceShip1) equals: 5
 ]
