@@ -16,7 +16,7 @@ NullEffect >> initializeOf: aCollection [
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #playing }
 NullEffect >> triggeredBy: aPlayer [
 
 	aPlayer moveBy: 0

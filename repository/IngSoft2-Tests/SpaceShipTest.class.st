@@ -4,7 +4,7 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
-{ #category : #running }
+{ #category : #tests }
 SpaceShipTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage [
 
 	self

@@ -22,13 +22,13 @@ LoadedDie class >> of: anAmountOfFaces [
 	^ self new initializeOf: anAmountOfFaces
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 LoadedDie >> initializeOf: anAmountOfFaces [
 
 	faces := anAmountOfFaces
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #playing }
 LoadedDie >> roll [
 
 	^ faces

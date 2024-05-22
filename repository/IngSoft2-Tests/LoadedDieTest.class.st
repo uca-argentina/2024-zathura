@@ -4,7 +4,7 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
-{ #category : #asserting }
+{ #category : #tests }
 LoadedDieTest >> should: aErrorBlock raise: anErrorClass withMessage: anErrorMessage [
 
 	self

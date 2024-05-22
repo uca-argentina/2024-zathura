@@ -4,7 +4,7 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
-{ #category : #playing }
+{ #category : #initialization }
 GameTest >> initializeGameWithLoadedDieOf3And2PlayersAnd7NormalTiles [
 
 	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
@@ -36,7 +36,7 @@ GameTest >> playUntilFinished: aGame [
 	[ aGame hasEnded ] whileFalse: [ aGame playNextTurn ]
 ]
 
-{ #category : #asserting }
+{ #category : #tests }
 GameTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage [
 
 	self

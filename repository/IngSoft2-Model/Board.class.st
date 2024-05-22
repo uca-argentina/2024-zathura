@@ -26,7 +26,7 @@ Board >> amountOfTiles [
 	^ tiles size
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #asserting }
 Board >> checkIfOutOfBounds: aSpaceShip [
 
 	| actualPosition |

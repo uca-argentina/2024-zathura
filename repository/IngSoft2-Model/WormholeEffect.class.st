@@ -28,7 +28,7 @@ WormholeEffect >> initialize: aNumberOfTilesToMove [
 	tilesToMove := aNumberOfTilesToMove
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #playing }
 WormholeEffect >> triggeredBy: aPlayer [
 
 	aPlayer moveBy: tilesToMove

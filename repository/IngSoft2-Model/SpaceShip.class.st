@@ -29,13 +29,13 @@ SpaceShip >> initialize: aName [
 	position := 1
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #playing }
 SpaceShip >> moveBy: aNumber [
 
 	position := position + aNumber
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 SpaceShip >> name [
 
 	^ name

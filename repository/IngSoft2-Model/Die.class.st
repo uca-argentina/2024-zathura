@@ -28,7 +28,7 @@ Die >> initializeOf: anAmountOfFaces [
 	faces := anAmountOfFaces
 ]
 
-{ #category : #initialization }
+{ #category : #playing }
 Die >> roll [
 
 	^ faces atRandom
