@@ -4,6 +4,11 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
+{ #category : #asserting }
+WormTestEffectTest >> should: aErrorBlock raise: anErrorClass withMessage: anErrorMessage [ 
+	self should: aErrorBlock raise: anErrorClass withExceptionDo: [:error|self assert: error messageText equals:anErrorMessage].
+]
+
 { #category : #running }
 WormTestEffectTest >> testWormholeEffectCannotBeCreatedIfThereIsOnlyOneWormhole [
 
