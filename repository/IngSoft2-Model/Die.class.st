@@ -23,12 +23,13 @@ Die class >> of: anAmountOfFaces [
 ]
 
 { #category : #initialization }
-Die >> initializeOf:anAmountOfFaces [
+Die >> initializeOf: anAmountOfFaces [
 
-faces:=anAmountOfFaces
+	faces := anAmountOfFaces
 ]
 
-{ #category : #initialization }
-Die >> roll [ 
-^faces atRandom.
+{ #category : #playing }
+Die >> roll [
+
+	^ faces atRandom
 ]

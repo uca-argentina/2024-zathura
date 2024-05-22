@@ -8,16 +8,16 @@ Class {
 }
 
 { #category : #'instance creation' }
-DiceRoller class >> hasValidNumberOfTiles: dice [
+DiceRoller class >> hasValidNumberOfDice: dice [
 
-	dice ifEmpty: [
-		Error signal: 'A DiceRoller must have at least one die' ]
+	dice size < 2 ifTrue: [
+		Error signal: 'A DiceRoller must have more than one die' ]
 ]
 
 { #category : #'instance creation' }
 DiceRoller class >> of: dice [
 
-	self hasValidNumberOfTiles: dice.
+	self hasValidNumberOfDice: dice.
 
 	^ self new initializeOf: dice
 ]
@@ -25,11 +25,11 @@ DiceRoller class >> of: dice [
 { #category : #initialization }
 DiceRoller >> initializeOf: aDice [
 
-dice:=aDice
+	dice := aDice
 ]
 
 { #category : #rolling }
 DiceRoller >> roll [
 
-^dice sum:[:die|die roll]
+	^ dice sum: [ :die | die roll ]
 ]
