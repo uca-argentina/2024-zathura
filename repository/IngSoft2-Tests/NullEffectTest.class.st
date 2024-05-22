@@ -6,9 +6,10 @@ Class {
 
 { #category : #running }
 NullEffectTest >> testWhenSpaceShipsLandItDoesNothingToIt [
+
 	| aSpaceShip aNullEffectTile |
-	aNullEffectTile :=NullEffect create.
-	aSpaceShip:= SpaceShip named:'Danny'.
+	aNullEffectTile := NullEffect create.
+	aSpaceShip := SpaceShip named: 'Danny'.
 	aNullEffectTile triggeredBy: aSpaceShip.
-	self assert:(aSpaceShip getPosition ) equals: 1.
+	self assert: aSpaceShip position equals: 1
 ]

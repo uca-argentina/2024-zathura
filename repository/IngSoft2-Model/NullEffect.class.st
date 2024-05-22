@@ -1,9 +1,6 @@
 Class {
 	#name : #NullEffect,
 	#superclass : #Object,
-	#instVars : [
-		'spaceshipsAtTile'
-	],
 	#category : #'IngSoft2-Model'
 }
 
@@ -14,10 +11,13 @@ NullEffect class >> create [
 ]
 
 { #category : #initialization }
-NullEffect >> initializeOf:aCollection [
+NullEffect >> initializeOf: aCollection [
+
+	
 ]
 
 { #category : #'as yet unclassified' }
 NullEffect >> triggeredBy: aPlayer [
-	aPlayer moveBy:0
+
+	aPlayer moveBy: 0
 ]

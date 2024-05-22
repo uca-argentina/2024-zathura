@@ -10,34 +10,39 @@ Class {
 
 { #category : #asserting }
 SpaceShip class >> assertValidNameFor: aName [
+
 	aName isEmpty ifTrue: [
 		Error signal: 'Ship cant be created without a name' ]
 ]
 
 { #category : #'instance creation' }
 SpaceShip class >> named: aName [
-	self assertValidNameFor: aName.
-	^ self new
-		  initializeSpaceShip: aName
-]
 
-{ #category : #'accessing - arguments' }
-SpaceShip >> getPosition [
-	 ^position
+	self assertValidNameFor: aName.
+	^ self new initialize: aName
 ]
 
 { #category : #initialization }
-SpaceShip >> initializeSpaceShip: aName [
-	name:=aName.
-	position:=1.
+SpaceShip >> initialize: aName [
+
+	name := aName.
+	position := 1
 ]
 
 { #category : #'as yet unclassified' }
 SpaceShip >> moveBy: aNumber [
-	position :=  position + aNumber.
+
+	position := position + aNumber
 ]
 
 { #category : #'as yet unclassified' }
-SpaceShip >> nameGetter [
-	^name
+SpaceShip >> name [
+
+	^ name
+]
+
+{ #category : #'accessing - arguments' }
+SpaceShip >> position [
+
+	^ position
 ]

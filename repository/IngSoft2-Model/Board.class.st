@@ -10,8 +10,7 @@ Class {
 { #category : #'instance creation' }
 Board class >> isValid: tiles [
 
-	tiles size < 2 ifTrue: [
-		Error signal: 'Tiles should be 2 or more' ]
+	tiles size < 2 ifTrue: [ Error signal: 'Tiles should be 2 or more' ]
 ]
 
 { #category : #'instance initialization' }
@@ -21,52 +20,40 @@ Board class >> of: tiles [
 	^ self new initializeOf: tiles
 ]
 
+{ #category : #initialization }
+Board >> amountOfTiles [
+
+	^ tiles size
+]
+
 { #category : #'as yet unclassified' }
-Board >> checkIfSpaceShipIsOutOfBoard: aSpaceShip [
-	|actualPosition|
-	actualPosition:= aSpaceShip getPosition.
-	self tilesLenght - actualPosition < 0 ifTrue:[aSpaceShip moveBy:(self tilesLenght - actualPosition) ] 
+Board >> checkIfOutOfBounds: aSpaceShip [
+
+	| actualPosition |
+	actualPosition := aSpaceShip position.
+	self amountOfTiles - actualPosition < 0 ifTrue: [
+		aSpaceShip moveBy: self amountOfTiles - actualPosition ]
 ]
 
 { #category : #initialization }
 Board >> initializeOf: aTileCollection [
 
-tiles:=aTileCollection
-
+	tiles := aTileCollection
 ]
 
 { #category : #accessing }
 Board >> move: aSpaceship by: diceRollerNumber [
-	|effectToApply|
-	aSpaceship moveBy:diceRollerNumber.
-	self checkIfSpaceShipIsOutOfBoard: aSpaceship.
-	effectToApply:=tiles at: aSpaceship getPosition .
+
+	| effectToApply |
+	aSpaceship moveBy: diceRollerNumber.
+	self checkIfOutOfBounds: aSpaceship.
+	effectToApply := tiles at: aSpaceship position.
 	effectToApply triggeredBy: aSpaceship.
-	self checkIfSpaceShipIsOutOfBoard: aSpaceship.
-	
-	
+	self checkIfOutOfBounds: aSpaceship
 ]
 
 { #category : #accessing }
 Board >> positionOf: aSpaceship [
-	^ aSpaceship getPosition.
-]
 
-{ #category : #accessing }
-Board >> tileNumber: number [
-	^tiles at: number
-]
-
-{ #category : #initialization }
-Board >> tiles [
-
-^tiles
-
-]
-
-{ #category : #initialization }
-Board >> tilesLenght [
-
-^tiles size
-
+	^ aSpaceship position
 ]

@@ -24,11 +24,12 @@ LoadedDie class >> of: anAmountOfFaces [
 
 { #category : #'as yet unclassified' }
 LoadedDie >> initializeOf: anAmountOfFaces [
-faces:= anAmountOfFaces
+
+	faces := anAmountOfFaces
 ]
 
 { #category : #'as yet unclassified' }
 LoadedDie >> roll [
 
-^faces.
+	^ faces
 ]

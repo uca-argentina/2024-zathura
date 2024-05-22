@@ -29,15 +29,15 @@ Game class >> playedBy: someSpaceShips on: aBoard rolling: dice [
 
 { #category : #playing }
 Game >> changeTurns [
-		spaceships add: spaceships first.
-		spaceships removeFirst.
 
-	
+	spaceships add: spaceships first.
+	spaceships removeFirst
 ]
 
 { #category : #testing }
 Game >> hasEnded [
-^hasEnded
+
+	^ hasEnded
 ]
 
 { #category : #initialization }
@@ -46,7 +46,7 @@ Game >> initializePlayedBy: someSpaceShips on: aBoard rolling: dice [
 	board := aBoard.
 	diceCollection := dice.
 	spaceships := someSpaceShips asOrderedCollection.
-	hasEnded := false.
+	hasEnded := false
 ]
 
 { #category : #playing }
@@ -60,40 +60,39 @@ Game >> move: aSpaceship withRollingResult: aResult [
 ]
 
 { #category : #playing }
+Game >> nextTurn [
+
+	| spaceshipTurn |
+	spaceshipTurn := spaceships first.
+	^ spaceshipTurn
+]
+
+{ #category : #playing }
 Game >> playNextTurn [
-	| rollingResult spaceshipTurn|
-	self hasEnded ifTrue: [Error signal: 'Game has already ended'].
-	spaceshipTurn:= self turnOf.
-	self changeTurns .
-	rollingResult:=diceCollection roll.
-	self move: spaceshipTurn withRollingResult:rollingResult.
-	(self positionOf: spaceshipTurn) >= (board tiles) size ifTrue:[hasEnded:=true].
 
-
-	
+	| rollingResult spaceshipTurn |
+	self hasEnded ifTrue: [ Error signal: 'Game has already ended' ].
+	spaceshipTurn := self nextTurn.
+	self changeTurns.
+	rollingResult := diceCollection roll.
+	self move: spaceshipTurn withRollingResult: rollingResult.
+	(self positionOf: spaceshipTurn) >= board amountOfTiles ifTrue: [
+		hasEnded := true ]
 ]
 
 { #category : #accessing }
 Game >> positionOf: aSpaceship [
 
-	^(board positionOf: aSpaceship ).
-]
-
-{ #category : #playing }
-Game >> turnOf [
-		|spaceshipTurn|
-		spaceshipTurn := spaceships first.
-		^spaceshipTurn 
-
-	
+	^ board positionOf: aSpaceship
 ]
 
 { #category : #asserting }
 Game >> winner [
-	|winner|
-	(self hasEnded) ifFalse:[^ self hasEnded ].
-	
-	winner :=  spaceships detect: [:aSpaceship|aSpaceship getPosition = board tilesLenght ].
+
+	| winner |
+	self hasEnded ifFalse: [ ^ self hasEnded ].
+
+	winner := spaceships detect: [ :aSpaceship |
+		          aSpaceship position = board amountOfTiles ].
 	^ winner
-	
 ]
