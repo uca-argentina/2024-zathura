@@ -5,6 +5,20 @@ Class {
 }
 
 { #category : #tests }
+BoardTest >> testBoardCannotMoveOutOfIndex [
+
+| firstTile secondTile tiles board aSpaceShip|
+firstTile:=NullEffect create.
+secondTile:=NullEffect create.
+aSpaceShip:=SpaceShip named:'Walter'.
+tiles:={firstTile. secondTile.}.
+
+board:=Board of:tiles.
+board move:aSpaceShip by: 4.
+self assert:(aSpaceShip getPosition ) equals: 2.
+]
+
+{ #category : #tests }
 BoardTest >> testBoardTilesSizeEqualsTilesCollectionInTestSize [
 
 | aTile1 aTile2 tiles aBoard |
