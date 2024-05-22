@@ -15,41 +15,41 @@ Board class >> isValid: tiles [
 ]
 
 { #category : #'instance initialization' }
-Board class >> ofTiles: tiles [
+Board class >> of: tiles [
 
 	self isValid: tiles.
-	^ self new initializeOfTiles: tiles
+	^ self new initializeOf: tiles
+]
+
+{ #category : #'as yet unclassified' }
+Board >> checkIfSpaceShipIsOutOfBoard: aSpaceShip [
+	|actualPosition|
+	actualPosition:= aSpaceShip getPosition.
+	self tilesLenght - actualPosition < 0 ifTrue:[aSpaceShip moveBy:(self tilesLenght - actualPosition) ] 
 ]
 
 { #category : #initialization }
-Board >> addSpaceshipToATile: aSpaceship aTileNumber: aTileNumber [
-	(tiles at: aTileNumber)addSpaceshipToTile: aSpaceship.
-
-]
-
-{ #category : #initialization }
-Board >> initializeOfTiles: aTileCollection [
+Board >> initializeOf: aTileCollection [
 
 tiles:=aTileCollection
 
 ]
 
 { #category : #accessing }
-Board >> moveSpaceshipToAnotherTile: aSpaceship aTileNumber: aTileNumber [
-	|beforeMovementTide afterMovementTide afterMovementPosition|
-	beforeMovementTide := tiles at:(self positionOf:aSpaceship).
-	afterMovementPosition := ((self positionOf: aSpaceship) + aTileNumber) min: (self tiles size).
-	afterMovementTide:= tiles at:(afterMovementPosition).
-	beforeMovementTide removeSpaceshipFromTiles: aSpaceship. 
-	afterMovementTide addSpaceshipToTile: aSpaceship.
+Board >> move: aSpaceship by: diceRollerNumber [
+	|effectToApply|
+	aSpaceship moveBy:diceRollerNumber.
+	self checkIfSpaceShipIsOutOfBoard: aSpaceship.
+	effectToApply:=tiles at: aSpaceship getPosition .
+	effectToApply triggeredBy: aSpaceship.
+	self checkIfSpaceShipIsOutOfBoard: aSpaceship.
+	
 	
 ]
 
 { #category : #accessing }
 Board >> positionOf: aSpaceship [
-	|tileThatHasTheSpaceship|
-	tileThatHasTheSpaceship := tiles detect: [:tile | tile isSpaceshipAtTile: aSpaceship].
-	^ (tiles indexOf: tileThatHasTheSpaceship).
+	^ aSpaceship getPosition.
 ]
 
 { #category : #accessing }
@@ -61,5 +61,12 @@ Board >> tileNumber: number [
 Board >> tiles [
 
 ^tiles
+
+]
+
+{ #category : #initialization }
+Board >> tilesLenght [
+
+^tiles size
 
 ]

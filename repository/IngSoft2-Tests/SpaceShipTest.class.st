@@ -20,8 +20,8 @@ SpaceShipTest >> testASpaceshipCanBeCreatedWithAName [
 SpaceShipTest >> testASpaceshipCanMoveBackwards [
 	| aSpaceShip |
 	aSpaceShip:= SpaceShip named:'Danny'.
-	aSpaceShip movePosition: 5.
-	aSpaceShip movePosition: -2.
+	aSpaceShip moveBy: 5.
+	aSpaceShip moveBy: -2.
 	self assert:(aSpaceShip getPosition ) equals: 4.
 ]
 
@@ -39,7 +39,7 @@ SpaceShipTest >> testASpaceshipCannotBeCreatedWithoutAName [
 SpaceShipTest >> testASpaceshipIsMovedOnePosition [
 	| aSpaceShip |
 	aSpaceShip:= SpaceShip named:'Danny'.
-	aSpaceShip movePosition: 1.
+	aSpaceShip moveBy: 1.
 	self assert:(aSpaceShip getPosition ) equals: 2.
 	
 ]

@@ -21,6 +21,11 @@ SpaceShip class >> named: aName [
 		  initializeSpaceShip: aName
 ]
 
+{ #category : #'accessing - arguments' }
+SpaceShip >> getPosition [
+	 ^position
+]
+
 { #category : #initialization }
 SpaceShip >> initializeSpaceShip: aName [
 	name:=aName.
@@ -28,7 +33,7 @@ SpaceShip >> initializeSpaceShip: aName [
 ]
 
 { #category : #'as yet unclassified' }
-SpaceShip >> movePosition: aNumber [
+SpaceShip >> moveBy: aNumber [
 	position :=  position + aNumber.
 ]
 
