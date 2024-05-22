@@ -5,62 +5,34 @@ Class {
 }
 
 { #category : #tests }
-BoardTest >> testBoardTilesSizeEqualsTilesCollectionInTestSize [
+BoardTest >> testBoardCannotMoveSpaceshipOutOfIndex [
 
-| aTile1 aTile2 tiles aBoard |
-aTile1:=Tile create.
-aTile2:=Tile create.
-tiles:={aTile1. aTile2.}.
+	| firstTile secondTile tiles board aSpaceShip |
+	firstTile := NullEffect create.
+	secondTile := NullEffect create.
+	aSpaceShip := SpaceShip named: 'Walter'.
+	tiles := {
+		         firstTile.
+		         secondTile }.
 
-aBoard:=Board ofTiles: tiles.
-
-self assert: aBoard tiles size equals: tiles size.
+	board := Board of: tiles.
+	board move: aSpaceShip by: 4.
+	self assert: aSpaceShip position equals: 2
 ]
 
 { #category : #tests }
 BoardTest >> testBoardTracksSpaceshipPositions [
 
-| firstTile secondTile tiles board |
-firstTile:=Tile create.
-secondTile:=Tile create.
-
-tiles:={firstTile. secondTile.}.
-board:=Board ofTiles:tiles.
-board addSpaceshipToATile: 'Danny' aTileNumber:1. 
-board addSpaceshipToATile: 'Walter' aTileNumber:2. 
-self assert:(board positionOf: 'Walter' ) equals: 2.
-self assert:(board positionOf: 'Danny' ) equals: 1.
-]
-
-{ #category : #tests }
-BoardTest >> testStartPlayingWithTwoSpaceshipsThatStartOnFirstTile [
-
-| firstTile secondTile tiles board |
-firstTile:=Tile create.
-secondTile:=Tile create.
-
-tiles:={firstTile. secondTile.}.
-
-board:=Board ofTiles:tiles.
-self deny:(firstTile anySpaceshipAtTile ).
-self deny:(secondTile anySpaceshipAtTile ).
-board addSpaceshipToATile: 'Danny' aTileNumber:1. 
-board addSpaceshipToATile: 'Walter' aTileNumber:1. 
-self assert:(firstTile anySpaceshipAtTile ).
-self deny:(secondTile anySpaceshipAtTile ).
-]
-
-{ #category : #tests }
-BoardTest >> testTileIndexIsCorrectlyAssigned [
-
-| firstTile secondTile tiles board |
-firstTile:=Tile create.
-secondTile:=Tile create.
-
-tiles:={firstTile. secondTile.}.
-
-board:=Board ofTiles:tiles.
-
-self assert:(board tileNumber:1) equals: firstTile.
-self assert:(board tileNumber:2) equals:secondTile.
+	| firstTile secondTile tiles board spaceShip1 spaceShip2 |
+	firstTile := NullEffect create.
+	secondTile := NullEffect create.
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+	tiles := {
+		         firstTile.
+		         secondTile }.
+	board := Board of: tiles.
+	board move: spaceShip1 by: 1.
+	self assert: (board positionOf: spaceShip1) equals: 2.
+	self assert: (board positionOf: spaceShip2) equals: 1
 ]
