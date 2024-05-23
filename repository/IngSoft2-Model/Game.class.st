@@ -5,7 +5,9 @@ Class {
 		'board',
 		'spaceships',
 		'diceCollection',
-		'hasEnded'
+		'hasEnded',
+		'maxRoll',
+		'fuelAmount'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -46,7 +48,10 @@ Game >> initializePlayedBy: someSpaceShips on: aBoard rolling: dice [
 	board := aBoard.
 	diceCollection := dice.
 	spaceships := someSpaceShips asOrderedCollection.
-	hasEnded := false
+	hasEnded := false.
+	maxRoll:=diceCollection maxRoll.
+	fuelAmount := 2*maxRoll.
+	spaceships do: [:aSpaceShip | aSpaceShip fuel: fuelAmount].
 ]
 
 { #category : #accessing }

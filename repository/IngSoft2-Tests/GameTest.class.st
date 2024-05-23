@@ -132,6 +132,116 @@ self
 ]
 
 { #category : #tests }
+GameTest >> test04MaxRoll [
+
+	| aGame aBoard aDie1 aDie2 aDiceRoller spaceShip1 spaceShip2 |
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+	aBoard := Board of: {
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create }
+			finishingAfter:2.
+
+	aDie1 := LoadedDie of: 3.
+	aDie2 := LoadedDie of: 3.
+
+	aDiceRoller := DiceRoller of: {
+			               aDie1.
+			               aDie2 }.
+
+	aGame := Game
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
+		         on: aBoard
+		         rolling: aDiceRoller.
+
+	self assert:(aDiceRoller maxRoll) equals:6.
+]
+
+{ #category : #tests }
+GameTest >> test05SpaceshipFuel [
+
+	| aGame aBoard aDie1 aDie2 aDiceRoller spaceShip1 spaceShip2 |
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+	aBoard := Board of: {
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create }
+			finishingAfter:2.
+
+	aDie1 := LoadedDie of: 3.
+	aDie2 := LoadedDie of: 3.
+
+	aDiceRoller := DiceRoller of: {
+			               aDie1.
+			               aDie2 }.
+
+	aGame := Game
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
+		         on: aBoard
+		         rolling: aDiceRoller.
+
+	self assert:(spaceShip1 amountOfFuel) equals:12.
+	self assert:(spaceShip2 amountOfFuel) equals:12.
+]
+
+{ #category : #tests }
+GameTest >> test06WhenASpaceshipMovesItHasLessFuel [
+
+	| aGame aBoard aDie1 aDie2 aDiceRoller spaceShip1 spaceShip2 |
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+	aBoard := Board of: {
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create }
+			finishingAfter:2.
+
+	aDie1 := LoadedDie of: 3.
+	aDie2 := LoadedDie of: 3.
+
+	aDiceRoller := DiceRoller of: {
+			               aDie1.
+			               aDie2 }.
+
+	aGame := Game
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
+		         on: aBoard
+		         rolling: aDiceRoller.
+
+	self assert:(spaceShip1 amountOfFuel) equals:12.
+	self assert:(spaceShip2 amountOfFuel) equals:12.
+	
+	
+	aGame playNextTurn.
+	
+	self assert:(spaceShip1 amountOfFuel) equals:6.	
+
+]
+
+{ #category : #tests }
 GameTest >> testCantRollAfterGameEnded [
 
 	| aGame aBoard aDie1 spaceShip1 spaceShip2 |

@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'name',
 		'position',
-		'lap'
+		'lap',
+		'fuel'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -23,11 +24,24 @@ SpaceShip class >> named: aName [
 	^ self new initialize: aName
 ]
 
-{ #category : #playing }
-SpaceShip >> hasTileNumber:newPosition and:newLap [
+{ #category : #'as yet unclassified' }
+SpaceShip >> amountOfFuel [
+
+^fuel
+]
+
+{ #category : #initialization }
+SpaceShip >> fuel:amountOfFuel [
+
+fuel:=amountOfFuel
+]
+
+{ #category : #testing }
+SpaceShip >> hasTileNumber:newPosition and:newLap with: newAmountOfFuel [
 
 position:=newPosition.
 lap:=newLap.
+fuel:=newAmountOfFuel.
 ]
 
 { #category : #initialization }
