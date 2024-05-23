@@ -82,7 +82,7 @@ Game >> playNextTurn [
 	self changeTurns.
 	rollingResult := diceCollection roll.
 	self move: spaceshipTurn withRollingResult: rollingResult.
-	(self positionOf: spaceshipTurn) >= board amountOfTiles ifTrue: [
+	(board spaceshipInLastTileAndLap: spaceshipTurn) ifTrue: [
 		hasEnded := true ]
 ]
 
@@ -99,6 +99,6 @@ Game >> winner [
 	self hasEnded ifFalse: [ ^ self hasEnded ].
 
 	winner := spaceships detect: [ :aSpaceship |
-		          aSpaceship position = board amountOfTiles ].
+		          aSpaceship position = board amountOfTiles and: [aSpaceship lap=board laps]].
 	^ winner
 ]

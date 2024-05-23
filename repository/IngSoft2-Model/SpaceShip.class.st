@@ -23,6 +23,13 @@ SpaceShip class >> named: aName [
 	^ self new initialize: aName
 ]
 
+{ #category : #playing }
+SpaceShip >> hasTileNumber:newPosition and:newLap [
+
+position:=newPosition.
+lap:=newLap.
+]
+
 { #category : #initialization }
 SpaceShip >> initialize: aName [
 
