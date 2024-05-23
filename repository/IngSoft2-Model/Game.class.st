@@ -6,8 +6,7 @@ Class {
 		'spaceships',
 		'diceCollection',
 		'hasEnded',
-		'maxRoll',
-		'fuelAmount'
+		'maxRoll'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -50,8 +49,7 @@ Game >> initializePlayedBy: someSpaceShips on: aBoard rolling: dice [
 	spaceships := someSpaceShips asOrderedCollection.
 	hasEnded := false.
 	maxRoll:=diceCollection maxRoll.
-	fuelAmount := 2*maxRoll.
-	spaceships do: [:aSpaceShip | aSpaceShip fuel: fuelAmount].
+	spaceships do: [:aSpaceShip | aSpaceShip fuel: 2*maxRoll].
 ]
 
 { #category : #accessing }
@@ -74,7 +72,7 @@ Game >> move: aSpaceship withRollingResult: aResult [
 Game >> nextTurn [
 
 	| spaceshipTurn |
-	spaceshipTurn := spaceships first.
+	spaceshipTurn := spaceships first.	
 	^ spaceshipTurn
 ]
 

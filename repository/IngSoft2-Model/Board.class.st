@@ -80,6 +80,11 @@ Board >> move: aSpaceship by: diceRollerNumber [
 		newPosition := self amountOfTiles. ].
 	
 	newAmountOfFuel:=aSpaceship amountOfFuel - (diceRollerNumber).	
+		
+	(newAmountOfFuel<=0)ifTrue:[
+		newPosition:=1.
+		newAmountOfFuel:=aSpaceship maxFuel.
+	].
 	
 	aSpaceship hasTileNumber: newPosition and: newLap with:newAmountOfFuel.
 

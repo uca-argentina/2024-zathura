@@ -5,7 +5,8 @@ Class {
 		'name',
 		'position',
 		'lap',
-		'fuel'
+		'fuel',
+		'maxFuel'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -33,7 +34,8 @@ SpaceShip >> amountOfFuel [
 { #category : #initialization }
 SpaceShip >> fuel:amountOfFuel [
 
-fuel:=amountOfFuel
+maxFuel:=amountOfFuel.
+fuel:=amountOfFuel.
 ]
 
 { #category : #testing }
@@ -42,6 +44,8 @@ SpaceShip >> hasTileNumber:newPosition and:newLap with: newAmountOfFuel [
 position:=newPosition.
 lap:=newLap.
 fuel:=newAmountOfFuel.
+
+
 ]
 
 { #category : #initialization }
@@ -56,6 +60,12 @@ SpaceShip >> initialize: aName [
 SpaceShip >> lap [
 
 	^ lap
+]
+
+{ #category : #accessing }
+SpaceShip >> maxFuel [ 
+
+^maxFuel
 ]
 
 { #category : #playing }

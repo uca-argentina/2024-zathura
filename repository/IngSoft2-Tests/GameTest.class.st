@@ -94,7 +94,7 @@ GameTest >> test02PlayerChangesLapAfterPassingTheLastTile [
 			          NullEffect create }
 		          finishingAfter: 2.
 
-	aDie1 := LoadedDie of: 3.
+	aDie1 := LoadedDie of: 6.
 	spaceShip1 := SpaceShip named: 'Danny'.
 	spaceShip2 := SpaceShip named: 'Walter'.
 
@@ -104,18 +104,28 @@ GameTest >> test02PlayerChangesLapAfterPassingTheLastTile [
 				         spaceShip2 }
 		         on: aBoard
 		         rolling: aDie1.
-		
+	
+	self assert:(aGame positionOf:spaceShip1) equals:1.
+	self assert:(aGame lapOf:spaceShip1) equals:1.
+	self assert:(aGame positionOf:spaceShip2) equals:1.
+	self assert:(aGame lapOf:spaceShip2) equals:1.
+	
 	aGame playNextTurn.
 	aGame playNextTurn.
+	
+	self assert:(aGame positionOf:spaceShip1) equals:7.
+	self assert:(aGame lapOf:spaceShip1) equals:1.
+	self assert:(aGame positionOf:spaceShip2) equals:7.
+	self assert:(aGame lapOf:spaceShip2) equals:1.
+	
 	aGame playNextTurn.
 	aGame playNextTurn.
-	aGame playNextTurn.
-	aGame playNextTurn.
+	
+	self assert:(aGame positionOf:spaceShip1) equals:1.
+	self assert:(aGame lapOf:spaceShip1) equals:2.
+	self assert:(aGame positionOf:spaceShip2) equals:1.
+	self assert:(aGame lapOf:spaceShip2) equals:2.
 
-	self assert: (aGame positionOf: spaceShip1) equals: 3.
-	self assert: (aGame positionOf: spaceShip2) equals: 3.
-	self assert: (aGame lapOf: spaceShip1) equals: 2.
-	self assert: (aGame lapOf: spaceShip2) equals: 2.
 	
 
 ]
@@ -242,6 +252,49 @@ GameTest >> test06WhenASpaceshipMovesItHasLessFuel [
 ]
 
 { #category : #tests }
+GameTest >> test07WhenASpaceshipRunsOutOfFuelItGoesBackToTileOneInCurrentLapAndRechargesFuel [
+
+| aGame aBoard aDie1 spaceShip1 spaceShip2 |
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+	aBoard := Board of: {
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create }
+			finishingAfter:2.
+
+	aDie1 := LoadedDie of: 3.
+
+	aGame := Game
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
+		         on: aBoard
+		         rolling: aDie1.
+
+	self assert:(spaceShip1 amountOfFuel) equals:6.
+	self assert:(spaceShip2 amountOfFuel) equals:6.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf: spaceShip1) equals:4.
+	self assert:(aGame positionOf: spaceShip2) equals:4.
+	
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf: spaceShip1) equals:1.
+	self assert:(spaceShip1 amountOfFuel) equals:6.
+	
+	
+]
+
+{ #category : #tests }
 GameTest >> testCantRollAfterGameEnded [
 
 	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
@@ -278,8 +331,8 @@ GameTest >> testCantRollAfterGameEnded [
 	aGame playNextTurn.
 	aGame playNextTurn.
 	
-	self assert: (aGame positionOf: spaceShip1) equals: 6.
-	self assert: (aGame positionOf: spaceShip2) equals: 6.
+	self assert: (aGame positionOf: spaceShip1) equals: 1.
+	self assert: (aGame positionOf: spaceShip2) equals: 1.
 	
 	aGame playNextTurn.
 	self
@@ -325,8 +378,8 @@ GameTest >> testGameHasEndedAsOneSpaceshipReachTheEnd [
 	aGame playNextTurn.
 	aGame playNextTurn.
 	
-	self assert: (aGame positionOf: spaceShip1) equals: 6.
-	self assert: (aGame positionOf: spaceShip2) equals: 6.
+	self assert: (aGame positionOf: spaceShip1) equals: 1.
+	self assert: (aGame positionOf: spaceShip2) equals: 1.
 	
 	aGame playNextTurn.
 	
