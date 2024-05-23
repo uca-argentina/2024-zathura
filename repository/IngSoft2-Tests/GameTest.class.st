@@ -384,6 +384,38 @@ GameTest >> testPlayerTwoCanRollTheDiceAfterPlayerOneTurn [
 ]
 
 { #category : #tests }
+GameTest >> testPlayersStartAtLapOne [
+
+| aGame aBoard aDie1 spaceShip1 spaceShip2 |
+
+	aBoard := Board of: {
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create }
+		          finishingAfter: 2.
+
+	aDie1 := LoadedDie of: 3.
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+
+	aGame := Game
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
+		         on: aBoard
+		         rolling: aDie1.
+
+	self assert: (aGame positionOf: spaceShip1) equals: 1.
+	self assert: (aGame positionOf: spaceShip2) equals: 1.
+	self assert: (aGame lapOf: spaceShip1) equals: 1.
+	self assert: (aGame lapOf: spaceShip2) equals: 1.
+]
+
+{ #category : #tests }
 GameTest >> testSpaceshipsStartAtFirstTile [
 
 	| aGame aBoard aDie1 spaceShip1 spaceShip2 |

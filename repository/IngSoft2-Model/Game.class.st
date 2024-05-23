@@ -49,6 +49,12 @@ Game >> initializePlayedBy: someSpaceShips on: aBoard rolling: dice [
 	hasEnded := false
 ]
 
+{ #category : #accessing }
+Game >> lapOf: aSpaceship [
+
+	^ board lapOf: aSpaceship
+]
+
 { #category : #playing }
 Game >> move: aSpaceship withRollingResult: aResult [
 	

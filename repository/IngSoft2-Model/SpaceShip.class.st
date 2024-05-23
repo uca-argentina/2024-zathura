@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'name',
-		'position'
+		'position',
+		'lap'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -26,7 +27,14 @@ SpaceShip class >> named: aName [
 SpaceShip >> initialize: aName [
 
 	name := aName.
-	position := 1
+	position := 1.
+	lap:=1.
+]
+
+{ #category : #'accessing - arguments' }
+SpaceShip >> lap [
+
+	^ lap
 ]
 
 { #category : #playing }

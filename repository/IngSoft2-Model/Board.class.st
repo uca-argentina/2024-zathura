@@ -2,7 +2,8 @@ Class {
 	#name : #Board,
 	#superclass : #Object,
 	#instVars : [
-		'tiles'
+		'tiles',
+		'laps'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -18,6 +19,12 @@ Board class >> of: tiles [
 
 	self isValid: tiles.
 	^ self new initializeOf: tiles
+]
+
+{ #category : #'as yet unclassified' }
+Board class >> of: tiles finishingAfter: laps [
+	self isValid: tiles.
+	^ self new initializeOf: tiles finishingAfter: laps
 ]
 
 { #category : #initialization }
@@ -39,6 +46,19 @@ Board >> checkIfOutOfBounds: aSpaceShip [
 Board >> initializeOf: aTileCollection [
 
 	tiles := aTileCollection
+]
+
+{ #category : #initialization }
+Board >> initializeOf: aTileCollection finishingAfter: numberOfLaps [
+
+	tiles := aTileCollection.
+	laps:= numberOfLaps.
+]
+
+{ #category : #accessing }
+Board >> lapOf: aSpaceship [
+
+	^ aSpaceship lap
 ]
 
 { #category : #accessing }
