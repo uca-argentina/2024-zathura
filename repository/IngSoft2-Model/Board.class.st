@@ -33,13 +33,29 @@ Board >> amountOfTiles [
 	^ tiles size
 ]
 
-{ #category : #asserting }
-Board >> checkIfOutOfBounds: aSpaceShip [
+{ #category : #accessing }
+Board >> calculatePositioToMove: aSpaceship whenMoving: aNumber [
 
-	| actualPosition |
-	actualPosition := aSpaceShip position.
-	(self amountOfTiles - actualPosition < 0 and: aSpaceShip lap = self laps) ifTrue: [
-		aSpaceShip moveBy: self amountOfTiles - actualPosition ]
+	|tilesSinceBeginning newLap newPosition aLap lapsAdvanced finalPosition  | 
+	
+	tilesSinceBeginning := (self positionOf: aSpaceship)
+	                       + aNumber
+	                       + ((aSpaceship lap - 1) * self amountOfTiles).
+	
+	aLap := ((tilesSinceBeginning - 1) // self amountOfTiles) + 1.
+	newLap := aLap min: laps.
+	newPosition := tilesSinceBeginning % self amountOfTiles.
+	
+	(newPosition=0 or: [ aLap > laps ]) ifTrue: [
+		newPosition := self amountOfTiles. ].
+	lapsAdvanced := (newLap -aSpaceship lap).
+	finalPosition:= (newPosition - aSpaceship position ).
+	lapsAdvanced := newLap - aSpaceship lap.
+    finalPosition := newPosition - aSpaceship position.
+    ^OrderedCollection with: finalPosition with: lapsAdvanced with: aNumber.
+	
+	
+
 ]
 
 { #category : #initialization }
@@ -47,12 +63,6 @@ Board >> initializeOf: aTileCollection finishingAfter: numberOfLaps [
 
 	tiles := aTileCollection.
 	laps:= numberOfLaps.
-]
-
-{ #category : #accessing }
-Board >> lapOf: aSpaceship [
-
-	^ aSpaceship lap
 ]
 
 { #category : #accessing }
@@ -64,23 +74,15 @@ Board >> laps [
 { #category : #accessing }
 Board >> move: aSpaceship by: diceRollerNumber [
 
-	| effectToApply tilesSinceBeginning newLap newPosition aLap | 
-	
-	tilesSinceBeginning := (self positionOf: aSpaceship)
-	                       + diceRollerNumber
-	                       + ((aSpaceship lap - 1) * self amountOfTiles).
-	
-	aLap := ((tilesSinceBeginning - 1) // self amountOfTiles) + 1.
-	newLap := aLap min: laps.
-	newPosition := tilesSinceBeginning % self amountOfTiles.
-	
-	(newPosition=0 or: [ aLap > laps ]) ifTrue: [
-		newPosition := self amountOfTiles. ].
-	aSpaceship movePositionBy: (newPosition - aSpaceship position )  lapBy: (newLap -aSpaceship lap) neededFuel: diceRollerNumber.
-
+	| effectToApply  changesToPositionCollection positionToMove lapsMoved costToMove|
+	changesToPositionCollection:=self calculatePositioToMove:aSpaceship  whenMoving: diceRollerNumber.
+	positionToMove:= changesToPositionCollection at:1.
+	lapsMoved:=changesToPositionCollection at:2.
+	costToMove:=changesToPositionCollection at:3.
+	aSpaceship movePositionBy: positionToMove lapBy: lapsMoved neededFuel: costToMove.
 	effectToApply := tiles at: aSpaceship position.
-	effectToApply triggeredBy: aSpaceship.
-	self checkIfOutOfBounds: aSpaceship.
+	effectToApply triggeredBy: aSpaceship on:self.
+	
 ]
 
 { #category : #accessing }

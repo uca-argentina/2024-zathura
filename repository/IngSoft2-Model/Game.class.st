@@ -75,7 +75,7 @@ Game >> playNextTurn [
 	self hasEnded ifTrue: [ Error signal: 'Game has already ended' ].
 	spaceshipTurn := self nextTurn.
 	[ spaceshipTurn turnsToLose > 0 ] whileTrue: [
-		spaceshipTurn losesTurns: spaceshipTurn turnsToLose - 1.
+		spaceshipTurn losesTurns: -1.
 		self changeTurns.
 		spaceshipTurn := self nextTurn ].
 	self changeTurns.

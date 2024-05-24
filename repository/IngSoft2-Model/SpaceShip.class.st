@@ -54,22 +54,16 @@ SpaceShip >> lap [
 	^ lap
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 SpaceShip >> losesTurns:amountOfTurns [
 
-turnsToLose:=amountOfTurns.
+turnsToLose:=turnsToLose + amountOfTurns .
 ]
 
 { #category : #accessing }
 SpaceShip >> maxFuel [ 
 
 ^maxFuel
-]
-
-{ #category : #playing }
-SpaceShip >> moveBy: aNumber [
-
-	position := position + aNumber
 ]
 
 { #category : #playing }
@@ -82,7 +76,6 @@ SpaceShip >> movePositionBy: aNumber lapBy:quantityOfLapsToMove neededFuel:aFuel
     ]
     ifFalse: [
 		position:=1 .
-		lap := lap + quantityOfLapsToMove.
 		fuel:=maxFuel .
 		self losesTurns: 2.
     ].
@@ -106,4 +99,10 @@ SpaceShip >> position [
 SpaceShip >> turnsToLose [ 
 
 ^turnsToLose.
+]
+
+{ #category : #accessing }
+SpaceShip >> wantsToSkipTurn [
+	self losesTurns: 1.
+	fuel:=maxFuel.
 ]

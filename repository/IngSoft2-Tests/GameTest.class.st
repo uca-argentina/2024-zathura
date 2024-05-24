@@ -122,9 +122,9 @@ GameTest >> test02PlayerChangesLapAfterPassingTheLastTile [
 	aGame playNextTurn.
 	
 	self assert:(aGame positionOf:spaceShip1) equals:1.
-	self assert:(spaceShip1 lap) equals:2.
+	self assert:(spaceShip1 lap) equals:1.
 	self assert:(aGame positionOf:spaceShip2) equals:1.
-	self assert:(spaceShip2 lap) equals:2.
+	self assert:(spaceShip2 lap) equals:1.
 
 	
 
@@ -498,6 +498,54 @@ GameTest >> test10LimitedFuelWith3PlayersBORRAR [
 ]
 
 { #category : #tests }
+GameTest >> test11PlayerWantsToSkipTurnToHaveMaxFuel [ 
+
+| aGame aBoard aDie1 spaceShip1 spaceShip2|
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+	aBoard := Board of: {
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create }
+			finishingAfter:3.
+
+	aDie1 := LoadedDie of: 3.
+
+	aGame := Game
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2.
+							 }
+		         on: aBoard
+		         rolling: aDie1.
+
+	self assert:(spaceShip1 amountOfFuel) equals:6.
+	self assert:(spaceShip2 amountOfFuel) equals:6.
+
+	aGame playNextTurn.
+	aGame playNextTurn.
+
+	self assert:(aGame positionOf: spaceShip1) equals:4.
+	self assert:(aGame positionOf: spaceShip2) equals:4.
+
+	spaceShip1 wantsToSkipTurn.
+	aGame playNextTurn.
+
+	self assert:(aGame positionOf: spaceShip1) equals:4.
+	self assert:(spaceShip1 amountOfFuel) equals:6.
+	self assert:(aGame positionOf: spaceShip2) equals:1.
+
+	aGame playNextTurn.
+
+   self assert:(aGame positionOf: spaceShip1) equals:7.
+]
+
+{ #category : #tests }
 GameTest >> testCantRollAfterGameEnded [
 
 	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
@@ -760,7 +808,7 @@ GameTest >> testIsInvalidWhenTheWinnerIsNotAssignedCorrectly [
 			          NullEffect create }
 			finishingAfter:2.
 
-	aDie1 := LoadedDie of: 6.
+	aDie1 := LoadedDie of: 9.
 	spaceShip1 := SpaceShip named: 'Danny'.
 	spaceShip2 := SpaceShip named: 'Walter'.
 
@@ -776,7 +824,7 @@ GameTest >> testIsInvalidWhenTheWinnerIsNotAssignedCorrectly [
 	aGame playNextTurn.
 	aGame playNextTurn.
 	aGame playNextTurn.
-	
+
 	self deny: aGame winner name equals: 'Walter'
 ]
 
@@ -794,7 +842,7 @@ GameTest >> testIsValidWhenTheWinnerIsAssignedCorrectly [
 			          NullEffect create }
 			finishingAfter:2.
 
-	aDie1 := LoadedDie of: 6.
+	aDie1 := LoadedDie of: 8.
 	spaceShip1 := SpaceShip named: 'Danny'.
 	spaceShip2 := SpaceShip named: 'Walter'.
 
@@ -1010,21 +1058,28 @@ GameTest >> testWormholeGoesBackwards [
 { #category : #tests }
 GameTest >> testWormholeGoesForward [
 
-	| aGame wormholeTile4 wormholeTile7 aBoard aDie1 spaceShip1 spaceShip2 |
+	| aGame wormholeTile8 wormholeTile12 aBoard aDie1 spaceShip1 spaceShip2 |
 	spaceShip1 := SpaceShip named: 'Danny'.
 	spaceShip2 := SpaceShip named: 'Walter'.
-	wormholeTile4 := WormholeEffect betweenTiles: { 4. 7 }.
-	wormholeTile7 := WormholeEffect betweenTiles: { 7. 4 }.
+	wormholeTile8 := WormholeEffect betweenTiles: { 8. 12}.
+	wormholeTile12 := WormholeEffect betweenTiles: { 12. 8 }.
 	aBoard := Board of: {
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create.
-			          wormholeTile4.
 			          NullEffect create.
 			          NullEffect create.
-			          wormholeTile7 }
+			          NullEffect create.
+			          NullEffect create.
+			          wormholeTile8.
+			          NullEffect create.
+			          NullEffect create.
+						 NullEffect create.
+			          wormholeTile12 .
+						 NullEffect create.
+			}
 			finishingAfter:2.
-	aDie1 := LoadedDie of: 3.
+	aDie1 := LoadedDie of: 7.
 
 	aGame := Game
 		         playedBy: {
@@ -1035,7 +1090,7 @@ GameTest >> testWormholeGoesForward [
 
 	aGame playNextTurn.
 
-	self assert: (aGame positionOf: spaceShip1) equals: 7
+	self assert: (aGame positionOf: spaceShip1) equals: 12
 ]
 
 { #category : #tests }

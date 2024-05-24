@@ -27,8 +27,10 @@ SpaceShipTest >> testASpaceshipCanMoveBackwards [
 
 	| aSpaceShip |
 	aSpaceShip := SpaceShip named: 'Danny'.
-	aSpaceShip moveBy: 5.
-	aSpaceShip moveBy: -2.
+	aSpaceShip fuel:10.
+	aSpaceShip movePositionBy: 5 lapBy: 0 neededFuel:0. 
+	aSpaceShip movePositionBy: -2 lapBy: 0 neededFuel:0.
+	
 	self assert: aSpaceShip position equals: 4
 ]
 
@@ -48,6 +50,7 @@ SpaceShipTest >> testASpaceshipIsMovedOnePosition [
 
 	| aSpaceShip |
 	aSpaceShip := SpaceShip named: 'Danny'.
-	aSpaceShip moveBy: 1.
+	aSpaceShip fuel:10.
+	aSpaceShip movePositionBy: 1 lapBy: 0 neededFuel:1. 
 	self assert: aSpaceShip position equals: 2
 ]

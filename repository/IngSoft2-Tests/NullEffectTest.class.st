@@ -7,9 +7,19 @@ Class {
 { #category : #running }
 NullEffectTest >> testWhenSpaceShipsLandItDoesNothingToIt [
 
-	| aSpaceShip aNullEffectTile |
+	| aSpaceShip aNullEffectTile aBoard |
+	aBoard := Board of: {
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create. }
+			finishingAfter: 2.	
 	aNullEffectTile := NullEffect create.
 	aSpaceShip := SpaceShip named: 'Danny'.
-	aNullEffectTile triggeredBy: aSpaceShip.
+	aSpaceShip fuel:20.
+	aNullEffectTile triggeredBy: aSpaceShip on:aBoard.
 	self assert: aSpaceShip position equals: 1
 ]
