@@ -64,32 +64,20 @@ Board >> laps [
 { #category : #accessing }
 Board >> move: aSpaceship by: diceRollerNumber [
 
-	| effectToApply tilesSinceBeginning newLap newPosition aLap newAmountOfFuel | 
+	| effectToApply tilesSinceBeginning newLap newPosition aLap | 
 	
 	tilesSinceBeginning := (self positionOf: aSpaceship)
 	                       + diceRollerNumber
 	                       + ((aSpaceship lap - 1) * self amountOfTiles).
 	
 	aLap := ((tilesSinceBeginning - 1) // self amountOfTiles) + 1.
-	
 	newLap := aLap min: laps.
-	
 	newPosition := tilesSinceBeginning % self amountOfTiles.
 	
 	(newPosition=0 or: [ aLap > laps ]) ifTrue: [
 		newPosition := self amountOfTiles. ].
-	
-	newAmountOfFuel:=aSpaceship amountOfFuel - (diceRollerNumber).	
-		
-	(newAmountOfFuel<=0)ifTrue:[
-		newPosition:=1.
-		newAmountOfFuel:=aSpaceship maxFuel.
-		aSpaceship losesTurns:2.
-	].
-	
-	aSpaceship hasTileNumber: newPosition and: newLap with:newAmountOfFuel.
+	aSpaceship movePositionBy: (newPosition - aSpaceship position )  lapBy: (newLap -aSpaceship lap) neededFuel: diceRollerNumber.
 
-	self checkIfOutOfBounds: aSpaceship.
 	effectToApply := tiles at: aSpaceship position.
 	effectToApply triggeredBy: aSpaceship.
 	self checkIfOutOfBounds: aSpaceship.

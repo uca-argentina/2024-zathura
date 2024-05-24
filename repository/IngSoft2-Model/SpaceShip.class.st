@@ -39,16 +39,6 @@ maxFuel:=amountOfFuel.
 fuel:=amountOfFuel.
 ]
 
-{ #category : #testing }
-SpaceShip >> hasTileNumber:newPosition and:newLap with: newAmountOfFuel [
-
-position:=newPosition.
-lap:=newLap.
-fuel:=newAmountOfFuel.
-
-
-]
-
 { #category : #initialization }
 SpaceShip >> initialize: aName [
 
@@ -80,6 +70,24 @@ SpaceShip >> maxFuel [
 SpaceShip >> moveBy: aNumber [
 
 	position := position + aNumber
+]
+
+{ #category : #playing }
+SpaceShip >> movePositionBy: aNumber lapBy:quantityOfLapsToMove neededFuel:aFuelAmount [
+	fuel:=fuel-aFuelAmount.
+	fuel > 0
+    ifTrue: [
+        position := position + aNumber.
+        lap := lap + quantityOfLapsToMove.
+    ]
+    ifFalse: [
+		position:=1 .
+		lap := lap + quantityOfLapsToMove.
+		fuel:=maxFuel .
+		self losesTurns: 2.
+    ].
+	
+	
 ]
 
 { #category : #accessing }

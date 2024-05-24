@@ -75,8 +75,8 @@ GameTest >> test01PlayersStartAtLapOne [
 
 	self assert: (aGame positionOf: spaceShip1) equals: 1.
 	self assert: (aGame positionOf: spaceShip2) equals: 1.
-	self assert: (aGame lapOf: spaceShip1) equals: 1.
-	self assert: (aGame lapOf: spaceShip2) equals: 1.
+	self assert: (spaceShip1 lap) equals: 1.
+	self assert: (spaceShip2 lap) equals: 1.
 ]
 
 { #category : #tests }
@@ -106,25 +106,25 @@ GameTest >> test02PlayerChangesLapAfterPassingTheLastTile [
 		         rolling: aDie1.
 	
 	self assert:(aGame positionOf:spaceShip1) equals:1.
-	self assert:(aGame lapOf:spaceShip1) equals:1.
+	self assert:(spaceShip1 lap) equals:1.
 	self assert:(aGame positionOf:spaceShip2) equals:1.
-	self assert:(aGame lapOf:spaceShip2) equals:1.
+	self assert:(spaceShip2 lap) equals:1.
 	
 	aGame playNextTurn.
 	aGame playNextTurn.
 	
 	self assert:(aGame positionOf:spaceShip1) equals:7.
-	self assert:(aGame lapOf:spaceShip1) equals:1.
+	self assert:(spaceShip1 lap) equals:1.
 	self assert:(aGame positionOf:spaceShip2) equals:7.
-	self assert:(aGame lapOf:spaceShip2) equals:1.
+	self assert:(spaceShip2 lap) equals:1.
 	
 	aGame playNextTurn.
 	aGame playNextTurn.
 	
 	self assert:(aGame positionOf:spaceShip1) equals:1.
-	self assert:(aGame lapOf:spaceShip1) equals:2.
+	self assert:(spaceShip1 lap) equals:2.
 	self assert:(aGame positionOf:spaceShip2) equals:1.
-	self assert:(aGame lapOf:spaceShip2) equals:2.
+	self assert:(spaceShip2 lap) equals:2.
 
 	
 
@@ -509,9 +509,9 @@ GameTest >> testCantRollAfterGameEnded [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create }
-			finishingAfter: 2.
+			finishingAfter: 1.
 
-	aDie1 := LoadedDie of: 6.
+	aDie1 := LoadedDie of: 9.
 	spaceShip1 := SpaceShip named: 'Danny'.
 	spaceShip2 := SpaceShip named: 'Walter'.
 
@@ -524,20 +524,13 @@ GameTest >> testCantRollAfterGameEnded [
 
 	self assert: (aGame positionOf: spaceShip1) equals: 1.
 	self assert: (aGame positionOf: spaceShip2) equals: 1.
-	
-	aGame playNextTurn.
+
 	aGame playNextTurn.
 	
 	self assert: (aGame positionOf: spaceShip1) equals: 7.
-	self assert: (aGame positionOf: spaceShip2) equals: 7.
-	
-	aGame playNextTurn.
-	aGame playNextTurn.
-	
-	self assert: (aGame positionOf: spaceShip1) equals: 1.
+	self assert: (spaceShip1 lap) equals: 1.
 	self assert: (aGame positionOf: spaceShip2) equals: 1.
-	
-	aGame playNextTurn.
+
 	self
 		should: [ aGame playNextTurn ]
 		raise: Error
@@ -560,7 +553,7 @@ GameTest >> testGameHasEndedAsOneSpaceshipReachTheEnd [
 			          NullEffect create }
 			finishingAfter: 2.			
 
-	aDie1 := LoadedDie of: 6.
+	aDie1 := LoadedDie of: 9.
 
 	aGame := Game
 		         playedBy: {
@@ -575,8 +568,8 @@ GameTest >> testGameHasEndedAsOneSpaceshipReachTheEnd [
 	aGame playNextTurn.
 	aGame playNextTurn.
 	
-	self assert: (aGame positionOf: spaceShip1) equals: 7.
-	self assert: (aGame positionOf: spaceShip2) equals: 7.
+	self assert: (aGame positionOf: spaceShip1) equals: 3.
+	self assert: (aGame positionOf: spaceShip2) equals: 3.
 	
 	aGame playNextTurn.
 	aGame playNextTurn.
