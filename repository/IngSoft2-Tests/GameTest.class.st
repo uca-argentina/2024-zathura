@@ -498,6 +498,54 @@ GameTest >> test10LimitedFuelWith3PlayersBORRAR [
 ]
 
 { #category : #tests }
+GameTest >> test11PlayerWantsToSkipTurnToHaveMaxFuel [
+
+| aGame aBoard aDie1 spaceShip1 spaceShip2|
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+	aBoard := Board of: {
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create }
+			finishingAfter:3.
+
+	aDie1 := LoadedDie of: 3.
+
+	aGame := Game
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2.
+							 }
+		         on: aBoard
+		         rolling: aDie1.
+
+	self assert:(spaceShip1 amountOfFuel) equals:6.
+	self assert:(spaceShip2 amountOfFuel) equals:6.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf: spaceShip1) equals:4.
+	self assert:(aGame positionOf: spaceShip2) equals:4.
+	
+	spaceShip1 wantsToSkipTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf: spaceShip1) equals:4.
+	self assert:(spaceShip1 amountOfFuel) equals:6.
+	self assert:(aGame positionOf: spaceShip2) equals:1.
+	
+	aGame playNextTurn.
+	
+   self assert:(aGame positionOf: spaceShip1) equals:7.
+]
+
+{ #category : #tests }
 GameTest >> testCantRollAfterGameEnded [
 
 	| aGame aBoard aDie1 spaceShip1 spaceShip2 |

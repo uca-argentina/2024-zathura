@@ -107,3 +107,10 @@ SpaceShip >> turnsToLose [
 
 ^turnsToLose.
 ]
+
+{ #category : #'as yet unclassified' }
+SpaceShip >> wantsToSkipTurn [
+
+turnsToLose:=self turnsToLose+1.
+fuel:=maxFuel.
+]
