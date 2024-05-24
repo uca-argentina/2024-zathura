@@ -295,6 +295,209 @@ GameTest >> test07WhenASpaceshipRunsOutOfFuelItGoesBackToTileOneInCurrentLapAndR
 ]
 
 { #category : #tests }
+GameTest >> test08WhenASpaceshipRunsOutOfFuelAlsoItLosesTwoTurns [
+
+| aGame aBoard aDie1 spaceShip1 spaceShip2 |
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+	aBoard := Board of: {
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create }
+			finishingAfter:2.
+
+	aDie1 := LoadedDie of: 3.
+
+	aGame := Game
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
+		         on: aBoard
+		         rolling: aDie1.
+
+	self assert:(spaceShip1 amountOfFuel) equals:6.
+	self assert:(spaceShip2 amountOfFuel) equals:6.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf: spaceShip1) equals:4.
+	self assert:(aGame positionOf: spaceShip2) equals:4.
+	
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf: spaceShip1) equals:1.
+	self assert:(spaceShip1 amountOfFuel) equals:6.
+	
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf: spaceShip2) equals:1.
+	self assert:(spaceShip2 amountOfFuel) equals:6.
+	
+	self assert:(spaceShip1 turnsToLose)equals:2.
+	self assert:(spaceShip2 turnsToLose)equals:2.
+	
+	aGame playNextTurn.
+	
+	self assert:(spaceShip1 turnsToLose)equals:0.
+	self assert:(spaceShip2 turnsToLose)equals:0.
+]
+
+{ #category : #tests }
+GameTest >> test09OnlyOneSpaceshipHasLimitedFuelBORRAR [
+
+| aGame aBoard aDie1 spaceShip1 spaceShip2 |
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+	aBoard := Board of: {
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create }
+			finishingAfter:3.
+
+	aDie1 := LoadedDie of: 3.
+
+	aGame := Game
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
+		         on: aBoard
+		         rolling: aDie1.
+
+	spaceShip1 fuel:100.
+	self assert:(spaceShip1 amountOfFuel) equals:100.
+	self assert:(spaceShip2 amountOfFuel) equals:6.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf: spaceShip1) equals:4.
+	self assert:(aGame positionOf: spaceShip2) equals:4.
+	
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf: spaceShip1) equals:7.
+	self assert:(spaceShip1 amountOfFuel) equals:94.
+	
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf: spaceShip2) equals:1.
+	self assert:(spaceShip2 amountOfFuel) equals:6.
+	
+	self assert:(spaceShip1 turnsToLose)equals:0.
+	self assert:(spaceShip2 turnsToLose)equals:2.
+	
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf: spaceShip1) equals:2.
+	self assert:(spaceShip2 turnsToLose)equals:2.
+	
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf: spaceShip1) equals:5.
+	self assert:(spaceShip2 turnsToLose)equals:1.
+	
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf: spaceShip1) equals:8.
+	self assert:(spaceShip2 turnsToLose)equals:0.
+	
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf: spaceShip1) equals:8.
+	
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf: spaceShip1) equals:3.
+]
+
+{ #category : #tests }
+GameTest >> test10LimitedFuelWith3PlayersBORRAR [
+
+| aGame aBoard aDie1 spaceShip1 spaceShip2 spaceShip3|
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+	spaceShip3 := SpaceShip named: 'Joseph'.
+	aBoard := Board of: {
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create }
+			finishingAfter:3.
+
+	aDie1 := LoadedDie of: 3.
+
+	aGame := Game
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2.
+							spaceShip3. }
+		         on: aBoard
+		         rolling: aDie1.
+
+	spaceShip1 fuel:100.
+	spaceShip2 fuel:100.
+	self assert:(spaceShip1 amountOfFuel) equals:100.
+	self assert:(spaceShip3 amountOfFuel) equals:6.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf: spaceShip1) equals:4.
+	self assert:(aGame positionOf: spaceShip2) equals:4.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf: spaceShip1) equals:7.
+	self assert:(spaceShip1 amountOfFuel) equals:94.
+	self assert:(aGame positionOf: spaceShip2) equals:7.
+	self assert:(spaceShip2 amountOfFuel) equals:94.
+	
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf: spaceShip3) equals:1.
+	self assert:(spaceShip3 amountOfFuel) equals:6.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf: spaceShip1) equals:2.
+	self assert:(aGame positionOf: spaceShip2) equals:2.
+	self assert:(aGame positionOf: spaceShip3) equals:1.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf: spaceShip1) equals:5.
+	self assert:(aGame positionOf: spaceShip2) equals:5.
+	self assert:(aGame positionOf: spaceShip3) equals:1.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf: spaceShip1) equals:8.
+	self assert:(aGame positionOf: spaceShip2) equals:8.
+	self assert:(aGame positionOf: spaceShip3) equals:4.
+]
+
+{ #category : #tests }
 GameTest >> testCantRollAfterGameEnded [
 
 	| aGame aBoard aDie1 spaceShip1 spaceShip2 |

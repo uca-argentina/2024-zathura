@@ -82,6 +82,10 @@ Game >> playNextTurn [
 	| rollingResult spaceshipTurn |
 	self hasEnded ifTrue: [ Error signal: 'Game has already ended' ].
 	spaceshipTurn := self nextTurn.
+	[ spaceshipTurn turnsToLose > 0 ] whileTrue: [
+		spaceshipTurn losesTurns: spaceshipTurn turnsToLose - 1.
+		self changeTurns.
+		spaceshipTurn := self nextTurn ].
 	self changeTurns.
 	rollingResult := diceCollection roll.
 	self move: spaceshipTurn withRollingResult: rollingResult.

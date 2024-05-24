@@ -6,7 +6,8 @@ Class {
 		'position',
 		'lap',
 		'fuel',
-		'maxFuel'
+		'maxFuel',
+		'turnsToLose'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -54,12 +55,19 @@ SpaceShip >> initialize: aName [
 	name := aName.
 	position := 1.
 	lap:=1.
+	turnsToLose:=0.
 ]
 
 { #category : #'accessing - arguments' }
 SpaceShip >> lap [
 
 	^ lap
+]
+
+{ #category : #'as yet unclassified' }
+SpaceShip >> losesTurns:amountOfTurns [
+
+turnsToLose:=amountOfTurns.
 ]
 
 { #category : #accessing }
@@ -84,4 +92,10 @@ SpaceShip >> name [
 SpaceShip >> position [
 
 	^ position
+]
+
+{ #category : #'as yet unclassified' }
+SpaceShip >> turnsToLose [ 
+
+^turnsToLose.
 ]
