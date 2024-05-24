@@ -38,8 +38,8 @@ MoonWalkEffectTest >> testWhenAPlayerTriggersTheEffectItMovesTheRestOfThePlayers
 	self assert: aSpaceShip3 position equals: 6.
 	aMoonWalkEffect triggeredBy: aSpaceShip1  on: aBoard .
 	self assert: aSpaceShip1 position equals: 7.
-	self assert: aSpaceShip2 position equals: 1.
-	self assert: aSpaceShip3 position equals: 9.
+	self assert: aSpaceShip2 position equals: 4.
+	self assert: aSpaceShip3 position equals: 3.
 	
 
 

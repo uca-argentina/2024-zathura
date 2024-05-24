@@ -15,7 +15,7 @@ MoonWalkEffect class >> backwardDistance: aDistance [
 
 { #category : #'as yet unclassified' }
 MoonWalkEffect >> initilizedWithADistance: aDistance [
-	tilesToMove:= aDistance.
+	tilesToMove:= 0 - aDistance.
 ]
 
 { #category : #'as yet unclassified' }
