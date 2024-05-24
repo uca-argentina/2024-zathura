@@ -546,6 +546,53 @@ GameTest >> test11PlayerWantsToSkipTurnToHaveMaxFuel [
 ]
 
 { #category : #tests }
+GameTest >> test12Spaceship2IsTheFirstSpaceShipAtSpaceShipsRankingAsHisPositionIsTheClosestToTheFinish [
+
+	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+	aBoard := Board of: {
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create }
+			finishingAfter:2.
+
+	aDie1 := LoadedDie of: 3.
+
+	aGame := Game
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
+		         on: aBoard
+		         rolling: aDie1.
+
+	self assert:(aGame positionOf:spaceShip1) equals:1.
+	self assert:(aGame positionOf:spaceShip2) equals:1.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf:spaceShip1) equals:4.
+	self assert:(aGame positionOf:spaceShip2) equals:4.
+	
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf:spaceShip1) equals:1.
+
+	self assert: aGame spaceShipsPositionsRanking first equals: spaceShip2.
+	
+	self assert: aGame spaceShipsPositionsRanking second equals: spaceShip1.
+	
+	
+
+]
+
+{ #category : #tests }
 GameTest >> testCantRollAfterGameEnded [
 
 	| aGame aBoard aDie1 spaceShip1 spaceShip2 |

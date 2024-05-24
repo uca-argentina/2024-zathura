@@ -92,6 +92,16 @@ Game >> positionOf: aSpaceship [
 	^ aSpaceship position
 ]
 
+{ #category : #'as yet unclassified' }
+Game >> spaceShipsPositionsRanking [
+	| spaceShipsPositions |
+	spaceShipsPositions := spaceships.
+
+	^ spaceShipsPositions asSortedCollection: [ :spaceShipA :spaceShipB | 
+		  spaceShipA position >= spaceShipB position]
+
+]
+
 { #category : #asserting }
 Game >> winner [
 
