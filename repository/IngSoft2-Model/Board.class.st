@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'tiles',
-		'laps'
+		'laps',
+		'players'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -86,6 +87,12 @@ Board >> move: aSpaceship by: diceRollerNumber [
 ]
 
 { #category : #accessing }
+Board >> players [
+	^players.
+	
+]
+
+{ #category : #accessing }
 Board >> positionOf: aSpaceship [
 
 	^ aSpaceship position
@@ -97,4 +104,10 @@ Board >> spaceshipInLastTileAndLap: aSpaceship [
 	(laps = aSpaceship lap and: [
 		 self amountOfTiles = aSpaceship position ]) ifTrue: [ ^ true ].
 	^ false
+]
+
+{ #category : #accessing }
+Board >> usedBy: somePlayers [
+	players := somePlayers.
+	
 ]

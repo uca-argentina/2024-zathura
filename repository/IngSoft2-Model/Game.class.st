@@ -44,6 +44,7 @@ Game >> hasEnded [
 Game >> initializePlayedBy: someSpaceShips on: aBoard rolling: dice [
 
 	board := aBoard.
+	aBoard usedBy: someSpaceShips asOrderedCollection.
 	diceCollection := dice.
 	spaceships := someSpaceShips asOrderedCollection.
 	hasEnded := false.
