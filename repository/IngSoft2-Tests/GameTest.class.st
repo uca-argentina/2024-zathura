@@ -18,7 +18,8 @@ GameTest >> initializeGameWithLoadedDieOf3And2PlayersAnd7NormalTiles [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create }
-			finishingAfter: 2.
+			finishingAfter: 2
+			withDistance: 10.
 
 	aDie1 := LoadedDie of: 3.
 
@@ -60,7 +61,8 @@ GameTest >> test01PlayersStartAtLapOne [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create }
-		          finishingAfter: 2.
+		          finishingAfter: 2
+					 withDistance: 10.
 
 	aDie1 := LoadedDie of: 3.
 	spaceShip1 := SpaceShip named: 'Danny'.
@@ -92,7 +94,8 @@ GameTest >> test02PlayerChangesLapAfterPassingTheLastTile [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create }
-		          finishingAfter: 2.
+		          finishingAfter: 2
+					withDistance: 10.
 
 	aDie1 := LoadedDie of: 6.
 	spaceShip1 := SpaceShip named: 'Danny'.
@@ -134,7 +137,7 @@ GameTest >> test02PlayerChangesLapAfterPassingTheLastTile [
 GameTest >> test03GameMustHaveOneOrMoreLaps [
 
 self
-		should: [ Board of: { NullEffect create. NullEffect create. } finishingAfter: 0 ]
+		should: [ Board of: { NullEffect create. NullEffect create. } finishingAfter: 0 withDistance: 10.]
 		raise: Error
 		withMessage: 'Game must have one or more laps!'
 	
@@ -156,7 +159,8 @@ GameTest >> test04MaxRoll [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create }
-			finishingAfter:2.
+			finishingAfter:2
+			withDistance: 10.
 
 	aDie1 := LoadedDie of: 3.
 	aDie2 := LoadedDie of: 3.
@@ -190,7 +194,8 @@ GameTest >> test05SpaceshipFuel [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create }
-			finishingAfter:2.
+			finishingAfter:2
+			withDistance: 10.
 
 	aDie1 := LoadedDie of: 3.
 	aDie2 := LoadedDie of: 3.
@@ -225,7 +230,8 @@ GameTest >> test06WhenASpaceshipMovesItHasLessFuel [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create }
-			finishingAfter:2.
+			finishingAfter:2
+			withDistance: 10.
 
 	aDie1 := LoadedDie of: 3.
 	aDie2 := LoadedDie of: 3.
@@ -266,7 +272,8 @@ GameTest >> test07WhenASpaceshipRunsOutOfFuelItGoesBackToTileOneInCurrentLapAndR
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create }
-			finishingAfter:2.
+			finishingAfter:2
+			withDistance: 10.
 
 	aDie1 := LoadedDie of: 3.
 
@@ -309,7 +316,8 @@ GameTest >> test08WhenASpaceshipRunsOutOfFuelAlsoItLosesTwoTurns [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create }
-			finishingAfter:2.
+			finishingAfter:2
+			withDistance: 10.
 
 	aDie1 := LoadedDie of: 3.
 
@@ -363,7 +371,8 @@ GameTest >> test09OnlyOneSpaceshipHasLimitedFuelBORRAR [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create }
-			finishingAfter:3.
+			finishingAfter:3
+			withDistance: 10.
 
 	aDie1 := LoadedDie of: 3.
 
@@ -437,7 +446,8 @@ GameTest >> test10LimitedFuelWith3PlayersBORRAR [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create }
-			finishingAfter:3.
+			finishingAfter:3
+			withDistance: 10.
 
 	aDie1 := LoadedDie of: 3.
 
@@ -512,7 +522,8 @@ GameTest >> test11PlayerWantsToSkipTurnToHaveMaxFuel [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create }
-			finishingAfter:3.
+			finishingAfter:3
+			withDistance: 10.
 
 	aDie1 := LoadedDie of: 3.
 
@@ -560,7 +571,8 @@ GameTest >> test12Spaceship2IsTheFirstSpaceShipAtSpaceShipsRankingAsHisPositionI
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create }
-			finishingAfter:2.
+			finishingAfter:2
+			withDistance: 10.
 
 	aDie1 := LoadedDie of: 3.
 
@@ -593,6 +605,86 @@ GameTest >> test12Spaceship2IsTheFirstSpaceShipAtSpaceShipsRankingAsHisPositionI
 ]
 
 { #category : #tests }
+GameTest >> test13BlackHoleEffect [
+
+	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+	aBoard := Board of: {
+			          NullEffect new.
+			          NullEffect new.
+			          NullEffect new.
+			          NullEffect new.
+			          NullEffect new.
+			          BlackHoleEffect new.
+			          NullEffect new.
+			          NullEffect new. }
+			finishingAfter:2
+			withDistance: 10.
+
+	aDie1 := LoadedDie of: 5.
+
+	aGame := Game
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
+		         on: aBoard
+		         rolling: aDie1.
+
+	self assert:(aGame positionOf:spaceShip1) equals:1.
+	self assert:(aGame positionOf:spaceShip2) equals:1.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf:spaceShip1) equals:2.
+	self assert:(aGame positionOf:spaceShip2) equals:2.
+
+	
+
+]
+
+{ #category : #tests }
+GameTest >> test14MoonWalkEffect [
+
+	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+	aBoard := Board of: {
+			          NullEffect new.
+			          NullEffect new.
+			          NullEffect new.
+			          NullEffect new.
+			          NullEffect new.
+			          MoonWalkEffect backwardDistance:2.
+			          NullEffect new.
+			          NullEffect new. }
+			finishingAfter:2
+			withDistance: 10.
+
+	aDie1 := LoadedDie of: 5.
+
+	aGame := Game
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
+		         on: aBoard
+		         rolling: aDie1.
+
+	self assert:(aGame positionOf:spaceShip1) equals:1.
+	self assert:(aGame positionOf:spaceShip2) equals:1.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf:spaceShip1) equals:6.
+	self assert:(aGame positionOf:spaceShip2) equals:4.
+
+	
+
+]
+
+{ #category : #tests }
 GameTest >> testCantRollAfterGameEnded [
 
 	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
@@ -604,7 +696,8 @@ GameTest >> testCantRollAfterGameEnded [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create }
-			finishingAfter: 1.
+			finishingAfter: 1
+			withDistance: 10.
 
 	aDie1 := LoadedDie of: 9.
 	spaceShip1 := SpaceShip named: 'Danny'.
@@ -646,7 +739,8 @@ GameTest >> testGameHasEndedAsOneSpaceshipReachTheEnd [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create }
-			finishingAfter: 2.			
+			finishingAfter: 2
+			withDistance: 10.			
 
 	aDie1 := LoadedDie of: 9.
 
@@ -692,7 +786,8 @@ GameTest >> testGameIsPlayedWithTwoDice [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create }
-			finishingAfter:2.
+			finishingAfter:2
+			withDistance: 10.
 
 	aDie1 := LoadedDie of: 3.
 	aDie2 := LoadedDie of: 3.
@@ -729,7 +824,8 @@ GameTest >> testGameMustHaveAtLeastOnePlayer [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create }
-			finishingAfter:2.
+			finishingAfter:2
+			withDistance: 10.
 
 	aDie1 := LoadedDie of: 3.
 
@@ -754,7 +850,8 @@ GameTest >> testGameWithLoadedDieOfFiveFaces [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create }
-			finishingAfter:2.
+			finishingAfter:2
+			withDistance: 10.
 
 	aDie1 := LoadedDie of: 5.
 
@@ -782,7 +879,8 @@ GameTest >> testGameWithRandomDie [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create }
-			finishingAfter:2.
+			finishingAfter:2
+			withDistance: 10.
 
 	aDie1 := Die of: 3.
 
@@ -816,7 +914,8 @@ GameTest >> testGameWithTwoRandomDice [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create }
-			finishingAfter:2.
+			finishingAfter:2
+			withDistance: 10.
 	aDie1 := Die of: 3.
 	aDie2 := Die of: 5.
 
@@ -853,7 +952,8 @@ GameTest >> testIsInvalidWhenTheWinnerIsNotAssignedCorrectly [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create }
-			finishingAfter:2.
+			finishingAfter:2
+			withDistance: 10.
 
 	aDie1 := LoadedDie of: 9.
 	spaceShip1 := SpaceShip named: 'Danny'.
@@ -887,7 +987,8 @@ GameTest >> testIsValidWhenTheWinnerIsAssignedCorrectly [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create }
-			finishingAfter:2.
+			finishingAfter:2
+			withDistance: 10.
 
 	aDie1 := LoadedDie of: 8.
 	spaceShip1 := SpaceShip named: 'Danny'.
@@ -923,7 +1024,8 @@ GameTest >> testPlayerOneCanRollTheDiceAfterPlayerTwoTurn [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create }
-			finishingAfter:2.
+			finishingAfter:2
+			withDistance: 10.
 
 	aDie1 := LoadedDie of: 3.
 
@@ -955,7 +1057,8 @@ GameTest >> testPlayerTwoCanRollTheDiceAfterPlayerOneTurn [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create }
-			finishingAfter:2.
+			finishingAfter:2
+			withDistance: 10.
 
 	aDie1 := LoadedDie of: 3.
 
@@ -985,7 +1088,8 @@ GameTest >> testSpaceshipsStartAtFirstTile [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create }
-			finishingAfter:2.
+			finishingAfter:2
+			withDistance: 10.
 
 	aDie1 := LoadedDie of: 3.
 
@@ -1017,7 +1121,8 @@ GameTest >> testTurnsWhenThreePlayersArePLaying [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create }
-			finishingAfter:2.
+			finishingAfter:2
+			withDistance: 10.
 
 	aDie1 := LoadedDie of: 3.
 
@@ -1053,7 +1158,8 @@ GameTest >> testWhenItIsPlayerTwoTurnPlayerOneCantRoll [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create }
-			finishingAfter:2.
+			finishingAfter:2
+			withDistance: 10.
 
 	aDie1 := LoadedDie of: 3.
 
@@ -1086,7 +1192,8 @@ GameTest >> testWormholeGoesBackwards [
 			          wormholeTile5.
 			          NullEffect create.
 			          NullEffect create }
-			finishingAfter:2.
+			finishingAfter:2
+			withDistance: 10.
 
 	aDie1 := LoadedDie of: 4.
 
@@ -1125,7 +1232,8 @@ GameTest >> testWormholeGoesForward [
 			          wormholeTile12 .
 						 NullEffect create.
 			}
-			finishingAfter:2.
+			finishingAfter:2
+			withDistance: 10.
 	aDie1 := LoadedDie of: 7.
 
 	aGame := Game
@@ -1156,7 +1264,8 @@ GameTest >> testWormholeIsNotOnANormalTile [
 			          NullEffect create.
 			          NullEffect create.
 			          wormholeTile7 }
-			finishingAfter:2.
+			finishingAfter:2
+			withDistance: 10.
 
 	aDie1 := LoadedDie of: 4.
 

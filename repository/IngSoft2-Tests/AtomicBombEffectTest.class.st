@@ -19,7 +19,8 @@ AtomicBombEffectTest >> testWhenAPlayerTriggersTheEffectItMovesTheRestOfThePlaye
 			          NullEffect create.
 						 NullEffect create.
 			          NullEffect create. }
-			finishingAfter: 2.		
+			finishingAfter: 2
+			withDistance: 10.		
 
 	aSpaceShip1 := SpaceShip named: 'Danny'.
 	aSpaceShip2 := SpaceShip named: 'Walter'.

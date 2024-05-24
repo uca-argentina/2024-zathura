@@ -14,9 +14,9 @@ HyperJumpEffect >> distances [
 ]
 
 { #category : #'instance creation' }
-HyperJumpEffect >> of:collectionOfParsecs [
-
-distances:=collectionOfParsecs asOrderedCollection.
+HyperJumpEffect >> of: collectionOfParsecs [ 
+	 
+distances:=collectionOfParsecs asOrderedCollection
 ]
 
 { #category : #'as yet unclassified' }
@@ -27,7 +27,7 @@ HyperJumpEffect >> triggeredBy: aPlayer on:aBoard [
 	
 	parsecsToMove:=distances at:1.
 	totalTiles:=aBoard amountOfTiles.
-	boardDistanceInParsecs:=10.
+	boardDistanceInParsecs:=aBoard parsecs.
 	tilesToMove:=(parsecsToMove//(boardDistanceInParsecs/totalTiles)).
 	
 	changesToPositionCollection:= aBoard calculatePositioToMove: aPlayer whenMoving:(tilesToMove).

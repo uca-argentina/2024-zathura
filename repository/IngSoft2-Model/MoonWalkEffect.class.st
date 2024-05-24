@@ -10,11 +10,11 @@ Class {
 { #category : #'as yet unclassified' }
 MoonWalkEffect class >> backwardDistance: aDistance [
 
-	^ self new initilizedWithADistance: aDistance.
+	^ self new initializedWith: aDistance.
 ]
 
 { #category : #'as yet unclassified' }
-MoonWalkEffect >> initilizedWithADistance: aDistance [
+MoonWalkEffect >> initializedWith: aDistance [
 	tilesToMove:= 0 - aDistance.
 ]
 

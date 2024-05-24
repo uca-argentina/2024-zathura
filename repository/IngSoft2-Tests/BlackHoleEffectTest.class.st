@@ -17,7 +17,8 @@ BlackHoleEffectTest >> testBlackHoleEffectMovesAPlayerBacward4Positions [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create. }
-			finishingAfter: 2.			
+			finishingAfter: 2
+			withDistance: 10.			
 	aSpaceShip := SpaceShip named: 'Danny'.
 	aSpaceShip fuel:20.
 	aSpaceShip movePositionBy: 6 lapBy: 0  neededFuel: 6 .

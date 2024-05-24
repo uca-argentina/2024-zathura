@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'tiles',
 		'laps',
-		'players'
+		'players',
+		'parsecs'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -22,10 +23,10 @@ Board class >> isValid: tiles [
 ]
 
 { #category : #'as yet unclassified' }
-Board class >> of: tiles finishingAfter: laps [
+Board class >> of: tiles finishingAfter: laps withDistance:parsecs [
 	self isValid: tiles.
 	self assertValidNumberOfLaps: laps.
-	^ self new initializeOf: tiles finishingAfter: laps
+	^ self new initializeOf: tiles finishingAfter: laps withDistance:parsecs.
 ]
 
 { #category : #initialization }
@@ -60,10 +61,12 @@ Board >> calculatePositioToMove: aSpaceship whenMoving: aNumber [
 ]
 
 { #category : #initialization }
-Board >> initializeOf: aTileCollection finishingAfter: numberOfLaps [
+Board >> initializeOf: aTileCollection finishingAfter: numberOfLaps withDistance:distanceInParsecs [
 
 	tiles := aTileCollection.
 	laps:= numberOfLaps.
+	parsecs:=distanceInParsecs.
+	
 ]
 
 { #category : #accessing }
@@ -84,6 +87,12 @@ Board >> move: aSpaceship by: diceRollerNumber [
 	effectToApply := tiles at: aSpaceship position.
 	effectToApply triggeredBy: aSpaceship on:self.
 	
+]
+
+{ #category : #accessing }
+Board >> parsecs [ 
+
+^parsecs
 ]
 
 { #category : #accessing }
