@@ -47,6 +47,10 @@ Board >> calculatePositioToMove: aSpaceship whenMoving: aNumber [
 	aLap := ((tilesSinceBeginning - 1) // self amountOfTiles) + 1.
 	newLap := aLap min: laps.
 	newPosition := tilesSinceBeginning % self amountOfTiles.
+	(newLap < 1) ifTrue:[
+		newLap := newLap max:1.
+		newPosition:=1.
+		].
 	
 	(newPosition=0 or: [ aLap > laps ]) ifTrue: [
 		newPosition := self amountOfTiles. ].

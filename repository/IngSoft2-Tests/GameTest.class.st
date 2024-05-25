@@ -677,8 +677,108 @@ GameTest >> test14MoonWalkEffect [
 	aGame playNextTurn.
 	aGame playNextTurn.
 	
+	self assert:(aGame positionOf:spaceShip1) equals:4.
+	self assert:(aGame positionOf:spaceShip2) equals:6.
+
+	
+
+]
+
+{ #category : #tests }
+GameTest >> test15AShiCannotMoveIfItTriggersHyperGravityEffect [
+
+	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+	aBoard := Board of: {
+			          NullEffect new.
+			          NullEffect new.
+			          NullEffect new.
+			          NullEffect new.
+			          NullEffect new.
+			          HyperGravityEffect needsToThrow: 4 .
+			          NullEffect new.
+			          NullEffect new. }
+			finishingAfter:2
+			withDistance: 10.
+
+	aDie1 := LoadedDie of: 5.
+
+	aGame := Game
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
+		         on: aBoard
+		         rolling: aDie1.
+
+	self assert:(aGame positionOf:spaceShip1) equals:1.
+	self assert:(aGame positionOf:spaceShip2) equals:1.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
 	self assert:(aGame positionOf:spaceShip1) equals:6.
-	self assert:(aGame positionOf:spaceShip2) equals:4.
+	self assert:(aGame positionOf:spaceShip2) equals:6.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf:spaceShip1) equals:6.
+	self assert:(aGame positionOf:spaceShip2) equals:6.
+
+	
+
+]
+
+{ #category : #tests }
+GameTest >> test16AShiCanEscapeOfTheHyperGravityEffect [
+
+	| aGame aBoard aDie1 spaceShip1 spaceShip2 aDie2|
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+	aBoard := Board of: {
+			          NullEffect new.
+			          NullEffect new.
+			          NullEffect new.
+			          NullEffect new.
+			          NullEffect new.
+			          HyperGravityEffect needsToThrow: 4 .
+			          NullEffect new.
+			          NullEffect new. }
+			finishingAfter:2
+			withDistance: 10.
+
+	aDie1 := LoadedDie of: 5.
+	aDie2 := LoadedDie of: 4.
+
+	aGame := Game
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
+		         on: aBoard
+		         rolling: aDie1.
+
+	self assert:(aGame positionOf:spaceShip1) equals:1.
+	self assert:(aGame positionOf:spaceShip2) equals:1.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf:spaceShip1) equals:6.
+	self assert:(aGame positionOf:spaceShip2) equals:6.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf:spaceShip1) equals:6.
+	self assert:(aGame positionOf:spaceShip2) equals:6.
+	
+	spaceShip1 rollDiceUsing: aDie2.
+	spaceShip1 fuel:20.
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf:spaceShip1) equals:3.
+	
 
 	
 
