@@ -508,7 +508,6 @@ GameTest >> test10LimitedFuelWith3PlayersBORRAR [
 ]
 
 { #category : #tests }
-
 GameTest >> test11PlayerWantsToSkipTurnToHaveMaxFuel [
 
 
