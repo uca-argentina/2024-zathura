@@ -7,7 +7,8 @@ Class {
 		'lap',
 		'fuel',
 		'maxFuel',
-		'turnsToLose'
+		'turnsToLose',
+		'needsToThrow'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -32,6 +33,11 @@ SpaceShip >> amountOfFuel [
 ^fuel
 ]
 
+{ #category : #'as yet unclassified' }
+SpaceShip >> changeRollingResultNeededToMove: aNumber [
+	needsToThrow :=aNumber.
+]
+
 { #category : #initialization }
 SpaceShip >> fuel:amountOfFuel [
 
@@ -46,6 +52,7 @@ SpaceShip >> initialize: aName [
 	position := 1.
 	lap:=1.
 	turnsToLose:=0.
+	needsToThrow:=0.
 ]
 
 { #category : #'accessing - arguments' }
@@ -54,22 +61,16 @@ SpaceShip >> lap [
 	^ lap
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 SpaceShip >> losesTurns:amountOfTurns [
 
-turnsToLose:=amountOfTurns.
+turnsToLose:=turnsToLose + amountOfTurns .
 ]
 
 { #category : #accessing }
 SpaceShip >> maxFuel [ 
 
 ^maxFuel
-]
-
-{ #category : #playing }
-SpaceShip >> moveBy: aNumber [
-
-	position := position + aNumber
 ]
 
 { #category : #playing }
@@ -82,7 +83,6 @@ SpaceShip >> movePositionBy: aNumber lapBy:quantityOfLapsToMove neededFuel:aFuel
     ]
     ifFalse: [
 		position:=1 .
-		lap := lap + quantityOfLapsToMove.
 		fuel:=maxFuel .
 		self losesTurns: 2.
     ].
@@ -102,15 +102,26 @@ SpaceShip >> position [
 	^ position
 ]
 
+{ #category : #accessing }
+SpaceShip >> rollDiceUsing: aDiceRoller [
+	|rolledNumber|
+	rolledNumber:=aDiceRoller roll.
+	((needsToThrow = 0) or: [rolledNumber = needsToThrow]) ifFalse: [^0].
+	needsToThrow :=0.
+	^rolledNumber  .
+	
+	
+]
+
 { #category : #'as yet unclassified' }
 SpaceShip >> turnsToLose [ 
 
 ^turnsToLose.
 ]
 
-{ #category : #'as yet unclassified' }
-SpaceShip >> wantsToSkipTurn [
 
-turnsToLose:=self turnsToLose+1.
-fuel:=maxFuel.
+{ #category : #accessing }
+SpaceShip >> wantsToSkipTurn [
+	self losesTurns: 1.
+	fuel:=maxFuel.
 ]
