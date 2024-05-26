@@ -8,7 +8,7 @@ Class {
 HyperJumpEffectTest >> testWhenAPlayerTriggersTheEffectItMovesAnAmountOfParsecs [
 
 	| aHyperJumpEffect aSpaceShip1 aSpaceShip2 aSpaceShip3 aBoard|
-	aHyperJumpEffect:= HyperJumpEffect new.
+	aHyperJumpEffect:= HyperJumpEffect of:{3. 2. 1.}.
 	aBoard := Board of: {
 			          NullEffect create.
 			          NullEffect create.
@@ -37,7 +37,6 @@ HyperJumpEffectTest >> testWhenAPlayerTriggersTheEffectItMovesAnAmountOfParsecs 
 	self assert: aSpaceShip1 position equals: 7.
 	self assert: aSpaceShip2 position equals: 7.
 	self assert: aSpaceShip3 position equals: 6.
-	aHyperJumpEffect of:{3. 2. 1.}.
 	aHyperJumpEffect triggeredBy: aSpaceShip1  on: aBoard.
 	aHyperJumpEffect triggeredBy: aSpaceShip2  on: aBoard.
 	aHyperJumpEffect triggeredBy: aSpaceShip3  on: aBoard.

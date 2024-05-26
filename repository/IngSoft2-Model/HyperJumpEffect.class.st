@@ -7,6 +7,12 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
+{ #category : #'instance creation' }
+HyperJumpEffect class >> of: collectionOfParsecs [ 
+
+^self new initializeOf:collectionOfParsecs
+]
+
 { #category : #'as yet unclassified' }
 HyperJumpEffect >> distances [
 
@@ -14,7 +20,7 @@ HyperJumpEffect >> distances [
 ]
 
 { #category : #'instance creation' }
-HyperJumpEffect >> of: collectionOfParsecs [ 
+HyperJumpEffect >> initializeOf: collectionOfParsecs [ 
 	 
 distances:=collectionOfParsecs asOrderedCollection
 ]
