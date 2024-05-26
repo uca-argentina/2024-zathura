@@ -508,7 +508,9 @@ GameTest >> test10LimitedFuelWith3PlayersBORRAR [
 ]
 
 { #category : #tests }
-GameTest >> test11PlayerWantsToSkipTurnToHaveMaxFuel [ 
+
+GameTest >> test11PlayerWantsToSkipTurnToHaveMaxFuel [
+
 
 | aGame aBoard aDie1 spaceShip1 spaceShip2|
 	spaceShip1 := SpaceShip named: 'Danny'.
@@ -524,6 +526,7 @@ GameTest >> test11PlayerWantsToSkipTurnToHaveMaxFuel [
 			          NullEffect create }
 			finishingAfter:3
 			withDistance: 10.
+
 
 	aDie1 := LoadedDie of: 3.
 
@@ -781,6 +784,7 @@ GameTest >> test16AShiCanEscapeOfTheHyperGravityEffect [
 	
 
 	
+
 
 ]
 
