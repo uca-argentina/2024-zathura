@@ -44,9 +44,11 @@ Game >> hasEnded [
 Game >> initializePlayedBy: someSpaceShips on: aBoard rolling: dice [
 
 	board := aBoard.
+	aBoard usedBy: someSpaceShips asOrderedCollection.
 	diceCollection := dice.
 	spaceships := someSpaceShips asOrderedCollection.
-	hasEnded := false
+	hasEnded := false.
+	spaceships do: [:aSpaceShip | aSpaceShip fuel: 2*(diceCollection maxRoll)].
 ]
 
 { #category : #playing }
@@ -63,7 +65,7 @@ Game >> move: aSpaceship withRollingResult: aResult [
 Game >> nextTurn [
 
 	| spaceshipTurn |
-	spaceshipTurn := spaceships first.
+	spaceshipTurn := spaceships first.	
 	^ spaceshipTurn
 ]
 
@@ -73,17 +75,31 @@ Game >> playNextTurn [
 	| rollingResult spaceshipTurn |
 	self hasEnded ifTrue: [ Error signal: 'Game has already ended' ].
 	spaceshipTurn := self nextTurn.
+	[ spaceshipTurn turnsToLose > 0 ] whileTrue: [
+		spaceshipTurn losesTurns: -1.
+		self changeTurns.
+		spaceshipTurn := self nextTurn ].
 	self changeTurns.
-	rollingResult := diceCollection roll.
-	self move: spaceshipTurn withRollingResult: rollingResult.
-	(self positionOf: spaceshipTurn) >= board amountOfTiles ifTrue: [
+	rollingResult := spaceshipTurn rollDiceUsing: diceCollection .
+	rollingResult = 0 ifFalse:[self move: spaceshipTurn withRollingResult: rollingResult.].
+	(board spaceshipInLastTileAndLap: spaceshipTurn) ifTrue: [
 		hasEnded := true ]
 ]
 
 { #category : #accessing }
 Game >> positionOf: aSpaceship [
 
-	^ board positionOf: aSpaceship
+	^ aSpaceship position
+]
+
+{ #category : #'as yet unclassified' }
+Game >> spaceShipsPositionsRanking [
+	| spaceShipsPositions |
+	spaceShipsPositions := spaceships.
+
+	^ spaceShipsPositions asSortedCollection: [ :spaceShipA :spaceShipB | 
+		  spaceShipA position >= spaceShipB position]
+
 ]
 
 { #category : #asserting }
@@ -93,6 +109,6 @@ Game >> winner [
 	self hasEnded ifFalse: [ ^ self hasEnded ].
 
 	winner := spaceships detect: [ :aSpaceship |
-		          aSpaceship position = board amountOfTiles ].
+		          aSpaceship position = board amountOfTiles and: [aSpaceship lap=board laps]].
 	^ winner
 ]
