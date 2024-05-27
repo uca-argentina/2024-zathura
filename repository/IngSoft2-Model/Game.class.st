@@ -81,7 +81,7 @@ Game >> playNextTurn [
 		spaceshipTurn := self nextTurn ].
 	self changeTurns.
 	rollingResult := spaceshipTurn rollDiceUsing: diceCollection .
-	rollingResult = 0 ifFalse:[self move: spaceshipTurn withRollingResult: rollingResult.].
+	self move: spaceshipTurn withRollingResult: rollingResult.
 	(board spaceshipInLastTileAndLap: spaceshipTurn) ifTrue: [
 		hasEnded := true ]
 ]

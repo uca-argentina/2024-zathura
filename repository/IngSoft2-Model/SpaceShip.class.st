@@ -74,20 +74,18 @@ SpaceShip >> maxFuel [
 ]
 
 { #category : #playing }
-SpaceShip >> movePositionBy: aNumber lapBy:quantityOfLapsToMove neededFuel:aFuelAmount [
-	fuel:=fuel-aFuelAmount.
+SpaceShip >> movePositionBy: aNumber lapBy: quantityOfLapsToMove neededFuel: aFuelAmount [
+
+	needsToThrow = 0 ifFalse: [ ^ self ].
+	fuel := fuel - aFuelAmount.
 	fuel > 0
-    ifTrue: [
-        position := position + aNumber.
-        lap := lap + quantityOfLapsToMove.
-    ]
-    ifFalse: [
-		position:=1 .
-		fuel:=maxFuel .
-		self losesTurns: 2.
-    ].
-	
-	
+		ifTrue: [
+			position := position + aNumber.
+			lap := lap + quantityOfLapsToMove ]
+		ifFalse: [
+			position := 1.
+			fuel := maxFuel.
+			self losesTurns: 2 ]
 ]
 
 { #category : #accessing }
@@ -106,8 +104,7 @@ SpaceShip >> position [
 SpaceShip >> rollDiceUsing: aDiceRoller [
 	|rolledNumber|
 	rolledNumber:=aDiceRoller roll.
-	((needsToThrow = 0) or: [rolledNumber = needsToThrow]) ifFalse: [^0].
-	needsToThrow :=0.
+	((needsToThrow = 0) or: [rolledNumber = needsToThrow]) ifTrue: [needsToThrow :=0].
 	^rolledNumber  .
 	
 	
