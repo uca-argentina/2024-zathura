@@ -433,6 +433,48 @@ GameTest >> test09SpaceshipWantsToSkipTurnToHaveMaxFuel [
 ]
 
 { #category : #tests }
+GameTest >> test10LandingInAnEffectTileAfterBeingMovedByAnEffectDoesNotCauseAnotherEffect [
+
+
+| aGame aBoard aDie1 spaceShip1 spaceShip2|
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+	aBoard := Board of: {
+			          NullEffect create.
+			          AtomicBombEffect new.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          BlackHoleEffect new.
+			          NullEffect create.
+			          NullEffect create }
+			finishingAfter:3
+			withDistance: 10.
+
+
+	aDie1 := LoadedDie of:5.
+
+	aGame := Game
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2.
+							 }
+		         on: aBoard
+		         rolling: aDie1.
+
+	self assert:(aGame positionOf: spaceShip1) equals:1.
+	self assert:(aGame positionOf: spaceShip2) equals:1.
+
+	aGame playNextTurn.
+	aGame playNextTurn.
+
+	self assert:(aGame positionOf: spaceShip1) equals:2.
+	self assert:(aGame positionOf: spaceShip2) equals:2.
+
+
+]
+
+{ #category : #tests }
 GameTest >> test12Spaceship2IsTheFirstSpaceShipAtSpaceShipsRankingAsHisPositionIsTheClosestToTheFinish [
 
 	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
