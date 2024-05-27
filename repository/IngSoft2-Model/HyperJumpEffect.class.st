@@ -25,7 +25,7 @@ HyperJumpEffect >> initializeOf: collectionOfParsecs [
 distances:=collectionOfParsecs asOrderedCollection
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #playing }
 HyperJumpEffect >> triggeredBy: aPlayer on:aBoard [
 
 |changesToPositionCollection newShipPosition advancedLaps cost parsecsToMove totalTiles tilesToMove boardDistanceInParsecs |
@@ -34,7 +34,7 @@ HyperJumpEffect >> triggeredBy: aPlayer on:aBoard [
 	parsecsToMove:=distances at:1.
 	totalTiles:=aBoard amountOfTiles.
 	boardDistanceInParsecs:=aBoard parsecs.
-	tilesToMove:=(parsecsToMove//(boardDistanceInParsecs/totalTiles)).
+	tilesToMove:=(parsecsToMove//(boardDistanceInParsecs/totalTiles)) truncated.
 	
 	changesToPositionCollection:= aBoard calculatePositioToMove: aPlayer whenMoving:(tilesToMove).
 	distances add: distances first.
