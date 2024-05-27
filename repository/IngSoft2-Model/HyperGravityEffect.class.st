@@ -8,13 +8,15 @@ Class {
 }
 
 { #category : #testing }
-HyperGravityEffect class >> needsToThrow: aNumber [
-	^ self new initializedWith: aNumber.
+HyperGravityEffect class >> isValid: aNumber below: maxRoll [
+	aNumber > maxRoll ifTrue:[ 
+		Error signal: 'The number needed to escape hypergravity cannot be greater than the maximum roll of the dice.' ]
 ]
 
-{ #category : #'as yet unclassified' }
-HyperGravityEffect >> initializedWith: aNumber [
-	needsToThrow :=aNumber.
+{ #category : #testing }
+HyperGravityEffect class >> needsToThrow: aNumber below: maxRoll [
+	self isValid: aNumber below: maxRoll.
+	^ self new initializedWith: aNumber below: maxRoll.
 ]
 
 { #category : #playing }

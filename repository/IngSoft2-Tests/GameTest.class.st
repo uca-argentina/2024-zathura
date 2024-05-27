@@ -692,19 +692,18 @@ GameTest >> test15AShiCannotMoveIfItTriggersHyperGravityEffect [
 	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
 	spaceShip1 := SpaceShip named: 'Danny'.
 	spaceShip2 := SpaceShip named: 'Walter'.
+	aDie1 := LoadedDie of: 5.
 	aBoard := Board of: {
 			          NullEffect new.
 			          NullEffect new.
 			          NullEffect new.
 			          NullEffect new.
 			          NullEffect new.
-			          HyperGravityEffect needsToThrow: 4 .
+			          HyperGravityEffect needsToThrow: 4 below: aDie1 maxRoll.
 			          NullEffect new.
 			          NullEffect new. }
 			finishingAfter:2
 			withDistance: 10.
-
-	aDie1 := LoadedDie of: 5.
 
 	aGame := Game
 		         playedBy: {
@@ -738,20 +737,20 @@ GameTest >> test16AShiCanEscapeOfTheHyperGravityEffect [
 	| aGame aBoard aDie1 spaceShip1 spaceShip2 aDie2|
 	spaceShip1 := SpaceShip named: 'Danny'.
 	spaceShip2 := SpaceShip named: 'Walter'.
+	aDie1 := LoadedDie of: 5.
+	aDie2 := LoadedDie of: 4.
 	aBoard := Board of: {
 			          NullEffect new.
 			          NullEffect new.
 			          NullEffect new.
 			          NullEffect new.
 			          NullEffect new.
-			          HyperGravityEffect needsToThrow: 4 .
+			          HyperGravityEffect needsToThrow: 4 below:aDie1 maxRoll.
 			          NullEffect new.
 			          NullEffect new. }
 			finishingAfter:2
 			withDistance: 10.
 
-	aDie1 := LoadedDie of: 5.
-	aDie2 := LoadedDie of: 4.
 
 	aGame := Game
 		         playedBy: {
