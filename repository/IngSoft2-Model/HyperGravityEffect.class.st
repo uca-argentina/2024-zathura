@@ -16,11 +16,11 @@ HyperGravityEffect class >> isValid: aNumber below: maxRoll [
 { #category : #testing }
 HyperGravityEffect class >> needsToThrow: aNumber below: maxRoll [
 	self isValid: aNumber below: maxRoll.
-	^ self new initializedWith: aNumber below: maxRoll.
+	^ self new initializedWith: aNumber.
 ]
 
 { #category : #initialization }
-HyperGravityEffect >> initializedWith: aNumber below: maxRoll [
+HyperGravityEffect >> initializedWith: aNumber [
 	needsToThrow :=aNumber.
 
 ]
