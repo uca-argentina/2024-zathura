@@ -19,6 +19,12 @@ HyperGravityEffect class >> needsToThrow: aNumber below: maxRoll [
 	^ self new initializedWith: aNumber below: maxRoll.
 ]
 
+{ #category : #initialization }
+HyperGravityEffect >> initializedWith: aNumber below: maxRoll [
+	needsToThrow :=aNumber.
+
+]
+
 { #category : #playing }
 HyperGravityEffect >> triggeredBy: aPlayer on:aBoard [
 	aPlayer changeRollingResultNeededToMove: needsToThrow.
