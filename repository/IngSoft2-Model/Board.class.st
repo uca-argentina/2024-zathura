@@ -39,7 +39,7 @@ Board >> amountOfTiles [
 Board >> calculatePositioToMove: aSpaceship whenMoving: aNumber [
 
 	|tilesSinceBeginning newLap newPosition aLap lapsAdvanced finalPosition  fuelNeeded| 
-	fuelNeeded:=aNumber.
+	fuelNeeded:=aNumber abs.
 	tilesSinceBeginning := (self positionOf: aSpaceship)
 	                       + aNumber
 	                       + ((aSpaceship lap - 1) * self amountOfTiles).
