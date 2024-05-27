@@ -92,11 +92,12 @@ GameTest >> test02PlayerChangesLapAfterPassingTheLastTile [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create.
-			          NullEffect create. }
+			          NullEffect create.
+						 NullEffect create. }
 		          finishingAfter: 2
 					withDistance: 10.
 
-	aDie1 := LoadedDie of: 6.
+	aDie1 := SequenceDie of:{6. 6. 2. 2.}.
 	spaceShip1 := SpaceShip named: 'Danny'.
 	spaceShip2 := SpaceShip named: 'Walter'.
 
@@ -115,25 +116,22 @@ GameTest >> test02PlayerChangesLapAfterPassingTheLastTile [
 	aGame playNextTurn.
 	aGame playNextTurn.
 	
-	self assert:(aGame positionOf:spaceShip1) equals:1.
+	self assert:(aGame positionOf:spaceShip1) equals:7.
+	self assert:(spaceShip1 lap) equals:1.
+	self assert:(aGame positionOf:spaceShip2) equals:7.
+	self assert:(spaceShip2 lap) equals:1.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf:spaceShip1) equals:2.
 	self assert:(spaceShip1 lap) equals:2.
-	self assert:(aGame positionOf:spaceShip2) equals:1.
+	self assert:(aGame positionOf:spaceShip2) equals:2.
 	self assert:(spaceShip2 lap) equals:2.
 ]
 
 { #category : #tests }
-GameTest >> test03GameMustHaveOneOrMoreLaps [
-
-self
-		should: [ Board of: { NullEffect create. NullEffect create. } finishingAfter: 0 withDistance: 10.]
-		raise: Error
-		withMessage: 'Game must have one or more laps!'
-	
-
-]
-
-{ #category : #tests }
-GameTest >> test03PlayersWinsAfterCompletingAnAmountOfTiles [
+GameTest >> test03PlayersWinsAfterCompletingAnAmountOfLaps [
 
 | aGame aBoard aDie1 spaceShip1 spaceShip2|
 
@@ -147,7 +145,7 @@ GameTest >> test03PlayersWinsAfterCompletingAnAmountOfTiles [
 		          finishingAfter: 2
 					withDistance: 10.
 
-	aDie1 := LoadedDie of: 6.
+	aDie1 := SequenceDie of: {6. 3. 6. 3.}.
 	spaceShip1 := SpaceShip named: 'Danny'.
 	spaceShip2 := SpaceShip named: 'Walter'.
 
@@ -168,54 +166,29 @@ GameTest >> test03PlayersWinsAfterCompletingAnAmountOfTiles [
 	
 	self assert:(aGame positionOf:spaceShip1) equals:1.
 	self assert:(spaceShip1 lap) equals:2.
-	self assert:(aGame positionOf:spaceShip2) equals:1.
-	self assert:(spaceShip2 lap) equals:2.
+	self assert:(aGame positionOf:spaceShip2) equals:4.
+	self assert:(spaceShip2 lap) equals:1.
 	
 	aGame playNextTurn.
 	
 	self assert:(aGame positionOf:spaceShip1) equals:6.
 	self assert:(spaceShip1 lap) equals:2.
-	self assert:(aGame positionOf:spaceShip2) equals:1.
-	self assert:(spaceShip2 lap) equals:2.
+	self assert:(aGame winner) equals:spaceShip1.
 ]
 
 { #category : #tests }
-GameTest >> test04MaxRoll [
+GameTest >> test04GameMustHaveOneOrMoreLaps [
 
-	| aGame aBoard aDie1 aDie2 aDiceRoller spaceShip1 spaceShip2 |
-	spaceShip1 := SpaceShip named: 'Danny'.
-	spaceShip2 := SpaceShip named: 'Walter'.
-	aBoard := Board of: {
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create }
-			finishingAfter:2
-			withDistance: 10.
+self
+		should: [ Board of: { NullEffect create. NullEffect create. } finishingAfter: 0 withDistance: 10.]
+		raise: Error
+		withMessage: 'Game must have one or more laps!'
+	
 
-	aDie1 := LoadedDie of: 3.
-	aDie2 := LoadedDie of: 3.
-
-	aDiceRoller := DiceRoller of: {
-			               aDie1.
-			               aDie2 }.
-
-	aGame := Game
-		         playedBy: {
-				         spaceShip1.
-				         spaceShip2 }
-		         on: aBoard
-		         rolling: aDiceRoller.
-
-	self assert:(aDiceRoller maxRoll) equals:6.
 ]
 
 { #category : #tests }
-GameTest >> test05SpaceshipFuel [
+GameTest >> test05EverySpaceshipStartsWithAmountOfFuelEqualToTheDoubleOfTheDiceMaxRoll [
 
 	| aGame aBoard aDie1 aDie2 aDiceRoller spaceShip1 spaceShip2 |
 	spaceShip1 := SpaceShip named: 'Danny'.
@@ -293,7 +266,7 @@ GameTest >> test06WhenASpaceshipMovesItHasLessFuel [
 ]
 
 { #category : #tests }
-GameTest >> test07WhenASpaceshipRunsOutOfFuelItGoesBackToTileOneInCurrentLapAndRechargesFuel [
+GameTest >> test07WhenASpaceshipRunsOutOfFuelItGoesBackToTileOneInLapBeforeMovementAndRechargesFuel [
 
 | aGame aBoard aDie1 spaceShip1 spaceShip2 |
 	spaceShip1 := SpaceShip named: 'Danny'.
@@ -310,7 +283,7 @@ GameTest >> test07WhenASpaceshipRunsOutOfFuelItGoesBackToTileOneInCurrentLapAndR
 			finishingAfter:2
 			withDistance: 10.
 
-	aDie1 := LoadedDie of: 3.
+	aDie1 := LoadedDie of: 6.
 
 	aGame := Game
 		         playedBy: {
@@ -319,19 +292,28 @@ GameTest >> test07WhenASpaceshipRunsOutOfFuelItGoesBackToTileOneInCurrentLapAndR
 		         on: aBoard
 		         rolling: aDie1.
 
+	self assert:(aGame positionOf: spaceShip1) equals:1.
+	self assert:(aGame positionOf: spaceShip2) equals:1.
+	self assert:(spaceShip1 amountOfFuel) equals:12.
+	self assert:(spaceShip2 amountOfFuel) equals:12.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf: spaceShip1) equals:7.
+	self assert:(aGame positionOf: spaceShip2) equals:7.
 	self assert:(spaceShip1 amountOfFuel) equals:6.
 	self assert:(spaceShip2 amountOfFuel) equals:6.
 	
 	aGame playNextTurn.
 	aGame playNextTurn.
 	
-	self assert:(aGame positionOf: spaceShip1) equals:4.
-	self assert:(aGame positionOf: spaceShip2) equals:4.
-	
-	aGame playNextTurn.
-	
 	self assert:(aGame positionOf: spaceShip1) equals:1.
-	self assert:(spaceShip1 amountOfFuel) equals:6.
+	self assert:(aGame positionOf: spaceShip2) equals:1.
+	self assert:(spaceShip1 lap) equals:1.
+	self assert:(spaceShip2 lap) equals:1.
+	self assert:(spaceShip1 amountOfFuel) equals:12.
+	self assert:(spaceShip2 amountOfFuel) equals:12.
 	
 	
 ]
@@ -354,7 +336,7 @@ GameTest >> test08WhenASpaceshipRunsOutOfFuelAlsoItLosesTwoTurns [
 			finishingAfter:2
 			withDistance: 10.
 
-	aDie1 := LoadedDie of: 3.
+	aDie1 := SequenceDie of: {2. 6. 2. 6. 1. 1. 1. 1.}.
 
 	aGame := Game
 		         playedBy: {
@@ -363,187 +345,44 @@ GameTest >> test08WhenASpaceshipRunsOutOfFuelAlsoItLosesTwoTurns [
 		         on: aBoard
 		         rolling: aDie1.
 
-	self assert:(spaceShip1 amountOfFuel) equals:6.
-	self assert:(spaceShip2 amountOfFuel) equals:6.
+	self assert:(spaceShip1 amountOfFuel) equals:12.
+	self assert:(spaceShip2 amountOfFuel) equals:12.
 	
 	aGame playNextTurn.
-	aGame playNextTurn.
-	
-	self assert:(aGame positionOf: spaceShip1) equals:4.
-	self assert:(aGame positionOf: spaceShip2) equals:4.
-	
-	aGame playNextTurn.
-	
-	self assert:(aGame positionOf: spaceShip1) equals:1.
-	self assert:(spaceShip1 amountOfFuel) equals:6.
-	
-	aGame playNextTurn.
-	
-	self assert:(aGame positionOf: spaceShip2) equals:1.
-	self assert:(spaceShip2 amountOfFuel) equals:6.
-	
-	self assert:(spaceShip1 turnsToLose)equals:2.
-	self assert:(spaceShip2 turnsToLose)equals:2.
-	
-	aGame playNextTurn.
-	
-	self assert:(spaceShip1 turnsToLose)equals:0.
-	self assert:(spaceShip2 turnsToLose)equals:0.
-]
-
-{ #category : #tests }
-GameTest >> test09OnlyOneSpaceshipHasLimitedFuelBORRAR [
-
-| aGame aBoard aDie1 spaceShip1 spaceShip2 |
-	spaceShip1 := SpaceShip named: 'Danny'.
-	spaceShip2 := SpaceShip named: 'Walter'.
-	aBoard := Board of: {
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create }
-			finishingAfter:3
-			withDistance: 10.
-
-	aDie1 := LoadedDie of: 3.
-
-	aGame := Game
-		         playedBy: {
-				         spaceShip1.
-				         spaceShip2 }
-		         on: aBoard
-		         rolling: aDie1.
-
-	spaceShip1 fuel:100.
-	self assert:(spaceShip1 amountOfFuel) equals:100.
-	self assert:(spaceShip2 amountOfFuel) equals:6.
-	
-	aGame playNextTurn.
-	aGame playNextTurn.
-	
-	self assert:(aGame positionOf: spaceShip1) equals:4.
-	self assert:(aGame positionOf: spaceShip2) equals:4.
-	
-	aGame playNextTurn.
-	
-	self assert:(aGame positionOf: spaceShip1) equals:7.
-	self assert:(spaceShip1 amountOfFuel) equals:94.
-	
-	aGame playNextTurn.
-	
-	self assert:(aGame positionOf: spaceShip2) equals:1.
-	self assert:(spaceShip2 amountOfFuel) equals:6.
-	
-	self assert:(spaceShip1 turnsToLose)equals:0.
-	self assert:(spaceShip2 turnsToLose)equals:2.
-	
-	aGame playNextTurn.
-	
-	self assert:(aGame positionOf: spaceShip1) equals:2.
-	self assert:(spaceShip2 turnsToLose)equals:2.
-	
-	aGame playNextTurn.
-	
-	self assert:(aGame positionOf: spaceShip1) equals:5.
-	self assert:(spaceShip2 turnsToLose)equals:1.
-	
-	aGame playNextTurn.
-	
-	self assert:(aGame positionOf: spaceShip1) equals:8.
-	self assert:(spaceShip2 turnsToLose)equals:0.
-	
-	aGame playNextTurn.
-	
-	self assert:(aGame positionOf: spaceShip1) equals:8.
-	
 	aGame playNextTurn.
 	
 	self assert:(aGame positionOf: spaceShip1) equals:3.
-]
-
-{ #category : #tests }
-GameTest >> test10LimitedFuelWith3PlayersBORRAR [
-
-| aGame aBoard aDie1 spaceShip1 spaceShip2 spaceShip3|
-	spaceShip1 := SpaceShip named: 'Danny'.
-	spaceShip2 := SpaceShip named: 'Walter'.
-	spaceShip3 := SpaceShip named: 'Joseph'.
-	aBoard := Board of: {
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create }
-			finishingAfter:3
-			withDistance: 10.
-
-	aDie1 := LoadedDie of: 3.
-
-	aGame := Game
-		         playedBy: {
-				         spaceShip1.
-				         spaceShip2.
-							spaceShip3. }
-		         on: aBoard
-		         rolling: aDie1.
-
-	spaceShip1 fuel:100.
-	spaceShip2 fuel:100.
-	self assert:(spaceShip1 amountOfFuel) equals:100.
-	self assert:(spaceShip3 amountOfFuel) equals:6.
-	
-	aGame playNextTurn.
-	aGame playNextTurn.
-	aGame playNextTurn.
-	
-	self assert:(aGame positionOf: spaceShip1) equals:4.
-	self assert:(aGame positionOf: spaceShip2) equals:4.
-	
-	aGame playNextTurn.
-	aGame playNextTurn.
-	
-	self assert:(aGame positionOf: spaceShip1) equals:7.
-	self assert:(spaceShip1 amountOfFuel) equals:94.
 	self assert:(aGame positionOf: spaceShip2) equals:7.
-	self assert:(spaceShip2 amountOfFuel) equals:94.
-	
-	aGame playNextTurn.
-	
-	self assert:(aGame positionOf: spaceShip3) equals:1.
-	self assert:(spaceShip3 amountOfFuel) equals:6.
-	
-	aGame playNextTurn.
-	aGame playNextTurn.
-	
-	self assert:(aGame positionOf: spaceShip1) equals:2.
-	self assert:(aGame positionOf: spaceShip2) equals:2.
-	self assert:(aGame positionOf: spaceShip3) equals:1.
+	self assert:(spaceShip1 amountOfFuel) equals:10.
+	self assert:(spaceShip2 amountOfFuel) equals:6.
 	
 	aGame playNextTurn.
 	aGame playNextTurn.
 	
 	self assert:(aGame positionOf: spaceShip1) equals:5.
-	self assert:(aGame positionOf: spaceShip2) equals:5.
-	self assert:(aGame positionOf: spaceShip3) equals:1.
+	self assert:(aGame positionOf: spaceShip2) equals:1.
+	self assert:(spaceShip1 amountOfFuel) equals:8.
+	self assert:(spaceShip2 amountOfFuel) equals:12.	
 	
-	aGame playNextTurn.
+	aGame playNextTurn. 
 	aGame playNextTurn.
 	aGame playNextTurn.
 	
 	self assert:(aGame positionOf: spaceShip1) equals:8.
-	self assert:(aGame positionOf: spaceShip2) equals:8.
-	self assert:(aGame positionOf: spaceShip3) equals:4.
+	self assert:(aGame positionOf: spaceShip2) equals:1.
+	self assert:(spaceShip1 amountOfFuel) equals:5.
+	self assert:(spaceShip2 amountOfFuel) equals:12.	
+	
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf: spaceShip1) equals:8.
+	self assert:(aGame positionOf: spaceShip2) equals:2.
+	self assert:(spaceShip1 amountOfFuel) equals:5.
+	self assert:(spaceShip2 amountOfFuel) equals:11.	
 ]
 
 { #category : #tests }
-GameTest >> test11PlayerWantsToSkipTurnToHaveMaxFuel [
+GameTest >> test09SpaceshipWantsToSkipTurnToHaveMaxFuel [
 
 
 | aGame aBoard aDie1 spaceShip1 spaceShip2|
@@ -562,7 +401,7 @@ GameTest >> test11PlayerWantsToSkipTurnToHaveMaxFuel [
 			withDistance: 10.
 
 
-	aDie1 := LoadedDie of: 3.
+	aDie1 := SequenceDie of: {2. 2. 2. 3. 2. 2.}.
 
 	aGame := Game
 		         playedBy: {
@@ -578,19 +417,19 @@ GameTest >> test11PlayerWantsToSkipTurnToHaveMaxFuel [
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert:(aGame positionOf: spaceShip1) equals:4.
-	self assert:(aGame positionOf: spaceShip2) equals:4.
+	self assert:(aGame positionOf: spaceShip1) equals:3.
+	self assert:(aGame positionOf: spaceShip2) equals:3.
 
 	spaceShip1 wantsToSkipTurn.
 	aGame playNextTurn.
 
-	self assert:(aGame positionOf: spaceShip1) equals:4.
+	self assert:(aGame positionOf: spaceShip1) equals:3.
 	self assert:(spaceShip1 amountOfFuel) equals:6.
-	self assert:(aGame positionOf: spaceShip2) equals:1.
+	self assert:(aGame positionOf: spaceShip2) equals:5.
 
 	aGame playNextTurn.
 
-   self assert:(aGame positionOf: spaceShip1) equals:7.
+   self assert:(aGame positionOf: spaceShip1) equals:6.
 ]
 
 { #category : #tests }
