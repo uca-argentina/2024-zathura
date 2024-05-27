@@ -92,8 +92,7 @@ GameTest >> test02PlayerChangesLapAfterPassingTheLastTile [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create }
+			          NullEffect create. }
 		          finishingAfter: 2
 					withDistance: 10.
 
@@ -116,21 +115,10 @@ GameTest >> test02PlayerChangesLapAfterPassingTheLastTile [
 	aGame playNextTurn.
 	aGame playNextTurn.
 	
-	self assert:(aGame positionOf:spaceShip1) equals:7.
-	self assert:(spaceShip1 lap) equals:1.
-	self assert:(aGame positionOf:spaceShip2) equals:7.
-	self assert:(spaceShip2 lap) equals:1.
-	
-	aGame playNextTurn.
-	aGame playNextTurn.
-	
 	self assert:(aGame positionOf:spaceShip1) equals:1.
-	self assert:(spaceShip1 lap) equals:1.
+	self assert:(spaceShip1 lap) equals:2.
 	self assert:(aGame positionOf:spaceShip2) equals:1.
-	self assert:(spaceShip2 lap) equals:1.
-
-	
-
+	self assert:(spaceShip2 lap) equals:2.
 ]
 
 { #category : #tests }
@@ -142,6 +130,53 @@ self
 		withMessage: 'Game must have one or more laps!'
 	
 
+]
+
+{ #category : #tests }
+GameTest >> test03PlayersWinsAfterCompletingAnAmountOfTiles [
+
+| aGame aBoard aDie1 spaceShip1 spaceShip2|
+
+	aBoard := Board of: {
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create. }
+		          finishingAfter: 2
+					withDistance: 10.
+
+	aDie1 := LoadedDie of: 6.
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+
+	aGame := Game
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
+		         on: aBoard
+		         rolling: aDie1.
+	
+	self assert:(aGame positionOf:spaceShip1) equals:1.
+	self assert:(spaceShip1 lap) equals:1.
+	self assert:(aGame positionOf:spaceShip2) equals:1.
+	self assert:(spaceShip2 lap) equals:1.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf:spaceShip1) equals:1.
+	self assert:(spaceShip1 lap) equals:2.
+	self assert:(aGame positionOf:spaceShip2) equals:1.
+	self assert:(spaceShip2 lap) equals:2.
+	
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf:spaceShip1) equals:6.
+	self assert:(spaceShip1 lap) equals:2.
+	self assert:(aGame positionOf:spaceShip2) equals:1.
+	self assert:(spaceShip2 lap) equals:2.
 ]
 
 { #category : #tests }
@@ -863,12 +898,10 @@ GameTest >> testGameHasEndedAsOneSpaceshipReachTheEnd [
 	self assert: (aGame positionOf: spaceShip2) equals: 3.
 	
 	aGame playNextTurn.
-	aGame playNextTurn.
+
+	self assert: (aGame positionOf: spaceShip1) equals: 7.
+
 	
-	self assert: (aGame positionOf: spaceShip1) equals: 1.
-	self assert: (aGame positionOf: spaceShip2) equals: 1.
-	
-	aGame playNextTurn.
 	
 	self assert: aGame hasEnded.
 ]
@@ -1071,8 +1104,7 @@ GameTest >> testIsInvalidWhenTheWinnerIsNotAssignedCorrectly [
 	aGame playNextTurn.
 	aGame playNextTurn.
 	aGame playNextTurn.
-	aGame playNextTurn.
-	aGame playNextTurn.
+
 
 	self deny: aGame winner name equals: 'Walter'
 ]
@@ -1106,8 +1138,7 @@ GameTest >> testIsValidWhenTheWinnerIsAssignedCorrectly [
 	aGame playNextTurn.
 	aGame playNextTurn.
 	aGame playNextTurn.
-	aGame playNextTurn.
-	aGame playNextTurn.
+
 	
 	self assert: aGame winner name equals: 'Danny'
 ]

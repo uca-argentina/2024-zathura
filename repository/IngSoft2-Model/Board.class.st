@@ -38,8 +38,8 @@ Board >> amountOfTiles [
 { #category : #accessing }
 Board >> calculatePositioToMove: aSpaceship whenMoving: aNumber [
 
-	|tilesSinceBeginning newLap newPosition aLap lapsAdvanced finalPosition  | 
-	
+	|tilesSinceBeginning newLap newPosition aLap lapsAdvanced finalPosition  fuelNeeded| 
+	fuelNeeded:=aNumber.
 	tilesSinceBeginning := (self positionOf: aSpaceship)
 	                       + aNumber
 	                       + ((aSpaceship lap - 1) * self amountOfTiles).
@@ -53,12 +53,13 @@ Board >> calculatePositioToMove: aSpaceship whenMoving: aNumber [
 		].
 	
 	(newPosition=0 or: [ aLap > laps ]) ifTrue: [
-		newPosition := self amountOfTiles. ].
+		newPosition := self amountOfTiles.
+		fuelNeeded := (self amountOfTiles * newLap) - (tilesSinceBeginning-aNumber) .].
 	lapsAdvanced := (newLap -aSpaceship lap).
 	finalPosition:= (newPosition - aSpaceship position ).
 	lapsAdvanced := newLap - aSpaceship lap.
     finalPosition := newPosition - aSpaceship position.
-    ^OrderedCollection with: finalPosition with: lapsAdvanced with: aNumber.
+    ^OrderedCollection with: finalPosition with: lapsAdvanced with: fuelNeeded.
 	
 	
 
