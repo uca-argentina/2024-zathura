@@ -4,7 +4,11 @@ Class {
 	#instVars : [
 		'name',
 		'position',
-		'lap'
+		'lap',
+		'fuel',
+		'maxFuel',
+		'turnsToLose',
+		'needsToThrow'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -23,11 +27,22 @@ SpaceShip class >> named: aName [
 	^ self new initialize: aName
 ]
 
-{ #category : #playing }
-SpaceShip >> hasTileNumber:newPosition and:newLap [
+{ #category : #'as yet unclassified' }
+SpaceShip >> amountOfFuel [
 
-position:=newPosition.
-lap:=newLap.
+^fuel
+]
+
+{ #category : #'as yet unclassified' }
+SpaceShip >> changeRollingResultNeededToMove: aNumber [
+	needsToThrow :=aNumber.
+]
+
+{ #category : #initialization }
+SpaceShip >> fuel:amountOfFuel [
+
+maxFuel:=amountOfFuel.
+fuel:=amountOfFuel.
 ]
 
 { #category : #initialization }
@@ -36,6 +51,8 @@ SpaceShip >> initialize: aName [
 	name := aName.
 	position := 1.
 	lap:=1.
+	turnsToLose:=0.
+	needsToThrow:=0.
 ]
 
 { #category : #'accessing - arguments' }
@@ -44,10 +61,33 @@ SpaceShip >> lap [
 	^ lap
 ]
 
-{ #category : #playing }
-SpaceShip >> moveBy: aNumber [
+{ #category : #accessing }
+SpaceShip >> losesTurns:amountOfTurns [
 
-	position := position + aNumber
+turnsToLose:=turnsToLose + amountOfTurns .
+]
+
+{ #category : #accessing }
+SpaceShip >> maxFuel [ 
+
+^maxFuel
+]
+
+{ #category : #playing }
+SpaceShip >> movePositionBy: aNumber lapBy:quantityOfLapsToMove neededFuel:aFuelAmount [
+	fuel:=fuel-aFuelAmount.
+	fuel > 0
+    ifTrue: [
+        position := position + aNumber.
+        lap := lap + quantityOfLapsToMove.
+    ]
+    ifFalse: [
+		position:=1 .
+		fuel:=maxFuel .
+		self losesTurns: 2.
+    ].
+	
+	
 ]
 
 { #category : #accessing }
@@ -60,4 +100,27 @@ SpaceShip >> name [
 SpaceShip >> position [
 
 	^ position
+]
+
+{ #category : #accessing }
+SpaceShip >> rollDiceUsing: aDiceRoller [
+	|rolledNumber|
+	rolledNumber:=aDiceRoller roll.
+	((needsToThrow = 0) or: [rolledNumber = needsToThrow]) ifFalse: [^0].
+	needsToThrow :=0.
+	^rolledNumber  .
+	
+	
+]
+
+{ #category : #'as yet unclassified' }
+SpaceShip >> turnsToLose [ 
+
+^turnsToLose.
+]
+
+{ #category : #accessing }
+SpaceShip >> wantsToSkipTurn [
+	self losesTurns: 1.
+	fuel:=maxFuel.
 ]
