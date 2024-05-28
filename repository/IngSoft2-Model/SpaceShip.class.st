@@ -27,22 +27,23 @@ SpaceShip class >> named: aName [
 	^ self new initialize: aName
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 SpaceShip >> amountOfFuel [
 
-^fuel
+	^ fuel
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 SpaceShip >> changeRollingResultNeededToMove: aNumber [
-	needsToThrow :=aNumber.
+
+	needsToThrow := aNumber
 ]
 
 { #category : #initialization }
-SpaceShip >> fuel:amountOfFuel [
+SpaceShip >> fuel: amountOfFuel [
 
-maxFuel:=amountOfFuel.
-fuel:=amountOfFuel.
+	maxFuel := amountOfFuel.
+	fuel := amountOfFuel
 ]
 
 { #category : #initialization }
@@ -50,9 +51,9 @@ SpaceShip >> initialize: aName [
 
 	name := aName.
 	position := 1.
-	lap:=1.
-	turnsToLose:=0.
-	needsToThrow:=0.
+	lap := 1.
+	turnsToLose := 0.
+	needsToThrow := 0
 ]
 
 { #category : #'accessing - arguments' }
@@ -62,32 +63,30 @@ SpaceShip >> lap [
 ]
 
 { #category : #accessing }
-SpaceShip >> losesTurns:amountOfTurns [
+SpaceShip >> losesTurns: amountOfTurns [
 
-turnsToLose:=turnsToLose + amountOfTurns .
+	turnsToLose := turnsToLose + amountOfTurns
 ]
 
 { #category : #accessing }
-SpaceShip >> maxFuel [ 
+SpaceShip >> maxFuel [
 
-^maxFuel
+	^ maxFuel
 ]
 
 { #category : #playing }
-SpaceShip >> movePositionBy: aNumber lapBy:quantityOfLapsToMove neededFuel:aFuelAmount [
-	fuel:=fuel-aFuelAmount.
+SpaceShip >> movePositionBy: aNumber lapBy: quantityOfLapsToMove neededFuel: aFuelAmount [
+
+	needsToThrow = 0 ifFalse: [ ^ self ].
+	fuel := fuel - aFuelAmount.
 	fuel > 0
-    ifTrue: [
-        position := position + aNumber.
-        lap := lap + quantityOfLapsToMove.
-    ]
-    ifFalse: [
-		position:=1 .
-		fuel:=maxFuel .
-		self losesTurns: 2.
-    ].
-	
-	
+		ifTrue: [
+			position := position + aNumber.
+			lap := lap + quantityOfLapsToMove ]
+		ifFalse: [
+			position := 1.
+			fuel := maxFuel.
+			self losesTurns: 2 ]
 ]
 
 { #category : #accessing }
@@ -104,23 +103,23 @@ SpaceShip >> position [
 
 { #category : #accessing }
 SpaceShip >> rollDiceUsing: aDiceRoller [
-	|rolledNumber|
-	rolledNumber:=aDiceRoller roll.
-	((needsToThrow = 0) or: [rolledNumber = needsToThrow]) ifFalse: [^0].
-	needsToThrow :=0.
-	^rolledNumber  .
-	
-	
+
+	| rolledNumber |
+	rolledNumber := aDiceRoller roll.
+	(needsToThrow = 0 or: [ rolledNumber = needsToThrow ]) ifTrue: [
+		needsToThrow := 0 ].
+	^ rolledNumber
 ]
 
-{ #category : #'as yet unclassified' }
-SpaceShip >> turnsToLose [ 
+{ #category : #abstract }
+SpaceShip >> turnsToLose [
 
-^turnsToLose.
+	^ turnsToLose
 ]
 
-{ #category : #accessing }
+{ #category : #playing }
 SpaceShip >> wantsToSkipTurn [
+
 	self losesTurns: 1.
-	fuel:=maxFuel.
+	fuel := maxFuel
 ]

@@ -34,6 +34,12 @@ LoadedDie >> maxRoll [
 ^faces
 ]
 
+{ #category : #accessing }
+LoadedDie >> minRoll [
+
+^1
+]
+
 { #category : #playing }
 LoadedDie >> roll [
 

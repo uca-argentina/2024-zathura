@@ -2,7 +2,6 @@ Class {
 	#name : #ProbabilityTile,
 	#superclass : #Object,
 	#instVars : [
-		'effectDistributionCollection',
 		'effect',
 		'probability'
 	],
@@ -12,13 +11,13 @@ Class {
 { #category : #asserting }
 ProbabilityTile class >> assertProbabilityIsBetweenZeroAndOne: probability [
 
-	(probability  between: 0 and: 1) ifFalse: [ 
-			Error signal: 'Probability must be between 0 and 1!' ].
+	(probability between: 0 and: 1) ifFalse: [
+		Error signal: 'Probability must be between 0 and 1!' ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 ProbabilityTile class >> with: effect and: probability [
-	
+
 	self assertProbabilityIsBetweenZeroAndOne: probability.
 
 	^ self new initializeWith: effect and: probability
@@ -27,8 +26,7 @@ ProbabilityTile class >> with: effect and: probability [
 { #category : #initialization }
 ProbabilityTile >> effect [
 
-^effect
-
+	^ effect
 ]
 
 { #category : #initialization }
@@ -36,12 +34,10 @@ ProbabilityTile >> initializeWith: anEffect and: aProbability [
 
 	effect := anEffect.
 	probability := aProbability
-
 ]
 
 { #category : #initialization }
 ProbabilityTile >> probability [
 
-^probability
-
+	^ probability
 ]

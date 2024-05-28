@@ -8,39 +8,35 @@ Class {
 }
 
 { #category : #'instance creation' }
-HyperJumpEffect class >> of: collectionOfParsecs [ 
+HyperJumpEffect class >> of: collectionOfParsecs [
 
-^self new initializeOf:collectionOfParsecs
+	^ self new initializeOf: collectionOfParsecs
 ]
 
-{ #category : #'as yet unclassified' }
-HyperJumpEffect >> distances [
+{ #category : #playing }
+HyperJumpEffect >> distanceToMoveOn: aBoard [
 
-^distances
+	| parsecsToMove totalTiles tilesToMove boardDistanceInParsecs |
+	parsecsToMove := distances at: 1.
+	totalTiles := aBoard amountOfTiles.
+	boardDistanceInParsecs := aBoard parsecs.
+	tilesToMove := (parsecsToMove
+	                // (boardDistanceInParsecs / totalTiles)) truncated.
+	distances add: distances first.
+	distances removeFirst.
+	^ tilesToMove
 ]
 
 { #category : #'instance creation' }
-HyperJumpEffect >> initializeOf: collectionOfParsecs [ 
-	 
-distances:=collectionOfParsecs asOrderedCollection
+HyperJumpEffect >> initializeOf: collectionOfParsecs [
+
+	distances := collectionOfParsecs asOrderedCollection
 ]
 
-{ #category : #'as yet unclassified' }
-HyperJumpEffect >> triggeredBy: aPlayer on:aBoard [
+{ #category : #playing }
+HyperJumpEffect >> triggeredBy: aPlayer on: aBoard [
 
-|changesToPositionCollection newShipPosition advancedLaps cost parsecsToMove totalTiles tilesToMove boardDistanceInParsecs |
-	distances:=self distances.
-	
-	parsecsToMove:=distances at:1.
-	totalTiles:=aBoard amountOfTiles.
-	boardDistanceInParsecs:=aBoard parsecs.
-	tilesToMove:=(parsecsToMove//(boardDistanceInParsecs/totalTiles)).
-	
-	changesToPositionCollection:= aBoard calculatePositioToMove: aPlayer whenMoving:(tilesToMove).
-	distances add: distances first.
-	distances removeFirst.
-	newShipPosition:= changesToPositionCollection at:1.
-	advancedLaps:=changesToPositionCollection at:2.
-	cost:=changesToPositionCollection at:3.
-	aPlayer movePositionBy:newShipPosition lapBy:advancedLaps  neededFuel: cost.
+	| tilesToMove |
+	tilesToMove := self distanceToMoveOn: aBoard.
+	aBoard move: aPlayer by: tilesToMove
 ]

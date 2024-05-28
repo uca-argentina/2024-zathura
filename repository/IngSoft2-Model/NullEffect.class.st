@@ -7,7 +7,7 @@ Class {
 { #category : #initializing }
 NullEffect class >> create [
 
-	^ self new initializeOf: OrderedCollection new.
+	^ self new initializeOf: OrderedCollection new
 ]
 
 { #category : #initialization }
@@ -17,7 +17,7 @@ NullEffect >> initializeOf: aCollection [
 ]
 
 { #category : #playing }
-NullEffect >> triggeredBy: aPlayer on:aBoard [
+NullEffect >> triggeredBy: aPlayer on: aBoard [
 
-	aPlayer movePositionBy:0 lapBy:0  neededFuel: 0.
+	aBoard move: aPlayer by: 0
 ]

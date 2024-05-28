@@ -14,7 +14,7 @@ WormholeEffect class >> assertAtLeastTwoWormholes: positionOfTheWormholes [
 		Error signal: 'Cannot create a single wormhole' ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 WormholeEffect class >> betweenTiles: positionOfTheWormholes [
 
 	self assertAtLeastTwoWormholes: positionOfTheWormholes.
@@ -29,11 +29,7 @@ WormholeEffect >> initialize: aNumberOfTilesToMove [
 ]
 
 { #category : #playing }
-WormholeEffect >> triggeredBy: aPlayer on:aBoard [
-	|changesToPositionCollection newShipPosition advancedLaps cost|
-	changesToPositionCollection:= aBoard calculatePositioToMove: aPlayer whenMoving:tilesToMove .
-	newShipPosition:= changesToPositionCollection at:1.
-	advancedLaps:=changesToPositionCollection at:2.
-	cost:=changesToPositionCollection at:3.
-	aPlayer movePositionBy:newShipPosition lapBy:advancedLaps  neededFuel: cost.
+WormholeEffect >> triggeredBy: aPlayer on: aBoard [
+
+	aBoard move: aPlayer by: tilesToMove
 ]
