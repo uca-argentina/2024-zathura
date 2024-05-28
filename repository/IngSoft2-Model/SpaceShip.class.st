@@ -117,7 +117,7 @@ SpaceShip >> turnsToLose [
 	^ turnsToLose
 ]
 
-{ #category : #accessing }
+{ #category : #playing }
 SpaceShip >> wantsToSkipTurn [
 
 	self losesTurns: 1.

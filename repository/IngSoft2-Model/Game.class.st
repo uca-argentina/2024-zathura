@@ -84,9 +84,9 @@ Game >> spaceShipsPositionsRanking [
 	spaceShipsPositions := spaceships.
 
 	^ spaceShipsPositions asSortedCollection: [ :spaceShipA :spaceShipB |
-		  spaceShipA lap - 1 * board amountOfTiles + spaceShipA position
+		  ((spaceShipA lap - 1) * board amountOfTiles + spaceShipA position)
 		  >=
-		  (spaceShipB lap - 1 * board amountOfTiles + spaceShipB position) ]
+		  ((spaceShipB lap - 1) * board amountOfTiles + spaceShipB position) ]
 ]
 
 { #category : #asserting }
