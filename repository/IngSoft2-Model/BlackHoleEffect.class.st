@@ -5,8 +5,7 @@ Class {
 }
 
 { #category : #playing }
-BlackHoleEffect >> triggeredBy: aPlayer on:aBoard [
-	aBoard move: aPlayer by: -4.
+BlackHoleEffect >> triggeredBy: aPlayer on: aBoard [
 
-	
+	aBoard move: aPlayer by: -4
 ]

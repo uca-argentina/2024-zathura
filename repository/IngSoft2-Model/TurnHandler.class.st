@@ -14,12 +14,11 @@ TurnHandler class >> assertValidNumberOf: someSpaceShips [
 		Error signal: 'Game must have at least one player' ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 TurnHandler class >> withPlayers: someSpaceShips [
 
 	self assertValidNumberOf: someSpaceShips.
-	^ self new
-		  initializeWithPlayers: someSpaceShips.
+	^ self new initializeWithPlayers: someSpaceShips
 ]
 
 { #category : #playing }
@@ -32,32 +31,32 @@ TurnHandler >> changeTurns [
 { #category : #initialization }
 TurnHandler >> initializeWithPlayers: someSpaceShips [
 
-	spaceships := someSpaceShips asOrderedCollection.
-
+	spaceships := someSpaceShips asOrderedCollection
 ]
 
 { #category : #playing }
 TurnHandler >> nextPlayerTurn [
-	|spaceshipTurn|
+
+	| spaceshipTurn |
 	spaceshipTurn := self nextTurn.
 	[ spaceshipTurn turnsToLose > 0 ] whileTrue: [
 		spaceshipTurn losesTurns: -1.
 		self changeTurns.
 		spaceshipTurn := self nextTurn ].
 	self changeTurns.
-	^spaceshipTurn.
+	^ spaceshipTurn
 ]
 
 { #category : #playing }
 TurnHandler >> nextTurn [
 
 	| spaceshipTurn |
-	spaceshipTurn := spaceships first.	
+	spaceshipTurn := spaceships first.
 	^ spaceshipTurn
 ]
 
 { #category : #initialization }
-TurnHandler >> players [ 
-	^spaceships 
+TurnHandler >> players [
 
+	^ spaceships
 ]

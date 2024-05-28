@@ -30,8 +30,8 @@ Game class >> playedBy: someSpaceShips on: aBoard rolling: dice [
 
 { #category : #asserting }
 Game >> checkIfGameHasEnded [
-	(board anySpaceShipOneInLastTileAndLap) ifTrue: [
-		hasEnded := true ]
+
+	board anySpaceShipOneInLastTileAndLap ifTrue: [ hasEnded := true ]
 ]
 
 { #category : #testing }
@@ -48,18 +48,15 @@ Game >> initializePlayedBy: someSpaceShips on: aBoard rolling: dice [
 	diceCollection := dice.
 	spaceships := someSpaceShips asOrderedCollection.
 	hasEnded := false.
-	turnHandler:= TurnHandler withPlayers: someSpaceShips .
-	spaceships do: [:aSpaceShip | aSpaceShip fuel: 2*(diceCollection maxRoll)].
+	turnHandler := TurnHandler withPlayers: someSpaceShips.
+	spaceships do: [ :aSpaceShip |
+		aSpaceShip fuel: 2 * diceCollection maxRoll ]
 ]
 
 { #category : #playing }
 Game >> move: aSpaceship withRollingResult: aResult [
-	
-	board move: aSpaceship by: aResult.
-	
-	
 
-
+	board move: aSpaceship by: aResult
 ]
 
 { #category : #playing }
@@ -67,12 +64,11 @@ Game >> playNextTurn [
 
 	| rollingResult spaceshipTurn |
 	self hasEnded ifTrue: [ Error signal: 'Game has already ended' ].
-	spaceshipTurn:= turnHandler nextPlayerTurn .
-	rollingResult := spaceshipTurn rollDiceUsing: diceCollection .
+	spaceshipTurn := turnHandler nextPlayerTurn.
+	rollingResult := spaceshipTurn rollDiceUsing: diceCollection.
 	self move: spaceshipTurn withRollingResult: rollingResult.
 	board applyEffectOnLandingShip: spaceshipTurn.
-	self checkIfGameHasEnded.
-	
+	self checkIfGameHasEnded
 ]
 
 { #category : #accessing }
@@ -81,14 +77,16 @@ Game >> positionOf: aSpaceship [
 	^ aSpaceship position
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Game >> spaceShipsPositionsRanking [
+
 	| spaceShipsPositions |
 	spaceShipsPositions := spaceships.
 
-	^ spaceShipsPositions asSortedCollection: [ :spaceShipA :spaceShipB | 
-		  (((spaceShipA lap -1) * board amountOfTiles) + spaceShipA  position) >= (((spaceShipB lap -1) * board amountOfTiles) + spaceShipB  position)]
-
+	^ spaceShipsPositions asSortedCollection: [ :spaceShipA :spaceShipB |
+		  spaceShipA lap - 1 * board amountOfTiles + spaceShipA position
+		  >=
+		  (spaceShipB lap - 1 * board amountOfTiles + spaceShipB position) ]
 ]
 
 { #category : #asserting }
@@ -98,6 +96,7 @@ Game >> winner [
 	self hasEnded ifFalse: [ ^ self hasEnded ].
 
 	winner := spaceships detect: [ :aSpaceship |
-		          aSpaceship position = 1 and: [aSpaceship lap=(board laps + 1)]].
+		          aSpaceship position = 1 and: [
+			          aSpaceship lap = (board laps + 1) ] ].
 	^ winner
 ]

@@ -15,18 +15,35 @@ EffectDistributionTest >> should: anErrorBlock raise: anErrorClass withMessage: 
 ]
 
 { #category : #tests }
-EffectDistributionTest >> testEffectDistributionSumOfProbabilitiesMustBeEqualToOne [ 
+EffectDistributionTest >> testEffectDistributionSumOfProbabilitiesMustBeEqualToOne [
 
 	| effectDistribution |
 	self
-	should: [ 
-			effectDistribution := EffectDistribution with: { 
-					        (ProbabilityTile with: NullEffect new and: 0.40).
-					        (ProbabilityTile with: BlackHoleEffect new and: 0.20).
-					        (ProbabilityTile with: (HyperGravityEffect needsToThrow:3 below: 6) and: 0.20).
-					        (ProbabilityTile with: (MoonWalkEffect backwardDistance:3) and: 0.10).
-					        (ProbabilityTile with: (HyperJumpEffect of:{3. 2. 1.}) and: 0.08).
-					        (ProbabilityTile with: AtomicBombEffect new and: 0.03). } ]
+		should: [
+			effectDistribution := EffectDistribution with: {
+					                      (ProbabilityTile
+						                       with: NullEffect new
+						                       and: 0.40).
+					                      (ProbabilityTile
+						                       with: BlackHoleEffect new
+						                       and: 0.20).
+					                      (ProbabilityTile
+						                       with:
+						                       (HyperGravityEffect
+							                        needsToThrow: 3
+							                        above: 1
+							                        below: 6)
+						                       and: 0.20).
+					                      (ProbabilityTile
+						                       with:
+						                       (MoonWalkEffect backwardDistance: 3)
+						                       and: 0.10).
+					                      (ProbabilityTile
+						                       with: (HyperJumpEffect of: { 3. 2. 1 })
+						                       and: 0.08).
+					                      (ProbabilityTile
+						                       with: AtomicBombEffect new
+						                       and: 0.03) } ]
 		raise: Error
 		withMessage: 'The sum of the probabilities must be equal to 1!'
 ]
@@ -45,26 +62,39 @@ EffectDistributionTest >> testThatIfAtomicBombEffectHasTwoPercentProbabilityItHa
 
 	| nullEffect blackHoleEffect hyperGravityEffect moonWalkEffect hyperJumpEffect atomicBombEffect effectDistribution randomCollection effectCount |
 	nullEffect := NullEffect new.
-	blackHoleEffect:= BlackHoleEffect new.
-	hyperGravityEffect:= HyperGravityEffect needsToThrow:3 below: 6.
-	moonWalkEffect:= MoonWalkEffect backwardDistance:3.
-	hyperJumpEffect:= HyperJumpEffect of:{3. 2. 1.}.
-	atomicBombEffect:= AtomicBombEffect new.
-	
-effectDistribution := EffectDistribution with: { 
-			        (ProbabilityTile with: nullEffect and: 0.40).
-					  (ProbabilityTile with: blackHoleEffect and: 0.2).
-			        (ProbabilityTile with: hyperGravityEffect and: 0.2).
-			        (ProbabilityTile with: moonWalkEffect and: 0.10).
-			        (ProbabilityTile with: hyperJumpEffect and: 0.08).
-			        (ProbabilityTile with: atomicBombEffect and: 0.02).
-			         }.
+	blackHoleEffect := BlackHoleEffect new.
+	hyperGravityEffect := HyperGravityEffect
+		                      needsToThrow: 3
+		                      above: 1
+		                      below: 6.
+	moonWalkEffect := MoonWalkEffect backwardDistance: 3.
+	hyperJumpEffect := HyperJumpEffect of: { 3. 2. 1 }.
+	atomicBombEffect := AtomicBombEffect new.
 
-randomCollection := effectDistribution randomCollectionWith: 100.
+	effectDistribution := EffectDistribution with: {
+			                      (ProbabilityTile with: nullEffect and: 0.40).
+			                      (ProbabilityTile
+				                       with: blackHoleEffect
+				                       and: 0.2).
+			                      (ProbabilityTile
+				                       with: hyperGravityEffect
+				                       and: 0.2).
+			                      (ProbabilityTile
+				                       with: moonWalkEffect
+				                       and: 0.10).
+			                      (ProbabilityTile
+				                       with: hyperJumpEffect
+				                       and: 0.08).
+			                      (ProbabilityTile
+				                       with: atomicBombEffect
+				                       and: 0.02) }.
 
-effectCount := randomCollection count: [ :effect | effect = atomicBombEffect ].
+	randomCollection := effectDistribution randomCollectionWith: 100.
 
-self assert: (effectCount between: 0 and: 12).
+	effectCount := randomCollection count: [ :effect |
+		               effect = atomicBombEffect ].
+
+	self assert: (effectCount between: 0 and: 12)
 ]
 
 { #category : #tests }
@@ -72,26 +102,39 @@ EffectDistributionTest >> testThatIfBlackHoleEffectHasTwentyPercentProbabilityIt
 
 	| nullEffect blackHoleEffect hyperGravityEffect moonWalkEffect hyperJumpEffect atomicBombEffect effectDistribution randomCollection effectCount |
 	nullEffect := NullEffect new.
-	blackHoleEffect:= BlackHoleEffect new.
-	hyperGravityEffect:= HyperGravityEffect needsToThrow:3 below: 6.
-	moonWalkEffect:= MoonWalkEffect backwardDistance:3.
-	hyperJumpEffect:= HyperJumpEffect of:{3. 2. 1.}.
-	atomicBombEffect:= AtomicBombEffect new.
-	
-effectDistribution := EffectDistribution with: { 
-			        (ProbabilityTile with: nullEffect and: 0.40).
-					  (ProbabilityTile with: blackHoleEffect and: 0.2).
-			        (ProbabilityTile with: hyperGravityEffect and: 0.2).
-			        (ProbabilityTile with: moonWalkEffect and: 0.10).
-			        (ProbabilityTile with: hyperJumpEffect and: 0.08).
-			        (ProbabilityTile with: atomicBombEffect and: 0.02).
-			         }.
+	blackHoleEffect := BlackHoleEffect new.
+	hyperGravityEffect := HyperGravityEffect
+		                      needsToThrow: 3
+		                      above: 1
+		                      below: 6.
+	moonWalkEffect := MoonWalkEffect backwardDistance: 3.
+	hyperJumpEffect := HyperJumpEffect of: { 3. 2. 1 }.
+	atomicBombEffect := AtomicBombEffect new.
 
-randomCollection := effectDistribution randomCollectionWith: 100.
+	effectDistribution := EffectDistribution with: {
+			                      (ProbabilityTile with: nullEffect and: 0.40).
+			                      (ProbabilityTile
+				                       with: blackHoleEffect
+				                       and: 0.2).
+			                      (ProbabilityTile
+				                       with: hyperGravityEffect
+				                       and: 0.2).
+			                      (ProbabilityTile
+				                       with: moonWalkEffect
+				                       and: 0.10).
+			                      (ProbabilityTile
+				                       with: hyperJumpEffect
+				                       and: 0.08).
+			                      (ProbabilityTile
+				                       with: atomicBombEffect
+				                       and: 0.02) }.
 
-effectCount := randomCollection count: [ :effect | effect = blackHoleEffect ].
+	randomCollection := effectDistribution randomCollectionWith: 100.
 
-self assert: (effectCount between: 10 and: 40).
+	effectCount := randomCollection count: [ :effect |
+		               effect = blackHoleEffect ].
+
+	self assert: (effectCount between: 10 and: 40)
 ]
 
 { #category : #tests }
@@ -99,26 +142,39 @@ EffectDistributionTest >> testThatIfHyperGravityEffectHasTwentyPercentProbabilit
 
 	| nullEffect blackHoleEffect hyperGravityEffect moonWalkEffect hyperJumpEffect atomicBombEffect effectDistribution randomCollection effectCount |
 	nullEffect := NullEffect new.
-	blackHoleEffect:= BlackHoleEffect new.
-	hyperGravityEffect:= HyperGravityEffect needsToThrow:3 below: 6.
-	moonWalkEffect:= MoonWalkEffect backwardDistance:3.
-	hyperJumpEffect:= HyperJumpEffect of:{3. 2. 1.}.
-	atomicBombEffect:= AtomicBombEffect new.
-	
-effectDistribution := EffectDistribution with: { 
-			        (ProbabilityTile with: nullEffect and: 0.40).
-					  (ProbabilityTile with: blackHoleEffect and: 0.2).
-			        (ProbabilityTile with: hyperGravityEffect and: 0.2).
-			        (ProbabilityTile with: moonWalkEffect and: 0.10).
-			        (ProbabilityTile with: hyperJumpEffect and: 0.08).
-			        (ProbabilityTile with: atomicBombEffect and: 0.02).
-			         }.
+	blackHoleEffect := BlackHoleEffect new.
+	hyperGravityEffect := HyperGravityEffect
+		                      needsToThrow: 3
+		                      above: 1
+		                      below: 6.
+	moonWalkEffect := MoonWalkEffect backwardDistance: 3.
+	hyperJumpEffect := HyperJumpEffect of: { 3. 2. 1 }.
+	atomicBombEffect := AtomicBombEffect new.
 
-randomCollection := effectDistribution randomCollectionWith: 100.
+	effectDistribution := EffectDistribution with: {
+			                      (ProbabilityTile with: nullEffect and: 0.40).
+			                      (ProbabilityTile
+				                       with: blackHoleEffect
+				                       and: 0.2).
+			                      (ProbabilityTile
+				                       with: hyperGravityEffect
+				                       and: 0.2).
+			                      (ProbabilityTile
+				                       with: moonWalkEffect
+				                       and: 0.10).
+			                      (ProbabilityTile
+				                       with: hyperJumpEffect
+				                       and: 0.08).
+			                      (ProbabilityTile
+				                       with: atomicBombEffect
+				                       and: 0.02) }.
 
-effectCount := randomCollection count: [ :effect | effect = hyperGravityEffect ].
+	randomCollection := effectDistribution randomCollectionWith: 100.
 
-self assert: (effectCount between: 10 and: 40).
+	effectCount := randomCollection count: [ :effect |
+		               effect = hyperGravityEffect ].
+
+	self assert: (effectCount between: 10 and: 40)
 ]
 
 { #category : #tests }
@@ -126,26 +182,39 @@ EffectDistributionTest >> testThatIfHyperJumpEffectHasEightPercentProbabilityItH
 
 	| nullEffect blackHoleEffect hyperGravityEffect moonWalkEffect hyperJumpEffect atomicBombEffect effectDistribution randomCollection effectCount |
 	nullEffect := NullEffect new.
-	blackHoleEffect:= BlackHoleEffect new.
-	hyperGravityEffect:= HyperGravityEffect needsToThrow:3 below: 6.
-	moonWalkEffect:= MoonWalkEffect backwardDistance:3.
-	hyperJumpEffect:= HyperJumpEffect of:{3. 2. 1.}.
-	atomicBombEffect:= AtomicBombEffect new.
-	
-effectDistribution := EffectDistribution with: { 
-			        (ProbabilityTile with: nullEffect and: 0.40).
-					  (ProbabilityTile with: blackHoleEffect and: 0.2).
-			        (ProbabilityTile with: hyperGravityEffect and: 0.2).
-			        (ProbabilityTile with: moonWalkEffect and: 0.10).
-			        (ProbabilityTile with: hyperJumpEffect and: 0.08).
-			        (ProbabilityTile with: atomicBombEffect and: 0.02).
-			         }.
+	blackHoleEffect := BlackHoleEffect new.
+	hyperGravityEffect := HyperGravityEffect
+		                      needsToThrow: 3
+		                      above: 1
+		                      below: 6.
+	moonWalkEffect := MoonWalkEffect backwardDistance: 3.
+	hyperJumpEffect := HyperJumpEffect of: { 3. 2. 1 }.
+	atomicBombEffect := AtomicBombEffect new.
 
-randomCollection := effectDistribution randomCollectionWith: 100.
+	effectDistribution := EffectDistribution with: {
+			                      (ProbabilityTile with: nullEffect and: 0.40).
+			                      (ProbabilityTile
+				                       with: blackHoleEffect
+				                       and: 0.2).
+			                      (ProbabilityTile
+				                       with: hyperGravityEffect
+				                       and: 0.2).
+			                      (ProbabilityTile
+				                       with: moonWalkEffect
+				                       and: 0.10).
+			                      (ProbabilityTile
+				                       with: hyperJumpEffect
+				                       and: 0.08).
+			                      (ProbabilityTile
+				                       with: atomicBombEffect
+				                       and: 0.02) }.
 
-effectCount := randomCollection count: [ :effect | effect = hyperJumpEffect ].
+	randomCollection := effectDistribution randomCollectionWith: 100.
 
-self assert: (effectCount between: 0 and: 18).
+	effectCount := randomCollection count: [ :effect |
+		               effect = hyperJumpEffect ].
+
+	self assert: (effectCount between: 0 and: 18)
 ]
 
 { #category : #tests }
@@ -153,26 +222,39 @@ EffectDistributionTest >> testThatIfMoonWalkEffectHasTenPercentProbabilityItHasB
 
 	| nullEffect blackHoleEffect hyperGravityEffect moonWalkEffect hyperJumpEffect atomicBombEffect effectDistribution randomCollection effectCount |
 	nullEffect := NullEffect new.
-	blackHoleEffect:= BlackHoleEffect new.
-	hyperGravityEffect:= HyperGravityEffect needsToThrow:3 below: 6.
-	moonWalkEffect:= MoonWalkEffect backwardDistance:3.
-	hyperJumpEffect:= HyperJumpEffect of:{3. 2. 1.}.
-	atomicBombEffect:= AtomicBombEffect new.
-	
-effectDistribution := EffectDistribution with: { 
-			        (ProbabilityTile with: nullEffect and: 0.40).
-					  (ProbabilityTile with: blackHoleEffect and: 0.2).
-			        (ProbabilityTile with: hyperGravityEffect and: 0.2).
-			        (ProbabilityTile with: moonWalkEffect and: 0.10).
-			        (ProbabilityTile with: hyperJumpEffect and: 0.08).
-			        (ProbabilityTile with: atomicBombEffect and: 0.02).
-			         }.
+	blackHoleEffect := BlackHoleEffect new.
+	hyperGravityEffect := HyperGravityEffect
+		                      needsToThrow: 3
+		                      above: 1
+		                      below: 6.
+	moonWalkEffect := MoonWalkEffect backwardDistance: 3.
+	hyperJumpEffect := HyperJumpEffect of: { 3. 2. 1 }.
+	atomicBombEffect := AtomicBombEffect new.
 
-randomCollection := effectDistribution randomCollectionWith: 100.
+	effectDistribution := EffectDistribution with: {
+			                      (ProbabilityTile with: nullEffect and: 0.40).
+			                      (ProbabilityTile
+				                       with: blackHoleEffect
+				                       and: 0.2).
+			                      (ProbabilityTile
+				                       with: hyperGravityEffect
+				                       and: 0.2).
+			                      (ProbabilityTile
+				                       with: moonWalkEffect
+				                       and: 0.10).
+			                      (ProbabilityTile
+				                       with: hyperJumpEffect
+				                       and: 0.08).
+			                      (ProbabilityTile
+				                       with: atomicBombEffect
+				                       and: 0.02) }.
 
-effectCount := randomCollection count: [ :effect | effect = moonWalkEffect ].
+	randomCollection := effectDistribution randomCollectionWith: 100.
 
-self assert: (effectCount between: 0 and: 20).
+	effectCount := randomCollection count: [ :effect |
+		               effect = moonWalkEffect ].
+
+	self assert: (effectCount between: 0 and: 20)
 ]
 
 { #category : #tests }
@@ -180,24 +262,37 @@ EffectDistributionTest >> testThatIfNullEffectHasFortyPercentProbabilityItHasBet
 
 	| nullEffect blackHoleEffect hyperGravityEffect moonWalkEffect hyperJumpEffect atomicBombEffect effectDistribution randomCollection effectCount |
 	nullEffect := NullEffect new.
-	blackHoleEffect:= BlackHoleEffect new.
-	hyperGravityEffect:= HyperGravityEffect needsToThrow:3 below: 6.
-	moonWalkEffect:= MoonWalkEffect backwardDistance:3.
-	hyperJumpEffect:= HyperJumpEffect of:{3. 2. 1.}.
-	atomicBombEffect:= AtomicBombEffect new.
-	
-effectDistribution := EffectDistribution with: { 
-			        (ProbabilityTile with: nullEffect and: 0.40).
-					  (ProbabilityTile with: blackHoleEffect and: 0.2).
-			        (ProbabilityTile with: hyperGravityEffect and: 0.2).
-			        (ProbabilityTile with: moonWalkEffect and: 0.10).
-			        (ProbabilityTile with: hyperJumpEffect and: 0.08).
-			        (ProbabilityTile with: atomicBombEffect and: 0.02).
-			         }.
+	blackHoleEffect := BlackHoleEffect new.
+	hyperGravityEffect := HyperGravityEffect
+		                      needsToThrow: 3
+		                      above: 1
+		                      below: 6.
+	moonWalkEffect := MoonWalkEffect backwardDistance: 3.
+	hyperJumpEffect := HyperJumpEffect of: { 3. 2. 1 }.
+	atomicBombEffect := AtomicBombEffect new.
 
-randomCollection := effectDistribution randomCollectionWith: 100.
+	effectDistribution := EffectDistribution with: {
+			                      (ProbabilityTile with: nullEffect and: 0.40).
+			                      (ProbabilityTile
+				                       with: blackHoleEffect
+				                       and: 0.2).
+			                      (ProbabilityTile
+				                       with: hyperGravityEffect
+				                       and: 0.2).
+			                      (ProbabilityTile
+				                       with: moonWalkEffect
+				                       and: 0.10).
+			                      (ProbabilityTile
+				                       with: hyperJumpEffect
+				                       and: 0.08).
+			                      (ProbabilityTile
+				                       with: atomicBombEffect
+				                       and: 0.02) }.
 
-effectCount := randomCollection count: [ :effect | effect = nullEffect ].
+	randomCollection := effectDistribution randomCollectionWith: 100.
 
-self assert: (effectCount between: 30 and: 60).
+	effectCount := randomCollection count: [ :effect |
+		               effect = nullEffect ].
+
+	self assert: (effectCount between: 30 and: 60)
 ]

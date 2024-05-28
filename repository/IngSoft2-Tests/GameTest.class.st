@@ -1167,7 +1167,10 @@ GameTest >> testSV15SpaceshipEscapesOfTheHyperGravityEffectWhenItGetsACertainNum
 				          NullEffect new.
 				          NullEffect new.
 				          NullEffect new.
-				          (HyperGravityEffect needsToThrow: 4 below: aDie1 maxRoll).
+				          (HyperGravityEffect
+					           needsToThrow: 4
+					           above: aDie1 minRoll
+					           below: aDie1 maxRoll).
 				          NullEffect new.
 				          NullEffect new }
 		          finishingAfter: 2
@@ -1211,7 +1214,10 @@ GameTest >> testSV16SpaceshipCannotEscapeFromTheHyperGravityEffectIfItDoesNotGet
 				          NullEffect new.
 				          NullEffect new.
 				          NullEffect new.
-				          (HyperGravityEffect needsToThrow: 4 below: aDie1 maxRoll).
+				          (HyperGravityEffect
+					           needsToThrow: 4
+					           above: aDie1 minRoll
+					           below: aDie1 maxRoll).
 				          NullEffect new.
 				          NullEffect new }
 		          finishingAfter: 2
@@ -1516,6 +1522,11 @@ GameTest >> testSV22SequenceDie [
 GameTest >> testSV23GameWithRandomBoardAndRandomDie [
 
 	| aGame aBoard aDie1 spaceShip1 spaceShip2 effectDistribution randomCollection aDie2 aDiceRoller |
+	aDie1 := Die of: 3.
+	aDie2 := Die of: 4.
+	aDiceRoller := DiceRoller of: {
+			               aDie1.
+			               aDie2 }.
 	effectDistribution := EffectDistribution with: {
 			                      (ProbabilityTile
 				                       with: NullEffect new
@@ -1524,10 +1535,10 @@ GameTest >> testSV23GameWithRandomBoardAndRandomDie [
 				                       with: BlackHoleEffect new
 				                       and: 0.20).
 			                      (ProbabilityTile
-				                       with:
-				                       (HyperGravityEffect
-					                        needsToThrow: 3
-					                        below: 6)
+				                       with: (HyperGravityEffect
+						                        needsToThrow: 3
+						                        above: aDiceRoller minRoll
+						                        below: 6)
 				                       and: 0.20).
 			                      (ProbabilityTile
 				                       with: (MoonWalkEffect backwardDistance: 3)
@@ -1546,11 +1557,6 @@ GameTest >> testSV23GameWithRandomBoardAndRandomDie [
 		          finishingAfter: 2
 		          withDistance: 10.
 
-	aDie1 := Die of: 3.
-	aDie2 := Die of: 4.
-	aDiceRoller := DiceRoller of: {
-			               aDie1.
-			               aDie2 }.
 	spaceShip1 := SpaceShip named: 'Danny'.
 	spaceShip2 := SpaceShip named: 'Walter'.
 

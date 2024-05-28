@@ -7,21 +7,23 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 MoonWalkEffect class >> backwardDistance: aDistance [
 
-	^ self new initializedWith: aDistance.
+	^ self new initializedWith: aDistance
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 MoonWalkEffect >> initializedWith: aDistance [
-	tilesToMove:= 0 - aDistance.
+
+	tilesToMove := 0 - aDistance
 ]
 
-{ #category : #'as yet unclassified' }
-MoonWalkEffect >> triggeredBy: aPlayer on:aBoard [
-	|  filteredPlayers |
-	filteredPlayers := aBoard players select: [:player | player ~= aPlayer].
-	filteredPlayers do:[:player | aBoard move: player by: tilesToMove   ].
-	
+{ #category : #playing }
+MoonWalkEffect >> triggeredBy: aPlayer on: aBoard [
+
+	| filteredPlayers |
+	filteredPlayers := aBoard players select: [ :player |
+		                   player ~= aPlayer ].
+	filteredPlayers do: [ :player | aBoard move: player by: tilesToMove ]
 ]
