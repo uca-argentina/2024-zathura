@@ -5,7 +5,8 @@ Class {
 		'board',
 		'spaceships',
 		'diceCollection',
-		'hasEnded'
+		'hasEnded',
+		'turnHandler'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -27,13 +28,6 @@ Game class >> playedBy: someSpaceShips on: aBoard rolling: dice [
 		  rolling: dice
 ]
 
-{ #category : #playing }
-Game >> changeTurns [
-
-	spaceships add: spaceships first.
-	spaceships removeFirst
-]
-
 { #category : #testing }
 Game >> hasEnded [
 
@@ -48,6 +42,7 @@ Game >> initializePlayedBy: someSpaceShips on: aBoard rolling: dice [
 	diceCollection := dice.
 	spaceships := someSpaceShips asOrderedCollection.
 	hasEnded := false.
+	turnHandler:= TurnHandler withPlayers: someSpaceShips .
 	spaceships do: [:aSpaceShip | aSpaceShip fuel: 2*(diceCollection maxRoll)].
 ]
 
@@ -62,24 +57,11 @@ Game >> move: aSpaceship withRollingResult: aResult [
 ]
 
 { #category : #playing }
-Game >> nextTurn [
-
-	| spaceshipTurn |
-	spaceshipTurn := spaceships first.	
-	^ spaceshipTurn
-]
-
-{ #category : #playing }
 Game >> playNextTurn [
 
 	| rollingResult spaceshipTurn |
 	self hasEnded ifTrue: [ Error signal: 'Game has already ended' ].
-	spaceshipTurn := self nextTurn.
-	[ spaceshipTurn turnsToLose > 0 ] whileTrue: [
-		spaceshipTurn losesTurns: -1.
-		self changeTurns.
-		spaceshipTurn := self nextTurn ].
-	self changeTurns.
+	spaceshipTurn:= turnHandler nextPlayerTurn .
 	rollingResult := spaceshipTurn rollDiceUsing: diceCollection .
 	self move: spaceshipTurn withRollingResult: rollingResult.
 	(board spaceshipInLastTileAndLap: spaceshipTurn) ifTrue: [

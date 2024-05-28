@@ -1390,38 +1390,9 @@ GameTest >> testPlayerOneCanRollTheDiceAfterPlayerTwoTurn [
 
 	self assert: (aGame positionOf: spaceShip1) equals: 4.
 	self assert: (aGame positionOf: spaceShip2) equals: 4.
-	self assert: aGame nextTurn equals: spaceShip1
-]
-
-{ #category : #tests }
-GameTest >> testPlayerTwoCanRollTheDiceAfterPlayerOneTurn [
-
-	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
-	spaceShip1 := SpaceShip named: 'Danny'.
-	spaceShip2 := SpaceShip named: 'Walter'.
-	aBoard := Board of: {
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create }
-			finishingAfter:2
-			withDistance: 10.
-
-	aDie1 := LoadedDie of: 3.
-
-	aGame := Game
-		         playedBy: {
-				         spaceShip1.
-				         spaceShip2 }
-		         on: aBoard
-		         rolling: aDie1.
-
 	aGame playNextTurn.
-	self assert: (aGame positionOf: spaceShip1) equals: 4.
-	self assert: aGame nextTurn equals: spaceShip2
+	self assert: (aGame positionOf: spaceShip1) equals: 1.
+
 ]
 
 { #category : #tests }
@@ -1492,37 +1463,6 @@ GameTest >> testTurnsWhenThreePlayersArePLaying [
 
 	aGame playNextTurn.
 	self assert: (aGame positionOf: spaceShip3) equals: 4
-]
-
-{ #category : #tests }
-GameTest >> testWhenItIsPlayerTwoTurnPlayerOneCantRoll [
-
-	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
-	spaceShip1 := SpaceShip named: 'Danny'.
-	spaceShip2 := SpaceShip named: 'Walter'.
-	aBoard := Board of: {
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create }
-			finishingAfter:2
-			withDistance: 10.
-
-	aDie1 := LoadedDie of: 3.
-
-	aGame := Game
-		         playedBy: {
-				         spaceShip1.
-				         spaceShip2 }
-		         on: aBoard
-		         rolling: aDie1.
-
-	aGame playNextTurn.
-	self assert: (aGame positionOf: spaceShip1) equals: 4.
-	self deny: aGame nextTurn equals: spaceShip1
 ]
 
 { #category : #tests }
