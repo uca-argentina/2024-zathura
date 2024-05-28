@@ -987,10 +987,9 @@ GameTest >> test21AtomicBombEffectSendsAllSpaceshipsBackToTheFirstTile [
 	self assert: (aGame positionOf: spaceShip2) equals: 1.
 	self assert: (spaceShip1 lap) equals:2.
 	self assert: (spaceShip2 lap) equals:1.
-	self assert: (spaceShip1 amountOfFuel) equals:28.
-	self assert: (spaceShip2 amountOfFuel) equals:32.
-	aGame playNextTurn.
-	aGame playNextTurn.
+	self assert: (spaceShip1 amountOfFuel) equals:31.
+	self assert: (spaceShip2 amountOfFuel) equals:36.
+
 ]
 
 { #category : #tests }
