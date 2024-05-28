@@ -5,6 +5,56 @@ Class {
 }
 
 { #category : #tests }
+BoardTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage [
+
+	self
+		should: anErrorBlock
+		raise: anErrorClass
+		withExceptionDo: [ :error |
+		self assert: error messageText equals: anErrorMessage ]
+]
+
+{ #category : #tests }
+BoardTest >> testBoardCannotBeCreatedWithLessThan1Lap [
+
+		self
+		should: [	Board of: {NullEffect create.
+			          NullEffect create.
+			          NullEffect create.}
+			finishingAfter: -2
+			withDistance: 10.]
+		raise: Error
+		withMessage: 	'Game must have one or more laps!'
+
+]
+
+{ #category : #tests }
+BoardTest >> testBoardCannotBeCreatedWithNegativeParsecs [
+
+		self
+		should: [	Board of: {NullEffect create.
+			          NullEffect create.
+			          NullEffect create.}
+			finishingAfter: 3
+			withDistance: -3.]
+		raise: Error
+		withMessage: 	'Paresecs cannot be a neagtive measure'
+
+]
+
+{ #category : #tests }
+BoardTest >> testBoardCannotBeCreatedWithOutTiles [
+
+		self
+		should: [	Board of: {}
+			finishingAfter:2
+			withDistance: 10.]
+		raise: Error
+		withMessage: 	'Tiles should be 2 or more'
+
+]
+
+{ #category : #tests }
 BoardTest >> testBoardCannotMoveSpaceshipOutOfIndex [
 
 	| firstTile secondTile tiles board aSpaceShip |

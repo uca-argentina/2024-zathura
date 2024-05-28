@@ -12,8 +12,14 @@ Class {
 
 { #category : #asserting }
 Board class >> assertValidNumberOfLaps: laps [ 
-	laps > 0 ifFalse: [ 
+	laps <= 0 ifTrue: [ 
 		Error signal: 'Game must have one or more laps!' ]
+]
+
+{ #category : #asserting }
+Board class >> assertValidQuantityOf: parsecs [
+	parsecs < 0 ifTrue: [ 
+		Error signal: 'Paresecs cannot be a neagtive measure' ]
 ]
 
 { #category : #'instance creation' }
@@ -26,6 +32,7 @@ Board class >> isValid: tiles [
 Board class >> of: tiles finishingAfter: laps withDistance:parsecs [
 	self isValid: tiles.
 	self assertValidNumberOfLaps: laps.
+	self assertValidQuantityOf: parsecs.
 	^ self new initializeOf: tiles finishingAfter: laps withDistance:parsecs.
 ]
 
