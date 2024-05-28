@@ -475,7 +475,7 @@ GameTest >> test10LandingInAnEffectTileAfterBeingMovedByAnEffectDoesNotCauseAnot
 ]
 
 { #category : #tests }
-GameTest >> test12Spaceship2IsTheFirstSpaceShipAtSpaceShipsRankingAsHisPositionIsTheClosestToTheFinish [
+GameTest >> test11Spaceship2IsTheFirstSpaceShipAtSpaceShipsRankingAsHisPositionIsTheClosestToTheFinish [
 
 	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
 	spaceShip1 := SpaceShip named: 'Danny'.
@@ -523,7 +523,7 @@ GameTest >> test12Spaceship2IsTheFirstSpaceShipAtSpaceShipsRankingAsHisPositionI
 ]
 
 { #category : #tests }
-GameTest >> test13BlackHoleEffect [
+GameTest >> test12BlackHoleEffectWhenSpaceShipHasEnoughFuelItGoesFourTilesBackwards [
 
 	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
 	spaceShip1 := SpaceShip named: 'Danny'.
@@ -551,19 +551,23 @@ GameTest >> test13BlackHoleEffect [
 
 	self assert:(aGame positionOf:spaceShip1) equals:1.
 	self assert:(aGame positionOf:spaceShip2) equals:1.
+	self assert:(spaceShip1 amountOfFuel) equals:10.
+	self assert:(spaceShip2 amountOfFuel) equals:10.
 	
 	aGame playNextTurn.
 	aGame playNextTurn.
 	
 	self assert:(aGame positionOf:spaceShip1) equals:2.
 	self assert:(aGame positionOf:spaceShip2) equals:2.
+	self assert:(spaceShip1 amountOfFuel) equals:1.
+	self assert:(spaceShip2 amountOfFuel) equals:1.
 
 	
 
 ]
 
 { #category : #tests }
-GameTest >> test14MoonWalkEffect [
+GameTest >> test13BlackHoleEffectWhenSpaceShipRunsOutOfFuelItGoesToTheFirstTileRechargesFuelAndLosesTwoTurns [
 
 	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
 	spaceShip1 := SpaceShip named: 'Danny'.
@@ -574,13 +578,111 @@ GameTest >> test14MoonWalkEffect [
 			          NullEffect new.
 			          NullEffect new.
 			          NullEffect new.
-			          MoonWalkEffect backwardDistance:2.
+			          BlackHoleEffect new.
 			          NullEffect new.
 			          NullEffect new. }
 			finishingAfter:2
 			withDistance: 10.
 
-	aDie1 := LoadedDie of: 5.
+	aDie1 := SequenceDie of:{1. 1. 4. 4.}.
+
+	aGame := Game
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
+		         on: aBoard
+		         rolling: aDie1.
+
+	self assert:(aGame positionOf:spaceShip1) equals:1.
+	self assert:(aGame positionOf:spaceShip2) equals:1.
+	self assert:(spaceShip1 amountOfFuel) equals:8.
+	self assert:(spaceShip2 amountOfFuel) equals:8.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf:spaceShip1) equals:2.
+	self assert:(aGame positionOf:spaceShip2) equals:2.
+	self assert:(spaceShip1 amountOfFuel) equals:7.
+	self assert:(spaceShip2 amountOfFuel) equals:7.
+
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf:spaceShip1) equals:1.
+	self assert:(aGame positionOf:spaceShip2) equals:1.
+	self assert:(spaceShip1 amountOfFuel) equals:8.
+	self assert:(spaceShip2 amountOfFuel) equals:8.
+]
+
+{ #category : #tests }
+GameTest >> test14BlackHoleEffectWhenSpaceShipIsInTheFirstThreeTilesItGoesBackToThePreviousLapAndTile [
+
+	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+	aBoard := Board
+		          of: {
+				          NullEffect new.
+				          BlackHoleEffect new.
+				          NullEffect new.
+				          NullEffect new.
+				          NullEffect new.
+				          NullEffect new. }
+		          finishingAfter: 2
+		          withDistance: 10.
+
+	aDie1 := SequenceDie of: { 6. 6. 1. 1. }.
+
+	aGame := Game
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
+		         on: aBoard
+		         rolling: aDie1.
+
+	self assert: (aGame positionOf: spaceShip1) equals: 1.
+	self assert: (aGame positionOf: spaceShip2) equals: 1.
+	self assert: (spaceShip1 lap) equals:1.
+	self assert: (spaceShip2 lap) equals:1.
+
+	aGame playNextTurn.
+	aGame playNextTurn.
+
+	self assert: (aGame positionOf: spaceShip1) equals: 1.
+	self assert: (aGame positionOf: spaceShip2) equals: 1.
+	self assert: (spaceShip1 lap) equals:2.
+	self assert: (spaceShip2 lap) equals:2.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+
+	self assert: (aGame positionOf: spaceShip1) equals: 4.
+	self assert: (aGame positionOf: spaceShip2) equals: 4.
+	self assert: (spaceShip1 lap) equals:1.
+	self assert: (spaceShip2 lap) equals:1.
+	
+]
+
+{ #category : #tests }
+GameTest >> test15SpaceshipEscapesOfTheHyperGravityEffectWhenItGetsACertainNumber [
+
+	| aGame aBoard aDie1 spaceShip1 spaceShip2|
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+	aDie1 := SequenceDie of:{5. 5. 4. 4.}.
+	aBoard := Board of: {
+			          NullEffect new.
+			          NullEffect new.
+			          NullEffect new.
+			          NullEffect new.
+			          NullEffect new.
+			          HyperGravityEffect needsToThrow: 4 below:aDie1 maxRoll.
+			          NullEffect new.
+			          NullEffect new. }
+			finishingAfter:2
+			withDistance: 10.
+
 
 	aGame := Game
 		         playedBy: {
@@ -595,15 +697,23 @@ GameTest >> test14MoonWalkEffect [
 	aGame playNextTurn.
 	aGame playNextTurn.
 	
-	self assert:(aGame positionOf:spaceShip1) equals:4.
+	self assert:(aGame positionOf:spaceShip1) equals:6.
 	self assert:(aGame positionOf:spaceShip2) equals:6.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf:spaceShip1) equals:2.
+	self assert:(aGame positionOf:spaceShip2) equals:2.
+	
 
 	
+
 
 ]
 
 { #category : #tests }
-GameTest >> test15AShiCannotMoveIfItTriggersHyperGravityEffect [
+GameTest >> test16SpaceshipCannotEscapeFromTheHyperGravityEffectIfItDoesNotGetACertainNumber [
 
 	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
 	spaceShip1 := SpaceShip named: 'Danny'.
@@ -648,25 +758,24 @@ GameTest >> test15AShiCannotMoveIfItTriggersHyperGravityEffect [
 ]
 
 { #category : #tests }
-GameTest >> test16AShiCanEscapeOfTheHyperGravityEffect [
+GameTest >> test17MoonWalkEffectWhenSpaceShipHasEnoughFuelItGoesNTilesBackwards [
 
-	| aGame aBoard aDie1 spaceShip1 spaceShip2 aDie2|
+	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
 	spaceShip1 := SpaceShip named: 'Danny'.
 	spaceShip2 := SpaceShip named: 'Walter'.
-	aDie1 := LoadedDie of: 5.
-	aDie2 := LoadedDie of: 4.
 	aBoard := Board of: {
 			          NullEffect new.
 			          NullEffect new.
 			          NullEffect new.
 			          NullEffect new.
 			          NullEffect new.
-			          HyperGravityEffect needsToThrow: 4 below:aDie1 maxRoll.
+			          MoonWalkEffect backwardDistance:2.
 			          NullEffect new.
 			          NullEffect new. }
 			finishingAfter:2
 			withDistance: 10.
 
+	aDie1 := SequenceDie of: {2. 3. 3.}.
 
 	aGame := Game
 		         playedBy: {
@@ -681,29 +790,202 @@ GameTest >> test16AShiCanEscapeOfTheHyperGravityEffect [
 	aGame playNextTurn.
 	aGame playNextTurn.
 	
-	self assert:(aGame positionOf:spaceShip1) equals:6.
-	self assert:(aGame positionOf:spaceShip2) equals:6.
-	
-	aGame playNextTurn.
-	aGame playNextTurn.
-	
-	self assert:(aGame positionOf:spaceShip1) equals:6.
-	self assert:(aGame positionOf:spaceShip2) equals:6.
-	
-	spaceShip1 rollDiceUsing: aDie2.
-	spaceShip1 fuel:20.
-	aGame playNextTurn.
-	
 	self assert:(aGame positionOf:spaceShip1) equals:3.
+	self assert:(aGame positionOf:spaceShip2) equals:4.
 	
-
+	aGame playNextTurn.
 	
-
+	self assert:(aGame positionOf:spaceShip1) equals:6.
+	self assert:(aGame positionOf:spaceShip2) equals:2.
 
 ]
 
 { #category : #tests }
-GameTest >> test17SequenceDie [
+GameTest >> test18MoonWalkEffectWhenSpaceShipRunsOutOfFuelItGoesToTheFirstTileRechargesFuelAndLosesTwoTurns [
+
+	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+	aBoard := Board of: {
+			          NullEffect new.
+			          NullEffect new.
+			          NullEffect new.
+			          NullEffect new.
+			          NullEffect new.
+			          NullEffect new.
+			          MoonWalkEffect backwardDistance:4.
+			          NullEffect new. }
+			finishingAfter:2
+			withDistance: 10.
+
+	aDie1 := SequenceDie of: {2. 4. 4. 1. 1.}.
+
+	aGame := Game
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
+		         on: aBoard
+		         rolling: aDie1.
+
+	self assert:(aGame positionOf:spaceShip1) equals:1.
+	self assert:(aGame positionOf:spaceShip2) equals:1.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf:spaceShip1) equals:3.
+	self assert:(aGame positionOf:spaceShip2) equals:5.
+	
+	aGame playNextTurn.
+	
+	self assert:(aGame positionOf:spaceShip1) equals:7.
+	self assert:(aGame positionOf:spaceShip2) equals:1.
+]
+
+{ #category : #tests }
+GameTest >> test19MoonWalkEffectWhenSpaceShipIsInTheFirstThreeTilesItGoesBackToThePreviousLapAndTile [
+
+	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+	aBoard := Board
+		          of: {
+				          NullEffect new.
+				          MoonWalkEffect backwardDistance:4.
+				          NullEffect new.
+				          NullEffect new.
+				          NullEffect new.
+				          NullEffect new. }
+		          finishingAfter: 2
+		          withDistance: 10.
+
+	aDie1 := SequenceDie of: { 6. 6. 1. 1. }.
+
+	aGame := Game
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
+		         on: aBoard
+		         rolling: aDie1.
+
+	self assert: (aGame positionOf: spaceShip1) equals: 1.
+	self assert: (aGame positionOf: spaceShip2) equals: 1.
+	self assert: (spaceShip1 lap) equals:1.
+	self assert: (spaceShip2 lap) equals:1.
+
+	aGame playNextTurn.
+	aGame playNextTurn.
+
+	self assert: (aGame positionOf: spaceShip1) equals: 1.
+	self assert: (aGame positionOf: spaceShip2) equals: 1.
+	self assert: (spaceShip1 lap) equals:2.
+	self assert: (spaceShip2 lap) equals:2.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+
+	self assert: (aGame positionOf: spaceShip1) equals: 2.
+	self assert: (aGame positionOf: spaceShip2) equals: 4.
+	self assert: (spaceShip1 lap) equals:2.
+	self assert: (spaceShip2 lap) equals:1.
+	
+]
+
+{ #category : #tests }
+GameTest >> test20HyperJumpEffectAssignsParsecsToSpaceshipAndItGoesForward [
+
+	| aGame aBoard aDie1 spaceShip1 spaceShip2 spaceShip3|
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+	spaceShip3 := SpaceShip named: 'Joseph'.
+	aBoard := Board of: {
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          HyperJumpEffect of:{3. 2. 1.}.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+						 NullEffect create.
+			          NullEffect create. }
+			finishingAfter: 2
+			withDistance:10.
+	aDie1 := SequenceDie of: { 3. 3. 3.}.
+
+	aGame := Game
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2.
+							spaceShip3. }
+		         on: aBoard
+		         rolling: aDie1.
+
+	self assert: (aGame positionOf: spaceShip1) equals: 1.
+	self assert: (aGame positionOf: spaceShip2) equals: 1.
+	self assert: (aGame positionOf: spaceShip3) equals: 1.
+
+	aGame playNextTurn.
+	aGame playNextTurn.
+	aGame playNextTurn.
+
+	self assert: (aGame positionOf: spaceShip1) equals: 6.
+	self assert: (aGame positionOf: spaceShip2) equals: 5.
+	self assert: (aGame positionOf: spaceShip3) equals: 4.
+	
+]
+
+{ #category : #tests }
+GameTest >> test21AtomicBombEffectSendsAllSpaceshipsBackToTheFirstTile [
+
+	| aGame aBoard aDie1 spaceShip1 spaceShip2|
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+	aBoard := Board of: {
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          AtomicBombEffect new.
+			          NullEffect create.
+			          NullEffect create. }
+			finishingAfter: 2
+			withDistance:10.
+	aDie1 := SequenceDie of: { 6. 6. 3. 3.}.
+
+	aGame := Game
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2. }
+		         on: aBoard
+		         rolling: aDie1.
+
+	self assert: (aGame positionOf: spaceShip1) equals: 1.
+	self assert: (aGame positionOf: spaceShip2) equals: 1.
+	self assert: (spaceShip1 lap) equals:1.
+	self assert: (spaceShip2 lap) equals:1.
+
+	aGame playNextTurn.
+	aGame playNextTurn.
+
+	self assert: (aGame positionOf: spaceShip1) equals: 1.
+	self assert: (aGame positionOf: spaceShip2) equals: 1.
+	self assert: (spaceShip1 lap) equals:2.
+	self assert: (spaceShip2 lap) equals:2.
+	self assert: (spaceShip1 amountOfFuel) equals:6.
+	self assert: (spaceShip2 amountOfFuel) equals:6.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+
+	self assert: (aGame positionOf: spaceShip1) equals: 1.
+	self assert: (aGame positionOf: spaceShip2) equals: 1.
+	self assert: (spaceShip1 lap) equals:2.
+	self assert: (spaceShip2 lap) equals:2.
+	self assert: (spaceShip1 amountOfFuel) equals:3.
+	self assert: (spaceShip2 amountOfFuel) equals:3.
+]
+
+{ #category : #tests }
+GameTest >> test22SequenceDie [
 
 | aGame aBoard aDie1 spaceShip1 spaceShip2|
 

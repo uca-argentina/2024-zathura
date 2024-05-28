@@ -51,7 +51,6 @@ Board >> calculatePositioToMove: aSpaceship whenMoving: aNumber [
 		newLap := newLap max:1.
 		newPosition:=1.
 		].
-	
 	(newPosition=0 or: [ aLap > laps ]) ifTrue: [
 		newPosition := self amountOfTiles.
 		fuelNeeded := (self amountOfTiles * newLap) - (tilesSinceBeginning-aNumber) .].
