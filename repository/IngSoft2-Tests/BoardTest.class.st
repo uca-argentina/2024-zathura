@@ -5,6 +5,57 @@ Class {
 }
 
 { #category : #tests }
+BoardTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage [
+
+	self
+		should: anErrorBlock
+		raise: anErrorClass
+		withExceptionDo: [ :error |
+		self assert: error messageText equals: anErrorMessage ]
+]
+
+{ #category : #tests }
+BoardTest >> testBoardCannotBeCreatedWithLessThan1Lap [
+
+	self
+		should: [
+			Board
+				of: {
+						NullEffect create.
+						NullEffect create.
+						NullEffect create }
+				finishingAfter: -2
+				withDistance: 10 ]
+		raise: Error
+		withMessage: 'Game must have one or more laps!'
+]
+
+{ #category : #tests }
+BoardTest >> testBoardCannotBeCreatedWithNegativeParsecs [
+
+	self
+		should: [
+			Board
+				of: {
+						NullEffect create.
+						NullEffect create.
+						NullEffect create }
+				finishingAfter: 3
+				withDistance: -3 ]
+		raise: Error
+		withMessage: 'Parsecs cannot be a negative measure'
+]
+
+{ #category : #tests }
+BoardTest >> testBoardCannotBeCreatedWithOutTiles [
+
+	self
+		should: [ Board of: {  } finishingAfter: 2 withDistance: 10 ]
+		raise: Error
+		withMessage: 'Tiles should be 2 or more'
+]
+
+{ #category : #tests }
 BoardTest >> testBoardCannotMoveSpaceshipOutOfIndex [
 
 	| firstTile secondTile tiles board aSpaceShip |
@@ -15,9 +66,11 @@ BoardTest >> testBoardCannotMoveSpaceshipOutOfIndex [
 		         firstTile.
 		         secondTile }.
 
-	board := Board of: tiles.
-	board move: aSpaceShip by: 4.
-	self assert: aSpaceShip position equals: 2
+	board := Board of: tiles finishingAfter: 2 withDistance: 10.
+	aSpaceShip fuel: 12.
+	board move: aSpaceShip by: 7.
+	self assert: aSpaceShip position equals: 1.
+	self assert: aSpaceShip lap equals: 3
 ]
 
 { #category : #tests }
@@ -31,7 +84,9 @@ BoardTest >> testBoardTracksSpaceshipPositions [
 	tiles := {
 		         firstTile.
 		         secondTile }.
-	board := Board of: tiles.
+	board := Board of: tiles finishingAfter: 2 withDistance: 10.
+	spaceShip1 fuel: 12.
+	spaceShip2 fuel: 12.
 	board move: spaceShip1 by: 1.
 	self assert: (board positionOf: spaceShip1) equals: 2.
 	self assert: (board positionOf: spaceShip2) equals: 1

@@ -14,7 +14,7 @@ WormholeEffect class >> assertAtLeastTwoWormholes: positionOfTheWormholes [
 		Error signal: 'Cannot create a single wormhole' ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 WormholeEffect class >> betweenTiles: positionOfTheWormholes [
 
 	self assertAtLeastTwoWormholes: positionOfTheWormholes.
@@ -29,7 +29,7 @@ WormholeEffect >> initialize: aNumberOfTilesToMove [
 ]
 
 { #category : #playing }
-WormholeEffect >> triggeredBy: aPlayer [
+WormholeEffect >> triggeredBy: aPlayer on: aBoard [
 
-	aPlayer moveBy: tilesToMove
+	aBoard move: aPlayer by: tilesToMove
 ]

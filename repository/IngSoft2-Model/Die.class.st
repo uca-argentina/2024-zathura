@@ -28,6 +28,18 @@ Die >> initializeOf: anAmountOfFaces [
 	faces := anAmountOfFaces
 ]
 
+{ #category : #accessing }
+Die >> maxRoll [
+
+	^ faces
+]
+
+{ #category : #accessing }
+Die >> minRoll [
+
+	^ 1
+]
+
 { #category : #playing }
 Die >> roll [
 

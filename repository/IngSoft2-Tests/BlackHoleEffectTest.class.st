@@ -1,13 +1,14 @@
 Class {
-	#name : #NullEffectTest,
+	#name : #BlackHoleEffectTest,
 	#superclass : #TestCase,
 	#category : #'IngSoft2-Tests'
 }
 
 { #category : #running }
-NullEffectTest >> testWhenSpaceShipsLandItDoesNothingToIt [
+BlackHoleEffectTest >> testBlackHoleEffectMovesAPlayerBacward4Positions [
 
-	| aSpaceShip aNullEffectTile aBoard |
+	| aBlachHoleTile aSpaceShip aBoard |
+	aBlachHoleTile := BlackHoleEffect new.
 	aBoard := Board
 		          of: {
 				          NullEffect create.
@@ -19,9 +20,9 @@ NullEffectTest >> testWhenSpaceShipsLandItDoesNothingToIt [
 				          NullEffect create }
 		          finishingAfter: 2
 		          withDistance: 10.
-	aNullEffectTile := NullEffect create.
 	aSpaceShip := SpaceShip named: 'Danny'.
 	aSpaceShip fuel: 20.
-	aNullEffectTile triggeredBy: aSpaceShip on: aBoard.
-	self assert: aSpaceShip position equals: 1
+	aSpaceShip movePositionBy: 6 lapBy: 0 neededFuel: 6.
+	aBlachHoleTile triggeredBy: aSpaceShip on: aBoard.
+	self assert: aSpaceShip position equals: 3
 ]

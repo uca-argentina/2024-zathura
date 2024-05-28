@@ -28,6 +28,18 @@ DiceRoller >> initializeOf: aDice [
 	dice := aDice
 ]
 
+{ #category : #accessing }
+DiceRoller >> maxRoll [
+
+	^ dice sum: [ :die | die maxRoll ]
+]
+
+{ #category : #accessing }
+DiceRoller >> minRoll [
+
+	^ dice size
+]
+
 { #category : #rolling }
 DiceRoller >> roll [
 
