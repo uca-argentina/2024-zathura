@@ -784,7 +784,6 @@ GameTest >> test17MoonWalkEffectWhenSpaceShipHasEnoughFuelItGoesNTilesBackwards 
 			withDistance: 10.
 
 	aDie1 := SequenceDie of: {2. 3. 3.}.
-
 	aGame := Game
 		         playedBy: {
 				         spaceShip1.
@@ -800,7 +799,7 @@ GameTest >> test17MoonWalkEffectWhenSpaceShipHasEnoughFuelItGoesNTilesBackwards 
 	
 	self assert:(aGame positionOf:spaceShip1) equals:3.
 	self assert:(aGame positionOf:spaceShip2) equals:4.
-	
+	spaceShip2 fuel:30.
 	aGame playNextTurn.
 	
 	self assert:(aGame positionOf:spaceShip1) equals:6.

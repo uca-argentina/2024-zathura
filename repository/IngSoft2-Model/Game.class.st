@@ -64,6 +64,7 @@ Game >> playNextTurn [
 	spaceshipTurn:= turnHandler nextPlayerTurn .
 	rollingResult := spaceshipTurn rollDiceUsing: diceCollection .
 	self move: spaceshipTurn withRollingResult: rollingResult.
+	board applyEffectOnLandingShip: spaceshipTurn.
 	(board spaceshipInLastTileAndLap: spaceshipTurn) ifTrue: [
 		hasEnded := true ]
 ]

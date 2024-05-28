@@ -19,5 +19,5 @@ NullEffect >> initializeOf: aCollection [
 { #category : #playing }
 NullEffect >> triggeredBy: aPlayer on:aBoard [
 
-	aPlayer movePositionBy:0 lapBy:0  neededFuel: 0.
+	aBoard move:  aPlayer  by: 0. 
 ]

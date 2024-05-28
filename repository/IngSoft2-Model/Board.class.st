@@ -36,6 +36,14 @@ Board >> amountOfTiles [
 ]
 
 { #category : #accessing }
+Board >> applyEffectOnLandingShip: aSpaceship [
+	|effectToApply|
+	effectToApply := tiles at: aSpaceship position.
+	effectToApply triggeredBy: aSpaceship on:self.
+	
+]
+
+{ #category : #accessing }
 Board >> calculatePositioToMove: aSpaceship whenMoving: aNumber [
 
 	|tilesSinceBeginning newLap newPosition aLap lapsAdvanced finalPosition  fuelNeeded| 
@@ -87,14 +95,13 @@ Board >> laps [
 { #category : #accessing }
 Board >> move: aSpaceship by: diceRollerNumber [
 
-	| effectToApply  changesToPositionCollection positionToMove lapsMoved costToMove|
+	|  changesToPositionCollection positionToMove lapsMoved costToMove|
 	changesToPositionCollection:=self calculatePositioToMove:aSpaceship  whenMoving: diceRollerNumber.
 	positionToMove:= changesToPositionCollection at:1.
 	lapsMoved:=changesToPositionCollection at:2.
 	costToMove:=changesToPositionCollection at:3.
 	aSpaceship movePositionBy: positionToMove lapBy: lapsMoved neededFuel: costToMove.
-	effectToApply := tiles at: aSpaceship position.
-	effectToApply triggeredBy: aSpaceship on:self.
+
 	
 ]
 

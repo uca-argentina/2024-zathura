@@ -30,10 +30,5 @@ WormholeEffect >> initialize: aNumberOfTilesToMove [
 
 { #category : #playing }
 WormholeEffect >> triggeredBy: aPlayer on:aBoard [
-	|changesToPositionCollection newShipPosition advancedLaps cost|
-	changesToPositionCollection:= aBoard calculatePositioToMove: aPlayer whenMoving:tilesToMove .
-	newShipPosition:= changesToPositionCollection at:1.
-	advancedLaps:=changesToPositionCollection at:2.
-	cost:=changesToPositionCollection at:3.
-	aPlayer movePositionBy:newShipPosition lapBy:advancedLaps  neededFuel: cost.
+	aBoard move: aPlayer  by: tilesToMove . 
 ]
