@@ -35,6 +35,13 @@ Board >> amountOfTiles [
 	^ tiles size
 ]
 
+{ #category : #'as yet unclassified' }
+Board >> anySpaceShipOneInLastTileAndLap [
+
+	^ players anySatisfy: [ :aSpaceship |
+		  laps + 1 = aSpaceship lap and: [ 1 = aSpaceship position ] ]
+]
+
 { #category : #accessing }
 Board >> applyEffectOnLandingShip: aSpaceship [
 	|effectToApply|
@@ -121,14 +128,6 @@ Board >> players [
 Board >> positionOf: aSpaceship [
 
 	^ aSpaceship position
-]
-
-{ #category : #'as yet unclassified' }
-Board >> spaceshipInLastTileAndLap: aSpaceship [
-
-	(laps + 1  = aSpaceship lap  and: [
-		 1 = aSpaceship position]) ifTrue: [ ^ true ].
-	^ false
 ]
 
 { #category : #accessing }
