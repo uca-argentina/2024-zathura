@@ -956,7 +956,7 @@ GameTest >> test21AtomicBombEffectSendsAllSpaceshipsBackToTheFirstTile [
 			          NullEffect create. }
 			finishingAfter: 2
 			withDistance:10.
-	aDie1 := SequenceDie of: { 6. 6. 3. 3.}.
+	aDie1 := SequenceDie of: { 6. 4. 3. 3. 6. 6. 20}.
 
 	aGame := Game
 		         playedBy: {
@@ -974,21 +974,23 @@ GameTest >> test21AtomicBombEffectSendsAllSpaceshipsBackToTheFirstTile [
 	aGame playNextTurn.
 
 	self assert: (aGame positionOf: spaceShip1) equals: 1.
-	self assert: (aGame positionOf: spaceShip2) equals: 1.
+	self assert: (aGame positionOf: spaceShip2) equals: 5.
 	self assert: (spaceShip1 lap) equals:2.
-	self assert: (spaceShip2 lap) equals:2.
-	self assert: (spaceShip1 amountOfFuel) equals:6.
-	self assert: (spaceShip2 amountOfFuel) equals:6.
+	self assert: (spaceShip2 lap) equals:1.
+	self assert: (spaceShip1 amountOfFuel) equals:34.
+	self assert: (spaceShip2 amountOfFuel) equals:36.
 	
 	aGame playNextTurn.
-	aGame playNextTurn.
+
 
 	self assert: (aGame positionOf: spaceShip1) equals: 1.
 	self assert: (aGame positionOf: spaceShip2) equals: 1.
 	self assert: (spaceShip1 lap) equals:2.
-	self assert: (spaceShip2 lap) equals:2.
-	self assert: (spaceShip1 amountOfFuel) equals:3.
-	self assert: (spaceShip2 amountOfFuel) equals:3.
+	self assert: (spaceShip2 lap) equals:1.
+	self assert: (spaceShip1 amountOfFuel) equals:28.
+	self assert: (spaceShip2 amountOfFuel) equals:32.
+	aGame playNextTurn.
+	aGame playNextTurn.
 ]
 
 { #category : #tests }
