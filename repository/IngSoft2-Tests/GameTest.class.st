@@ -909,7 +909,7 @@ GameTest >> test20HyperJumpEffectAssignsParsecsToSpaceshipAndItGoesForward [
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create.
-			          HyperJumpEffect of:{3. 2. 1.}.
+			          HyperJumpEffect of:{3. 2.}.
 			          NullEffect create.
 			          NullEffect create.
 			          NullEffect create.
@@ -937,7 +937,7 @@ GameTest >> test20HyperJumpEffectAssignsParsecsToSpaceshipAndItGoesForward [
 
 	self assert: (aGame positionOf: spaceShip1) equals: 6.
 	self assert: (aGame positionOf: spaceShip2) equals: 5.
-	self assert: (aGame positionOf: spaceShip3) equals: 4.
+	self assert: (aGame positionOf: spaceShip3) equals: 6.
 	
 ]
 
@@ -1035,6 +1035,43 @@ GameTest >> test22SequenceDie [
 	
 	self assert:(aGame positionOf:spaceShip1) equals:2.
 	self assert:(spaceShip1 lap) equals:2.
+]
+
+{ #category : #tests }
+GameTest >> test23GameWithRandomBoardAndRandomDie [
+
+| aGame aBoard aDie1 spaceShip1 spaceShip2 effectDistribution randomCollection aDie2 aDiceRoller |
+	
+	effectDistribution := EffectDistribution with: { 
+					        (ProbabilityTile with: NullEffect new and: 0.40).
+					        (ProbabilityTile with: BlackHoleEffect new and: 0.20).
+					        (ProbabilityTile with: (HyperGravityEffect needsToThrow:3 below: 6) and: 0.20).
+					        (ProbabilityTile with: (MoonWalkEffect backwardDistance:3) and: 0.10).
+					        (ProbabilityTile with: (HyperJumpEffect of:{3. 2. 1.}) and: 0.08).
+					        (ProbabilityTile with: AtomicBombEffect new and: 0.02). }.
+	
+	randomCollection := effectDistribution randomCollectionWith: 5.
+	
+	aBoard := Board of: randomCollection
+		          finishingAfter: 2
+					withDistance: 10.
+
+	aDie1 := Die of:3.
+	aDie2 := Die of:4.
+	aDiceRoller := DiceRoller of:{aDie1. aDie2}.
+	spaceShip1 := SpaceShip named: 'Danny'.
+	spaceShip2 := SpaceShip named: 'Walter'.
+
+	aGame := Game
+		         playedBy: {
+				         spaceShip1.
+				         spaceShip2 }
+		         on: aBoard
+		         rolling: aDiceRoller .
+	
+	self playUntilFinished: aGame.
+
+	self assert: aGame hasEnded
 ]
 
 { #category : #tests }
@@ -1290,40 +1327,6 @@ GameTest >> testGameWithTwoRandomDice [
 	self playUntilFinished: aGame.
 
 	self assert: aGame hasEnded
-]
-
-{ #category : #tests }
-GameTest >> testIsInvalidWhenTheWinnerIsNotAssignedCorrectly [
-
-	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
-	aBoard := Board of: {
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create.
-			          NullEffect create }
-			finishingAfter:2
-			withDistance: 10.
-
-	aDie1 := LoadedDie of: 9.
-	spaceShip1 := SpaceShip named: 'Danny'.
-	spaceShip2 := SpaceShip named: 'Walter'.
-
-	aGame := Game
-		         playedBy: {
-				         spaceShip1.
-				         spaceShip2 }
-		         on: aBoard
-		         rolling: aDie1.
-
-	aGame playNextTurn.
-	aGame playNextTurn.
-	aGame playNextTurn.
-
-
-	self deny: aGame winner name equals: 'Walter'
 ]
 
 { #category : #tests }

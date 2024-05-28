@@ -2,7 +2,6 @@ Class {
 	#name : #ProbabilityTile,
 	#superclass : #Object,
 	#instVars : [
-		'effectDistributionCollection',
 		'effect',
 		'probability'
 	],
