@@ -14,9 +14,15 @@ HyperJumpEffect class >> of: collectionOfParsecs [
 ]
 
 { #category : #'as yet unclassified' }
-HyperJumpEffect >> distances [
-
-^distances
+HyperJumpEffect >> distanceToMoveOn:aBoard [
+|parsecsToMove totalTiles tilesToMove boardDistanceInParsecs |
+	parsecsToMove:=distances at:1.
+	totalTiles:=aBoard amountOfTiles.
+	boardDistanceInParsecs:=aBoard parsecs.
+	tilesToMove:=(parsecsToMove//(boardDistanceInParsecs/totalTiles)) truncated.
+	distances add: distances first.
+	distances removeFirst.
+	^tilesToMove .
 ]
 
 { #category : #'instance creation' }
@@ -28,19 +34,8 @@ distances:=collectionOfParsecs asOrderedCollection
 { #category : #playing }
 HyperJumpEffect >> triggeredBy: aPlayer on:aBoard [
 
-|changesToPositionCollection newShipPosition advancedLaps cost parsecsToMove totalTiles tilesToMove boardDistanceInParsecs |
-	distances:=self distances.
-	
-	parsecsToMove:=distances at:1.
-	totalTiles:=aBoard amountOfTiles.
-	boardDistanceInParsecs:=aBoard parsecs.
-	tilesToMove:=(parsecsToMove//(boardDistanceInParsecs/totalTiles)) truncated.
-	
-	changesToPositionCollection:= aBoard calculatePositioToMove: aPlayer whenMoving:(tilesToMove).
-	distances add: distances first.
-	distances removeFirst.
-	newShipPosition:= changesToPositionCollection at:1.
-	advancedLaps:=changesToPositionCollection at:2.
-	cost:=changesToPositionCollection at:3.
-	aPlayer movePositionBy:newShipPosition lapBy:advancedLaps  neededFuel: cost.
+|tilesToMove  |
+	tilesToMove := self distanceToMoveOn: aBoard.
+	aBoard move: aPlayer by: tilesToMove . 
+
 ]

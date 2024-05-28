@@ -31,9 +31,9 @@ HyperJumpEffectTest >> testWhenAPlayerTriggersTheEffectItMovesAnAmountOfParsecs 
 	aSpaceShip1 fuel:20.
 	aSpaceShip2 fuel:20.
 	aSpaceShip3 fuel:20.
-	aSpaceShip1 movePositionBy: 6 lapBy: 0  neededFuel: 6 .
-	aSpaceShip2 movePositionBy: 6 lapBy: 0  neededFuel: 6 .
-	aSpaceShip3 movePositionBy: 5 lapBy: 0  neededFuel: 5 .
+	aBoard move: aSpaceShip1 by: 6.
+	aBoard move: aSpaceShip2 by: 6.
+	aBoard move: aSpaceShip3 by: 5.
 	self assert: aSpaceShip1 position equals: 7.
 	self assert: aSpaceShip2 position equals: 7.
 	self assert: aSpaceShip3 position equals: 6.
@@ -71,12 +71,14 @@ HyperJumpEffectTest >> testWhenOneParsecIsLessThanATile [
 	aSpaceShip1 fuel:20.
 	aSpaceShip2 fuel:20.
 	aSpaceShip3 fuel:20.
-	aSpaceShip1 movePositionBy: 6 lapBy: 0  neededFuel: 6 .
-	aSpaceShip2 movePositionBy: 6 lapBy: 0  neededFuel: 6 .
-	aSpaceShip3 movePositionBy: 5 lapBy: 0  neededFuel: 5 .
+	aBoard move: aSpaceShip1 by: 6.
+	aBoard move: aSpaceShip2 by: 6.
+	aBoard move: aSpaceShip3 by: 5.
+
 	self assert: aSpaceShip1 position equals: 7.
 	self assert: aSpaceShip2 position equals: 7.
 	self assert: aSpaceShip3 position equals: 6.
+	
 	aHyperJumpEffect triggeredBy: aSpaceShip1  on: aBoard.
 	aHyperJumpEffect triggeredBy: aSpaceShip2  on: aBoard.
 	aHyperJumpEffect triggeredBy: aSpaceShip3  on: aBoard.
