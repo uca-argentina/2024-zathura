@@ -20,7 +20,7 @@ Board class >> assertValidNumberOfLaps: laps [
 Board class >> assertValidQuantityOf: parsecs [
 
 	parsecs < 0 ifTrue: [
-		Error signal: 'Paresecs cannot be a neagtive measure' ]
+		Error signal: 'Parsecs cannot be a negative measure' ]
 ]
 
 { #category : #'instance creation' }
@@ -63,7 +63,7 @@ Board >> applyEffectOnLandingShip: aSpaceship [
 ]
 
 { #category : #accessing }
-Board >> calculatePositioToMove: aSpaceship whenMoving: aNumber [
+Board >> calculatePositionToMove: aSpaceship whenMoving: aNumber [
 
 	| tilesSinceBeginning newLap newPosition aLap lapsAdvanced finalPosition fuelNeeded |
 	fuelNeeded := aNumber abs.
@@ -114,7 +114,7 @@ Board >> move: aSpaceship by: diceRollerNumber [
 
 	| changesToPositionCollection positionToMove lapsMoved costToMove |
 	changesToPositionCollection := self
-		                               calculatePositioToMove: aSpaceship
+		                               calculatePositionToMove: aSpaceship
 		                               whenMoving: diceRollerNumber.
 	positionToMove := changesToPositionCollection at: 1.
 	lapsMoved := changesToPositionCollection at: 2.

@@ -1,11 +1,11 @@
 Class {
-	#name : #WormTestEffectTest,
+	#name : #WormHoleEffectTest,
 	#superclass : #TestCase,
 	#category : #'IngSoft2-Tests'
 }
 
 { #category : #tests }
-WormTestEffectTest >> should: aErrorBlock raise: anErrorClass withMessage: anErrorMessage [
+WormHoleEffectTest >> should: aErrorBlock raise: anErrorClass withMessage: anErrorMessage [
 
 	self
 		should: aErrorBlock
@@ -15,7 +15,7 @@ WormTestEffectTest >> should: aErrorBlock raise: anErrorClass withMessage: anErr
 ]
 
 { #category : #running }
-WormTestEffectTest >> testWormholeEffectCannotBeCreatedIfThereIsOnlyOneWormhole [
+WormHoleEffectTest >> testWormholeEffectCannotBeCreatedIfThereIsOnlyOneWormhole [
 
 	self
 		should: [ WormholeEffect betweenTiles: { 2 } ]
@@ -24,7 +24,7 @@ WormTestEffectTest >> testWormholeEffectCannotBeCreatedIfThereIsOnlyOneWormhole 
 ]
 
 { #category : #running }
-WormTestEffectTest >> testWormholeEffectMovesAShipBackwards [
+WormHoleEffectTest >> testWormholeEffectMovesAShipBackwards [
 
 	| aWormHoleTile1 aWormHoleTile2 aSpaceShip aBoard |
 	aWormHoleTile1 := WormholeEffect betweenTiles: { 2. 7 }.
@@ -48,7 +48,7 @@ WormTestEffectTest >> testWormholeEffectMovesAShipBackwards [
 ]
 
 { #category : #running }
-WormTestEffectTest >> testWormholeEffectMovesAShipFoward [
+WormHoleEffectTest >> testWormholeEffectMovesAShipFoward [
 
 	| aWormHoleTile1 aWormHoleTile2 aSpaceShip aBoard |
 	aWormHoleTile1 := WormholeEffect betweenTiles: { 2. 5 }.

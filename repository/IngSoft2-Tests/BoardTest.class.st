@@ -43,7 +43,7 @@ BoardTest >> testBoardCannotBeCreatedWithNegativeParsecs [
 				finishingAfter: 3
 				withDistance: -3 ]
 		raise: Error
-		withMessage: 'Paresecs cannot be a neagtive measure'
+		withMessage: 'Parsecs cannot be a negative measure'
 ]
 
 { #category : #tests }
