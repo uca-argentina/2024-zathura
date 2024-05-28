@@ -109,6 +109,6 @@ Game >> winner [
 	self hasEnded ifFalse: [ ^ self hasEnded ].
 
 	winner := spaceships detect: [ :aSpaceship |
-		          aSpaceship position = board amountOfTiles and: [aSpaceship lap=board laps]].
+		          aSpaceship position = 1 and: [aSpaceship lap=(board laps + 1)]].
 	^ winner
 ]

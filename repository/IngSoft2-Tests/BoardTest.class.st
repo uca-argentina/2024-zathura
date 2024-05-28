@@ -17,8 +17,9 @@ BoardTest >> testBoardCannotMoveSpaceshipOutOfIndex [
 
 	board := Board of: tiles finishingAfter:2 withDistance: 10.
 	aSpaceShip fuel:12.
-	board move: aSpaceShip by: 4.
-	self assert: aSpaceShip position equals: 2
+	board move: aSpaceShip by: 7.
+	self assert: aSpaceShip position equals: 1.
+	self assert: aSpaceShip lap equals: 3.
 ]
 
 { #category : #tests }

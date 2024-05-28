@@ -50,14 +50,19 @@ Board >> calculatePositioToMove: aSpaceship whenMoving: aNumber [
 	(newLap < 1) ifTrue:[
 		newLap := newLap max:1.
 		newPosition:=1.
+		fuelNeeded := (1 - (tilesSinceBeginning-aNumber)) abs .
 		].
-	(newPosition=0 or: [ aLap > laps ]) ifTrue: [
+	(newPosition=0 and: [ aLap <= laps ]) ifTrue: [
 		newPosition := self amountOfTiles.
 		fuelNeeded := (self amountOfTiles * newLap) - (tilesSinceBeginning-aNumber) .].
+	 aLap > laps ifTrue:[
+			newPosition := 1.
+			fuelNeeded :=(self amountOfTiles * laps) - (tilesSinceBeginning-aNumber) + 1.
+			newLap := laps +1
+		].
 	lapsAdvanced := (newLap -aSpaceship lap).
 	finalPosition:= (newPosition - aSpaceship position ).
 	lapsAdvanced := newLap - aSpaceship lap.
-    finalPosition := newPosition - aSpaceship position.
     ^OrderedCollection with: finalPosition with: lapsAdvanced with: fuelNeeded.
 	
 	
@@ -114,8 +119,8 @@ Board >> positionOf: aSpaceship [
 { #category : #'as yet unclassified' }
 Board >> spaceshipInLastTileAndLap: aSpaceship [
 
-	(laps = aSpaceship lap and: [
-		 self amountOfTiles = aSpaceship position ]) ifTrue: [ ^ true ].
+	(laps + 1  = aSpaceship lap  and: [
+		 1 = aSpaceship position]) ifTrue: [ ^ true ].
 	^ false
 ]
 

@@ -170,9 +170,17 @@ GameTest >> test03PlayersWinsAfterCompletingAnAmountOfLaps [
 	self assert:(spaceShip2 lap) equals:1.
 	
 	aGame playNextTurn.
-	
-	self assert:(aGame positionOf:spaceShip1) equals:6.
+	aGame playNextTurn.
+	self assert:(aGame positionOf:spaceShip1) equals:1.
 	self assert:(spaceShip1 lap) equals:2.
+	self assert:(aGame positionOf:spaceShip2) equals:1.
+	self assert:(spaceShip2 lap) equals:2.
+	aGame playNextTurn.
+	aGame playNextTurn.
+	aGame playNextTurn.
+	self assert:(aGame positionOf:spaceShip1) equals:1.
+	self assert:(spaceShip1 lap) equals:3.
+	
 	self assert:(aGame winner) equals:spaceShip1.
 ]
 
@@ -1060,8 +1068,8 @@ GameTest >> testCantRollAfterGameEnded [
 
 	aGame playNextTurn.
 	
-	self assert: (aGame positionOf: spaceShip1) equals: 7.
-	self assert: (spaceShip1 lap) equals: 1.
+	self assert: (aGame positionOf: spaceShip1) equals: 1.
+	self assert: (spaceShip1 lap) equals: 2.
 	self assert: (aGame positionOf: spaceShip2) equals: 1.
 
 	self
@@ -1107,7 +1115,8 @@ GameTest >> testGameHasEndedAsOneSpaceshipReachTheEnd [
 	
 	aGame playNextTurn.
 
-	self assert: (aGame positionOf: spaceShip1) equals: 7.
+	self assert: (aGame positionOf: spaceShip1) equals: 1.
+	self assert: (spaceShip1 lap) equals: 3.
 
 	
 	
