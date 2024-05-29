@@ -68,12 +68,6 @@ SpaceShip >> losesTurns: amountOfTurns [
 	turnsToLose := turnsToLose + amountOfTurns
 ]
 
-{ #category : #accessing }
-SpaceShip >> maxFuel [
-
-	^ maxFuel
-]
-
 { #category : #playing }
 SpaceShip >> movePositionBy: aNumber lapBy: quantityOfLapsToMove neededFuel: aFuelAmount [
 
@@ -92,7 +86,7 @@ SpaceShip >> movePositionBy: aNumber lapBy: quantityOfLapsToMove neededFuel: aFu
 { #category : #accessing }
 SpaceShip >> name [
 
-	^ name
+^name
 ]
 
 { #category : #'accessing - arguments' }
