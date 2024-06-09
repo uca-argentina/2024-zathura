@@ -13,20 +13,6 @@ HyperJumpEffect class >> of: collectionOfParsecs [
 	^ self new initializeOf: collectionOfParsecs
 ]
 
-{ #category : #playing }
-HyperJumpEffect >> distanceToMoveOn: aBoard [
-
-	| parsecsToMove totalTiles tilesToMove boardDistanceInParsecs |
-	parsecsToMove := distances at: 1.
-	totalTiles := aBoard amountOfTiles.
-	boardDistanceInParsecs := aBoard parsecs.
-	tilesToMove := (parsecsToMove
-	                // (boardDistanceInParsecs / totalTiles)) truncated.
-	distances add: distances first.
-	distances removeFirst.
-	^ tilesToMove
-]
-
 { #category : #'instance creation' }
 HyperJumpEffect >> initializeOf: collectionOfParsecs [
 
@@ -36,7 +22,7 @@ HyperJumpEffect >> initializeOf: collectionOfParsecs [
 { #category : #playing }
 HyperJumpEffect >> triggeredBy: aPlayer on: aBoard [
 
-	| tilesToMove |
-	tilesToMove := self distanceToMoveOn: aBoard.
-	aBoard move: aPlayer by: tilesToMove
+	aBoard move: aPlayer jumping: (distances at: 1).
+	distances add: distances first.
+	distances removeFirst.
 ]

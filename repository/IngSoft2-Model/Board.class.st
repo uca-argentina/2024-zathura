@@ -126,6 +126,16 @@ Board >> move: aSpaceship by: diceRollerNumber [
 ]
 
 { #category : #'as yet unclassified' }
+Board >> move: aPlayer jumping: aQuantityOfParsec [
+	| tilesToMove |
+
+	tilesToMove := (aQuantityOfParsec
+	                // (parsecs  / self amountOfTiles  )) truncated.
+
+	self move:  aPlayer by:  tilesToMove .
+]
+
+{ #category : #'as yet unclassified' }
 Board >> moveAllPlayersToFirstPosition [
 	players do:[:aPlayer | aPlayer movePositionBy: 1- aPlayer position lapBy:0  neededFuel: 0 ].
 ]
