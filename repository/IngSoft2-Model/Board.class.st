@@ -125,6 +125,11 @@ Board >> move: aSpaceship by: diceRollerNumber [
 		neededFuel: costToMove
 ]
 
+{ #category : #'as yet unclassified' }
+Board >> moveAllPlayersToFirstPosition [
+	players do:[:aPlayer | aPlayer movePositionBy: 1- aPlayer position lapBy:0  neededFuel: 0 ].
+]
+
 { #category : #accessing }
 Board >> parsecs [
 
