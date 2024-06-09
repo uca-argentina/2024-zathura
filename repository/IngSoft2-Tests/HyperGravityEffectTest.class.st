@@ -21,7 +21,7 @@ HyperGravityEffectTest >> testAHyperGravityTileRaisesAnErrorWhenAssignedABiggerN
 	self
 		should: [
 			aDie1 := LoadedDie of: 4.
-			aHyperGravityTile := HyperGravityEffect
+			aHyperGravityTile := HyperGravity
 				                     needsToThrow: 6
 				                     above: aDie1 minRoll
 				                     below: aDie1 maxRoll ]
@@ -35,19 +35,19 @@ HyperGravityEffectTest >> testAShipCannotMoveUntilItThrowsACertainNumber [
 
 	| aHyperGravityTile aSpaceShip aBoard aDie1 |
 	aDie1 := SequenceDie of: { 4. 3 }.
-	aHyperGravityTile := HyperGravityEffect
+	aHyperGravityTile := HyperGravity
 		                     needsToThrow: 4
 		                     above: aDie1 minRoll
 		                     below: aDie1 maxRoll.
 	aBoard := Board
 		          of: {
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create }
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
 		          finishingAfter: 2
 		          withDistance: 10.
 	aSpaceShip := SpaceShip named: 'Danny'.
@@ -74,20 +74,20 @@ HyperGravityEffectTest >> testAShipThatIsAffectedByHyperGravityEffectCannotMoveB
 
 	| aHyperGravityTile anAtomicBombEffect aSpaceShip1 aSpaceShip2 aSpaceShip3 aBoard aDie1 |
 	aDie1 := SequenceDie of: { 3. 4 }.
-	aHyperGravityTile := HyperGravityEffect
+	aHyperGravityTile := HyperGravity
 		                     needsToThrow: 4
 		                     above: aDie1 minRoll
 		                     below: aDie1 maxRoll.
-	anAtomicBombEffect := AtomicBombEffect new.
+	anAtomicBombEffect := AtomicBomb new.
 	aBoard := Board
 		          of: {
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create }
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
 		          finishingAfter: 2
 		          withDistance: 10.
 

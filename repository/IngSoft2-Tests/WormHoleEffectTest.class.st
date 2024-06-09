@@ -18,7 +18,7 @@ WormHoleEffectTest >> should: aErrorBlock raise: anErrorClass withMessage: anErr
 WormHoleEffectTest >> testWormholeEffectCannotBeCreatedIfThereIsOnlyOneWormhole [
 
 	self
-		should: [ WormholeEffect betweenTiles: { 2 } ]
+		should: [ Wormhole betweenTiles: { 2 } ]
 		raise: Error
 		withMessage: 'Cannot create a single wormhole'
 ]
@@ -27,17 +27,17 @@ WormHoleEffectTest >> testWormholeEffectCannotBeCreatedIfThereIsOnlyOneWormhole 
 WormHoleEffectTest >> testWormholeEffectMovesAShipBackwards [
 
 	| aWormHoleTile1 aWormHoleTile2 aSpaceShip aBoard |
-	aWormHoleTile1 := WormholeEffect betweenTiles: { 2. 7 }.
-	aWormHoleTile2 := WormholeEffect betweenTiles: { 7. 2 }.
+	aWormHoleTile1 := Wormhole betweenTiles: { 2. 7 }.
+	aWormHoleTile2 := Wormhole betweenTiles: { 7. 2 }.
 	aBoard := Board
 		          of: {
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create }
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
 		          finishingAfter: 2
 		          withDistance: 10.
 	aSpaceShip := SpaceShip named: 'Danny'.
@@ -51,17 +51,17 @@ WormHoleEffectTest >> testWormholeEffectMovesAShipBackwards [
 WormHoleEffectTest >> testWormholeEffectMovesAShipFoward [
 
 	| aWormHoleTile1 aWormHoleTile2 aSpaceShip aBoard |
-	aWormHoleTile1 := WormholeEffect betweenTiles: { 2. 5 }.
-	aWormHoleTile2 := WormholeEffect betweenTiles: { 5. 2 }.
+	aWormHoleTile1 := Wormhole betweenTiles: { 2. 5 }.
+	aWormHoleTile2 := Wormhole betweenTiles: { 5. 2 }.
 	aBoard := Board
 		          of: {
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create }
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
 		          finishingAfter: 2
 		          withDistance: 10.
 	aSpaceShip := SpaceShip named: 'Danny'.

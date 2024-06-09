@@ -1,6 +1,6 @@
 Class {
-	#name : #HyperGravityEffect,
-	#superclass : #Object,
+	#name : #HyperGravity,
+	#superclass : #Effect,
 	#instVars : [
 		'needsToThrow'
 	],
@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #testing }
-HyperGravityEffect class >> isValid: aNumber above: minRoll below: maxRoll [
+HyperGravity class >> isValid: aNumber above: minRoll below: maxRoll [
 
 	(aNumber between: minRoll and: maxRoll) ifFalse: [
 		Error signal:
@@ -16,20 +16,20 @@ HyperGravityEffect class >> isValid: aNumber above: minRoll below: maxRoll [
 ]
 
 { #category : #testing }
-HyperGravityEffect class >> needsToThrow: aNumber above: minRoll below: maxRoll [
+HyperGravity class >> needsToThrow: aNumber above: minRoll below: maxRoll [
 
 	self isValid: aNumber above: minRoll below: maxRoll.
 	^ self new initializedWith: aNumber
 ]
 
 { #category : #initialization }
-HyperGravityEffect >> initializedWith: aNumber [
+HyperGravity >> initializedWith: aNumber [
 
 	needsToThrow := aNumber
 ]
 
 { #category : #playing }
-HyperGravityEffect >> triggeredBy: aPlayer on: aBoard [
+HyperGravity >> triggeredBy: aPlayer on: aBoard [
 
 	aPlayer changeRollingResultNeededToMove: needsToThrow
 ]

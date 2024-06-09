@@ -10,16 +10,16 @@ NullEffectTest >> testWhenSpaceShipsLandItDoesNothingToIt [
 	| aSpaceShip aNullEffectTile aBoard |
 	aBoard := Board
 		          of: {
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create }
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
 		          finishingAfter: 2
 		          withDistance: 10.
-	aNullEffectTile := NullEffect create.
+	aNullEffectTile := Null create.
 	aSpaceShip := SpaceShip named: 'Danny'.
 	aSpaceShip fuel: 20.
 	aNullEffectTile triggeredBy: aSpaceShip on: aBoard.

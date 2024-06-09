@@ -1,6 +1,6 @@
 Class {
-	#name : #HyperJumpEffect,
-	#superclass : #Object,
+	#name : #HyperJump,
+	#superclass : #Effect,
 	#instVars : [
 		'distances'
 	],
@@ -8,19 +8,19 @@ Class {
 }
 
 { #category : #'instance creation' }
-HyperJumpEffect class >> of: collectionOfParsecs [
+HyperJump class >> of: collectionOfParsecs [
 
 	^ self new initializeOf: collectionOfParsecs
 ]
 
 { #category : #'instance creation' }
-HyperJumpEffect >> initializeOf: collectionOfParsecs [
+HyperJump >> initializeOf: collectionOfParsecs [
 
 	distances := collectionOfParsecs asOrderedCollection
 ]
 
 { #category : #playing }
-HyperJumpEffect >> triggeredBy: aPlayer on: aBoard [
+HyperJump >> triggeredBy: aPlayer on: aBoard [
 
 	aBoard move: aPlayer jumping: (distances at: 1).
 	distances add: distances first.

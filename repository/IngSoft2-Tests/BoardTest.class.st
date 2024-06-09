@@ -21,9 +21,9 @@ BoardTest >> testBoardCannotBeCreatedWithLessThan1Lap [
 		should: [
 			Board
 				of: {
-						NullEffect create.
-						NullEffect create.
-						NullEffect create }
+						Null create.
+						Null create.
+						Null create }
 				finishingAfter: -2
 				withDistance: 10 ]
 		raise: Error
@@ -37,9 +37,9 @@ BoardTest >> testBoardCannotBeCreatedWithNegativeParsecs [
 		should: [
 			Board
 				of: {
-						NullEffect create.
-						NullEffect create.
-						NullEffect create }
+						Null create.
+						Null create.
+						Null create }
 				finishingAfter: 3
 				withDistance: -3 ]
 		raise: Error
@@ -59,8 +59,8 @@ BoardTest >> testBoardCannotBeCreatedWithOutTiles [
 BoardTest >> testBoardCannotMoveSpaceshipOutOfIndex [
 
 	| firstTile secondTile tiles board aSpaceShip |
-	firstTile := NullEffect create.
-	secondTile := NullEffect create.
+	firstTile := Null create.
+	secondTile := Null create.
 	aSpaceShip := SpaceShip named: 'Walter'.
 	tiles := {
 		         firstTile.
@@ -77,8 +77,8 @@ BoardTest >> testBoardCannotMoveSpaceshipOutOfIndex [
 BoardTest >> testBoardTracksSpaceshipPositions [
 
 	| firstTile secondTile tiles board spaceShip1 spaceShip2 |
-	firstTile := NullEffect create.
-	secondTile := NullEffect create.
+	firstTile := Null create.
+	secondTile := Null create.
 	spaceShip1 := SpaceShip named: 'Danny'.
 	spaceShip2 := SpaceShip named: 'Walter'.
 	tiles := {

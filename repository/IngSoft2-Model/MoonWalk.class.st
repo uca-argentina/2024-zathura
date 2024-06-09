@@ -1,6 +1,6 @@
 Class {
-	#name : #MoonWalkEffect,
-	#superclass : #Object,
+	#name : #MoonWalk,
+	#superclass : #Effect,
 	#instVars : [
 		'tilesToMove'
 	],
@@ -8,19 +8,19 @@ Class {
 }
 
 { #category : #'instance creation' }
-MoonWalkEffect class >> backwardDistance: aDistance [
+MoonWalk class >> backwardDistance: aDistance [
 
 	^ self new initializedWith: aDistance
 ]
 
 { #category : #initialization }
-MoonWalkEffect >> initializedWith: aDistance [
+MoonWalk >> initializedWith: aDistance [
 
 	tilesToMove := 0 - aDistance
 ]
 
 { #category : #playing }
-MoonWalkEffect >> triggeredBy: aPlayer on: aBoard [
+MoonWalk >> triggeredBy: aPlayer on: aBoard [
 
 	| filteredPlayers |
 	filteredPlayers := aBoard players select: [ :player |

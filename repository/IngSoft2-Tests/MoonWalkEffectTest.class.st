@@ -8,18 +8,18 @@ Class {
 MoonWalkEffectTest >> testWhenAPlayerTriggersTheEffectItMovesTheRestOfThePlayers [
 
 	| aMoonWalkEffect aSpaceShip1 aSpaceShip2 aSpaceShip3 aBoard |
-	aMoonWalkEffect := MoonWalkEffect backwardDistance: 3.
+	aMoonWalkEffect := MoonWalk backwardDistance: 3.
 	aBoard := Board
 		          of: {
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create }
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
 		          finishingAfter: 2
 		          withDistance: 10.
 

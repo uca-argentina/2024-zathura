@@ -8,18 +8,18 @@ Class {
 HyperJumpEffectTest >> testWhenAPlayerTriggersTheEffectItMovesAnAmountOfParsecs [
 
 	| aHyperJumpEffect aSpaceShip1 aSpaceShip2 aSpaceShip3 aBoard |
-	aHyperJumpEffect := HyperJumpEffect of: { 3. 2. 1 }.
+	aHyperJumpEffect := HyperJump of: { 3. 2. 1 }.
 	aBoard := Board
 		          of: {
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create }
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
 		          finishingAfter: 2
 		          withDistance: 10.
 
@@ -51,18 +51,18 @@ HyperJumpEffectTest >> testWhenAPlayerTriggersTheEffectItMovesAnAmountOfParsecs 
 HyperJumpEffectTest >> testWhenOneParsecIsLessThanATile [
 
 	| aHyperJumpEffect aSpaceShip1 aSpaceShip2 aSpaceShip3 aBoard |
-	aHyperJumpEffect := HyperJumpEffect of: { 5. 4. 3 }.
+	aHyperJumpEffect := HyperJump of: { 5. 4. 3 }.
 	aBoard := Board
 		          of: {
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create }
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
 		          finishingAfter: 2
 		          withDistance: 18.
 

@@ -8,18 +8,18 @@ Class {
 AtomicBombEffectTest >> testWhenAPlayerTriggersTheEffectItMovesTheRestOfThePlayers [
 
 	| anAtomicBombEffect aSpaceShip1 aSpaceShip2 aSpaceShip3 aBoard |
-	anAtomicBombEffect := AtomicBombEffect new.
+	anAtomicBombEffect := AtomicBomb new.
 	aBoard := Board
 		          of: {
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create }
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
 		          finishingAfter: 2
 		          withDistance: 10.
 

@@ -8,16 +8,16 @@ Class {
 BlackHoleEffectTest >> testBlackHoleEffectMovesAPlayerBacward4Positions [
 
 	| aBlachHoleTile aSpaceShip aBoard |
-	aBlachHoleTile := BlackHoleEffect new.
+	aBlachHoleTile := BlackHole new.
 	aBoard := Board
 		          of: {
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create.
-				          NullEffect create }
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
 		          finishingAfter: 2
 		          withDistance: 10.
 	aSpaceShip := SpaceShip named: 'Danny'.
