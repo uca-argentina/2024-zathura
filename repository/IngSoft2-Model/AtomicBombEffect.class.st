@@ -7,6 +7,6 @@ Class {
 { #category : #playing }
 AtomicBombEffect >> triggeredBy: aPlayer on: aBoard [
 
-	aBoard players do: [ :player |
+	aBoard spaceships do: [ :player |
 		player movePositionBy: 1 - player position lapBy: 0 neededFuel: 0 ]
 ]

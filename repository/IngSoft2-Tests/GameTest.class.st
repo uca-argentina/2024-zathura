@@ -1167,10 +1167,7 @@ GameTest >> testSV15SpaceshipEscapesOfTheHyperGravityEffectWhenItGetsACertainNum
 				          NullEffect new.
 				          NullEffect new.
 				          NullEffect new.
-				          (HyperGravityEffect
-					           needsToThrow: 4
-					           above: aDie1 minRoll
-					           below: aDie1 maxRoll).
+				          (HyperGravityEffect needsToThrow: 4).
 				          NullEffect new.
 				          NullEffect new }
 		          finishingAfter: 2
@@ -1214,10 +1211,7 @@ GameTest >> testSV16SpaceshipCannotEscapeFromTheHyperGravityEffectIfItDoesNotGet
 				          NullEffect new.
 				          NullEffect new.
 				          NullEffect new.
-				          (HyperGravityEffect
-					           needsToThrow: 4
-					           above: aDie1 minRoll
-					           below: aDie1 maxRoll).
+				          (HyperGravityEffect needsToThrow: 4).
 				          NullEffect new.
 				          NullEffect new }
 		          finishingAfter: 2
@@ -1536,9 +1530,7 @@ GameTest >> testSV23GameWithRandomBoardAndRandomDie [
 				                       and: 0.20).
 			                      (ProbabilityTile
 				                       with: (HyperGravityEffect
-						                        needsToThrow: 3
-						                        above: aDiceRoller minRoll
-						                        below: 6)
+						                        needsToThrow: 3)
 				                       and: 0.20).
 			                      (ProbabilityTile
 				                       with: (MoonWalkEffect backwardDistance: 3)

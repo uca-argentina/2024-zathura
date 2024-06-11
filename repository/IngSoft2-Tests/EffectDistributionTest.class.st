@@ -29,10 +29,7 @@ EffectDistributionTest >> testEffectDistributionSumOfProbabilitiesMustBeEqualToO
 						                       and: 0.20).
 					                      (ProbabilityTile
 						                       with:
-						                       (HyperGravityEffect
-							                        needsToThrow: 3
-							                        above: 1
-							                        below: 6)
+						                       (HyperGravityEffect needsToThrow: 3)
 						                       and: 0.20).
 					                      (ProbabilityTile
 						                       with:
@@ -63,10 +60,7 @@ EffectDistributionTest >> testThatIfAtomicBombEffectHasTwoPercentProbabilityItHa
 	| nullEffect blackHoleEffect hyperGravityEffect moonWalkEffect hyperJumpEffect atomicBombEffect effectDistribution randomCollection effectCount |
 	nullEffect := NullEffect new.
 	blackHoleEffect := BlackHoleEffect new.
-	hyperGravityEffect := HyperGravityEffect
-		                      needsToThrow: 3
-		                      above: 1
-		                      below: 6.
+	hyperGravityEffect := HyperGravityEffect needsToThrow: 3.
 	moonWalkEffect := MoonWalkEffect backwardDistance: 3.
 	hyperJumpEffect := HyperJumpEffect of: { 3. 2. 1 }.
 	atomicBombEffect := AtomicBombEffect new.
@@ -103,10 +97,7 @@ EffectDistributionTest >> testThatIfBlackHoleEffectHasTwentyPercentProbabilityIt
 	| nullEffect blackHoleEffect hyperGravityEffect moonWalkEffect hyperJumpEffect atomicBombEffect effectDistribution randomCollection effectCount |
 	nullEffect := NullEffect new.
 	blackHoleEffect := BlackHoleEffect new.
-	hyperGravityEffect := HyperGravityEffect
-		                      needsToThrow: 3
-		                      above: 1
-		                      below: 6.
+	hyperGravityEffect := HyperGravityEffect needsToThrow: 3.
 	moonWalkEffect := MoonWalkEffect backwardDistance: 3.
 	hyperJumpEffect := HyperJumpEffect of: { 3. 2. 1 }.
 	atomicBombEffect := AtomicBombEffect new.
@@ -143,10 +134,7 @@ EffectDistributionTest >> testThatIfHyperGravityEffectHasTwentyPercentProbabilit
 	| nullEffect blackHoleEffect hyperGravityEffect moonWalkEffect hyperJumpEffect atomicBombEffect effectDistribution randomCollection effectCount |
 	nullEffect := NullEffect new.
 	blackHoleEffect := BlackHoleEffect new.
-	hyperGravityEffect := HyperGravityEffect
-		                      needsToThrow: 3
-		                      above: 1
-		                      below: 6.
+	hyperGravityEffect := HyperGravityEffect needsToThrow: 3.
 	moonWalkEffect := MoonWalkEffect backwardDistance: 3.
 	hyperJumpEffect := HyperJumpEffect of: { 3. 2. 1 }.
 	atomicBombEffect := AtomicBombEffect new.
@@ -183,10 +171,7 @@ EffectDistributionTest >> testThatIfHyperJumpEffectHasEightPercentProbabilityItH
 	| nullEffect blackHoleEffect hyperGravityEffect moonWalkEffect hyperJumpEffect atomicBombEffect effectDistribution randomCollection effectCount |
 	nullEffect := NullEffect new.
 	blackHoleEffect := BlackHoleEffect new.
-	hyperGravityEffect := HyperGravityEffect
-		                      needsToThrow: 3
-		                      above: 1
-		                      below: 6.
+	hyperGravityEffect := HyperGravityEffect needsToThrow: 3.
 	moonWalkEffect := MoonWalkEffect backwardDistance: 3.
 	hyperJumpEffect := HyperJumpEffect of: { 3. 2. 1 }.
 	atomicBombEffect := AtomicBombEffect new.
@@ -223,10 +208,7 @@ EffectDistributionTest >> testThatIfMoonWalkEffectHasTenPercentProbabilityItHasB
 	| nullEffect blackHoleEffect hyperGravityEffect moonWalkEffect hyperJumpEffect atomicBombEffect effectDistribution randomCollection effectCount |
 	nullEffect := NullEffect new.
 	blackHoleEffect := BlackHoleEffect new.
-	hyperGravityEffect := HyperGravityEffect
-		                      needsToThrow: 3
-		                      above: 1
-		                      below: 6.
+	hyperGravityEffect := HyperGravityEffect needsToThrow: 3.
 	moonWalkEffect := MoonWalkEffect backwardDistance: 3.
 	hyperJumpEffect := HyperJumpEffect of: { 3. 2. 1 }.
 	atomicBombEffect := AtomicBombEffect new.
@@ -263,10 +245,7 @@ EffectDistributionTest >> testThatIfNullEffectHasFortyPercentProbabilityItHasBet
 	| nullEffect blackHoleEffect hyperGravityEffect moonWalkEffect hyperJumpEffect atomicBombEffect effectDistribution randomCollection effectCount |
 	nullEffect := NullEffect new.
 	blackHoleEffect := BlackHoleEffect new.
-	hyperGravityEffect := HyperGravityEffect
-		                      needsToThrow: 3
-		                      above: 1
-		                      below: 6.
+	hyperGravityEffect := HyperGravityEffect needsToThrow: 3.
 	moonWalkEffect := MoonWalkEffect backwardDistance: 3.
 	hyperJumpEffect := HyperJumpEffect of: { 3. 2. 1 }.
 	atomicBombEffect := AtomicBombEffect new.

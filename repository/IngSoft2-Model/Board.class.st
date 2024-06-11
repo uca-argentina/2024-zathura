@@ -132,15 +132,15 @@ Board >> parsecs [
 ]
 
 { #category : #accessing }
-Board >> players [
-
-	^ players
-]
-
-{ #category : #accessing }
 Board >> positionOf: aSpaceship [
 
 	^ aSpaceship position
+]
+
+{ #category : #accessing }
+Board >> spaceships [
+
+	^ players
 ]
 
 { #category : #accessing }
