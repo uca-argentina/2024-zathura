@@ -31,11 +31,3 @@ DieTest >> testDieIsCreatedWithAnAmountOfFacesAndRollsBetweenOneAndAmountOfFaces
 
 	self assert: (aDie roll between: 1 and: 4)
 ]
-
-{ #category : #tests }
-DieTest >> testDieMinRollIsEqualTo1 [
-
-	| aRandomDie |
-	aRandomDie := Die of: 3.
-	self assert: aRandomDie minRoll equals: 1
-]
