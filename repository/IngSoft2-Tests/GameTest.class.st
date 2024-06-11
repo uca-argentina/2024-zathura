@@ -11,13 +11,13 @@ GameTest >> initializeGameWithLoadedDieOf3And2PlayersAnd7NormalTiles [
 	spaceShip1 := SpaceShip named: 'Danny'.
 	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board of: {
-			          Null create.
-			          Null create.
-			          Null create.
-			          Null create.
-			          Null create.
-			          Null create.
-			          Null create }
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create.
+			          NullEffect create }
 			finishingAfter: 2
 			withDistance: 10.
 
@@ -54,13 +54,13 @@ GameTest >> testFV01GameMustHaveAtLeastOnePlayer [
 	| aBoard aDie1 |
 	aBoard := Board
 		          of: {
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create }
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create }
 		          finishingAfter: 2
 		          withDistance: 10.
 
@@ -81,13 +81,13 @@ GameTest >> testFV02SpaceshipsStartAtFirstTile [
 	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board
 		          of: {
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create }
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create }
 		          finishingAfter: 2
 		          withDistance: 10.
 
@@ -112,13 +112,13 @@ GameTest >> testFV03GameHasEndedAsOneSpaceshipReachTheEnd [
 	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board
 		          of: {
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create }
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create }
 		          finishingAfter: 2
 		          withDistance: 10.
 
@@ -156,13 +156,13 @@ GameTest >> testFV04CantRollAfterGameEnded [
 	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
 	aBoard := Board
 		          of: {
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create }
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create }
 		          finishingAfter: 1
 		          withDistance: 10.
 
@@ -198,13 +198,13 @@ GameTest >> testFV05IsValidWhenTheWinnerIsAssignedCorrectly [
 	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
 	aBoard := Board
 		          of: {
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create }
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create }
 		          finishingAfter: 2
 		          withDistance: 10.
 
@@ -235,14 +235,14 @@ GameTest >> testFV06GameIsPlayedWithTwoDice [
 	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board
 		          of: {
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create }
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create }
 		          finishingAfter: 2
 		          withDistance: 10.
 
@@ -277,11 +277,11 @@ GameTest >> testFV07GameWithRandomDie [
 	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board
 		          of: {
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create }
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create }
 		          finishingAfter: 2
 		          withDistance: 10.
 
@@ -313,11 +313,11 @@ GameTest >> testFV08GameWithTwoRandomDice [
 	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board
 		          of: {
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create }
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create }
 		          finishingAfter: 2
 		          withDistance: 10.
 	aDie1 := Die of: 3.
@@ -352,13 +352,13 @@ GameTest >> testFV09PlayerOneCanRollTheDiceAfterPlayerTwoTurn [
 	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board
 		          of: {
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create }
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create }
 		          finishingAfter: 2
 		          withDistance: 10.
 
@@ -390,13 +390,13 @@ GameTest >> testFV10TurnsWhenThreePlayersArePLaying [
 
 	aBoard := Board
 		          of: {
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create }
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create }
 		          finishingAfter: 2
 		          withDistance: 10.
 
@@ -426,18 +426,18 @@ GameTest >> testFV11WormholeGoesBackwards [
 	| aGame wormholeTile3 wormholeTile5 aBoard aDie1 spaceShip1 spaceShip2 |
 	spaceShip1 := SpaceShip named: 'Danny'.
 	spaceShip2 := SpaceShip named: 'Walter'.
-	wormholeTile3 := Wormhole betweenTiles: { 3. 5 }.
-	wormholeTile5 := Wormhole betweenTiles: { 5. 3 }.
+	wormholeTile3 := WormholeEffect betweenTiles: { 3. 5 }.
+	wormholeTile5 := WormholeEffect betweenTiles: { 5. 3 }.
 
 	aBoard := Board
 		          of: {
-				          Null create.
-				          Null create.
+				          NullEffect create.
+				          NullEffect create.
 				          wormholeTile3.
-				          Null create.
+				          NullEffect create.
 				          wormholeTile5.
-				          Null create.
-				          Null create }
+				          NullEffect create.
+				          NullEffect create }
 		          finishingAfter: 2
 		          withDistance: 10.
 
@@ -461,23 +461,23 @@ GameTest >> testFV12WormholeGoesForward [
 	| aGame wormholeTile8 wormholeTile12 aBoard aDie1 spaceShip1 spaceShip2 |
 	spaceShip1 := SpaceShip named: 'Danny'.
 	spaceShip2 := SpaceShip named: 'Walter'.
-	wormholeTile8 := Wormhole betweenTiles: { 8. 12 }.
-	wormholeTile12 := Wormhole betweenTiles: { 12. 8 }.
+	wormholeTile8 := WormholeEffect betweenTiles: { 8. 12 }.
+	wormholeTile12 := WormholeEffect betweenTiles: { 12. 8 }.
 	aBoard := Board
 		          of: {
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
 				          wormholeTile8.
-				          Null create.
-				          Null create.
-				          Null create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
 				          wormholeTile12.
-				          Null create }
+				          NullEffect create }
 		          finishingAfter: 2
 		          withDistance: 10.
 	aDie1 := LoadedDie of: 7.
@@ -500,16 +500,16 @@ GameTest >> testFV13WormholeIsNotOnANormalTile [
 	| aGame wormholeTile3 wormholeTile7 aBoard aDie1 spaceShip1 spaceShip2 |
 	spaceShip1 := SpaceShip named: 'Danny'.
 	spaceShip2 := SpaceShip named: 'Walter'.
-	wormholeTile3 := Wormhole betweenTiles: { 3. 7 }.
-	wormholeTile7 := Wormhole betweenTiles: { 7. 3 }.
+	wormholeTile3 := WormholeEffect betweenTiles: { 3. 7 }.
+	wormholeTile7 := WormholeEffect betweenTiles: { 7. 3 }.
 	aBoard := Board
 		          of: {
-				          Null create.
-				          Null create.
+				          NullEffect create.
+				          NullEffect create.
 				          wormholeTile3.
-				          Null create.
-				          Null create.
-				          Null create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
 				          wormholeTile7 }
 		          finishingAfter: 2
 		          withDistance: 10.
@@ -534,13 +534,13 @@ GameTest >> testSV01PlayersStartAtLapOne [
 	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
 	aBoard := Board
 		          of: {
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create }
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create }
 		          finishingAfter: 2
 		          withDistance: 10.
 
@@ -567,13 +567,13 @@ GameTest >> testSV02PlayerChangesLapAfterPassingTheLastTile [
 	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
 	aBoard := Board
 		          of: {
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create }
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create }
 		          finishingAfter: 2
 		          withDistance: 10.
 
@@ -616,12 +616,12 @@ GameTest >> testSV03PlayersWinsAfterCompletingAnAmountOfLaps [
 	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
 	aBoard := Board
 		          of: {
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create }
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create }
 		          finishingAfter: 2
 		          withDistance: 10.
 
@@ -671,8 +671,8 @@ GameTest >> testSV04GameMustHaveOneOrMoreLaps [
 		should: [
 			Board
 				of: {
-						Null create.
-						Null create }
+						NullEffect create.
+						NullEffect create }
 				finishingAfter: 0
 				withDistance: 10 ]
 		raise: Error
@@ -687,14 +687,14 @@ GameTest >> testSV05EverySpaceshipStartsWithAmountOfFuelEqualToTheDoubleOfTheDic
 	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board
 		          of: {
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create }
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create }
 		          finishingAfter: 2
 		          withDistance: 10.
 
@@ -724,14 +724,14 @@ GameTest >> testSV06WhenASpaceshipMovesItHasLessFuel [
 	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board
 		          of: {
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create }
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create }
 		          finishingAfter: 2
 		          withDistance: 10.
 
@@ -766,14 +766,14 @@ GameTest >> testSV07WhenASpaceshipRunsOutOfFuelItGoesBackToTileOneInLapBeforeMov
 	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board
 		          of: {
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create }
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create }
 		          finishingAfter: 2
 		          withDistance: 10.
 
@@ -818,14 +818,14 @@ GameTest >> testSV08WhenASpaceshipRunsOutOfFuelAlsoItLosesTwoTurns [
 	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board
 		          of: {
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create }
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create }
 		          finishingAfter: 2
 		          withDistance: 10.
 
@@ -882,14 +882,14 @@ GameTest >> testSV09SpaceshipWantsToSkipTurnToHaveMaxFuel [
 	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board
 		          of: {
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create }
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create }
 		          finishingAfter: 3
 		          withDistance: 10.
 
@@ -932,14 +932,14 @@ GameTest >> testSV10LandingInAnEffectTileAfterBeingMovedByAnEffectDoesNotCauseAn
 	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board
 		          of: {
-				          Null create.
-				          AtomicBomb new.
-				          Null create.
-				          Null create.
-				          Null create.
-				          BlackHole new.
-				          Null create.
-				          Null create }
+				          NullEffect create.
+				          AtomicBombEffect new.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          BlackHoleEffect new.
+				          NullEffect create.
+				          NullEffect create }
 		          finishingAfter: 3
 		          withDistance: 10.
 
@@ -971,14 +971,14 @@ GameTest >> testSV11Spaceship2IsTheFirstSpaceShipAtSpaceShipsRankingAsHisPositio
 	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board
 		          of: {
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create }
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create }
 		          finishingAfter: 2
 		          withDistance: 10.
 
@@ -1021,14 +1021,14 @@ GameTest >> testSV12BlackHoleEffectWhenSpaceShipHasEnoughFuelItGoesFourTilesBack
 	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board
 		          of: {
-				          Null  new.
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
-				          BlackHole new.
-				          Null new.
-				          Null new }
+				          NullEffect new.
+				          NullEffect new.
+				          NullEffect new.
+				          NullEffect new.
+				          NullEffect new.
+				          BlackHoleEffect new.
+				          NullEffect new.
+				          NullEffect new }
 		          finishingAfter: 2
 		          withDistance: 10.
 
@@ -1045,7 +1045,6 @@ GameTest >> testSV12BlackHoleEffectWhenSpaceShipHasEnoughFuelItGoesFourTilesBack
 	self assert: (aGame positionOf: spaceShip2) equals: 1.
 	self assert: spaceShip1 amountOfFuel equals: 10.
 	self assert: spaceShip2 amountOfFuel equals: 10.
-
 
 	aGame playNextTurn.
 	aGame playNextTurn.
@@ -1064,14 +1063,14 @@ GameTest >> testSV13BlackHoleEffectWhenSpaceShipRunsOutOfFuelItGoesToTheFirstTil
 	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board
 		          of: {
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
-				          BlackHole new.
-				          Null new.
-				          Null new }
+				          NullEffect new.
+				          NullEffect new.
+				          NullEffect new.
+				          NullEffect new.
+				          NullEffect new.
+				          BlackHoleEffect new.
+				          NullEffect new.
+				          NullEffect new }
 		          finishingAfter: 2
 		          withDistance: 10.
 
@@ -1114,12 +1113,12 @@ GameTest >> testSV14BlackHoleEffectWhenSpaceShipIsInTheFirstThreeTilesItGoesBack
 	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board
 		          of: {
-				          Null new.
-				          BlackHole new.
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new }
+				          NullEffect new.
+				          BlackHoleEffect new.
+				          NullEffect new.
+				          NullEffect new.
+				          NullEffect new.
+				          NullEffect new }
 		          finishingAfter: 2
 		          withDistance: 10.
 
@@ -1163,17 +1162,14 @@ GameTest >> testSV15SpaceshipEscapesOfTheHyperGravityEffectWhenItGetsACertainNum
 	aDie1 := SequenceDie of: { 5. 5. 4. 4 }.
 	aBoard := Board
 		          of: {
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
-				          (HyperGravity
-					           needsToThrow: 4
-					           above: aDie1 minRoll
-					           below: aDie1 maxRoll).
-				          Null new.
-				          Null new }
+				          NullEffect new.
+				          NullEffect new.
+				          NullEffect new.
+				          NullEffect new.
+				          NullEffect new.
+				          (HyperGravityEffect needsToThrow: 4).
+				          NullEffect new.
+				          NullEffect new }
 		          finishingAfter: 2
 		          withDistance: 10.
 
@@ -1210,17 +1206,14 @@ GameTest >> testSV16SpaceshipCannotEscapeFromTheHyperGravityEffectIfItDoesNotGet
 	aDie1 := LoadedDie of: 5.
 	aBoard := Board
 		          of: {
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
-				          (HyperGravity
-					           needsToThrow: 4
-					           above: aDie1 minRoll
-					           below: aDie1 maxRoll).
-				          Null new.
-				          Null new }
+				          NullEffect new.
+				          NullEffect new.
+				          NullEffect new.
+				          NullEffect new.
+				          NullEffect new.
+				          (HyperGravityEffect needsToThrow: 4).
+				          NullEffect new.
+				          NullEffect new }
 		          finishingAfter: 2
 		          withDistance: 10.
 
@@ -1255,14 +1248,14 @@ GameTest >> testSV17MoonWalkEffectWhenSpaceShipHasEnoughFuelItGoesNTilesBackward
 	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board
 		          of: {
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
-				          (MoonWalk backwardDistance: 2).
-				          Null new.
-				          Null new }
+				          NullEffect new.
+				          NullEffect new.
+				          NullEffect new.
+				          NullEffect new.
+				          NullEffect new.
+				          (MoonWalkEffect backwardDistance: 2).
+				          NullEffect new.
+				          NullEffect new }
 		          finishingAfter: 2
 		          withDistance: 10.
 
@@ -1297,14 +1290,14 @@ GameTest >> testSV18MoonWalkEffectWhenSpaceShipRunsOutOfFuelItGoesToTheFirstTile
 	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board
 		          of: {
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
-				          (MoonWalk backwardDistance: 4).
-				          Null new }
+				          NullEffect new.
+				          NullEffect new.
+				          NullEffect new.
+				          NullEffect new.
+				          NullEffect new.
+				          NullEffect new.
+				          (MoonWalkEffect backwardDistance: 4).
+				          NullEffect new }
 		          finishingAfter: 2
 		          withDistance: 10.
 
@@ -1340,12 +1333,12 @@ GameTest >> testSV19MoonWalkEffectWhenSpaceShipIsInTheFirstThreeTilesItGoesBackT
 	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board
 		          of: {
-				          Null new.
-				          (MoonWalk backwardDistance: 4).
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new }
+				          NullEffect new.
+				          (MoonWalkEffect backwardDistance: 4).
+				          NullEffect new.
+				          NullEffect new.
+				          NullEffect new.
+				          NullEffect new }
 		          finishingAfter: 2
 		          withDistance: 10.
 
@@ -1374,7 +1367,8 @@ GameTest >> testSV19MoonWalkEffectWhenSpaceShipIsInTheFirstThreeTilesItGoesBackT
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-
+	self assert: (aGame positionOf: spaceShip1) equals: 2.
+	self assert: (aGame positionOf: spaceShip2) equals: 4.
 	self assert: spaceShip1 lap equals: 2.
 	self assert: spaceShip2 lap equals: 1
 ]
@@ -1388,15 +1382,15 @@ GameTest >> testSV20HyperJumpEffectAssignsParsecsToSpaceshipAndItGoesForward [
 	spaceShip3 := SpaceShip named: 'Joseph'.
 	aBoard := Board
 		          of: {
-				          Null create.
-				          Null create.
-				          Null create.
-				          (HyperJump of: { 3. 2 }).
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create }
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          (HyperJumpEffect of: { 3. 2 }).
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create }
 		          finishingAfter: 2
 		          withDistance: 10.
 	aDie1 := SequenceDie of: { 3. 3. 3 }.
@@ -1430,12 +1424,12 @@ GameTest >> testSV21AtomicBombEffectSendsAllSpaceshipsBackToTheFirstTile [
 	spaceShip2 := SpaceShip named: 'Walter'.
 	aBoard := Board
 		          of: {
-				          Null create.
-				          Null create.
-				          Null create.
-				          AtomicBomb new.
-				          Null create.
-				          Null create }
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          AtomicBombEffect new.
+				          NullEffect create.
+				          NullEffect create }
 		          finishingAfter: 2
 		          withDistance: 10.
 	aDie1 := SequenceDie of: { 6. 4. 3. 3. 6. 6. 20 }.
@@ -1479,12 +1473,12 @@ GameTest >> testSV22SequenceDie [
 	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
 	aBoard := Board
 		          of: {
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create }
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create }
 		          finishingAfter: 2
 		          withDistance: 10.
 
@@ -1529,25 +1523,23 @@ GameTest >> testSV23GameWithRandomBoardAndRandomDie [
 			               aDie2 }.
 	effectDistribution := EffectDistribution with: {
 			                      (ProbabilityTile
-				                       with: Null new
+				                       with: NullEffect new
 				                       and: 0.40).
 			                      (ProbabilityTile
-				                       with: BlackHole new
+				                       with: BlackHoleEffect new
 				                       and: 0.20).
 			                      (ProbabilityTile
-				                       with: (HyperGravity
-						                        needsToThrow: 3
-						                        above: aDiceRoller minRoll
-						                        below: 6)
+				                       with: (HyperGravityEffect
+						                        needsToThrow: 3)
 				                       and: 0.20).
 			                      (ProbabilityTile
-				                       with: (MoonWalk backwardDistance: 3)
+				                       with: (MoonWalkEffect backwardDistance: 3)
 				                       and: 0.10).
 			                      (ProbabilityTile
-				                       with: (HyperJump of: { 3. 2. 1 })
+				                       with: (HyperJumpEffect of: { 3. 2. 1 })
 				                       and: 0.08).
 			                      (ProbabilityTile
-				                       with: AtomicBomb new
+				                       with: AtomicBombEffect new
 				                       and: 0.02) }.
 
 	randomCollection := effectDistribution randomCollectionWith: 5.

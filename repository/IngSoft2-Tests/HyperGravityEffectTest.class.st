@@ -5,49 +5,21 @@ Class {
 }
 
 { #category : #tests }
-HyperGravityEffectTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage [
-
-	self
-		should: anErrorBlock
-		raise: anErrorClass
-		withExceptionDo: [ :error |
-		self assert: error messageText equals: anErrorMessage ]
-]
-
-{ #category : #tests }
-HyperGravityEffectTest >> testAHyperGravityTileRaisesAnErrorWhenAssignedABiggerNumberThanMaxRoll [
-
-	| aHyperGravityTile aDie1 |
-	self
-		should: [
-			aDie1 := LoadedDie of: 4.
-			aHyperGravityTile := HyperGravity
-				                     needsToThrow: 6
-				                     above: aDie1 minRoll
-				                     below: aDie1 maxRoll ]
-		raise: Error
-		withMessage:
-		'The number needed to escape hypergravity cannot be lower than the minimum roll of the dice or greater than the maximum roll of the dice.'
-]
-
-{ #category : #tests }
 HyperGravityEffectTest >> testAShipCannotMoveUntilItThrowsACertainNumber [
 
 	| aHyperGravityTile aSpaceShip aBoard aDie1 |
 	aDie1 := SequenceDie of: { 4. 3 }.
-	aHyperGravityTile := HyperGravity
-		                     needsToThrow: 4
-		                     above: aDie1 minRoll
-		                     below: aDie1 maxRoll.
+	aHyperGravityTile := HyperGravityEffect
+		                     needsToThrow: 4.
 	aBoard := Board
 		          of: {
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create }
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create }
 		          finishingAfter: 2
 		          withDistance: 10.
 	aSpaceShip := SpaceShip named: 'Danny'.
@@ -74,20 +46,18 @@ HyperGravityEffectTest >> testAShipThatIsAffectedByHyperGravityEffectCannotMoveB
 
 	| aHyperGravityTile anAtomicBombEffect aSpaceShip1 aSpaceShip2 aSpaceShip3 aBoard aDie1 |
 	aDie1 := SequenceDie of: { 3. 4 }.
-	aHyperGravityTile := HyperGravity
-		                     needsToThrow: 4
-		                     above: aDie1 minRoll
-		                     below: aDie1 maxRoll.
-	anAtomicBombEffect := AtomicBomb new.
+	aHyperGravityTile := HyperGravityEffect
+		                     needsToThrow: 4.
+	anAtomicBombEffect := AtomicBombEffect new.
 	aBoard := Board
 		          of: {
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create }
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create.
+				          NullEffect create }
 		          finishingAfter: 2
 		          withDistance: 10.
 
