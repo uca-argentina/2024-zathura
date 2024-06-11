@@ -48,7 +48,7 @@ Board >> amountOfTiles [
 ]
 
 { #category : #accessing }
-Board >> anySpaceShipOneInLastTileAndLap [
+Board >> anySpaceShipAtLastTileAndLap [
 
 	^ players anySatisfy: [ :aSpaceship |
 		  laps + 1 = aSpaceship lap and: [ 1 = aSpaceship position ] ]
@@ -60,6 +60,27 @@ Board >> applyEffectOnLandingShip: aSpaceship [
 	| effectToApply |
 	effectToApply := tiles at: aSpaceship position.
 	effectToApply triggeredBy: aSpaceship on: self
+]
+
+{ #category : #accessing }
+Board >> calculateLapsToAdvancedWhenAdvancing: tilesSinceBeginning [
+	
+	^(tilesSinceBeginning - 1 // self amountOfTiles + 1).
+	
+]
+
+{ #category : #accessing }
+Board >> calculateNewPositionWhenAt: tilesSinceBeginning newLap: newLap [
+
+	| newPosition|
+	newPosition := tilesSinceBeginning % self amountOfTiles.
+	(newLap < 1 or: newLap > self laps ) ifTrue: [
+		^ 1.
+	].
+	(newPosition = 0 ) ifTrue: [
+		^ self amountOfTiles.].
+	
+	^newPosition .
 ]
 
 { #category : #accessing }
@@ -110,15 +131,16 @@ Board >> laps [
 ]
 
 { #category : #accessing }
-Board >> move: aSpaceship by: diceRollerNumber [
+Board >> move: aSpaceship by: anAmountOfTilesToMove [
 
-	| changesToPositionCollection positionToMove lapsMoved costToMove |
-	changesToPositionCollection := self
-		                               calculatePositionToMove: aSpaceship
-		                               whenMoving: diceRollerNumber.
-	positionToMove := changesToPositionCollection at: 1.
-	lapsMoved := changesToPositionCollection at: 2.
-	costToMove := changesToPositionCollection at: 3.
+	| positionToMove lapsMoved costToMove tilesSinceBeginning newLap|
+
+	tilesSinceBeginning := (self positionOf: aSpaceship) + anAmountOfTilesToMove
+	                       + ((aSpaceship lap - 1) * self amountOfTiles).
+	newLap:= self calculateLapsToAdvancedWhenAdvancing: tilesSinceBeginning .
+	positionToMove :=( self calculateNewPositionWhenAt: tilesSinceBeginning newLap: newLap) - aSpaceship position.
+	lapsMoved :=  (newLap min: laps+1  max:1) - aSpaceship lap  .
+	costToMove := ((lapsMoved * self amountOfTiles ) + positionToMove) abs.
 	aSpaceship
 		movePositionBy: positionToMove
 		lapBy: lapsMoved

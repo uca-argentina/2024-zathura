@@ -31,7 +31,7 @@ Game class >> playedBy: someSpaceShips on: aBoard rolling: dice [
 { #category : #asserting }
 Game >> checkIfGameHasEnded [
 
-	board anySpaceShipOneInLastTileAndLap ifTrue: [ hasEnded := true ]
+	board anySpaceShipAtLastTileAndLap ifTrue: [ hasEnded := true ]
 ]
 
 { #category : #testing }
