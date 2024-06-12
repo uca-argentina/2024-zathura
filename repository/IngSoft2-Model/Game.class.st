@@ -77,6 +77,12 @@ Game >> positionOf: aSpaceship [
 	^ aSpaceship position
 ]
 
+{ #category : #asserting }
+Game >> skipTurnFor: aSpaceship [
+
+	aSpaceship skipTurn
+]
+
 { #category : #accessing }
 Game >> spaceShipsPositionsRanking [
 

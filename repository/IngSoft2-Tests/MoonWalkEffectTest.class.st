@@ -21,7 +21,7 @@ MoonWalkEffectTest >> testWhenAPlayerTriggersTheEffectItMovesTheRestOfThePlayers
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aSpaceShip1 := SpaceShip named: 'Danny'.
 	aSpaceShip2 := SpaceShip named: 'Walter'.

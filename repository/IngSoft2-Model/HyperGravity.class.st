@@ -8,9 +8,9 @@ Class {
 }
 
 { #category : #testing }
-HyperGravity class >> needsToThrow: aNumber [ 
+HyperGravity class >> needsToThrow: aRollingResult [
 
-	^ self new initializedWith: aNumber
+	^ self new initializedWith: aRollingResult
 ]
 
 { #category : #initialization }

@@ -25,7 +25,7 @@ BoardTest >> testBoardCannotBeCreatedWithLessThan1Lap [
 						Null create.
 						Null create }
 				finishingAfter: -2
-				withDistance: 10 ]
+				withParsecs: 10 ]
 		raise: Error
 		withMessage: 'Game must have one or more laps!'
 ]
@@ -41,7 +41,7 @@ BoardTest >> testBoardCannotBeCreatedWithNegativeParsecs [
 						Null create.
 						Null create }
 				finishingAfter: 3
-				withDistance: -3 ]
+				withParsecs: -3 ]
 		raise: Error
 		withMessage: 'Parsecs cannot be a negative measure'
 ]
@@ -50,7 +50,7 @@ BoardTest >> testBoardCannotBeCreatedWithNegativeParsecs [
 BoardTest >> testBoardCannotBeCreatedWithOutTiles [
 
 	self
-		should: [ Board of: {  } finishingAfter: 2 withDistance: 10 ]
+		should: [ Board of: {  } finishingAfter: 2 withParsecs: 10 ]
 		raise: Error
 		withMessage: 'Tiles should be 2 or more'
 ]
@@ -66,7 +66,7 @@ BoardTest >> testBoardCannotMoveSpaceshipOutOfIndex [
 		         firstTile.
 		         secondTile }.
 
-	board := Board of: tiles finishingAfter: 2 withDistance: 10.
+	board := Board of: tiles finishingAfter: 2 withParsecs: 10.
 	aSpaceShip fuel: 12.
 	board move: aSpaceShip by: 7.
 	self assert: aSpaceShip lap equals: 3.
@@ -85,7 +85,7 @@ BoardTest >> testBoardTracksSpaceshipPositions [
 	tiles := {
 		         firstTile.
 		         secondTile }.
-	board := Board of: tiles finishingAfter: 2 withDistance: 10.
+	board := Board of: tiles finishingAfter: 2 withParsecs: 10.
 	spaceShip1 fuel: 12.
 	spaceShip2 fuel: 12.
 	board move: spaceShip1 by: 1.

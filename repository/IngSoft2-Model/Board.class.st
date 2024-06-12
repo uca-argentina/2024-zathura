@@ -30,7 +30,7 @@ Board class >> isValid: tiles [
 ]
 
 { #category : #'instance creation' }
-Board class >> of: tiles finishingAfter: laps withDistance: parsecs [
+Board class >> of: tiles finishingAfter: laps withParsecs: parsecs [
 
 	self isValid: tiles.
 	self assertValidNumberOfLaps: laps.
@@ -123,7 +123,7 @@ Board >> move: aSpaceship by: anAmountOfTilesToMove [
 		neededFuel: costToMove
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #playing }
 Board >> move: aSpaceship jumping: aQuantityOfParsec [
 	| tilesToMove |
 
@@ -133,9 +133,14 @@ Board >> move: aSpaceship jumping: aQuantityOfParsec [
 	self move:  aSpaceship by:  tilesToMove .
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #playing }
 Board >> moveAllSpaceshipsToFirstPosition [
-	spaceships do:[:aSpaceship | aSpaceship movePositionBy: 1- aSpaceship position lapBy:0  neededFuel: 0 ].
+
+	spaceships do: [ :aSpaceship |
+		aSpaceship
+			movePositionBy: 1 - aSpaceship position
+			lapBy: 0
+			neededFuel: 0 ]
 ]
 
 { #category : #accessing }

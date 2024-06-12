@@ -19,7 +19,7 @@ GameTest >> initializeGameWithLoadedDieOf3And2PlayersAnd7NormalTiles [
 			          Null create.
 			          Null create }
 			finishingAfter: 2
-			withDistance: 10.
+			withParsecs: 10.
 
 	aDie1 := LoadedDie of: 3.
 
@@ -62,7 +62,7 @@ GameTest >> testFV01GameMustHaveAtLeastOnePlayer [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aDie1 := LoadedDie of: 3.
 
@@ -89,7 +89,7 @@ GameTest >> testFV02SpaceshipsStartAtFirstTile [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aDie1 := LoadedDie of: 3.
 
@@ -120,7 +120,7 @@ GameTest >> testFV03GameHasEndedAsOneSpaceshipReachTheEnd [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aDie1 := LoadedDie of: 9.
 
@@ -164,7 +164,7 @@ GameTest >> testFV04CantRollAfterGameEnded [
 				          Null create.
 				          Null create }
 		          finishingAfter: 1
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aDie1 := LoadedDie of: 9.
 	spaceShip1 := SpaceShip named: 'Danny'.
@@ -206,7 +206,7 @@ GameTest >> testFV05IsValidWhenTheWinnerIsAssignedCorrectly [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aDie1 := LoadedDie of: 8.
 	spaceShip1 := SpaceShip named: 'Danny'.
@@ -244,7 +244,7 @@ GameTest >> testFV06GameIsPlayedWithTwoDice [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aDie1 := LoadedDie of: 3.
 	aDie2 := LoadedDie of: 3.
@@ -283,7 +283,7 @@ GameTest >> testFV07GameWithRandomDie [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aDie1 := Die of: 3.
 
@@ -319,7 +319,7 @@ GameTest >> testFV08GameWithTwoRandomDice [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 	aDie1 := Die of: 3.
 	aDie2 := Die of: 5.
 
@@ -360,7 +360,7 @@ GameTest >> testFV09PlayerOneCanRollTheDiceAfterPlayerTwoTurn [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aDie1 := LoadedDie of: 3.
 
@@ -398,7 +398,7 @@ GameTest >> testFV10TurnsWhenThreePlayersArePLaying [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aDie1 := LoadedDie of: 3.
 
@@ -439,7 +439,7 @@ GameTest >> testFV11WormholeGoesBackwards [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aDie1 := LoadedDie of: 4.
 
@@ -479,7 +479,7 @@ GameTest >> testFV12WormholeGoesForward [
 				          wormholeTile12.
 				          Null create }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 	aDie1 := LoadedDie of: 7.
 
 	aGame := Game
@@ -512,7 +512,7 @@ GameTest >> testFV13WormholeIsNotOnANormalTile [
 				          Null create.
 				          wormholeTile7 }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aDie1 := LoadedDie of: 4.
 
@@ -542,7 +542,7 @@ GameTest >> testSV01PlayersStartAtLapOne [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aDie1 := LoadedDie of: 3.
 	spaceShip1 := SpaceShip named: 'Danny'.
@@ -575,7 +575,7 @@ GameTest >> testSV02PlayerChangesLapAfterPassingTheLastTile [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aDie1 := SequenceDie of: { 6. 6. 2. 2 }.
 	spaceShip1 := SpaceShip named: 'Danny'.
@@ -623,7 +623,7 @@ GameTest >> testSV03PlayersWinsAfterCompletingAnAmountOfLaps [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aDie1 := SequenceDie of: { 6. 3. 6. 3 }.
 	spaceShip1 := SpaceShip named: 'Danny'.
@@ -674,7 +674,7 @@ GameTest >> testSV04GameMustHaveOneOrMoreLaps [
 						Null create.
 						Null create }
 				finishingAfter: 0
-				withDistance: 10 ]
+				withParsecs: 10 ]
 		raise: Error
 		withMessage: 'Game must have one or more laps!'
 ]
@@ -696,7 +696,7 @@ GameTest >> testSV05EverySpaceshipStartsWithAmountOfFuelEqualToTheDoubleOfTheDic
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aDie1 := LoadedDie of: 3.
 	aDie2 := LoadedDie of: 3.
@@ -733,7 +733,7 @@ GameTest >> testSV06WhenASpaceshipMovesItHasLessFuel [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aDie1 := LoadedDie of: 3.
 	aDie2 := LoadedDie of: 3.
@@ -775,7 +775,7 @@ GameTest >> testSV07WhenASpaceshipRunsOutOfFuelItGoesBackToTileOneInLapBeforeMov
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aDie1 := LoadedDie of: 6.
 
@@ -827,7 +827,7 @@ GameTest >> testSV08WhenASpaceshipRunsOutOfFuelAlsoItLosesTwoTurns [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aDie1 := SequenceDie of: { 2. 6. 2. 6. 1. 1. 1. 1 }.
 
@@ -875,7 +875,7 @@ GameTest >> testSV08WhenASpaceshipRunsOutOfFuelAlsoItLosesTwoTurns [
 ]
 
 { #category : #tests }
-GameTest >> testSV09SpaceshipWantsToSkipTurnToHaveMaxFuel [
+GameTest >> testSV09SpaceshipSkipsTheirTurnToHaveMaxFuel [
 
 	| aGame aBoard aDie1 spaceShip1 spaceShip2 |
 	spaceShip1 := SpaceShip named: 'Danny'.
@@ -891,7 +891,7 @@ GameTest >> testSV09SpaceshipWantsToSkipTurnToHaveMaxFuel [
 				          Null create.
 				          Null create }
 		          finishingAfter: 3
-		          withDistance: 10.
+		          withParsecs: 10.
 
 
 	aDie1 := SequenceDie of: { 2. 2. 2. 3. 2. 2 }.
@@ -912,7 +912,7 @@ GameTest >> testSV09SpaceshipWantsToSkipTurnToHaveMaxFuel [
 	self assert: (aGame positionOf: spaceShip1) equals: 3.
 	self assert: (aGame positionOf: spaceShip2) equals: 3.
 
-	spaceShip1 wantsToSkipTurn.
+	aGame skipTurnFor: spaceShip1.
 	aGame playNextTurn.
 
 	self assert: (aGame positionOf: spaceShip1) equals: 3.
@@ -941,7 +941,7 @@ GameTest >> testSV10LandingInAnEffectTileAfterBeingMovedByAnEffectDoesNotCauseAn
 				          Null create.
 				          Null create }
 		          finishingAfter: 3
-		          withDistance: 10.
+		          withParsecs: 10.
 
 
 	aDie1 := LoadedDie of: 5.
@@ -980,7 +980,7 @@ GameTest >> testSV11Spaceship2IsTheFirstSpaceShipAtSpaceShipsRankingAsHisPositio
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aDie1 := LoadedDie of: 3.
 
@@ -1030,7 +1030,7 @@ GameTest >> testSV12BlackHoleEffectWhenSpaceShipHasEnoughFuelItGoesFourTilesBack
 				          Null new.
 				          Null new }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aDie1 := LoadedDie of: 5.
 
@@ -1073,7 +1073,7 @@ GameTest >> testSV13BlackHoleEffectWhenSpaceShipRunsOutOfFuelItGoesToTheFirstTil
 				          Null new.
 				          Null new }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aDie1 := SequenceDie of: { 1. 1. 4. 4 }.
 
@@ -1121,7 +1121,7 @@ GameTest >> testSV14BlackHoleEffectWhenSpaceShipIsInTheFirstThreeTilesItGoesBack
 				          Null new.
 				          Null new }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aDie1 := SequenceDie of: { 6. 6. 1. 1 }.
 
@@ -1172,7 +1172,7 @@ GameTest >> testSV15SpaceshipEscapesOfTheHyperGravityEffectWhenItGetsACertainNum
 				          Null new.
 				          Null new }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 
 	aGame := Game
@@ -1216,7 +1216,7 @@ GameTest >> testSV16SpaceshipCannotEscapeFromTheHyperGravityEffectIfItDoesNotGet
 				          Null new.
 				          Null new }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aGame := Game
 		         playedBy: {
@@ -1258,7 +1258,7 @@ GameTest >> testSV17MoonWalkEffectWhenSpaceShipHasEnoughFuelItGoesNTilesBackward
 				          Null new.
 				          Null new }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aDie1 := SequenceDie of: { 2. 3. 3 }.
 	aGame := Game
@@ -1300,7 +1300,7 @@ GameTest >> testSV18MoonWalkEffectWhenSpaceShipRunsOutOfFuelItGoesToTheFirstTile
 				          (MoonWalk backwardDistance: 4).
 				          Null new }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aDie1 := SequenceDie of: { 2. 4. 4. 1. 1 }.
 
@@ -1341,7 +1341,7 @@ GameTest >> testSV19MoonWalkEffectWhenSpaceShipIsInTheFirstThreeTilesItGoesBackT
 				          Null new.
 				          Null new }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aDie1 := SequenceDie of: { 6. 6. 1. 1 }.
 
@@ -1392,7 +1392,7 @@ GameTest >> testSV20HyperJumpEffectAssignsParsecsToSpaceshipAndItGoesForward [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 	aDie1 := SequenceDie of: { 3. 3. 3 }.
 
 	aGame := Game
@@ -1431,7 +1431,7 @@ GameTest >> testSV21AtomicBombEffectSendsAllSpaceshipsBackToTheFirstTile [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 	aDie1 := SequenceDie of: { 6. 4. 3. 3. 6. 6. 20 }.
 
 	aGame := Game
@@ -1480,7 +1480,7 @@ GameTest >> testSV22SequenceDie [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aDie1 := SequenceDie of: { 4. 3. 3 }.
 	spaceShip1 := SpaceShip named: 'Danny'.
@@ -1544,7 +1544,7 @@ GameTest >> testSV23GameWithRandomBoardAndRandomDie [
 	aBoard := Board
 		          of: randomCollection
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	spaceShip1 := SpaceShip named: 'Danny'.
 	spaceShip2 := SpaceShip named: 'Walter'.

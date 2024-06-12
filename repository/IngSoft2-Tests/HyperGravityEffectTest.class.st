@@ -30,7 +30,7 @@ HyperGravityEffectTest >> testAShipCannotMoveUntilItThrowsACertainNumber [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 	aSpaceShip := SpaceShip named: 'Danny'.
 	aSpaceShip fuel: 20.
 	aHyperGravityTile triggeredBy: aSpaceShip on: aBoard.
@@ -67,7 +67,7 @@ HyperGravityEffectTest >> testAShipThatIsAffectedByHyperGravityEffectCannotMoveB
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 
 	aSpaceShip1 := SpaceShip named: 'Danny'.
 	aSpaceShip1 fuel: 20.

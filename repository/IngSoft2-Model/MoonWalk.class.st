@@ -8,15 +8,15 @@ Class {
 }
 
 { #category : #'instance creation' }
-MoonWalk class >> backwardDistance: aDistance [
+MoonWalk class >> backwardDistance: anAmountOfTiles [
 
-	^ self new initializedWith: aDistance
+	^ self new initializedWith: anAmountOfTiles 
 ]
 
 { #category : #initialization }
-MoonWalk >> initializedWith: aDistance [
+MoonWalk >> initializedWith: anAmountOfTiles [
 
-	tilesToMove := 0 - aDistance
+	tilesToMove := 0 - anAmountOfTiles 
 ]
 
 { #category : #playing }

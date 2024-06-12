@@ -18,7 +18,7 @@ NullEffectTest >> testWhenSpaceShipsLandItDoesNothingToIt [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withDistance: 10.
+		          withParsecs: 10.
 	aNullEffectTile := Null create.
 	aSpaceShip := SpaceShip named: 'Danny'.
 	aSpaceShip fuel: 20.

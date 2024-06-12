@@ -2,7 +2,7 @@ Class {
 	#name : #HyperJump,
 	#superclass : #Effect,
 	#instVars : [
-		'distances'
+		'parsecs'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -16,13 +16,13 @@ HyperJump class >> of: collectionOfParsecs [
 { #category : #'instance creation' }
 HyperJump >> initializeOf: collectionOfParsecs [
 
-	distances := collectionOfParsecs asOrderedCollection
+	parsecs := collectionOfParsecs asOrderedCollection
 ]
 
 { #category : #playing }
 HyperJump >> triggeredBy: aSpaceship on: aBoard [
 
-	aBoard move: aSpaceship jumping: (distances at: 1).
-	distances add: distances first.
-	distances removeFirst.
+	aBoard move: aSpaceship jumping: (parsecs at: 1).
+	parsecs add: parsecs first.
+	parsecs removeFirst.
 ]
