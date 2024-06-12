@@ -23,7 +23,7 @@ MoonWalk >> initializedWith: aDistance [
 MoonWalk >> triggeredBy: aPlayer on: aBoard [
 
 	| filteredPlayers |
-	filteredPlayers := aBoard spaceships select: [ :player |
+	filteredPlayers := aBoard players select: [ :player |
 		                   player ~= aPlayer ].
 	filteredPlayers do: [ :player | aBoard move: player by: tilesToMove ]
 ]

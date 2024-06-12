@@ -29,7 +29,7 @@ Game class >> playedBy: someSpaceShips on: aBoard rolling: dice [
 ]
 
 { #category : #asserting }
-Game >> finishGame [
+Game >> checkIfGameHasEnded [
 
 	board anySpaceShipAtLastTileAndLap ifTrue: [ hasEnded := true ]
 ]
@@ -64,11 +64,11 @@ Game >> playNextTurn [
 
 	| rollingResult spaceshipTurn |
 	self hasEnded ifTrue: [ Error signal: 'Game has already ended' ].
-	spaceshipTurn := turnHandler nextSpaceshipTurn.
+	spaceshipTurn := turnHandler nextPlayerTurn.
 	rollingResult := spaceshipTurn rollDiceUsing: diceCollection.
 	self move: spaceshipTurn withRollingResult: rollingResult.
 	board applyEffectOnLandingShip: spaceshipTurn.
-	self finishGame
+	self checkIfGameHasEnded
 ]
 
 { #category : #accessing }

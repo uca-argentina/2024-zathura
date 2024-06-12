@@ -18,7 +18,7 @@ TurnHandler class >> assertValidNumberOf: someSpaceShips [
 TurnHandler class >> withPlayers: someSpaceShips [
 
 	self assertValidNumberOf: someSpaceShips.
-	^ self new initializeWithSpaceships: someSpaceShips
+	^ self new initializeWithPlayers: someSpaceShips
 ]
 
 { #category : #playing }
@@ -29,13 +29,13 @@ TurnHandler >> changeTurns [
 ]
 
 { #category : #initialization }
-TurnHandler >> initializeWithSpaceships: someSpaceShips [
+TurnHandler >> initializeWithPlayers: someSpaceShips [
 
 	spaceships := someSpaceShips asOrderedCollection
 ]
 
 { #category : #playing }
-TurnHandler >> nextSpaceshipTurn [
+TurnHandler >> nextPlayerTurn [
 
 	| spaceshipTurn |
 	spaceshipTurn := self nextTurn.
@@ -56,7 +56,7 @@ TurnHandler >> nextTurn [
 ]
 
 { #category : #initialization }
-TurnHandler >> spaceships [
+TurnHandler >> players [
 
 	^ spaceships
 ]

@@ -20,7 +20,7 @@ TurnHandlerTest >> testATurnHandlerCanBeCreatedWithSomePlayers [
 	| aTurnHandler aSpaceShip |
 	aSpaceShip := SpaceShip named: 'Danny'.
 	aTurnHandler := TurnHandler withPlayers: { aSpaceShip }.
-	self assert: aTurnHandler spaceships first name equals: 'Danny'
+	self assert: aTurnHandler players first name equals: 'Danny'
 ]
 
 { #category : #tests }
@@ -41,7 +41,7 @@ TurnHandlerTest >> testPlayer1throwsfirst [
 	aTurnHandler := TurnHandler withPlayers: {
 			                aSpaceShip1.
 			                aSpaceShip2 }.
-	self assert: aTurnHandler nextSpaceshipTurn name equals: 'Danny'
+	self assert: aTurnHandler nextPlayerTurn name equals: 'Danny'
 ]
 
 { #category : #tests }
@@ -53,6 +53,6 @@ TurnHandlerTest >> testPlayer2throwsAfterPlayer1 [
 	aTurnHandler := TurnHandler withPlayers: {
 			                aSpaceShip1.
 			                aSpaceShip2 }.
-	aTurnHandler nextSpaceshipTurn.
-	self assert: aTurnHandler nextSpaceshipTurn name equals: 'Walter'
+	aTurnHandler nextPlayerTurn.
+	self assert: aTurnHandler nextPlayerTurn name equals: 'Walter'
 ]
