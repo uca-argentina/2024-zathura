@@ -30,11 +30,3 @@ LoadedDieTest >> testDieCannotBeCreatedWithLessThanThreeFaces [
 		raise: Error
 		withMessage: 'Faces should be more than 2'
 ]
-
-{ #category : #tests }
-LoadedDieTest >> testDieMinRollIsEqualTo1 [
-
-	| aLoadedDie |
-	aLoadedDie := LoadedDie of: 3.
-	self assert: aLoadedDie minRoll equals: 1
-]

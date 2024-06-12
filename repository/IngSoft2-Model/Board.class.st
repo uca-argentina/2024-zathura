@@ -4,8 +4,8 @@ Class {
 	#instVars : [
 		'tiles',
 		'laps',
-		'players',
-		'parsecs'
+		'parsecs',
+		'spaceships'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -50,7 +50,7 @@ Board >> amountOfTiles [
 { #category : #accessing }
 Board >> anySpaceShipAtLastTileAndLap [
 
-	^ players anySatisfy: [ :aSpaceship |
+	^ spaceships anySatisfy: [ :aSpaceship |
 		  laps + 1 = aSpaceship lap and: [ 1 = aSpaceship position ] ]
 ]
 
@@ -124,18 +124,18 @@ Board >> move: aSpaceship by: anAmountOfTilesToMove [
 ]
 
 { #category : #'as yet unclassified' }
-Board >> move: aPlayer jumping: aQuantityOfParsec [
+Board >> move: aSpaceship jumping: aQuantityOfParsec [
 	| tilesToMove |
 
 	tilesToMove := (aQuantityOfParsec
 	                // (parsecs  / self amountOfTiles  )) truncated.
 
-	self move:  aPlayer by:  tilesToMove .
+	self move:  aSpaceship by:  tilesToMove .
 ]
 
 { #category : #'as yet unclassified' }
-Board >> moveAllPlayersToFirstPosition [
-	players do:[:aPlayer | aPlayer movePositionBy: 1- aPlayer position lapBy:0  neededFuel: 0 ].
+Board >> moveAllSpaceshipsToFirstPosition [
+	spaceships do:[:aSpaceship | aSpaceship movePositionBy: 1- aSpaceship position lapBy:0  neededFuel: 0 ].
 ]
 
 { #category : #accessing }
@@ -145,19 +145,19 @@ Board >> parsecs [
 ]
 
 { #category : #accessing }
-Board >> players [
-
-	^ players
-]
-
-{ #category : #accessing }
 Board >> positionOf: aSpaceship [
 
 	^ aSpaceship position
 ]
 
 { #category : #accessing }
-Board >> usedBy: somePlayers [
+Board >> spaceships [
 
-	players := somePlayers
+	^ spaceships
+]
+
+{ #category : #accessing }
+Board >> usedBy: someSpaceships [
+
+	spaceships := someSpaceships
 ]

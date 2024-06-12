@@ -20,9 +20,9 @@ HyperJump >> initializeOf: collectionOfParsecs [
 ]
 
 { #category : #playing }
-HyperJump >> triggeredBy: aPlayer on: aBoard [
+HyperJump >> triggeredBy: aSpaceship on: aBoard [
 
-	aBoard move: aPlayer jumping: (distances at: 1).
+	aBoard move: aSpaceship jumping: (distances at: 1).
 	distances add: distances first.
 	distances removeFirst.
 ]

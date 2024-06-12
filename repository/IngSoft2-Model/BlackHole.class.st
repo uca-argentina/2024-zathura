@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #playing }
-BlackHole >> triggeredBy: aPlayer on: aBoard [
+BlackHole >> triggeredBy: aSpaceship on: aBoard [
 
-	aBoard move: aPlayer by: -4
+	aBoard move: aSpaceship by: -4
 ]

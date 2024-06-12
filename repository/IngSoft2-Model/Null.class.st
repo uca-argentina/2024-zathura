@@ -17,6 +17,6 @@ Null >> initializeOf: aCollection [
 ]
 
 { #category : #playing }
-Null >> triggeredBy: aPlayer on: aBoard [
+Null >> triggeredBy: aSpaceship on: aBoard [
 
 ]

@@ -8,17 +8,8 @@ Class {
 }
 
 { #category : #testing }
-HyperGravity class >> isValid: aNumber above: minRoll below: maxRoll [
+HyperGravity class >> needsToThrow: aNumber [ 
 
-	(aNumber between: minRoll and: maxRoll) ifFalse: [
-		Error signal:
-			'The number needed to escape hypergravity cannot be lower than the minimum roll of the dice or greater than the maximum roll of the dice.' ]
-]
-
-{ #category : #testing }
-HyperGravity class >> needsToThrow: aNumber above: minRoll below: maxRoll [
-
-	self isValid: aNumber above: minRoll below: maxRoll.
 	^ self new initializedWith: aNumber
 ]
 
@@ -29,7 +20,7 @@ HyperGravity >> initializedWith: aNumber [
 ]
 
 { #category : #playing }
-HyperGravity >> triggeredBy: aPlayer on: aBoard [
+HyperGravity >> triggeredBy: aSpaceship on: aBoard [
 
-	aPlayer changeRollingResultNeededToMove: needsToThrow
+	aSpaceship changeRollingResultNeededToMove: needsToThrow
 ]

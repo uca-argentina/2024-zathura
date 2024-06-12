@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #playing }
-AtomicBomb >> triggeredBy: aPlayer on: aBoard [
+AtomicBomb >> triggeredBy: aSpaceship on: aBoard [
 
-	aBoard moveAllPlayersToFirstPosition.
+	aBoard moveAllSpaceshipsToFirstPosition.
 ]

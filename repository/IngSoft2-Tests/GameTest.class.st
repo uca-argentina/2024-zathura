@@ -1168,10 +1168,7 @@ GameTest >> testSV15SpaceshipEscapesOfTheHyperGravityEffectWhenItGetsACertainNum
 				          Null new.
 				          Null new.
 				          Null new.
-				          (HyperGravity
-					           needsToThrow: 4
-					           above: aDie1 minRoll
-					           below: aDie1 maxRoll).
+				          (HyperGravity needsToThrow: 4).
 				          Null new.
 				          Null new }
 		          finishingAfter: 2
@@ -1215,10 +1212,7 @@ GameTest >> testSV16SpaceshipCannotEscapeFromTheHyperGravityEffectIfItDoesNotGet
 				          Null new.
 				          Null new.
 				          Null new.
-				          (HyperGravity
-					           needsToThrow: 4
-					           above: aDie1 minRoll
-					           below: aDie1 maxRoll).
+				          (HyperGravity needsToThrow: 4).
 				          Null new.
 				          Null new }
 		          finishingAfter: 2
@@ -1528,17 +1522,12 @@ GameTest >> testSV23GameWithRandomBoardAndRandomDie [
 			               aDie1.
 			               aDie2 }.
 	effectDistribution := EffectDistribution with: {
-			                      (ProbabilityTile
-				                       with: Null new
-				                       and: 0.40).
+			                      (ProbabilityTile with: Null new and: 0.40).
 			                      (ProbabilityTile
 				                       with: BlackHole new
 				                       and: 0.20).
 			                      (ProbabilityTile
-				                       with: (HyperGravity
-						                        needsToThrow: 3
-						                        above: aDiceRoller minRoll
-						                        below: 6)
+				                       with: (HyperGravity needsToThrow: 3)
 				                       and: 0.20).
 			                      (ProbabilityTile
 				                       with: (MoonWalk backwardDistance: 3)

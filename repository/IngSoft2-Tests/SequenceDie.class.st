@@ -27,11 +27,6 @@ SequenceDie >> maxRoll [
 ^rollSequence max.
 ]
 
-{ #category : #accessing }
-SequenceDie >> minRoll [
-	^1
-]
-
 { #category : #initialization }
 SequenceDie >> nextRollIndex [ 
     currentRollIndex := currentRollIndex < rollSequence size

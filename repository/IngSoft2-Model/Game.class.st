@@ -64,7 +64,7 @@ Game >> playNextTurn [
 
 	| rollingResult spaceshipTurn |
 	self hasEnded ifTrue: [ Error signal: 'Game has already ended' ].
-	spaceshipTurn := turnHandler nextPlayerTurn.
+	spaceshipTurn := turnHandler nextSpaceshipTurn.
 	rollingResult := spaceshipTurn rollDiceUsing: diceCollection.
 	self move: spaceshipTurn withRollingResult: rollingResult.
 	board applyEffectOnLandingShip: spaceshipTurn.
