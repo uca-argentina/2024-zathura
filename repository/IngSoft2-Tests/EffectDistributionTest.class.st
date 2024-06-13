@@ -21,20 +21,20 @@ EffectDistributionTest >> testEffectDistributionSumOfProbabilitiesMustBeEqualToO
 	self
 		should: [
 			effectDistribution := EffectDistribution with: {
-					                      (ProbabilityTile with: Null new and: 0.40).
-					                      (ProbabilityTile
+					                      (ProbabilityEffectTile with: Null new and: 0.40).
+					                      (ProbabilityEffectTile
 						                       with: BlackHole new
 						                       and: 0.20).
-					                      (ProbabilityTile
+					                      (ProbabilityEffectTile
 						                       with: (HyperGravity needsToThrow: 3)
 						                       and: 0.20).
-					                      (ProbabilityTile
+					                      (ProbabilityEffectTile
 						                       with: (MoonWalk backwardDistance: 3)
 						                       and: 0.10).
-					                      (ProbabilityTile
+					                      (ProbabilityEffectTile
 						                       with: (HyperJump of: { 3. 2. 1 })
 						                       and: 0.08).
-					                      (ProbabilityTile
+					                      (ProbabilityEffectTile
 						                       with: AtomicBomb new
 						                       and: 0.03) } ]
 		raise: Error
@@ -45,7 +45,7 @@ EffectDistributionTest >> testEffectDistributionSumOfProbabilitiesMustBeEqualToO
 EffectDistributionTest >> testProbabilityEffectProbabilityMustBeBetwenZeroAndOne [
 
 	self
-		should: [ ProbabilityTile with: Null new and: 2 ]
+		should: [ ProbabilityEffectTile with: Null new and: 2 ]
 		raise: Error
 		withMessage: 'Probability must be between 0 and 1!'
 ]
@@ -62,20 +62,20 @@ EffectDistributionTest >> testThatIfAtomicBombEffectHasTwoPercentProbabilityItHa
 	atomicBombEffect := AtomicBomb new.
 
 	effectDistribution := EffectDistribution with: {
-			                      (ProbabilityTile with: nullEffect and: 0.40).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile with: nullEffect and: 0.40).
+			                      (ProbabilityEffectTile
 				                       with: blackHoleEffect
 				                       and: 0.2).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile
 				                       with: hyperGravityEffect
 				                       and: 0.2).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile
 				                       with: moonWalkEffect
 				                       and: 0.10).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile
 				                       with: hyperJumpEffect
 				                       and: 0.08).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile
 				                       with: atomicBombEffect
 				                       and: 0.02) }.
 
@@ -99,20 +99,20 @@ EffectDistributionTest >> testThatIfBlackHoleEffectHasTwentyPercentProbabilityIt
 	atomicBombEffect := AtomicBomb new.
 
 	effectDistribution := EffectDistribution with: {
-			                      (ProbabilityTile with: nullEffect and: 0.40).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile with: nullEffect and: 0.40).
+			                      (ProbabilityEffectTile
 				                       with: blackHoleEffect
 				                       and: 0.2).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile
 				                       with: hyperGravityEffect
 				                       and: 0.2).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile
 				                       with: moonWalkEffect
 				                       and: 0.10).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile
 				                       with: hyperJumpEffect
 				                       and: 0.08).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile
 				                       with: atomicBombEffect
 				                       and: 0.02) }.
 
@@ -136,20 +136,20 @@ EffectDistributionTest >> testThatIfHyperGravityEffectHasTwentyPercentProbabilit
 	atomicBombEffect := AtomicBomb new.
 
 	effectDistribution := EffectDistribution with: {
-			                      (ProbabilityTile with: nullEffect and: 0.40).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile with: nullEffect and: 0.40).
+			                      (ProbabilityEffectTile
 				                       with: blackHoleEffect
 				                       and: 0.2).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile
 				                       with: hyperGravityEffect
 				                       and: 0.2).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile
 				                       with: moonWalkEffect
 				                       and: 0.10).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile
 				                       with: hyperJumpEffect
 				                       and: 0.08).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile
 				                       with: atomicBombEffect
 				                       and: 0.02) }.
 
@@ -173,20 +173,20 @@ EffectDistributionTest >> testThatIfHyperJumpEffectHasEightPercentProbabilityItH
 	atomicBombEffect := AtomicBomb new.
 
 	effectDistribution := EffectDistribution with: {
-			                      (ProbabilityTile with: nullEffect and: 0.40).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile with: nullEffect and: 0.40).
+			                      (ProbabilityEffectTile
 				                       with: blackHoleEffect
 				                       and: 0.2).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile
 				                       with: hyperGravityEffect
 				                       and: 0.2).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile
 				                       with: moonWalkEffect
 				                       and: 0.10).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile
 				                       with: hyperJumpEffect
 				                       and: 0.08).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile
 				                       with: atomicBombEffect
 				                       and: 0.02) }.
 
@@ -210,20 +210,20 @@ EffectDistributionTest >> testThatIfMoonWalkEffectHasTenPercentProbabilityItHasB
 	atomicBombEffect := AtomicBomb new.
 
 	effectDistribution := EffectDistribution with: {
-			                      (ProbabilityTile with: nullEffect and: 0.40).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile with: nullEffect and: 0.40).
+			                      (ProbabilityEffectTile
 				                       with: blackHoleEffect
 				                       and: 0.2).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile
 				                       with: hyperGravityEffect
 				                       and: 0.2).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile
 				                       with: moonWalkEffect
 				                       and: 0.10).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile
 				                       with: hyperJumpEffect
 				                       and: 0.08).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile
 				                       with: atomicBombEffect
 				                       and: 0.02) }.
 
@@ -247,20 +247,20 @@ EffectDistributionTest >> testThatIfNullEffectHasFortyPercentProbabilityItHasBet
 	atomicBombEffect := AtomicBomb new.
 
 	effectDistribution := EffectDistribution with: {
-			                      (ProbabilityTile with: nullEffect and: 0.40).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile with: nullEffect and: 0.40).
+			                      (ProbabilityEffectTile
 				                       with: blackHoleEffect
 				                       and: 0.2).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile
 				                       with: hyperGravityEffect
 				                       and: 0.2).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile
 				                       with: moonWalkEffect
 				                       and: 0.10).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile
 				                       with: hyperJumpEffect
 				                       and: 0.08).
-			                      (ProbabilityTile
+			                      (ProbabilityEffectTile
 				                       with: atomicBombEffect
 				                       and: 0.02) }.
 

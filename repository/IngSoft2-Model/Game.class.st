@@ -18,18 +18,25 @@ Game class >> assertValidNumberOf: someSpaceShips [
 		Error signal: 'Game must have at least one player' ]
 ]
 
-{ #category : #'instance creation' }
-Game class >> playedBy: someSpaceShips on: aBoard rolling: dice [
+{ #category : #asserting }
+Game class >> createSpaceshipsUsing: spaceshipNames [
 
-	self assertValidNumberOf: someSpaceShips.
+	^spaceshipNames collect: [ :spaceship | SpaceShip named: spaceship]
+]
+
+{ #category : #asserting }
+Game class >> playedBy: someSpaceShips on: aBoard rolling: dice [
+	|currentSpaceships|
+	currentSpaceships := self createSpaceshipsUsing: someSpaceShips.
+	self assertValidNumberOf: currentSpaceships.
 	^ self new
-		  initializePlayedBy: someSpaceShips
+		  initializePlayedBy: currentSpaceships
 		  on: aBoard
 		  rolling: dice
 ]
 
 { #category : #asserting }
-Game >> checkIfGameHasEnded [
+Game >> endGameIfPossible [
 
 	board anySpaceShipAtLastTileAndLap ifTrue: [ hasEnded := true ]
 ]
@@ -44,9 +51,9 @@ Game >> hasEnded [
 Game >> initializePlayedBy: someSpaceShips on: aBoard rolling: dice [
 
 	board := aBoard.
-	aBoard usedBy: someSpaceShips asOrderedCollection.
+	aBoard usedBy: someSpaceShips.
 	diceCollection := dice.
-	spaceships := someSpaceShips asOrderedCollection.
+	spaceships := someSpaceShips.
 	hasEnded := false.
 	turnHandler := TurnHandler withPlayers: someSpaceShips.
 	spaceships do: [ :aSpaceShip |
@@ -68,13 +75,7 @@ Game >> playNextTurn [
 	rollingResult := spaceshipTurn rollDiceUsing: diceCollection.
 	self move: spaceshipTurn withRollingResult: rollingResult.
 	board applyEffectOnLandingShip: spaceshipTurn.
-	self checkIfGameHasEnded
-]
-
-{ #category : #accessing }
-Game >> positionOf: aSpaceship [
-
-	^ aSpaceship position
+	self endGameIfPossible
 ]
 
 { #category : #asserting }
@@ -93,6 +94,16 @@ Game >> spaceShipsPositionsRanking [
 		  ((spaceShipA lap - 1) * board amountOfTiles + spaceShipA position)
 		  >=
 		  ((spaceShipB lap - 1) * board amountOfTiles + spaceShipB position) ]
+]
+
+{ #category : #asserting }
+Game >> spaceshipCalled: aName [
+^ spaceships detect: [ :spaceship | spaceship name = aName ]
+]
+
+{ #category : #asserting }
+Game >> spaceships [ 
+^spaceships
 ]
 
 { #category : #asserting }

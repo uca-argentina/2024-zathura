@@ -144,12 +144,6 @@ Board >> moveAllSpaceshipsToFirstPosition [
 ]
 
 { #category : #accessing }
-Board >> parsecs [
-
-	^ parsecs
-]
-
-{ #category : #accessing }
 Board >> positionOf: aSpaceship [
 
 	^ aSpaceship position
