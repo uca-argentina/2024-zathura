@@ -18,7 +18,7 @@ HyperGravityEffectTest >> should: anErrorBlock raise: anErrorClass withMessage: 
 HyperGravityEffectTest >> testAShipCannotMoveUntilItThrowsACertainNumber [
 
 	| aHyperGravityTile aSpaceShip aBoard aDie1 |
-	aDie1 := LoadedDie of: { 4. 3 }.
+	aDie1 := SequenceDie of: { 4. 3 }.
 	aHyperGravityTile := HyperGravity needsToThrow: 4.
 	aBoard := Board
 		          of: {
@@ -54,7 +54,7 @@ HyperGravityEffectTest >> testAShipCannotMoveUntilItThrowsACertainNumber [
 HyperGravityEffectTest >> testAShipThatIsAffectedByHyperGravityEffectCannotMoveByTheResulOfOtherEffects [
 
 	| aHyperGravityTile anAtomicBombEffect aSpaceShip1 aSpaceShip2 aSpaceShip3 aBoard aDie1 |
-	aDie1 := LoadedDie of: { 3. 4 }.
+	aDie1 := SequenceDie of: { 3. 4 }.
 	aHyperGravityTile := HyperGravity needsToThrow: 4.
 	anAtomicBombEffect := AtomicBomb new.
 	aBoard := Board

@@ -510,7 +510,7 @@ GameTest >> testSV02PlayerChangesLapAfterPassingTheLastTile [
 		          finishingAfter: 2
 		          withParsecs: 10.
 
-	aDie1 := LoadedDie of: { 6. 6. 2. 2 }.
+	aDie1 := SequenceDie of: { 6. 6. 2. 2 }.
 	someSpaceships := { 'Danny'. 'Walter' }.
 
 	aGame := Game
@@ -555,7 +555,7 @@ GameTest >> testSV03PlayersWinsAfterCompletingAnAmountOfLaps [
 		          finishingAfter: 2
 		          withParsecs: 10.
 
-	aDie1 := LoadedDie of: { 6. 3. 6. 3 }.
+	aDie1 := SequenceDie of: { 6. 3. 6. 3 }.
 	someSpaceships := { 'Danny'. 'Walter' }.
 	aGame := Game
 		         playedBy: someSpaceships 
@@ -745,7 +745,7 @@ GameTest >> testSV08WhenASpaceshipRunsOutOfFuelAlsoItLosesTwoTurns [
 		          finishingAfter: 2
 		          withParsecs: 10.
 
-	aDie1 := LoadedDie of: { 2. 6. 2. 6. 1. 1. 1. 1 }.
+	aDie1 := SequenceDie of: { 2. 6. 2. 6. 1. 1. 1. 1 }.
 
 	aGame := Game
 		         playedBy: someSpaceships 
@@ -807,7 +807,7 @@ GameTest >> testSV09SpaceshipSkipsTheirTurnToHaveMaxFuel [
 		          withParsecs: 10.
 
 
-	aDie1 := LoadedDie of: { 2. 2. 2. 3. 2. 2 }.
+	aDie1 := SequenceDie of: { 2. 2. 2. 3. 2. 2 }.
 
 	aGame := Game
 		         playedBy: someSpaceships 
@@ -976,7 +976,7 @@ GameTest >> testSV13BlackHoleEffectWhenSpaceShipRunsOutOfFuelItGoesToTheFirstTil
 		          finishingAfter: 2
 		          withParsecs: 10.
 
-	aDie1 := LoadedDie of: { 1. 1. 4. 4 }.
+	aDie1 := SequenceDie of: { 1. 1. 4. 4 }.
 
 	aGame := Game
 		         playedBy: someSpaceships 
@@ -1021,7 +1021,7 @@ GameTest >> testSV14BlackHoleEffectWhenSpaceShipIsInTheFirstThreeTilesItGoesBack
 		          finishingAfter: 2
 		          withParsecs: 10.
 
-	aDie1 := LoadedDie of: { 6. 6. 1. 1 }.
+	aDie1 := SequenceDie of: { 6. 6. 1. 1 }.
 
 	aGame := Game
 		         playedBy: someSpaceships 
@@ -1055,7 +1055,7 @@ GameTest >> testSV15SpaceshipEscapesOfTheHyperGravityEffectWhenItGetsACertainNum
 
 	| aGame aBoard aDie1 someSpaceships |
 	someSpaceships:={'Danny'.'Walter'}.
-	aDie1 := LoadedDie of: { 5. 5. 4. 4 }.
+	aDie1 := SequenceDie of: { 5. 5. 4. 4 }.
 	aBoard := Board
 		          of: {
 				          Null new.
@@ -1149,7 +1149,7 @@ GameTest >> testSV17MoonWalkEffectWhenSpaceShipHasEnoughFuelItGoesNTilesBackward
 		          finishingAfter: 2
 		          withParsecs: 10.
 
-	aDie1 := LoadedDie of: { 2. 3. 3 }.
+	aDie1 := SequenceDie of: { 2. 3. 3 }.
 	aGame := Game
 		         playedBy: someSpaceships 
 		         on: aBoard
@@ -1188,7 +1188,7 @@ GameTest >> testSV18MoonWalkEffectWhenSpaceShipRunsOutOfFuelItGoesToTheFirstTile
 		          finishingAfter: 2
 		          withParsecs: 10.
 
-	aDie1 := LoadedDie of: { 2. 4. 4. 1. 1 }.
+	aDie1 := SequenceDie of: { 2. 4. 4. 1. 1 }.
 
 	aGame := Game
 		         playedBy: someSpaceships 
@@ -1226,7 +1226,7 @@ GameTest >> testSV19MoonWalkEffectWhenSpaceShipIsInTheFirstThreeTilesItGoesBackT
 		          finishingAfter: 2
 		          withParsecs: 10.
 
-	aDie1 := LoadedDie of: { 6. 6. 1. 1 }.
+	aDie1 := SequenceDie of: { 6. 6. 1. 1 }.
 
 	aGame := Game
 		         playedBy: someSpaceships 
@@ -1272,7 +1272,7 @@ GameTest >> testSV20HyperJumpEffectAssignsParsecsToSpaceshipAndItGoesForward [
 				          Null create }
 		          finishingAfter: 2
 		          withParsecs: 10.
-	aDie1 := LoadedDie of: { 3. 3. 3 }.
+	aDie1 := SequenceDie of: { 3. 3. 3 }.
 
 	aGame := Game
 		         playedBy: someSpaceships 
@@ -1307,7 +1307,7 @@ GameTest >> testSV21AtomicBombEffectSendsAllSpaceshipsBackToTheFirstTile [
 				          Null create }
 		          finishingAfter: 2
 		          withParsecs: 10.
-	aDie1 := LoadedDie of: { 6. 4. 3. 3. 6. 6. 20 }.
+	aDie1 := SequenceDie of: { 6. 4. 3. 3. 6. 6. 20 }.
 
 	aGame := Game
 		         playedBy: someSpaceships
@@ -1355,7 +1355,7 @@ GameTest >> testSV22SequenceDie [
 		          finishingAfter: 2
 		          withParsecs: 10.
 
-	aDie1 := LoadedDie of: { 4. 3. 3 }.
+	aDie1 := SequenceDie of: { 4. 3. 3 }.
 	someSpaceships := { 'Danny'. 'Walter' }.
 	aGame := Game
 		         playedBy: someSpaceships 

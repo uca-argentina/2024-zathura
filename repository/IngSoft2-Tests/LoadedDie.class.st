@@ -2,53 +2,40 @@ Class {
 	#name : #LoadedDie,
 	#superclass : #Object,
 	#instVars : [
-		'rollSequence',
-		'currentRollIndex'
+		'faces'
 	],
 	#category : #'IngSoft2-Tests'
 }
 
 { #category : #'instance creation' }
-LoadedDie class >> isValid: aDiceSequence [
-	(aDiceSequence isKindOf: Array)
-	ifTrue: [(aDiceSequence detect: [ :roll|roll<1 ] ifNone:[nil])
-		ifNotNil:[
-		Error signal: 'No roll can be lower than 1' ]]
-	ifFalse: [ aDiceSequence<1 
-		ifTrue:[
-			Error signal: 'No roll can be lower than 1' ]]
+LoadedDie class >> isValid: anAmountOfFaces [
+
+	anAmountOfFaces < 3 ifTrue: [
+		Error signal: 'Faces should be more than 2' ]
 ]
 
 { #category : #'instance creation' }
-LoadedDie class >> of: rollValues [
-	self isValid: rollValues.
-	^ self new initializeOf: rollValues
+LoadedDie class >> of: anAmountOfFaces [
+
+	self isValid: anAmountOfFaces.
+
+	^ self new initializeOf: anAmountOfFaces
 ]
 
 { #category : #initialization }
-LoadedDie >> initializeOf: rollValues [
-    rollSequence := rollValues.
-    currentRollIndex := 0.
-    ^ self
+LoadedDie >> initializeOf: anAmountOfFaces [
+
+	faces := anAmountOfFaces
 ]
 
-{ #category : #initialization }
+{ #category : #accessing }
 LoadedDie >> maxRoll [
 
-^rollSequence max.
+^faces
 ]
 
-{ #category : #initialization }
-LoadedDie >> nextRollIndex [ 
-    currentRollIndex := currentRollIndex < rollSequence size
-                       ifTrue: [ currentRollIndex + 1 ]
-                       ifFalse: [ 1 ].
-    ^ currentRollIndex
-]
-
-{ #category : #initialization }
+{ #category : #playing }
 LoadedDie >> roll [
-	(rollSequence isKindOf: Array)
-		ifTrue:[^ rollSequence at: self nextRollIndex]
-		ifFalse:[^rollSequence]
+
+	^ faces
 ]
