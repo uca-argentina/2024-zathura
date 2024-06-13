@@ -102,11 +102,6 @@ Game >> spaceshipCalled: aName [
 ]
 
 { #category : #asserting }
-Game >> spaceships [ 
-^spaceships
-]
-
-{ #category : #asserting }
 Game >> winner [
 
 	| winner |

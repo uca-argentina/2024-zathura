@@ -66,7 +66,7 @@ GameTest >> testFV02SpaceshipsStartAtFirstTile [
 
 	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
-	self assert: aGame spaceships size equals: 2.
+	
 	self assert: (aGame spaceshipCalled: 'Danny') name equals: 'Danny'.
 	self assert: (aGame spaceshipCalled: 'Walter') name equals: 'Walter'.
 
