@@ -15,18 +15,34 @@ LoadedDieTest >> should: aErrorBlock raise: anErrorClass withMessage: anErrorMes
 ]
 
 { #category : #tests }
-LoadedDieTest >> testDieCanBeCreatedWithAnAmountOfFaces [
+LoadedDieTest >> testALoadedDieCanBeCreatedWithAnAmountOfFaces [
 
 	| aDie |
-	aDie := LoadedDie of: 5.
-	self assert: aDie roll equals: 5
+	aDie := LoadedDie of: 1.
+
+	self assert: aDie roll equals: 1.
+	self assert: aDie roll equals: 1.
+	self assert: aDie roll equals: 1.
+	self assert: aDie roll equals: 1
 ]
 
 { #category : #tests }
-LoadedDieTest >> testDieCannotBeCreatedWithLessThanThreeFaces [
+LoadedDieTest >> testALoadedDieCanThrowASequenceOfDifferentRolls [
+
+	| aDie |
+	aDie := LoadedDie of: { 4. 9. 5 }.
+
+	self assert: aDie roll equals: 4.
+	self assert: aDie roll equals: 9.
+	self assert: aDie roll equals: 5.
+	self assert: aDie roll equals: 4
+]
+
+{ #category : #tests }
+LoadedDieTest >> testLoadedDieCannotYieldNumbersBelow1 [
 
 	self
-		should: [ LoadedDie of: 2 ]
+		should: [ LoadedDie of: -1 ]
 		raise: Error
-		withMessage: 'Faces should be more than 2'
+		withMessage: 'No roll can be lower than 1'
 ]

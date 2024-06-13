@@ -66,7 +66,7 @@ GameTest >> testFV02SpaceshipsStartAtFirstTile [
 
 	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
-	
+
 	self assert: (aGame spaceshipCalled: 'Danny') name equals: 'Danny'.
 	self assert: (aGame spaceshipCalled: 'Walter') name equals: 'Walter'.
 
@@ -77,8 +77,8 @@ GameTest >> testFV02SpaceshipsStartAtFirstTile [
 { #category : #tests }
 GameTest >> testFV03GameHasEndedAsOneSpaceshipReachTheEnd [
 
-	| aGame aBoard aDie1 someSpaceships|
-	someSpaceships:={'Danny'. 'Walter'}.
+	| aGame aBoard aDie1 someSpaceships |
+	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
 				          Null create.
@@ -93,10 +93,7 @@ GameTest >> testFV03GameHasEndedAsOneSpaceshipReachTheEnd [
 
 	aDie1 := LoadedDie of: 9.
 
-	aGame := Game
-		         playedBy: someSpaceships 
-		         on: aBoard
-		         rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -135,10 +132,7 @@ GameTest >> testFV04CantRollAfterGameEnded [
 
 	aDie1 := LoadedDie of: 9.
 	someSpaceships := { 'Danny'. 'Walter' }.
-	aGame := Game
-		         playedBy: someSpaceships 
-		         on: aBoard
-		         rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -172,12 +166,9 @@ GameTest >> testFV05IsValidWhenTheWinnerIsAssignedCorrectly [
 		          withParsecs: 10.
 
 	aDie1 := LoadedDie of: 8.
-	someSpacheships:= { 'Danny'. 'Walter' }.
+	someSpacheships := { 'Danny'. 'Walter' }.
 
-	aGame := Game
-		         playedBy: someSpacheships 
-		         on: aBoard
-		         rolling: aDie1.
+	aGame := Game playedBy: someSpacheships on: aBoard rolling: aDie1.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
@@ -191,7 +182,7 @@ GameTest >> testFV05IsValidWhenTheWinnerIsAssignedCorrectly [
 GameTest >> testFV06GameIsPlayedWithTwoDice [
 
 	| aGame aBoard aDie1 aDie2 aDiceRoller someSpaceships |
-	someSpaceships:={'Danny'. 'Walter'}.
+	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
 				          Null create.
@@ -213,7 +204,7 @@ GameTest >> testFV06GameIsPlayedWithTwoDice [
 			               aDie2 }.
 
 	aGame := Game
-		         playedBy: someSpaceships 
+		         playedBy: someSpaceships
 		         on: aBoard
 		         rolling: aDiceRoller.
 
@@ -243,10 +234,7 @@ GameTest >> testFV07GameWithRandomDie [
 
 	aDie1 := Die of: 3.
 
-	aGame := Game
-		         playedBy: someSpaceships
-		         on: aBoard
-		         rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
 	self deny: aGame hasEnded.
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
@@ -263,8 +251,7 @@ GameTest >> testFV07GameWithRandomDie [
 GameTest >> testFV08GameWithTwoRandomDice [
 
 	| aGame aBoard aDie1 aDie2 aDiceRoller someSpaceships |
-
-	someSpaceships:= {'Danny'. 'Walter'}.
+	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
 				          Null create.
@@ -280,10 +267,7 @@ GameTest >> testFV08GameWithTwoRandomDice [
 	aDiceRoller := DiceRoller of: {
 			               aDie1.
 			               aDie2 }.
-	aGame := Game
-		         playedBy: someSpaceships
-		         on: aBoard
-		         rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
 	self deny: aGame hasEnded.
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
@@ -300,7 +284,7 @@ GameTest >> testFV08GameWithTwoRandomDice [
 GameTest >> testFV09PlayerOneCanRollTheDiceAfterPlayerTwoTurn [
 
 	| aGame aBoard aDie1 someSpaceships |
-	someSpaceships:={'Danny'. 'Walter'}.
+	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
 				          Null create.
@@ -315,10 +299,7 @@ GameTest >> testFV09PlayerOneCanRollTheDiceAfterPlayerTwoTurn [
 
 	aDie1 := LoadedDie of: 3.
 
-	aGame := Game
-		         playedBy: someSpaceships 
-		         on: aBoard
-		         rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 	aGame playNextTurn.
 	aGame playNextTurn.
 
@@ -332,7 +313,6 @@ GameTest >> testFV09PlayerOneCanRollTheDiceAfterPlayerTwoTurn [
 GameTest >> testFV10TurnsWhenThreePlayersArePLaying [
 
 	| aGame aBoard aDie1 someSpaceships |
-
 	someSpaceships := { 'Danny'. 'Walter'. 'Joseph' }.
 
 
@@ -350,16 +330,13 @@ GameTest >> testFV10TurnsWhenThreePlayersArePLaying [
 
 	aDie1 := LoadedDie of: 3.
 
-	aGame := Game
-		         playedBy: someSpaceships 
-		         on: aBoard
-		         rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
 	aGame playNextTurn.
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
 
 	aGame playNextTurn.
-	self assert: (aGame spaceshipCalled: 'Walter')position  equals: 4.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 4.
 
 	aGame playNextTurn.
 	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 4
@@ -387,10 +364,7 @@ GameTest >> testFV11WormholeGoesBackwards [
 
 	aDie1 := LoadedDie of: 4.
 
-	aGame := Game
-		         playedBy: someSpaceships 
-		         on: aBoard
-		         rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
 	aGame playNextTurn.
 
@@ -423,10 +397,7 @@ GameTest >> testFV12WormholeGoesForward [
 		          withParsecs: 10.
 	aDie1 := LoadedDie of: 7.
 
-	aGame := Game
-		         playedBy: someSpaceships 
-		         on: aBoard
-		         rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
 	aGame playNextTurn.
 
@@ -454,10 +425,7 @@ GameTest >> testFV13WormholeIsNotOnANormalTile [
 
 	aDie1 := LoadedDie of: 4.
 
-	aGame := Game
-		         playedBy: someSpaceships 
-		         on: aBoard
-		         rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
 	aGame playNextTurn.
 
@@ -483,10 +451,7 @@ GameTest >> testSV01PlayersStartAtLapOne [
 	aDie1 := LoadedDie of: 3.
 	someSpaceships := { 'Danny'. 'Walter' }.
 
-	aGame := Game
-		         playedBy: someSpaceships 
-		         on: aBoard
-		         rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -510,13 +475,10 @@ GameTest >> testSV02PlayerChangesLapAfterPassingTheLastTile [
 		          finishingAfter: 2
 		          withParsecs: 10.
 
-	aDie1 := SequenceDie of: { 6. 6. 2. 2 }.
+	aDie1 := LoadedDie of: { 6. 6. 2. 2 }.
 	someSpaceships := { 'Danny'. 'Walter' }.
 
-	aGame := Game
-		         playedBy: someSpaceships 
-		         on: aBoard
-		         rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 1.
@@ -555,12 +517,9 @@ GameTest >> testSV03PlayersWinsAfterCompletingAnAmountOfLaps [
 		          finishingAfter: 2
 		          withParsecs: 10.
 
-	aDie1 := SequenceDie of: { 6. 3. 6. 3 }.
+	aDie1 := LoadedDie of: { 6. 3. 6. 3 }.
 	someSpaceships := { 'Danny'. 'Walter' }.
-	aGame := Game
-		         playedBy: someSpaceships 
-		         on: aBoard
-		         rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 1.
@@ -587,7 +546,7 @@ GameTest >> testSV03PlayersWinsAfterCompletingAnAmountOfLaps [
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 3.
 
-	self assert: (aGame winner name) equals: 'Danny'
+	self assert: aGame winner name equals: 'Danny'
 ]
 
 { #category : #tests }
@@ -631,12 +590,14 @@ GameTest >> testSV05EverySpaceshipStartsWithAmountOfFuelEqualToTheDoubleOfTheDic
 			               aDie2 }.
 
 	aGame := Game
-		         playedBy: someSpaceships 
+		         playedBy: someSpaceships
 		         on: aBoard
 		         rolling: aDiceRoller.
 
 	self assert: (aGame spaceshipCalled: 'Danny') amountOfFuel equals: 12.
-	self assert: (aGame spaceshipCalled: 'Walter') amountOfFuel equals: 12
+	self
+		assert: (aGame spaceshipCalled: 'Walter') amountOfFuel
+		equals: 12
 ]
 
 { #category : #tests }
@@ -665,12 +626,14 @@ GameTest >> testSV06WhenASpaceshipMovesItHasLessFuel [
 			               aDie2 }.
 
 	aGame := Game
-		         playedBy: someSpaceships 
+		         playedBy: someSpaceships
 		         on: aBoard
 		         rolling: aDiceRoller.
 
 	self assert: (aGame spaceshipCalled: 'Danny') amountOfFuel equals: 12.
-	self assert: (aGame spaceshipCalled: 'Walter') amountOfFuel equals: 12.
+	self
+		assert: (aGame spaceshipCalled: 'Walter') amountOfFuel
+		equals: 12.
 
 
 	aGame playNextTurn.
@@ -698,15 +661,14 @@ GameTest >> testSV07WhenASpaceshipRunsOutOfFuelItGoesBackToTileOneInLapBeforeMov
 
 	aDie1 := LoadedDie of: 6.
 
-	aGame := Game
-		         playedBy: someSpaceships 
-		         on: aBoard
-		         rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Danny') amountOfFuel equals: 12.
-	self assert: (aGame spaceshipCalled: 'Walter') amountOfFuel equals: 12.
+	self
+		assert: (aGame spaceshipCalled: 'Walter') amountOfFuel
+		equals: 12.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
@@ -724,7 +686,9 @@ GameTest >> testSV07WhenASpaceshipRunsOutOfFuelItGoesBackToTileOneInLapBeforeMov
 	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 1.
 	self assert: (aGame spaceshipCalled: 'Danny') amountOfFuel equals: 12.
-	self assert: (aGame spaceshipCalled: 'Walter') amountOfFuel equals: 12
+	self
+		assert: (aGame spaceshipCalled: 'Walter') amountOfFuel
+		equals: 12
 ]
 
 { #category : #tests }
@@ -745,15 +709,14 @@ GameTest >> testSV08WhenASpaceshipRunsOutOfFuelAlsoItLosesTwoTurns [
 		          finishingAfter: 2
 		          withParsecs: 10.
 
-	aDie1 := SequenceDie of: { 2. 6. 2. 6. 1. 1. 1. 1 }.
+	aDie1 := LoadedDie of: { 2. 6. 2. 6. 1. 1. 1. 1 }.
 
-	aGame := Game
-		         playedBy: someSpaceships 
-		         on: aBoard
-		         rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
 	self assert: (aGame spaceshipCalled: 'Danny') amountOfFuel equals: 12.
-	self assert: (aGame spaceshipCalled: 'Walter') amountOfFuel equals: 12.
+	self
+		assert: (aGame spaceshipCalled: 'Walter') amountOfFuel
+		equals: 12.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
@@ -769,7 +732,9 @@ GameTest >> testSV08WhenASpaceshipRunsOutOfFuelAlsoItLosesTwoTurns [
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 5.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Danny') amountOfFuel equals: 8.
-	self assert: (aGame spaceshipCalled: 'Walter') amountOfFuel equals: 12.
+	self
+		assert: (aGame spaceshipCalled: 'Walter') amountOfFuel
+		equals: 12.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
@@ -778,14 +743,18 @@ GameTest >> testSV08WhenASpaceshipRunsOutOfFuelAlsoItLosesTwoTurns [
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 8.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Danny') amountOfFuel equals: 5.
-	self assert: (aGame spaceshipCalled: 'Walter') amountOfFuel equals: 12.
+	self
+		assert: (aGame spaceshipCalled: 'Walter') amountOfFuel
+		equals: 12.
 
 	aGame playNextTurn.
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 8.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.
 	self assert: (aGame spaceshipCalled: 'Danny') amountOfFuel equals: 5.
-	self assert: (aGame spaceshipCalled: 'Walter') amountOfFuel equals: 11
+	self
+		assert: (aGame spaceshipCalled: 'Walter') amountOfFuel
+		equals: 11
 ]
 
 { #category : #tests }
@@ -807,12 +776,9 @@ GameTest >> testSV09SpaceshipSkipsTheirTurnToHaveMaxFuel [
 		          withParsecs: 10.
 
 
-	aDie1 := SequenceDie of: { 2. 2. 2. 3. 2. 2 }.
+	aDie1 := LoadedDie of: { 2. 2. 2. 3. 2. 2 }.
 
-	aGame := Game
-		         playedBy: someSpaceships 
-		         on: aBoard
-		         rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
 	self assert: (aGame spaceshipCalled: 'Danny') amountOfFuel equals: 6.
 	self assert: (aGame spaceshipCalled: 'Walter') amountOfFuel equals: 6.
@@ -856,10 +822,7 @@ GameTest >> testSV10LandingInAnEffectTileAfterBeingMovedByAnEffectDoesNotCauseAn
 
 	aDie1 := LoadedDie of: 5.
 
-	aGame := Game
-		         playedBy: someSpaceships 
-		         on: aBoard
-		         rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -875,7 +838,7 @@ GameTest >> testSV10LandingInAnEffectTileAfterBeingMovedByAnEffectDoesNotCauseAn
 GameTest >> testSV11Spaceship2IsTheFirstSpaceShipAtSpaceShipsRankingAsHisPositionIsTheClosestToTheFinish [
 
 	| aGame aBoard aDie1 someSpaceships |
-	someSpaceships:={'Danny'. 'Walter'}.
+	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
 				          Null create.
@@ -891,10 +854,7 @@ GameTest >> testSV11Spaceship2IsTheFirstSpaceShipAtSpaceShipsRankingAsHisPositio
 
 	aDie1 := LoadedDie of: 3.
 
-	aGame := Game
-		         playedBy: someSpaceships 
-		         on: aBoard
-		         rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -925,7 +885,7 @@ GameTest >> testSV12BlackHoleEffectWhenSpaceShipHasEnoughFuelItGoesFourTilesBack
 	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
-				          Null  new.
+				          Null new.
 				          Null new.
 				          Null new.
 				          Null new.
@@ -938,15 +898,14 @@ GameTest >> testSV12BlackHoleEffectWhenSpaceShipHasEnoughFuelItGoesFourTilesBack
 
 	aDie1 := LoadedDie of: 5.
 
-	aGame := Game
-		         playedBy: someSpaceships
-		         on: aBoard
-		         rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Danny') amountOfFuel equals: 10.
-	self assert: (aGame spaceshipCalled: 'Walter') amountOfFuel equals: 10.
+	self
+		assert: (aGame spaceshipCalled: 'Walter') amountOfFuel
+		equals: 10.
 
 
 	aGame playNextTurn.
@@ -976,12 +935,9 @@ GameTest >> testSV13BlackHoleEffectWhenSpaceShipRunsOutOfFuelItGoesToTheFirstTil
 		          finishingAfter: 2
 		          withParsecs: 10.
 
-	aDie1 := SequenceDie of: { 1. 1. 4. 4 }.
+	aDie1 := LoadedDie of: { 1. 1. 4. 4 }.
 
-	aGame := Game
-		         playedBy: someSpaceships 
-		         on: aBoard
-		         rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -1009,7 +965,7 @@ GameTest >> testSV13BlackHoleEffectWhenSpaceShipRunsOutOfFuelItGoesToTheFirstTil
 GameTest >> testSV14BlackHoleEffectWhenSpaceShipIsInTheFirstThreeTilesItGoesBackToThePreviousLapAndTile [
 
 	| aGame aBoard aDie1 someSpaceships |
-	someSpaceships :={'Danny'.'Walter'}.
+	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
 				          Null new.
@@ -1021,12 +977,9 @@ GameTest >> testSV14BlackHoleEffectWhenSpaceShipIsInTheFirstThreeTilesItGoesBack
 		          finishingAfter: 2
 		          withParsecs: 10.
 
-	aDie1 := SequenceDie of: { 6. 6. 1. 1 }.
+	aDie1 := LoadedDie of: { 6. 6. 1. 1 }.
 
-	aGame := Game
-		         playedBy: someSpaceships 
-		         on: aBoard
-		         rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -1054,8 +1007,8 @@ GameTest >> testSV14BlackHoleEffectWhenSpaceShipIsInTheFirstThreeTilesItGoesBack
 GameTest >> testSV15SpaceshipEscapesOfTheHyperGravityEffectWhenItGetsACertainNumber [
 
 	| aGame aBoard aDie1 someSpaceships |
-	someSpaceships:={'Danny'.'Walter'}.
-	aDie1 := SequenceDie of: { 5. 5. 4. 4 }.
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aDie1 := LoadedDie of: { 5. 5. 4. 4 }.
 	aBoard := Board
 		          of: {
 				          Null new.
@@ -1070,10 +1023,7 @@ GameTest >> testSV15SpaceshipEscapesOfTheHyperGravityEffectWhenItGetsACertainNum
 		          withParsecs: 10.
 
 
-	aGame := Game
-		         playedBy: someSpaceships 
-		         on: aBoard
-		         rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -1110,10 +1060,7 @@ GameTest >> testSV16SpaceshipCannotEscapeFromTheHyperGravityEffectIfItDoesNotGet
 		          finishingAfter: 2
 		          withParsecs: 10.
 
-	aGame := Game
-		         playedBy: someSpaceships 
-		         on: aBoard
-		         rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -1135,7 +1082,7 @@ GameTest >> testSV16SpaceshipCannotEscapeFromTheHyperGravityEffectIfItDoesNotGet
 GameTest >> testSV17MoonWalkEffectWhenSpaceShipHasEnoughFuelItGoesNTilesBackwards [
 
 	| aGame aBoard aDie1 someSpaceships |
-	someSpaceships:={'Danny'.'Walter'}.
+	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
 				          Null new.
@@ -1149,11 +1096,8 @@ GameTest >> testSV17MoonWalkEffectWhenSpaceShipHasEnoughFuelItGoesNTilesBackward
 		          finishingAfter: 2
 		          withParsecs: 10.
 
-	aDie1 := SequenceDie of: { 2. 3. 3 }.
-	aGame := Game
-		         playedBy: someSpaceships 
-		         on: aBoard
-		         rolling: aDie1.
+	aDie1 := LoadedDie of: { 2. 3. 3 }.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -1188,12 +1132,9 @@ GameTest >> testSV18MoonWalkEffectWhenSpaceShipRunsOutOfFuelItGoesToTheFirstTile
 		          finishingAfter: 2
 		          withParsecs: 10.
 
-	aDie1 := SequenceDie of: { 2. 4. 4. 1. 1 }.
+	aDie1 := LoadedDie of: { 2. 4. 4. 1. 1 }.
 
-	aGame := Game
-		         playedBy: someSpaceships 
-		         on: aBoard
-		         rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -1214,7 +1155,7 @@ GameTest >> testSV18MoonWalkEffectWhenSpaceShipRunsOutOfFuelItGoesToTheFirstTile
 GameTest >> testSV19MoonWalkEffectWhenSpaceShipIsInTheFirstThreeTilesItGoesBackToThePreviousLapAndTile [
 
 	| aGame aBoard aDie1 someSpaceships |
-	someSpaceships:={'Danny'. 'Walter'}.
+	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
 				          Null new.
@@ -1226,12 +1167,9 @@ GameTest >> testSV19MoonWalkEffectWhenSpaceShipIsInTheFirstThreeTilesItGoesBackT
 		          finishingAfter: 2
 		          withParsecs: 10.
 
-	aDie1 := SequenceDie of: { 6. 6. 1. 1 }.
+	aDie1 := LoadedDie of: { 6. 6. 1. 1 }.
 
-	aGame := Game
-		         playedBy: someSpaceships 
-		         on: aBoard
-		         rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -1272,12 +1210,9 @@ GameTest >> testSV20HyperJumpEffectAssignsParsecsToSpaceshipAndItGoesForward [
 				          Null create }
 		          finishingAfter: 2
 		          withParsecs: 10.
-	aDie1 := SequenceDie of: { 3. 3. 3 }.
+	aDie1 := LoadedDie of: { 3. 3. 3 }.
 
-	aGame := Game
-		         playedBy: someSpaceships 
-		         on: aBoard
-		         rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -1307,12 +1242,9 @@ GameTest >> testSV21AtomicBombEffectSendsAllSpaceshipsBackToTheFirstTile [
 				          Null create }
 		          finishingAfter: 2
 		          withParsecs: 10.
-	aDie1 := SequenceDie of: { 6. 4. 3. 3. 6. 6. 20 }.
+	aDie1 := LoadedDie of: { 6. 4. 3. 3. 6. 6. 20 }.
 
-	aGame := Game
-		         playedBy: someSpaceships
-		         on: aBoard
-		         rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -1327,7 +1259,9 @@ GameTest >> testSV21AtomicBombEffectSendsAllSpaceshipsBackToTheFirstTile [
 	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 2.
 	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 1.
 	self assert: (aGame spaceshipCalled: 'Danny') amountOfFuel equals: 34.
-	self assert: (aGame spaceshipCalled: 'Walter') amountOfFuel equals: 36.
+	self
+		assert: (aGame spaceshipCalled: 'Walter') amountOfFuel
+		equals: 36.
 
 	aGame playNextTurn.
 
@@ -1337,7 +1271,9 @@ GameTest >> testSV21AtomicBombEffectSendsAllSpaceshipsBackToTheFirstTile [
 	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 2.
 	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 1.
 	self assert: (aGame spaceshipCalled: 'Danny') amountOfFuel equals: 31.
-	self assert: (aGame spaceshipCalled: 'Walter') amountOfFuel equals: 36
+	self
+		assert: (aGame spaceshipCalled: 'Walter') amountOfFuel
+		equals: 36
 ]
 
 { #category : #tests }
@@ -1355,12 +1291,9 @@ GameTest >> testSV22SequenceDie [
 		          finishingAfter: 2
 		          withParsecs: 10.
 
-	aDie1 := SequenceDie of: { 4. 3. 3 }.
+	aDie1 := LoadedDie of: { 4. 3. 3 }.
 	someSpaceships := { 'Danny'. 'Walter' }.
-	aGame := Game
-		         playedBy: someSpaceships 
-		         on: aBoard
-		         rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 1.
@@ -1391,7 +1324,9 @@ GameTest >> testSV23GameWithRandomBoardAndRandomDie [
 			               aDie1.
 			               aDie2 }.
 	effectDistribution := EffectDistribution with: {
-			                      (ProbabilityEffectTile with: Null new and: 0.40).
+			                      (ProbabilityEffectTile
+				                       with: Null new
+				                       and: 0.40).
 			                      (ProbabilityEffectTile
 				                       with: BlackHole new
 				                       and: 0.20).
@@ -1414,11 +1349,11 @@ GameTest >> testSV23GameWithRandomBoardAndRandomDie [
 		          of: randomCollection
 		          finishingAfter: 2
 		          withParsecs: 10.
-		
-	someSpaceships :={'Danny'. 'Walter'}.
+
+	someSpaceships := { 'Danny'. 'Walter' }.
 
 	aGame := Game
-		         playedBy: someSpaceships 
+		         playedBy: someSpaceships
 		         on: aBoard
 		         rolling: aDiceRoller.
 
