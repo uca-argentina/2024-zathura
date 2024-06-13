@@ -35,10 +35,25 @@ Game class >> playedBy: someSpaceShips on: aBoard rolling: dice [
 		  rolling: dice
 ]
 
+{ #category : #accessing }
+Game >> anySpaceShipAtLastTileAndLap [
+
+	^ spaceships anySatisfy: [ :aSpaceship |
+		  board laps + 1 = aSpaceship lap and: [ 1 = aSpaceship position ] ]
+]
+
+{ #category : #accessing }
+Game >> applyEffectOnLandingShip: aSpaceship [
+
+	| effectToApply |
+	effectToApply := board tiles at: aSpaceship position.
+	effectToApply triggeredBy: aSpaceship on: self
+]
+
 { #category : #asserting }
 Game >> endGameIfPossible [
 
-	board anySpaceShipAtLastTileAndLap ifTrue: [ hasEnded := true ]
+	self anySpaceShipAtLastTileAndLap ifTrue: [ hasEnded := true ]
 ]
 
 { #category : #testing }
@@ -51,7 +66,6 @@ Game >> hasEnded [
 Game >> initializePlayedBy: someSpaceShips on: aBoard rolling: dice [
 
 	board := aBoard.
-	aBoard usedBy: someSpaceShips.
 	diceCollection := dice.
 	spaceships := someSpaceShips.
 	hasEnded := false.
@@ -60,10 +74,36 @@ Game >> initializePlayedBy: someSpaceShips on: aBoard rolling: dice [
 		aSpaceShip fuel: 2 * diceCollection maxRoll ]
 ]
 
+{ #category : #accessing }
+Game >> move: aSpaceShip by: anAmountOfTiles [
+	board move:aSpaceShip by:anAmountOfTiles
+	"temporary method. Move logic should be in game"
+]
+
+{ #category : #playing }
+Game >> move: aSpaceship jumping: aQuantityOfParsec [
+	| tilesToMove |
+
+	tilesToMove := (aQuantityOfParsec
+	                // (board parsecs  / board amountOfTiles  )) truncated.
+
+	self move:  aSpaceship by:  tilesToMove .
+]
+
 { #category : #playing }
 Game >> move: aSpaceship withRollingResult: aResult [
 
 	board move: aSpaceship by: aResult
+]
+
+{ #category : #playing }
+Game >> moveAllSpaceshipsToFirstPosition [
+
+	spaceships do: [ :aSpaceship |
+		aSpaceship
+			movePositionBy: 1 - aSpaceship position
+			lapBy: 0
+			neededFuel: 0 ]
 ]
 
 { #category : #playing }
@@ -74,7 +114,7 @@ Game >> playNextTurn [
 	spaceshipTurn := turnHandler nextSpaceshipTurn.
 	rollingResult := spaceshipTurn rollDiceUsing: diceCollection.
 	self move: spaceshipTurn withRollingResult: rollingResult.
-	board applyEffectOnLandingShip: spaceshipTurn.
+	self applyEffectOnLandingShip: spaceshipTurn.
 	self endGameIfPossible
 ]
 
@@ -99,6 +139,11 @@ Game >> spaceShipsPositionsRanking [
 { #category : #asserting }
 Game >> spaceshipCalled: aName [
 ^ spaceships detect: [ :spaceship | spaceship name = aName ]
+]
+
+{ #category : #asserting }
+Game >> spaceships [ 
+^spaceships
 ]
 
 { #category : #asserting }

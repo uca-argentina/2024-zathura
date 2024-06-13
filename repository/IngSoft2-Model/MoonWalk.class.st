@@ -20,11 +20,11 @@ MoonWalk >> initializedWith: anAmountOfTiles [
 ]
 
 { #category : #playing }
-MoonWalk >> triggeredBy: aSpaceship on: aBoard [
+MoonWalk >> triggeredBy: aSpaceship on: aGame [
 
 	| filteredShips |
-	filteredShips := aBoard spaceships select: [ :spaceship |
+	filteredShips := aGame spaceships select: [ :spaceship |
 		                 spaceship ~= aSpaceship ].
 	filteredShips do: [ :spaceship |
-		aBoard move: spaceship by: tilesToMove ]
+		aGame move: spaceship by: tilesToMove ]
 ]

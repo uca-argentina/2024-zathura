@@ -20,9 +20,9 @@ HyperJump >> initializeOf: collectionOfParsecs [
 ]
 
 { #category : #playing }
-HyperJump >> triggeredBy: aSpaceship on: aBoard [
+HyperJump >> triggeredBy: aSpaceship on: aGame [
 
-	aBoard move: aSpaceship jumping: (parsecs at: 1).
+	aGame move: aSpaceship jumping: (parsecs at: 1).
 	parsecs add: parsecs first.
 	parsecs removeFirst.
 ]

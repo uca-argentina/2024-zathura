@@ -4,8 +4,7 @@ Class {
 	#instVars : [
 		'tiles',
 		'laps',
-		'parsecs',
-		'spaceships'
+		'parsecs'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -45,21 +44,6 @@ Board class >> of: tiles finishingAfter: laps withParsecs: parsecs [
 Board >> amountOfTiles [
 
 	^ tiles size
-]
-
-{ #category : #accessing }
-Board >> anySpaceShipAtLastTileAndLap [
-
-	^ spaceships anySatisfy: [ :aSpaceship |
-		  laps + 1 = aSpaceship lap and: [ 1 = aSpaceship position ] ]
-]
-
-{ #category : #accessing }
-Board >> applyEffectOnLandingShip: aSpaceship [
-
-	| effectToApply |
-	effectToApply := tiles at: aSpaceship position.
-	effectToApply triggeredBy: aSpaceship on: self
 ]
 
 { #category : #accessing }
@@ -123,24 +107,9 @@ Board >> move: aSpaceship by: anAmountOfTilesToMove [
 		neededFuel: costToMove
 ]
 
-{ #category : #playing }
-Board >> move: aSpaceship jumping: aQuantityOfParsec [
-	| tilesToMove |
-
-	tilesToMove := (aQuantityOfParsec
-	                // (parsecs  / self amountOfTiles  )) truncated.
-
-	self move:  aSpaceship by:  tilesToMove .
-]
-
-{ #category : #playing }
-Board >> moveAllSpaceshipsToFirstPosition [
-
-	spaceships do: [ :aSpaceship |
-		aSpaceship
-			movePositionBy: 1 - aSpaceship position
-			lapBy: 0
-			neededFuel: 0 ]
+{ #category : #initialization }
+Board >> parsecs [
+^parsecs 
 ]
 
 { #category : #accessing }
@@ -149,14 +118,8 @@ Board >> positionOf: aSpaceship [
 	^ aSpaceship position
 ]
 
-{ #category : #accessing }
-Board >> spaceships [
+{ #category : #initialization }
+Board >> tiles [
 
-	^ spaceships
-]
-
-{ #category : #accessing }
-Board >> usedBy: someSpaceships [
-
-	spaceships := someSpaceships
+	^ tiles
 ]

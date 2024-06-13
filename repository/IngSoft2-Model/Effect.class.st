@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #playing }
-Effect >> triggeredBy: aPlayer on: aBoard [
+Effect >> triggeredBy: aPlayer on: aGame [
 
 	self subclassResponsibility. 
 ]
