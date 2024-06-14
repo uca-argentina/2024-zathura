@@ -54,11 +54,20 @@ Game >> applyEffectOnLandingShip: aSpaceship [
 ]
 
 { #category : #'as yet unclassified' }
+Game >> cardsHandLengthOf: aSpaceship [
+
+	| spaceshipCardHandler |
+	spaceshipCardHandler := cardHands
+		detect: [ :handler | handler spaceship name = aSpaceship].
+	^ spaceshipCardHandler cardsInHand size
+]
+
+{ #category : #'as yet unclassified' }
 Game >> cardsHandOf: aSpaceship [
 
 	| spaceshipCardHandler |
 	spaceshipCardHandler := cardHands
-		detect: [ :hand | hand spaceship name = aSpaceship].
+		detect: [ :handler | handler spaceship = aSpaceship].
 	^ spaceshipCardHandler
 ]
 
@@ -72,6 +81,13 @@ Game >> cardsHands [
 Game >> endGameIfPossible [
 
 	self anySpaceShipAtLastTileAndLap ifTrue: [ hasEnded := true ]
+]
+
+{ #category : #'as yet unclassified' }
+Game >> giveCardFromDeckTo:aSpaceship [
+|card|
+card:=deck pick.
+(self cardsHandOf:aSpaceship)addToHand:card
 ]
 
 { #category : #testing }

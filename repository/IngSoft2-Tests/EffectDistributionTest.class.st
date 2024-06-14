@@ -21,7 +21,7 @@ EffectDistributionTest >> testEffectDistributionSumOfProbabilitiesMustBeEqualToO
 	self
 		should: [
 			effectDistribution := EffectDistribution with: {
-					                      (ProbabilityEffectTile with: Null new and: 0.40).
+					                      (ProbabilityEffectTile with: Null new and: 0.30).
 					                      (ProbabilityEffectTile
 						                       with: BlackHole new
 						                       and: 0.20).
@@ -30,6 +30,9 @@ EffectDistributionTest >> testEffectDistributionSumOfProbabilitiesMustBeEqualToO
 						                       and: 0.20).
 					                      (ProbabilityEffectTile
 						                       with: (MoonWalk backwardDistance: 3)
+						                       and: 0.10).
+												(ProbabilityEffectTile
+						                       with: CardGiver new
 						                       and: 0.10).
 					                      (ProbabilityEffectTile
 						                       with: (HyperJump of: { 3. 2. 1 })

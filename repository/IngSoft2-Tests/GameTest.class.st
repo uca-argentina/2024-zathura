@@ -1386,9 +1386,39 @@ GameTest >> testTV24EverySpaceshipStartsWithTwoCards [
 	aDeck := Deck of: {'card1'. 'card2'}.
 	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom: aDeck.
 
-	self assert:(aGame cardsHandOf:'Danny') cardsInHand size equals: 2.
-	self assert:(aGame cardsHandOf:'Walter') cardsInHand size equals: 2.
+	self assert:(aGame cardsHandLengthOf:'Danny') equals: 2.
+	self assert:(aGame cardsHandLengthOf:'Walter') equals: 2.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
+]
+
+{ #category : #tests }
+GameTest >> testTV25WhenSpaceshipLandsInCardGiverTileItReceivesACard [
+
+	| aGame aBoard aDie1 someSpaceships aDeck |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          CardGiver new.
+				          Null create.
+				          Null create.
+				          Null create }
+		          finishingAfter: 2
+		          withParsecs: 10.
+	aDie1 := LoadedDie of: { 2. 2. }.
+
+	aDeck := Deck of: {'card1'. 'card2'}.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom: aDeck.
+
+	self assert:(aGame cardsHandLengthOf:'Danny') equals: 2.
+	self assert:(aGame cardsHandLengthOf:'Walter') equals: 2.
+
+	aGame playNextTurn.
+	
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
+	self assert:(aGame cardsHandLengthOf:'Danny') equals: 3.
+	self assert:(aGame cardsHandLengthOf:'Walter') equals: 2.
 ]
