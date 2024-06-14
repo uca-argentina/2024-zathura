@@ -1,22 +1,22 @@
 Class {
-	#name : #NullEffect,
-	#superclass : #Object,
+	#name : #Null,
+	#superclass : #Effect,
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #initializing }
-NullEffect class >> create [
+Null class >> create [
 
 	^ self new initializeOf: OrderedCollection new
 ]
 
 { #category : #initialization }
-NullEffect >> initializeOf: aCollection [
+Null >> initializeOf: aCollection [
 
 	
 ]
 
 { #category : #playing }
-NullEffect >> triggeredBy: aPlayer on: aBoard [
+Null >> triggeredBy: aSpaceship on: aGame [
 
 ]

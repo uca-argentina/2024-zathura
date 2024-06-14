@@ -4,7 +4,6 @@ Class {
 	#instVars : [
 		'tiles',
 		'laps',
-		'players',
 		'parsecs'
 	],
 	#category : #'IngSoft2-Model'
@@ -30,7 +29,7 @@ Board class >> isValid: tiles [
 ]
 
 { #category : #'instance creation' }
-Board class >> of: tiles finishingAfter: laps withDistance: parsecs [
+Board class >> of: tiles finishingAfter: laps withParsecs: parsecs [
 
 	self isValid: tiles.
 	self assertValidNumberOfLaps: laps.
@@ -48,51 +47,31 @@ Board >> amountOfTiles [
 ]
 
 { #category : #accessing }
-Board >> anySpaceShipOneInLastTileAndLap [
+Board >> calculateLapToMoveWhen: aSpaceship advances: anAmountOfTilesToMove [
 
-	^ players anySatisfy: [ :aSpaceship |
-		  laps + 1 = aSpaceship lap and: [ 1 = aSpaceship position ] ]
+	| tilesSinceBeginning |
+	tilesSinceBeginning := (self positionOf: aSpaceship)
+	                       + anAmountOfTilesToMove
+	                       + (aSpaceship lap - 1 * self amountOfTiles).
+	^ tilesSinceBeginning - 1 // self amountOfTiles + 1
 ]
 
 { #category : #accessing }
-Board >> applyEffectOnLandingShip: aSpaceship [
+Board >> calculatePositionToMoveWhen: aSpaceship moves: anAmountOfTilesToMove [
 
-	| effectToApply |
-	effectToApply := tiles at: aSpaceship position.
-	effectToApply triggeredBy: aSpaceship on: self
-]
-
-{ #category : #accessing }
-Board >> calculatePositionToMove: aSpaceship whenMoving: aNumber [
-
-	| tilesSinceBeginning newLap newPosition aLap lapsAdvanced finalPosition fuelNeeded |
-	fuelNeeded := aNumber abs.
-	tilesSinceBeginning := (self positionOf: aSpaceship) + aNumber
-	                       + ((aSpaceship lap - 1) * self amountOfTiles).
-
-	aLap := tilesSinceBeginning - 1 // self amountOfTiles + 1.
-	newLap := aLap min: laps.
+	| newPosition tilesSinceBeginning lapAfterMovement |
+	lapAfterMovement := self
+		                    calculateLapToMoveWhen: aSpaceship
+		                    advances: anAmountOfTilesToMove.
+	tilesSinceBeginning := (self positionOf: aSpaceship)
+	                       + anAmountOfTilesToMove
+	                       + (aSpaceship lap - 1 * self amountOfTiles).
 	newPosition := tilesSinceBeginning % self amountOfTiles.
-	newLap < 1 ifTrue: [
-		newLap := newLap max: 1.
-		newPosition := 1.
-		fuelNeeded := (1 - (tilesSinceBeginning - aNumber)) abs ].
-	(newPosition = 0 and: [ aLap <= laps ]) ifTrue: [
-		newPosition := self amountOfTiles.
-		fuelNeeded := self amountOfTiles * newLap
-		              - (tilesSinceBeginning - aNumber) ].
-	aLap > laps ifTrue: [
-		newPosition := 1.
-		fuelNeeded := self amountOfTiles * laps
-		              - (tilesSinceBeginning - aNumber) + 1.
-		newLap := laps + 1 ].
-	lapsAdvanced := newLap - aSpaceship lap.
-	finalPosition := newPosition - aSpaceship position.
-	lapsAdvanced := newLap - aSpaceship lap.
-	^ OrderedCollection
-		  with: finalPosition
-		  with: lapsAdvanced
-		  with: fuelNeeded
+	(lapAfterMovement < 1 or: lapAfterMovement > self laps) ifTrue: [
+		^ 1 - aSpaceship position ].
+	newPosition = 0 ifTrue: [ ^ self amountOfTiles - aSpaceship position ].
+
+	^ newPosition - aSpaceship position
 ]
 
 { #category : #initialization }
@@ -110,25 +89,27 @@ Board >> laps [
 ]
 
 { #category : #accessing }
-Board >> move: aSpaceship by: diceRollerNumber [
+Board >> move: aSpaceship by: anAmountOfTilesToMove [
 
-	| changesToPositionCollection positionToMove lapsMoved costToMove |
-	changesToPositionCollection := self
-		                               calculatePositionToMove: aSpaceship
-		                               whenMoving: diceRollerNumber.
-	positionToMove := changesToPositionCollection at: 1.
-	lapsMoved := changesToPositionCollection at: 2.
-	costToMove := changesToPositionCollection at: 3.
+	| positionToMove lapsMoved costToMove newLap |
+	newLap := self
+		          calculateLapToMoveWhen: aSpaceship
+		          advances: anAmountOfTilesToMove.
+	lapsMoved := (newLap min: laps + 1 max: 1) - aSpaceship lap.
+	positionToMove := self
+		                  calculatePositionToMoveWhen: aSpaceship
+		                  moves: anAmountOfTilesToMove.
+
+	costToMove := (lapsMoved * self amountOfTiles + positionToMove) abs.
 	aSpaceship
 		movePositionBy: positionToMove
 		lapBy: lapsMoved
 		neededFuel: costToMove
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 Board >> parsecs [
-
-	^ parsecs
+^parsecs 
 ]
 
 { #category : #accessing }
@@ -137,14 +118,8 @@ Board >> positionOf: aSpaceship [
 	^ aSpaceship position
 ]
 
-{ #category : #accessing }
-Board >> spaceships [
+{ #category : #initialization }
+Board >> tiles [
 
-	^ players
-]
-
-{ #category : #accessing }
-Board >> usedBy: somePlayers [
-
-	players := somePlayers
+	^ tiles
 ]
