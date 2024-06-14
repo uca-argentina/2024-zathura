@@ -6,7 +6,9 @@ Class {
 		'spaceships',
 		'diceCollection',
 		'hasEnded',
-		'turnHandler'
+		'turnHandler',
+		'deck',
+		'cardHands'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -25,7 +27,7 @@ Game class >> createSpaceshipsUsing: spaceshipNames [
 ]
 
 { #category : #asserting }
-Game class >> playedBy: someSpaceShips on: aBoard rolling: dice [
+Game class >> playedBy: someSpaceShips on: aBoard rolling: dice usingCardsFrom:aDeck [
 	|currentSpaceships|
 	currentSpaceships := self createSpaceshipsUsing: someSpaceShips.
 	self assertValidNumberOf: currentSpaceships.
@@ -33,6 +35,7 @@ Game class >> playedBy: someSpaceShips on: aBoard rolling: dice [
 		  initializePlayedBy: currentSpaceships
 		  on: aBoard
 		  rolling: dice
+		  usingCardsFrom: aDeck.
 ]
 
 { #category : #accessing }
@@ -50,6 +53,21 @@ Game >> applyEffectOnLandingShip: aSpaceship [
 	effectToApply triggeredBy: aSpaceship on: self
 ]
 
+{ #category : #'as yet unclassified' }
+Game >> cardsHandOf: aSpaceship [
+
+	| spaceshipCardHandler |
+	spaceshipCardHandler := cardHands
+		detect: [ :hand | hand spaceship name = aSpaceship].
+	^ spaceshipCardHandler
+]
+
+{ #category : #'as yet unclassified' }
+Game >> cardsHands [
+
+	^ cardHands.
+]
+
 { #category : #asserting }
 Game >> endGameIfPossible [
 
@@ -63,15 +81,18 @@ Game >> hasEnded [
 ]
 
 { #category : #initialization }
-Game >> initializePlayedBy: someSpaceShips on: aBoard rolling: dice [
+Game >> initializePlayedBy: someSpaceShips on: aBoard rolling: dice usingCardsFrom:aDeck [
 
 	board := aBoard.
 	diceCollection := dice.
 	spaceships := someSpaceShips.
 	hasEnded := false.
+	deck:=aDeck.
+	cardHands:=spaceships collect:[:spaceShip|CardsHand of:spaceShip using:aDeck].
 	turnHandler := TurnHandler withPlayers: someSpaceShips.
 	spaceships do: [ :aSpaceShip |
 		aSpaceShip fuel: 2 * diceCollection maxRoll ]
+	
 ]
 
 { #category : #accessing }

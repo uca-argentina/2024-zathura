@@ -40,7 +40,7 @@ GameTest >> testFV01GameMustHaveAtLeastOnePlayer [
 
 
 	self
-		should: [ Game playedBy: {  } on: aBoard rolling: aDie1 ]
+		should: [ Game playedBy: {  } on: aBoard rolling: aDie1 usingCardsFrom:{'card1.'. 'card2.'}.]
 		raise: Error
 		withMessage: 'Game must have at least one player'
 ]
@@ -64,7 +64,7 @@ GameTest >> testFV02SpaceshipsStartAtFirstTile [
 
 	aDie1 := LoadedDie of: 3.
 
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 
 	self assert: (aGame spaceshipCalled: 'Danny') name equals: 'Danny'.
@@ -93,7 +93,7 @@ GameTest >> testFV03GameHasEndedAsOneSpaceshipReachTheEnd [
 
 	aDie1 := LoadedDie of: 9.
 
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -132,7 +132,7 @@ GameTest >> testFV04CantRollAfterGameEnded [
 
 	aDie1 := LoadedDie of: 9.
 	someSpaceships := { 'Danny'. 'Walter' }.
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -168,7 +168,7 @@ GameTest >> testFV05IsValidWhenTheWinnerIsAssignedCorrectly [
 	aDie1 := LoadedDie of: 8.
 	someSpacheships := { 'Danny'. 'Walter' }.
 
-	aGame := Game playedBy: someSpacheships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpacheships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	aGame playNextTurn.
 	aGame playNextTurn.
@@ -206,7 +206,8 @@ GameTest >> testFV06GameIsPlayedWithTwoDice [
 	aGame := Game
 		         playedBy: someSpaceships
 		         on: aBoard
-		         rolling: aDiceRoller.
+		         rolling: aDiceRoller
+					usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -234,7 +235,7 @@ GameTest >> testFV07GameWithRandomDie [
 
 	aDie1 := Die of: 3.
 
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	self deny: aGame hasEnded.
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
@@ -267,7 +268,7 @@ GameTest >> testFV08GameWithTwoRandomDice [
 	aDiceRoller := DiceRoller of: {
 			               aDie1.
 			               aDie2 }.
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	self deny: aGame hasEnded.
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
@@ -299,7 +300,7 @@ GameTest >> testFV09PlayerOneCanRollTheDiceAfterPlayerTwoTurn [
 
 	aDie1 := LoadedDie of: 3.
 
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 	aGame playNextTurn.
 	aGame playNextTurn.
 
@@ -330,7 +331,7 @@ GameTest >> testFV10TurnsWhenThreePlayersArePLaying [
 
 	aDie1 := LoadedDie of: 3.
 
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	aGame playNextTurn.
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
@@ -364,7 +365,7 @@ GameTest >> testFV11WormholeGoesBackwards [
 
 	aDie1 := LoadedDie of: 4.
 
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	aGame playNextTurn.
 
@@ -397,7 +398,7 @@ GameTest >> testFV12WormholeGoesForward [
 		          withParsecs: 10.
 	aDie1 := LoadedDie of: 7.
 
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	aGame playNextTurn.
 
@@ -425,7 +426,7 @@ GameTest >> testFV13WormholeIsNotOnANormalTile [
 
 	aDie1 := LoadedDie of: 4.
 
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	aGame playNextTurn.
 
@@ -451,7 +452,7 @@ GameTest >> testSV01PlayersStartAtLapOne [
 	aDie1 := LoadedDie of: 3.
 	someSpaceships := { 'Danny'. 'Walter' }.
 
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -478,7 +479,7 @@ GameTest >> testSV02PlayerChangesLapAfterPassingTheLastTile [
 	aDie1 := LoadedDie of: { 6. 6. 2. 2 }.
 	someSpaceships := { 'Danny'. 'Walter' }.
 
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 1.
@@ -519,7 +520,7 @@ GameTest >> testSV03PlayersWinsAfterCompletingAnAmountOfLaps [
 
 	aDie1 := LoadedDie of: { 6. 3. 6. 3 }.
 	someSpaceships := { 'Danny'. 'Walter' }.
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 1.
@@ -592,7 +593,8 @@ GameTest >> testSV05EverySpaceshipStartsWithAmountOfFuelEqualToTheDoubleOfTheDic
 	aGame := Game
 		         playedBy: someSpaceships
 		         on: aBoard
-		         rolling: aDiceRoller.
+		         rolling: aDiceRoller
+					usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	self assert: (aGame spaceshipCalled: 'Danny') amountOfFuel equals: 12.
 	self
@@ -628,7 +630,8 @@ GameTest >> testSV06WhenASpaceshipMovesItHasLessFuel [
 	aGame := Game
 		         playedBy: someSpaceships
 		         on: aBoard
-		         rolling: aDiceRoller.
+		         rolling: aDiceRoller
+					usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	self assert: (aGame spaceshipCalled: 'Danny') amountOfFuel equals: 12.
 	self
@@ -661,7 +664,7 @@ GameTest >> testSV07WhenASpaceshipRunsOutOfFuelItGoesBackToTileOneInLapBeforeMov
 
 	aDie1 := LoadedDie of: 6.
 
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -711,7 +714,7 @@ GameTest >> testSV08WhenASpaceshipRunsOutOfFuelAlsoItLosesTwoTurns [
 
 	aDie1 := LoadedDie of: { 2. 6. 2. 6. 1. 1. 1. 1 }.
 
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	self assert: (aGame spaceshipCalled: 'Danny') amountOfFuel equals: 12.
 	self
@@ -778,7 +781,7 @@ GameTest >> testSV09SpaceshipSkipsTheirTurnToHaveMaxFuel [
 
 	aDie1 := LoadedDie of: { 2. 2. 2. 3. 2. 2 }.
 
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	self assert: (aGame spaceshipCalled: 'Danny') amountOfFuel equals: 6.
 	self assert: (aGame spaceshipCalled: 'Walter') amountOfFuel equals: 6.
@@ -822,7 +825,7 @@ GameTest >> testSV10LandingInAnEffectTileAfterBeingMovedByAnEffectDoesNotCauseAn
 
 	aDie1 := LoadedDie of: 5.
 
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -854,7 +857,7 @@ GameTest >> testSV11Spaceship2IsTheFirstSpaceShipAtSpaceShipsRankingAsHisPositio
 
 	aDie1 := LoadedDie of: 3.
 
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -898,7 +901,7 @@ GameTest >> testSV12BlackHoleEffectWhenSpaceShipHasEnoughFuelItGoesFourTilesBack
 
 	aDie1 := LoadedDie of: 5.
 
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -937,7 +940,7 @@ GameTest >> testSV13BlackHoleEffectWhenSpaceShipRunsOutOfFuelItGoesToTheFirstTil
 
 	aDie1 := LoadedDie of: { 1. 1. 4. 4 }.
 
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -979,7 +982,7 @@ GameTest >> testSV14BlackHoleEffectWhenSpaceShipIsInTheFirstThreeTilesItGoesBack
 
 	aDie1 := LoadedDie of: { 6. 6. 1. 1 }.
 
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -1023,7 +1026,7 @@ GameTest >> testSV15SpaceshipEscapesOfTheHyperGravityEffectWhenItGetsACertainNum
 		          withParsecs: 10.
 
 
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -1060,7 +1063,7 @@ GameTest >> testSV16SpaceshipCannotEscapeFromTheHyperGravityEffectIfItDoesNotGet
 		          finishingAfter: 2
 		          withParsecs: 10.
 
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -1097,7 +1100,7 @@ GameTest >> testSV17MoonWalkEffectWhenSpaceShipHasEnoughFuelItGoesNTilesBackward
 		          withParsecs: 10.
 
 	aDie1 := LoadedDie of: { 2. 3. 3 }.
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -1134,7 +1137,7 @@ GameTest >> testSV18MoonWalkEffectWhenSpaceShipRunsOutOfFuelItGoesToTheFirstTile
 
 	aDie1 := LoadedDie of: { 2. 4. 4. 1. 1 }.
 
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -1169,7 +1172,7 @@ GameTest >> testSV19MoonWalkEffectWhenSpaceShipIsInTheFirstThreeTilesItGoesBackT
 
 	aDie1 := LoadedDie of: { 6. 6. 1. 1 }.
 
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -1212,7 +1215,7 @@ GameTest >> testSV20HyperJumpEffectAssignsParsecsToSpaceshipAndItGoesForward [
 		          withParsecs: 10.
 	aDie1 := LoadedDie of: { 3. 3. 3 }.
 
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -1244,7 +1247,7 @@ GameTest >> testSV21AtomicBombEffectSendsAllSpaceshipsBackToTheFirstTile [
 		          withParsecs: 10.
 	aDie1 := LoadedDie of: { 6. 4. 3. 3. 6. 6. 20 }.
 
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
@@ -1293,7 +1296,7 @@ GameTest >> testSV22SequenceDie [
 
 	aDie1 := LoadedDie of: { 4. 3. 3 }.
 	someSpaceships := { 'Danny'. 'Walter' }.
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 1.
@@ -1355,9 +1358,37 @@ GameTest >> testSV23GameWithRandomBoardAndRandomDie [
 	aGame := Game
 		         playedBy: someSpaceships
 		         on: aBoard
-		         rolling: aDiceRoller.
+		         rolling: aDiceRoller
+					usingCardsFrom:(Deck of: {'card1'. 'card2'}).		
 
 	self playUntilFinished: aGame.
 
 	self assert: aGame hasEnded
+]
+
+{ #category : #tests }
+GameTest >> testTV24EverySpaceshipStartsWithTwoCards [
+
+	| aGame aBoard aDie1 someSpaceships aDeck |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
+		          finishingAfter: 2
+		          withParsecs: 10.
+	aDie1 := LoadedDie of: { 6. 4. 3. 3. 6. 6. 20 }.
+
+	aDeck := Deck of: {'card1'. 'card2'}.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom: aDeck.
+
+	self assert:(aGame cardsHandOf:'Danny') cardsInHand size equals: 2.
+	self assert:(aGame cardsHandOf:'Walter') cardsInHand size equals: 2.
+
+	aGame playNextTurn.
+	aGame playNextTurn.
 ]
