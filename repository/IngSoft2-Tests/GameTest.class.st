@@ -1329,7 +1329,10 @@ GameTest >> testSV23GameWithRandomBoardAndRandomDie [
 	effectDistribution := EffectDistribution with: {
 			                      (ProbabilityEffectTile
 				                       with: Null new
-				                       and: 0.40).
+				                       and: 0.30).
+										(ProbabilityEffectTile
+				                       with: CardGiver new
+				                       and: 0.10).
 			                      (ProbabilityEffectTile
 				                       with: BlackHole new
 				                       and: 0.20).
