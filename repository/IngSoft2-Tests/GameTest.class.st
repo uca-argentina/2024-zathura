@@ -1370,7 +1370,7 @@ GameTest >> testSV23GameWithRandomBoardAndRandomDie [
 ]
 
 { #category : #tests }
-GameTest >> testTV24EverySpaceshipStartsWithTwoCards [
+GameTest >> testTV01EverySpaceshipStartsWithTwoCards [
 
 	| aGame aBoard aDie1 someSpaceships aDeck |
 	someSpaceships := { 'Danny'. 'Walter' }.
@@ -1397,7 +1397,7 @@ GameTest >> testTV24EverySpaceshipStartsWithTwoCards [
 ]
 
 { #category : #tests }
-GameTest >> testTV25WhenSpaceshipLandsInCardGiverTileItReceivesACard [
+GameTest >> testTV02WhenSpaceshipLandsInCardGiverTileItReceivesACard [
 
 	| aGame aBoard aDie1 someSpaceships aDeck |
 	someSpaceships := { 'Danny'. 'Walter' }.
