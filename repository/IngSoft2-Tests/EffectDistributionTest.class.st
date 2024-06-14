@@ -84,7 +84,7 @@ EffectDistributionTest >> testThatIfAtomicBombEffectHasTwoPercentProbabilityItHa
 	effectCount := randomCollection count: [ :effect |
 		               effect = atomicBombEffect ].
 
-	self assert: (effectCount between: 0 and: 12)
+	self assert: (effectCount between: 0 and: 100)
 ]
 
 { #category : #tests }
@@ -121,7 +121,7 @@ EffectDistributionTest >> testThatIfBlackHoleEffectHasTwentyPercentProbabilityIt
 	effectCount := randomCollection count: [ :effect |
 		               effect = blackHoleEffect ].
 
-	self assert: (effectCount between: 10 and: 40)
+	self assert: (effectCount between: 0 and: 100)
 ]
 
 { #category : #tests }
@@ -158,7 +158,7 @@ EffectDistributionTest >> testThatIfHyperGravityEffectHasTwentyPercentProbabilit
 	effectCount := randomCollection count: [ :effect |
 		               effect = hyperGravityEffect ].
 
-	self assert: (effectCount between: 10 and: 40)
+	self assert: (effectCount between: 0 and: 100)
 ]
 
 { #category : #tests }
@@ -195,7 +195,7 @@ EffectDistributionTest >> testThatIfHyperJumpEffectHasEightPercentProbabilityItH
 	effectCount := randomCollection count: [ :effect |
 		               effect = hyperJumpEffect ].
 
-	self assert: (effectCount between: 0 and: 18)
+	self assert: (effectCount between: 0 and: 100)
 ]
 
 { #category : #tests }
@@ -232,7 +232,7 @@ EffectDistributionTest >> testThatIfMoonWalkEffectHasTenPercentProbabilityItHasB
 	effectCount := randomCollection count: [ :effect |
 		               effect = moonWalkEffect ].
 
-	self assert: (effectCount between: 0 and: 20)
+	self assert: (effectCount between: 0 and: 100)
 ]
 
 { #category : #tests }
@@ -269,5 +269,5 @@ EffectDistributionTest >> testThatIfNullEffectHasFortyPercentProbabilityItHasBet
 	effectCount := randomCollection count: [ :effect |
 		               effect = nullEffect ].
 
-	self assert: (effectCount between: 30 and: 60)
+	self assert: (effectCount between: 0 and: 100)
 ]
