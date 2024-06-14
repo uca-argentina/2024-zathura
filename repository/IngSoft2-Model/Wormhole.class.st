@@ -1,6 +1,6 @@
 Class {
-	#name : #WormholeEffect,
-	#superclass : #Object,
+	#name : #Wormhole,
+	#superclass : #Effect,
 	#instVars : [
 		'tilesToMove'
 	],
@@ -8,14 +8,14 @@ Class {
 }
 
 { #category : #asserting }
-WormholeEffect class >> assertAtLeastTwoWormholes: positionOfTheWormholes [
+Wormhole class >> assertAtLeastTwoWormholes: positionOfTheWormholes [
 
 	positionOfTheWormholes size = 2 ifFalse: [
 		Error signal: 'Cannot create a single wormhole' ]
 ]
 
 { #category : #'instance creation' }
-WormholeEffect class >> betweenTiles: positionOfTheWormholes [
+Wormhole class >> betweenTiles: positionOfTheWormholes [
 
 	self assertAtLeastTwoWormholes: positionOfTheWormholes.
 	^ self new initialize:
@@ -23,13 +23,13 @@ WormholeEffect class >> betweenTiles: positionOfTheWormholes [
 ]
 
 { #category : #initialization }
-WormholeEffect >> initialize: aNumberOfTilesToMove [
+Wormhole >> initialize: aNumberOfTilesToMove [
 
 	tilesToMove := aNumberOfTilesToMove
 ]
 
 { #category : #playing }
-WormholeEffect >> triggeredBy: aPlayer on: aBoard [
+Wormhole >> triggeredBy: aSpaceship on: aGame [
 
-	aBoard move: aPlayer by: tilesToMove
+	aGame move: aSpaceship by: tilesToMove
 ]

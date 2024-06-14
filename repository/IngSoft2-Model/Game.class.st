@@ -18,20 +18,42 @@ Game class >> assertValidNumberOf: someSpaceShips [
 		Error signal: 'Game must have at least one player' ]
 ]
 
-{ #category : #'instance creation' }
-Game class >> playedBy: someSpaceShips on: aBoard rolling: dice [
+{ #category : #asserting }
+Game class >> createSpaceshipsUsing: spaceshipNames [
 
-	self assertValidNumberOf: someSpaceShips.
+	^spaceshipNames collect: [ :spaceship | SpaceShip named: spaceship]
+]
+
+{ #category : #asserting }
+Game class >> playedBy: someSpaceShips on: aBoard rolling: dice [
+	|currentSpaceships|
+	currentSpaceships := self createSpaceshipsUsing: someSpaceShips.
+	self assertValidNumberOf: currentSpaceships.
 	^ self new
-		  initializePlayedBy: someSpaceShips
+		  initializePlayedBy: currentSpaceships
 		  on: aBoard
 		  rolling: dice
 ]
 
-{ #category : #asserting }
-Game >> checkIfGameHasEnded [
+{ #category : #accessing }
+Game >> anySpaceShipAtLastTileAndLap [
 
-	board anySpaceShipOneInLastTileAndLap ifTrue: [ hasEnded := true ]
+	^ spaceships anySatisfy: [ :aSpaceship |
+		  board laps + 1 = aSpaceship lap and: [ 1 = aSpaceship position ] ]
+]
+
+{ #category : #accessing }
+Game >> applyEffectOnLandingShip: aSpaceship [
+
+	| effectToApply |
+	effectToApply := board tiles at: aSpaceship position.
+	effectToApply triggeredBy: aSpaceship on: self
+]
+
+{ #category : #asserting }
+Game >> endGameIfPossible [
+
+	self anySpaceShipAtLastTileAndLap ifTrue: [ hasEnded := true ]
 ]
 
 { #category : #testing }
@@ -44,13 +66,28 @@ Game >> hasEnded [
 Game >> initializePlayedBy: someSpaceShips on: aBoard rolling: dice [
 
 	board := aBoard.
-	aBoard usedBy: someSpaceShips asOrderedCollection.
 	diceCollection := dice.
-	spaceships := someSpaceShips asOrderedCollection.
+	spaceships := someSpaceShips.
 	hasEnded := false.
 	turnHandler := TurnHandler withPlayers: someSpaceShips.
 	spaceships do: [ :aSpaceShip |
 		aSpaceShip fuel: 2 * diceCollection maxRoll ]
+]
+
+{ #category : #accessing }
+Game >> move: aSpaceShip by: anAmountOfTiles [
+	board move:aSpaceShip by:anAmountOfTiles
+	"temporary method. Move logic should be in game"
+]
+
+{ #category : #playing }
+Game >> move: aSpaceship jumping: aQuantityOfParsec [
+	| tilesToMove |
+
+	tilesToMove := (aQuantityOfParsec
+	                // (board parsecs  / board amountOfTiles  )) truncated.
+
+	self move:  aSpaceship by:  tilesToMove .
 ]
 
 { #category : #playing }
@@ -60,21 +97,31 @@ Game >> move: aSpaceship withRollingResult: aResult [
 ]
 
 { #category : #playing }
+Game >> moveAllSpaceshipsToFirstPosition [
+
+	spaceships do: [ :aSpaceship |
+		aSpaceship
+			movePositionBy: 1 - aSpaceship position
+			lapBy: 0
+			neededFuel: 0 ]
+]
+
+{ #category : #playing }
 Game >> playNextTurn [
 
 	| rollingResult spaceshipTurn |
 	self hasEnded ifTrue: [ Error signal: 'Game has already ended' ].
-	spaceshipTurn := turnHandler nextPlayerTurn.
+	spaceshipTurn := turnHandler nextSpaceshipTurn.
 	rollingResult := spaceshipTurn rollDiceUsing: diceCollection.
 	self move: spaceshipTurn withRollingResult: rollingResult.
-	board applyEffectOnLandingShip: spaceshipTurn.
-	self checkIfGameHasEnded
+	self applyEffectOnLandingShip: spaceshipTurn.
+	self endGameIfPossible
 ]
 
-{ #category : #accessing }
-Game >> positionOf: aSpaceship [
+{ #category : #asserting }
+Game >> skipTurnFor: aSpaceship [
 
-	^ aSpaceship position
+	aSpaceship skipTurn
 ]
 
 { #category : #accessing }
@@ -87,6 +134,16 @@ Game >> spaceShipsPositionsRanking [
 		  ((spaceShipA lap - 1) * board amountOfTiles + spaceShipA position)
 		  >=
 		  ((spaceShipB lap - 1) * board amountOfTiles + spaceShipB position) ]
+]
+
+{ #category : #asserting }
+Game >> spaceshipCalled: aName [
+^ spaceships detect: [ :spaceship | spaceship name = aName ]
+]
+
+{ #category : #asserting }
+Game >> spaceships [ 
+^spaceships
 ]
 
 { #category : #asserting }

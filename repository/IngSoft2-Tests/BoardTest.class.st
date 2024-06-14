@@ -21,11 +21,11 @@ BoardTest >> testBoardCannotBeCreatedWithLessThan1Lap [
 		should: [
 			Board
 				of: {
-						NullEffect create.
-						NullEffect create.
-						NullEffect create }
+						Null create.
+						Null create.
+						Null create }
 				finishingAfter: -2
-				withDistance: 10 ]
+				withParsecs: 10 ]
 		raise: Error
 		withMessage: 'Game must have one or more laps!'
 ]
@@ -37,11 +37,11 @@ BoardTest >> testBoardCannotBeCreatedWithNegativeParsecs [
 		should: [
 			Board
 				of: {
-						NullEffect create.
-						NullEffect create.
-						NullEffect create }
+						Null create.
+						Null create.
+						Null create }
 				finishingAfter: 3
-				withDistance: -3 ]
+				withParsecs: -3 ]
 		raise: Error
 		withMessage: 'Parsecs cannot be a negative measure'
 ]
@@ -50,7 +50,7 @@ BoardTest >> testBoardCannotBeCreatedWithNegativeParsecs [
 BoardTest >> testBoardCannotBeCreatedWithOutTiles [
 
 	self
-		should: [ Board of: {  } finishingAfter: 2 withDistance: 10 ]
+		should: [ Board of: {  } finishingAfter: 2 withParsecs: 10 ]
 		raise: Error
 		withMessage: 'Tiles should be 2 or more'
 ]
@@ -59,16 +59,17 @@ BoardTest >> testBoardCannotBeCreatedWithOutTiles [
 BoardTest >> testBoardCannotMoveSpaceshipOutOfIndex [
 
 	| firstTile secondTile tiles board aSpaceShip |
-	firstTile := NullEffect create.
-	secondTile := NullEffect create.
+	firstTile := Null create.
+	secondTile := Null create.
 	aSpaceShip := SpaceShip named: 'Walter'.
 	tiles := {
 		         firstTile.
 		         secondTile }.
 
-	board := Board of: tiles finishingAfter: 2 withDistance: 10.
+	board := Board of: tiles finishingAfter: 2 withParsecs: 10.
 	aSpaceShip fuel: 12.
 	board move: aSpaceShip by: 7.
+	self assert: aSpaceShip lap equals: 3.
 	self assert: aSpaceShip position equals: 1.
 	self assert: aSpaceShip lap equals: 3
 ]
@@ -77,17 +78,18 @@ BoardTest >> testBoardCannotMoveSpaceshipOutOfIndex [
 BoardTest >> testBoardTracksSpaceshipPositions [
 
 	| firstTile secondTile tiles board spaceShip1 spaceShip2 |
-	firstTile := NullEffect create.
-	secondTile := NullEffect create.
+	firstTile := Null create.
+	secondTile := Null create.
 	spaceShip1 := SpaceShip named: 'Danny'.
 	spaceShip2 := SpaceShip named: 'Walter'.
 	tiles := {
 		         firstTile.
 		         secondTile }.
-	board := Board of: tiles finishingAfter: 2 withDistance: 10.
+	board := Board of: tiles finishingAfter: 2 withParsecs: 10.
 	spaceShip1 fuel: 12.
 	spaceShip2 fuel: 12.
 	board move: spaceShip1 by: 1.
+	self assert: (spaceShip1  lap )equals: 1.
 	self assert: (board positionOf: spaceShip1) equals: 2.
 	self assert: (board positionOf: spaceShip2) equals: 1
 ]

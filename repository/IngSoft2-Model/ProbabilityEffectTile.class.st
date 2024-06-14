@@ -1,5 +1,5 @@
 Class {
-	#name : #ProbabilityTile,
+	#name : #ProbabilityEffectTile,
 	#superclass : #Object,
 	#instVars : [
 		'effect',
@@ -9,14 +9,14 @@ Class {
 }
 
 { #category : #asserting }
-ProbabilityTile class >> assertProbabilityIsBetweenZeroAndOne: probability [
+ProbabilityEffectTile class >> assertProbabilityIsBetweenZeroAndOne: probability [
 
 	(probability between: 0 and: 1) ifFalse: [
 		Error signal: 'Probability must be between 0 and 1!' ]
 ]
 
 { #category : #'instance creation' }
-ProbabilityTile class >> with: effect and: probability [
+ProbabilityEffectTile class >> with: effect and: probability [
 
 	self assertProbabilityIsBetweenZeroAndOne: probability.
 
@@ -24,20 +24,20 @@ ProbabilityTile class >> with: effect and: probability [
 ]
 
 { #category : #initialization }
-ProbabilityTile >> effect [
+ProbabilityEffectTile >> effect [
 
 	^ effect
 ]
 
 { #category : #initialization }
-ProbabilityTile >> initializeWith: anEffect and: aProbability [
+ProbabilityEffectTile >> initializeWith: anEffect and: aProbability [
 
 	effect := anEffect.
 	probability := aProbability
 ]
 
 { #category : #initialization }
-ProbabilityTile >> probability [
+ProbabilityEffectTile >> probability [
 
 	^ probability
 ]

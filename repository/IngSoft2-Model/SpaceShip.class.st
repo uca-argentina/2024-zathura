@@ -105,15 +105,15 @@ SpaceShip >> rollDiceUsing: aDiceRoller [
 	^ rolledNumber
 ]
 
+{ #category : #playing }
+SpaceShip >> skipTurn [
+
+	self losesTurns: 1.
+	fuel := maxFuel
+]
+
 { #category : #abstract }
 SpaceShip >> turnsToLose [
 
 	^ turnsToLose
-]
-
-{ #category : #playing }
-SpaceShip >> wantsToSkipTurn [
-
-	self losesTurns: 1.
-	fuel := maxFuel
 ]
