@@ -1425,3 +1425,39 @@ GameTest >> testTV02WhenSpaceshipLandsInCardGiverTileItReceivesACard [
 	self assert:(aGame cardsHandLengthOf:'Danny') equals: 3.
 	self assert:(aGame cardsHandLengthOf:'Walter') equals: 2.
 ]
+
+{ #category : #tests }
+GameTest >> testTV03WhenSpaceshipUsesOverloadCardItReducesByTwoTheTotalRollOfAnotherSpaceship [
+
+	| aGame aBoard aDie1 someSpaceships aDeck anOverloadCard cardPlay |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          CardGiver new.
+				          Null create.
+				          Null create.
+				          Null create }
+		          finishingAfter: 2
+		          withParsecs: 10.
+	aDie1 := LoadedDie of: { 3. 3. 1. 1.}.
+	
+	anOverloadCard:=OverloadCard new.
+
+	aDeck := Deck of: {anOverloadCard. anOverloadCard.}.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom: aDeck.
+		
+	self assert:(aGame spaceshipCalled:'Danny') position equals:1.
+	self assert:(aGame spaceshipCalled:'Walter') position equals:1.
+	
+	cardPlay:=anOverloadCard playedBy:'Danny'targetting:'Walter'.
+	aGame apply:cardPlay.
+
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame spaceshipCalled:'Danny') position equals:4.
+	self assert:(aGame spaceshipCalled:'Walter') position equals:2.
+	
+]
