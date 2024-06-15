@@ -1441,23 +1441,28 @@ GameTest >> testTV03WhenSpaceshipUsesOverloadCardItReducesByTwoTheTotalRollOfAno
 				          Null create }
 		          finishingAfter: 2
 		          withParsecs: 10.
-	aDie1 := LoadedDie of: { 3. 3. 1. 1.}.
-	
-	anOverloadCard:=OverloadCard new.
+	aDie1 := LoadedDie of: { 3. 3. 1. 1 }.
 
-	aDeck := Deck of: {anOverloadCard. anOverloadCard.}.
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom: aDeck.
-		
-	self assert:(aGame spaceshipCalled:'Danny') position equals:1.
-	self assert:(aGame spaceshipCalled:'Walter') position equals:1.
-	
-	cardPlay:=anOverloadCard playedBy:'Danny'targetting:'Walter'.
-	aGame apply:cardPlay.
+	anOverloadCard := OverloadCard new.
+
+	aDeck := Deck of: {
+			         anOverloadCard.
+			         anOverloadCard }.
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+
+	cardPlay := anOverloadCard playedBy: 'Danny' targetting: 'Walter'.
+	aGame apply: cardPlay.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
-	
-	self assert:(aGame spaceshipCalled:'Danny') position equals:4.
-	self assert:(aGame spaceshipCalled:'Walter') position equals:2.
-	
+
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2
 ]
