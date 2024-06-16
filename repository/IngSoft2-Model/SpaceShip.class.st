@@ -69,6 +69,11 @@ SpaceShip >> losesTurns: amountOfTurns [
 ]
 
 { #category : #playing }
+SpaceShip >> maxFuel [
+^maxFuel
+]
+
+{ #category : #playing }
 SpaceShip >> movePositionBy: aNumber lapBy: quantityOfLapsToMove neededFuel: aFuelAmount [
 
 	needsToThrow = 0 ifFalse: [ ^ self ].
@@ -93,6 +98,11 @@ SpaceShip >> name [
 SpaceShip >> position [
 
 	^ position
+]
+
+{ #category : #asserting }
+SpaceShip >> rewardToMaxFuel: anAmount [
+	maxFuel:=maxFuel+anAmount
 ]
 
 { #category : #accessing }
