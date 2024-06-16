@@ -1488,6 +1488,7 @@ GameTest >> testTV04HyperGravityCanBeUsedInParsecsAndLightYears [
 	
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
 	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 1.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
 	aGame playNextTurn.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 2.
