@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #playing }
-AtomicBomb >> triggeredBy: aSpaceship on: aGame [
+AtomicBomb >> triggeredBy: aSpaceship on: anEffectManager [
 
-	aGame moveAllSpaceshipsToFirstPosition.
+	anEffectManager moveAllSpaceshipsToFirstPosition.
 ]

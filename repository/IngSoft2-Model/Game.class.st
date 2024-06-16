@@ -8,7 +8,8 @@ Class {
 		'hasEnded',
 		'turnHandler',
 		'deck',
-		'cardHands'
+		'cardHands',
+		'effectManager'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -50,7 +51,7 @@ Game >> applyEffectOnLandingShip: aSpaceship [
 
 	| effectToApply |
 	effectToApply := board tiles at: aSpaceship position.
-	effectToApply triggeredBy: aSpaceship on: self
+	effectToApply triggeredBy: aSpaceship on: effectManager 
 ]
 
 { #category : #'as yet unclassified' }
@@ -106,6 +107,7 @@ Game >> initializePlayedBy: someSpaceShips on: aBoard rolling: dice usingCardsFr
 	deck:=aDeck.
 	cardHands:=spaceships collect:[:spaceShip|CardsHand of:spaceShip using:aDeck].
 	turnHandler := TurnHandler withPlayers: someSpaceShips.
+	effectManager:=EffectManager usedIn: self with:aBoard affecting: someSpaceShips. 
 	spaceships do: [ :aSpaceShip |
 		aSpaceShip fuel: 2 * diceCollection maxRoll ]
 	
@@ -118,29 +120,9 @@ Game >> move: aSpaceShip by: anAmountOfTiles [
 ]
 
 { #category : #playing }
-Game >> move: aSpaceship jumping: aQuantityOfParsec [
-	| tilesToMove |
-
-	tilesToMove := (aQuantityOfParsec
-	                // (board parsecs  / board amountOfTiles  )) truncated.
-
-	self move:  aSpaceship by:  tilesToMove .
-]
-
-{ #category : #playing }
 Game >> move: aSpaceship withRollingResult: aResult [
 
 	board move: aSpaceship by: aResult
-]
-
-{ #category : #playing }
-Game >> moveAllSpaceshipsToFirstPosition [
-
-	spaceships do: [ :aSpaceship |
-		aSpaceship
-			movePositionBy: 1 - aSpaceship position
-			lapBy: 0
-			neededFuel: 0 ]
 ]
 
 { #category : #playing }

@@ -20,10 +20,10 @@ HyperJump >> initializeOf: collectionOfParsecs [
 ]
 
 { #category : #playing }
-HyperJump >> triggeredBy: aSpaceship on: aGame [
+HyperJump >> triggeredBy: aSpaceship on: anEffectManager [
 	|valueAsParsec|
 	valueAsParsec:=((unitOfMeasurement at: 1) valueAsParsecs).
-	aGame move: aSpaceship jumping: valueAsParsec.
+	anEffectManager move: aSpaceship jumping: valueAsParsec.
 	unitOfMeasurement add: unitOfMeasurement first.
 	unitOfMeasurement removeFirst.
 ]
