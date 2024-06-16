@@ -62,10 +62,10 @@ Game >> applyEffectOnLandingShip: aSpaceship [
 { #category : #asserting }
 Game >> assignRewardForMaxRollFor: aSpaceship [
 
-	|adjustmentDistribution randomIndex |
+	|adjustmentDistribution randomNumber |
 	adjustmentDistribution := { 1. 1. 1. 1. 1. 1. 1. 1. -1. -1 }.
-	randomIndex:=Random new nextInteger: adjustmentDistribution size.
-	aSpaceship rewardToMaxFuel: (adjustmentDistribution at: randomIndex)
+	randomNumber:= adjustmentDistribution atRandom.
+	aSpaceship rewardToMaxFuel: randomNumber
 
 ]
 
