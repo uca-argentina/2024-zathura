@@ -1198,14 +1198,15 @@ GameTest >> testSV19MoonWalkEffectWhenSpaceShipIsInTheFirstThreeTilesItGoesBackT
 { #category : #tests }
 GameTest >> testSV20HyperJumpEffectAssignsParsecsToSpaceshipAndItGoesForward [
 
-	| aGame aBoard aDie1 someSpaceships |
+	| aGame aBoard aDie1 someSpaceships parsecs |
 	someSpaceships := { 'Danny'. 'Walter'. 'Joseph' }.
+	parsecs:= OrderedCollection with: (Parsecs with:3) with: (Parsecs with:2).
 	aBoard := Board
 		          of: {
 				          Null create.
 				          Null create.
 				          Null create.
-				          (HyperJump of: { 3. 2 }).
+				          (HyperJump of: parsecs ).
 				          Null create.
 				          Null create.
 				          Null create.
@@ -1424,4 +1425,66 @@ GameTest >> testTV02WhenSpaceshipLandsInCardGiverTileItReceivesACard [
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
 	self assert:(aGame cardsHandLengthOf:'Danny') equals: 3.
 	self assert:(aGame cardsHandLengthOf:'Walter') equals: 2.
+]
+
+{ #category : #tests }
+GameTest >> testTV03HyperGravityCanBeUsedInParsecsAndLightYears [
+
+	| aGame aBoard aDie1 someSpaceships aDeck lightYears |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	lightYears:= OrderedCollection with: (LightYear with:9) with: (LightYear with:3).
+
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          HyperJump of: (lightYears) .
+				          Null create.
+				          Null create.
+				          Null create }
+		          finishingAfter: 2
+		          withParsecs: 6.
+	aDie1 := LoadedDie of: { 2. 2. 10. }.
+
+	aDeck := Deck of: {'card1'. 'card2'}.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom: aDeck.
+
+
+	aGame playNextTurn.
+	
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
+	aGame playNextTurn.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 4.
+
+]
+
+{ #category : #tests }
+GameTest >> testTV03HyperGravityMeasuredInLightYearsItMovesForward [
+
+	| aGame aBoard aDie1 someSpaceships aDeck lightYears |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	lightYears:= OrderedCollection with: (LightYear with:9) with: (LightYear with:3).
+
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          HyperJump of: (lightYears) .
+				          Null create.
+				          Null create.
+				          Null create }
+		          finishingAfter: 2
+		          withParsecs: 6.
+	aDie1 := LoadedDie of: { 2. 2. 10. }.
+
+	aDeck := Deck of: {'card1'. 'card2'}.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom: aDeck.
+
+
+	aGame playNextTurn.
+	
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
+	aGame playNextTurn.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 4.
+
 ]
