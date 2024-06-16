@@ -59,6 +59,16 @@ Game >> applyEffectOnLandingShip: aSpaceship [
 	effectToApply triggeredBy: aSpaceship on: self
 ]
 
+{ #category : #asserting }
+Game >> assignRewardForMaxRollFor: aSpaceship [
+
+	|adjustmentDistribution randomIndex |
+	adjustmentDistribution := { 1. 1. 1. 1. 1. 1. 1. 1. -1. -1 }.
+	randomIndex:=Random new nextInteger: adjustmentDistribution size.
+	aSpaceship rewardToMaxFuel: (adjustmentDistribution at: randomIndex)
+
+]
+
 { #category : #'as yet unclassified' }
 Game >> cardsHandLengthOf: aSpaceship [
 
@@ -157,8 +167,12 @@ Game >> playNextTurn [
 	self hasEnded ifTrue: [ Error signal: 'Game has already ended' ].
 	spaceshipTurn := turnHandler nextSpaceshipTurn.
 	rollingResult := spaceshipTurn rollDiceUsing: diceCollection.
-	rollModifier:=self rollModifierFor:spaceshipTurn.
-	self move: spaceshipTurn withRollingResult: (rollingResult+rollModifier).
+	rollingResult = diceCollection maxRoll ifTrue: [
+		self assignRewardForMaxRollFor: spaceshipTurn ].
+	rollModifier := self rollModifierFor: spaceshipTurn.
+	self
+		move: spaceshipTurn
+		withRollingResult: rollingResult + rollModifier.
 	self applyEffectOnLandingShip: spaceshipTurn.
 	self endGameIfPossible
 ]
