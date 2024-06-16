@@ -15,6 +15,14 @@ EffectManager class >> usedIn: aGame with: aBoard affecting:someShips [
 	^ self new initializeIn: aGame using:aBoard affecting:someShips.
 ]
 
+{ #category : #accessing }
+EffectManager >> applyEffectOnLandingShip: aSpaceship [
+
+	| effectToApply |
+	effectToApply := board tiles at: aSpaceship position.
+	effectToApply triggeredBy: aSpaceship on: self 
+]
+
 { #category : #playing }
 EffectManager >> applyMoonwalkMoving: anAmountOfTiles notAffecting:aShip [
 	| filteredShips |
@@ -54,9 +62,5 @@ EffectManager >> move: aSpaceship jumping: aQuantityOfParsec [
 { #category : #playing }
 EffectManager >> moveAllSpaceshipsToFirstPosition [
 
-	spaceships do: [ :aSpaceship |
-		aSpaceship
-			movePositionBy: 1 - aSpaceship position
-			lapBy: 0
-			neededFuel: 0 ]
+	board moveAllSpaceshipsToFirstPosition:spaceships.
 ]

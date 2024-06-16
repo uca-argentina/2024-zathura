@@ -46,14 +46,6 @@ Game >> anySpaceShipAtLastTileAndLap [
 		  board laps + 1 = aSpaceship lap and: [ 1 = aSpaceship position ] ]
 ]
 
-{ #category : #accessing }
-Game >> applyEffectOnLandingShip: aSpaceship [
-
-	| effectToApply |
-	effectToApply := board tiles at: aSpaceship position.
-	effectToApply triggeredBy: aSpaceship on: effectManager 
-]
-
 { #category : #'as yet unclassified' }
 Game >> cardsHandLengthOf: aSpaceship [
 
@@ -70,12 +62,6 @@ Game >> cardsHandOf: aSpaceship [
 	spaceshipCardHandler := cardHands
 		detect: [ :handler | handler spaceship = aSpaceship].
 	^ spaceshipCardHandler
-]
-
-{ #category : #'as yet unclassified' }
-Game >> cardsHands [
-
-	^ cardHands.
 ]
 
 { #category : #asserting }
@@ -120,20 +106,14 @@ Game >> move: aSpaceShip by: anAmountOfTiles [
 ]
 
 { #category : #playing }
-Game >> move: aSpaceship withRollingResult: aResult [
-
-	board move: aSpaceship by: aResult
-]
-
-{ #category : #playing }
 Game >> playNextTurn [
 
 	| rollingResult spaceshipTurn |
 	self hasEnded ifTrue: [ Error signal: 'Game has already ended' ].
 	spaceshipTurn := turnHandler nextSpaceshipTurn.
 	rollingResult := spaceshipTurn rollDiceUsing: diceCollection.
-	self move: spaceshipTurn withRollingResult: rollingResult.
-	self applyEffectOnLandingShip: spaceshipTurn.
+	board move: spaceshipTurn by: rollingResult.
+	effectManager applyEffectOnLandingShip: spaceshipTurn.
 	self endGameIfPossible
 ]
 
@@ -158,11 +138,6 @@ Game >> spaceShipsPositionsRanking [
 { #category : #asserting }
 Game >> spaceshipCalled: aName [
 ^ spaceships detect: [ :spaceship | spaceship name = aName ]
-]
-
-{ #category : #asserting }
-Game >> spaceships [ 
-^spaceships
 ]
 
 { #category : #asserting }
