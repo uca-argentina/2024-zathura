@@ -64,6 +64,7 @@ CardsHand >> spaceship [
 
 { #category : #accessing }
 CardsHand >> totalEffectsOnSpaceShip [
-
+	
+	cardsAffecting isEmpty ifTrue: [ ^0 ].
 	^ cardsAffecting sum: [ :card | card effect ]
 ]
