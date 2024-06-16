@@ -20,7 +20,7 @@ HyperGravity >> initializedWith: aNumber [
 ]
 
 { #category : #playing }
-HyperGravity >> triggeredBy: aSpaceship on: aGame [
+HyperGravity >> triggeredBy: aSpaceship on: anEffectManager [
 
 	aSpaceship changeRollingResultNeededToMove: needsToThrow
 ]
