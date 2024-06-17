@@ -7,8 +7,17 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
+{ #category : #asserting }
+LoadedDeck class >> assertCardsIsNotEmpty: someCards [
+
+	someCards ifEmpty: [
+		Error signal: 'Deck must have at least one card' ]
+]
+
 { #category : #'instance creation' }
 LoadedDeck class >> of: someCards [ 
+
+	self assertCardsIsNotEmpty: someCards.
 	^self new initializeOf:someCards
 ]
 

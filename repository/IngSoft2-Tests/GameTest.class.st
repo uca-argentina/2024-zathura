@@ -1830,3 +1830,78 @@ GameTest >> testTV11WhenSpaceshipUsesAllyCardItSharesFuelWithAnotherSpaceship [
 	self assert:(aGame spaceshipCalled:'Danny') amountOfFuel equals:0.
 	self assert:(aGame spaceshipCalled:'Walter') amountOfFuel equals:1.
 ]
+
+{ #category : #tests }
+GameTest >> testTV12SpaceshipCannotUseAPermanentCardWhenItIsNotItsTurn [
+
+	| aGame aBoard aDie1 someSpaceships aDeck cardPlay anAllyCard |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+							 Null create. }
+		          finishingAfter: 2
+		          withParsecs: 10.
+	aDie1 := LoadedDie of: { 2. 1. 2. 1. 1.}.
+	
+	anAllyCard:=AllyCard new.
+
+	aDeck := LoadedDeck of: {anAllyCard. anAllyCard. anAllyCard. anAllyCard.}.
+	
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom: aDeck.
+	
+	self assert:(aGame spaceshipCalled:'Danny') position equals:1.
+	self assert:(aGame spaceshipCalled:'Walter') position equals:1.
+	
+	aGame playNextTurn.
+	
+	cardPlay:=anAllyCard playedBy:'Danny'targetting:'Walter'.
+	
+	self
+		should: [ aGame apply:cardPlay.]
+		raise: Error
+		withMessage: 'It is not your turn'
+]
+
+{ #category : #tests }
+GameTest >> testTV13SpaceshipCannotUseACardThatIsNotInItsHand [
+
+	| aGame aBoard aDie1 someSpaceships aDeck cardPlay anAllyCard anOverloadCard |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+							 Null create. }
+		          finishingAfter: 2
+		          withParsecs: 10.
+	aDie1 := LoadedDie of: { 2. 1. 2. 1. 1.}.
+	
+	anAllyCard:=AllyCard new.
+	anOverloadCard:=OverloadCard new.
+
+	aDeck := LoadedDeck of: {anAllyCard. anAllyCard. anAllyCard. anAllyCard.}.
+	
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom: aDeck.
+	
+	self assert:(aGame spaceshipCalled:'Danny') position equals:1.
+	self assert:(aGame spaceshipCalled:'Walter') position equals:1.
+	
+	aGame playNextTurn.
+	
+	cardPlay:=anOverloadCard playedBy:'Danny'targetting:'Walter'.
+	
+	self
+		should: [ aGame apply:cardPlay.]
+		raise: Error
+		withMessage: 'Spaceship cannot throw this card because he does not have it'
+]

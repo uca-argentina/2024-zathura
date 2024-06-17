@@ -47,6 +47,12 @@ self addToHand:aDeck pick.
 
 ]
 
+{ #category : #accessing }
+CardsHand >> hasInHand: aCard [
+
+	^ cardsInHand includes: aCard
+]
+
 { #category : #initialization }
 CardsHand >> initializeOf:aSpaceship using:aDeck [
 

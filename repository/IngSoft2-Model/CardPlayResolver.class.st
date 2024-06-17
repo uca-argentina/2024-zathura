@@ -35,6 +35,8 @@ CardPlayResolver >> resolveACancellationCardPlay [
 	playedBy := cardPlay playedBy.
 	target := cardPlay target.
 	card := cardPlay card.
+	
+	self validate:(game spaceshipCalled:playedBy) has: card.
 
 	filteredCardsHands := game cardsHands select: [ :cardsHand | 
 		                                cardsHand affectsSpaceShip: target ].
@@ -52,6 +54,8 @@ CardPlayResolver >> resolveARedoCardPlay [
 	playedBy := cardPlay playedBy.
 	target := cardPlay target.
 	card := cardPlay card.
+	
+	self validate:(game spaceshipCalled:playedBy) has: card.
 
 	newCardPlay := CardPlay
 		               with: lastCardPlayed
@@ -68,6 +72,8 @@ CardPlayResolver >> resolveARepeatCardPlay [
 	playedBy := cardPlay playedBy.
 	card := cardPlay card.
 	
+	self validate:(game spaceshipCalled:playedBy) has: card.
+	
 	effectToApply:=game effectToApply.
 	effectManager:=game effectManager.
 
@@ -82,6 +88,11 @@ CardPlayResolver >> resolveAnAccelerationCardPlay [
 | playedBy card |
 	playedBy := cardPlay playedBy.
 	card := cardPlay card.
+	
+	self validate:(game spaceshipCalled:playedBy) has: card.
+	
+	game assertIsTurnOf: (game spaceshipCalled: playedBy).
+	
 	game spaceships do: [ :aSpaceship | 
 		(game cardsHandOf: aSpaceship) addEffectOf: card ].
 	lastCardPlayed := card.
@@ -96,6 +107,10 @@ CardPlayResolver >> resolveAnAllyCardPlay [
 	playedBy := cardPlay playedBy.
 	target := cardPlay target.
 	card := cardPlay card.
+	
+	self validate:(game spaceshipCalled:playedBy) has: card.
+	
+	game assertIsTurnOf: (game spaceshipCalled: playedBy).
 	
 	spaceship1:=game spaceshipCalled:playedBy.
 	spaceship2:=game spaceshipCalled:target.
@@ -114,9 +129,23 @@ CardPlayResolver >> resolveAnOverloadCardPlay [
 	target := cardPlay target.
 	card := cardPlay card.
 	
+	self validate:(game spaceshipCalled:playedBy) has: card.
+	
+	game assertIsTurnOf: (game spaceshipCalled: playedBy).
+	
 	(game cardsHandOf: (game spaceshipCalled:target)) addEffectOf: cardPlay card.
 	lastCardPlayed := card.
 	game removeFromHand: card to: playedBy
+]
+
+{ #category : #'as yet unclassified' }
+CardPlayResolver >> validate:aSpaceship has:aCard [
+
+| cardsHand |
+	cardsHand := game cardsHandOf: aSpaceship.
+	(cardsHand hasInHand: aCard) ifFalse: [ 
+		Error signal:
+			'Spaceship cannot throw this card because he does not have it' ]
 ]
 
 { #category : #'as yet unclassified' }

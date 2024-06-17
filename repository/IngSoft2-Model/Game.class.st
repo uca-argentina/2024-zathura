@@ -54,6 +54,12 @@ Game >> apply:aCardPlay [
 ]
 
 { #category : #asserting }
+Game >> assertIsTurnOf:spaceship [
+
+(turnHandler nextTurn = spaceship)ifFalse:[Error signal:'It is not your turn'].
+]
+
+{ #category : #asserting }
 Game >> assignRewardForMaxRollFor: aSpaceship [
 
 	|adjustmentDistribution randomNumber |
