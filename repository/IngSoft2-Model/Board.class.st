@@ -108,8 +108,18 @@ Board >> move: aSpaceship by: anAmountOfTilesToMove [
 ]
 
 { #category : #initialization }
-Board >> parsecs [
-^parsecs 
+Board >> move: aSpaceship jumping: aQuantityOfParsec [
+	| tilesToMove |
+
+	tilesToMove := (aQuantityOfParsec
+	                // ( parsecs  / self amountOfTiles  )) truncated.
+
+	self move:  aSpaceship by:  tilesToMove .
+]
+
+{ #category : #initialization }
+Board >> moveAllSpaceshipsToFirstPosition: allSpaceShips [
+	allSpaceShips do:[:spaceship | spaceship movePositionBy: 1-spaceship position lapBy:0  neededFuel:0  ].
 ]
 
 { #category : #accessing }
