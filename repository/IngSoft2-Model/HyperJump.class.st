@@ -2,7 +2,7 @@ Class {
 	#name : #HyperJump,
 	#superclass : #Effect,
 	#instVars : [
-		'unitOfMeasurement'
+		'parsecs'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -16,14 +16,13 @@ HyperJump class >> of: collectionOfParsecs [
 { #category : #'instance creation' }
 HyperJump >> initializeOf: collectionOfParsecs [
 
-	unitOfMeasurement := collectionOfParsecs asOrderedCollection
+	parsecs := collectionOfParsecs asOrderedCollection
 ]
 
 { #category : #playing }
-HyperJump >> triggeredBy: aSpaceship on: anEffectManager [
-	|valueAsParsec|
-	valueAsParsec:=((unitOfMeasurement at: 1) valueAsParsecs).
-	anEffectManager move: aSpaceship jumping: valueAsParsec.
-	unitOfMeasurement add: unitOfMeasurement first.
-	unitOfMeasurement removeFirst.
+HyperJump >> triggeredBy: aSpaceship on: aGame [
+
+	aGame move: aSpaceship jumping: (parsecs at: 1).
+	parsecs add: parsecs first.
+	parsecs removeFirst.
 ]

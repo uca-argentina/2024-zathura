@@ -20,7 +20,11 @@ MoonWalk >> initializedWith: anAmountOfTiles [
 ]
 
 { #category : #playing }
-MoonWalk >> triggeredBy: aSpaceship on: anEffectManager [
+MoonWalk >> triggeredBy: aSpaceship on: aGame [
 
-	anEffectManager applyMoonwalkMoving:  tilesToMove notAffecting: aSpaceship.
+	| filteredShips |
+	filteredShips := aGame spaceships select: [ :spaceship |
+		                 spaceship ~= aSpaceship ].
+	filteredShips do: [ :spaceship |
+		aGame move: spaceship by: tilesToMove ]
 ]

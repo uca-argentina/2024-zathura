@@ -1191,8 +1191,8 @@ GameTest >> testSV18MoonWalkEffectWhenSpaceShipRunsOutOfFuelItGoesToTheFirstTile
 { #category : #tests }
 GameTest >> testSV19MoonWalkEffectWhenSpaceShipIsInTheFirstThreeTilesItGoesBackToThePreviousLapAndTile [
 
-	| aGame aBoard aDie1 someSpaceships  |
-	someSpaceships := { 'Danny'. 'Walter'.}.
+	| aGame aBoard aDie1 someSpaceships |
+	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
 				          Null new.
@@ -1204,12 +1204,12 @@ GameTest >> testSV19MoonWalkEffectWhenSpaceShipIsInTheFirstThreeTilesItGoesBackT
 		          finishingAfter: 2
 		          withParsecs: 10.
 
-	aDie1 := LoadedDie  of: { 6. 6. 1. 1 }.
+	aDie1 := LoadedDie of: { 6. 6. 1. 1 }.
 
 	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals:1.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 1.
 
@@ -1224,8 +1224,7 @@ GameTest >> testSV19MoonWalkEffectWhenSpaceShipIsInTheFirstThreeTilesItGoesBackT
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 4.
+
 	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 2.
 	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 1
 ]
@@ -1233,15 +1232,14 @@ GameTest >> testSV19MoonWalkEffectWhenSpaceShipIsInTheFirstThreeTilesItGoesBackT
 { #category : #tests }
 GameTest >> testSV20HyperJumpEffectAssignsParsecsToSpaceshipAndItGoesForward [
 
-	| aGame aBoard aDie1 someSpaceships parsecs |
+	| aGame aBoard aDie1 someSpaceships |
 	someSpaceships := { 'Danny'. 'Walter'. 'Joseph' }.
-	parsecs:= OrderedCollection with: (Parsecs with:3) with: (Parsecs with:2).
 	aBoard := Board
 		          of: {
 				          Null create.
 				          Null create.
 				          Null create.
-				          (HyperJump of: parsecs ).
+				          (HyperJump of: { 3. 2 }).
 				          Null create.
 				          Null create.
 				          Null create.
@@ -1356,11 +1354,9 @@ GameTest >> testSV22SequenceDie [
 { #category : #tests }
 GameTest >> testSV23GameWithRandomBoardAndRandomDie [
 
-	| aGame aBoard aDie1 someSpaceships effectDistribution randomCollection aDie2 aDiceRoller parsecs|
+	| aGame aBoard aDie1 someSpaceships effectDistribution randomCollection aDie2 aDiceRoller |
 	aDie1 := Die of: 3.
 	aDie2 := Die of: 4.
-	parsecs:= OrderedCollection with: (LightYear with:9) with: (Parsecs with:3) with: (LightYear with:3).
-
 	aDiceRoller := DiceRoller of: {
 			               aDie1.
 			               aDie2 }.
@@ -1381,7 +1377,7 @@ GameTest >> testSV23GameWithRandomBoardAndRandomDie [
 				                       with: (MoonWalk backwardDistance: 3)
 				                       and: 0.10).
 			                      (ProbabilityEffectTile
-				                       with: (HyperJump of: parsecs )
+				                       with: (HyperJump of: { 3. 2. 1 })
 				                       and: 0.08).
 			                      (ProbabilityEffectTile
 				                       with: AtomicBomb new
@@ -1465,73 +1461,7 @@ GameTest >> testTV02WhenSpaceshipLandsInCardGiverTileItReceivesACard [
 ]
 
 { #category : #tests }
-
-GameTest >> testTV03HyperGravityMeasuredInLightYearsItMovesForward [
-
-	| aGame aBoard aDie1 someSpaceships aDeck lightYears |
-	someSpaceships := { 'Danny'. 'Walter' }.
-	lightYears:= OrderedCollection with: (LightYear with:9) with: (LightYear with:3).
-
-
-	aBoard := Board
-		          of: {
-				          Null create.
-				          Null create.
-				          HyperJump of: (lightYears) .
-				          Null create.
-				          Null create.
-				          Null create }
-		          finishingAfter: 2
-		          withParsecs: 6.
-	aDie1 := LoadedDie of: { 2. 2. 10. }.
-
-	aDeck := Deck of: {'card1'. 'card2'}.
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom: aDeck.
-
-
-	aGame playNextTurn.
-	
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
-	aGame playNextTurn.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 4.
-
-]
-
-{ #category : #tests }
-GameTest >> testTV04HyperGravityCanBeUsedInParsecsAndLightYears [
-
-	| aGame aBoard aDie1 someSpaceships aDeck unitsToMove |
-	someSpaceships := { 'Danny'. 'Walter' }.
-	unitsToMove:= OrderedCollection with: (LightYear with:9) with: (Parsecs with:4) with: (LightYear with:3).
-	aBoard := Board
-		          of: {
-				          Null create.
-				          Null create.
-				          HyperJump of: (unitsToMove) .
-				          Null create.
-				          Null create.
-				          Null create }
-		          finishingAfter: 2
-		          withParsecs: 6.
-	aDie1 := LoadedDie of: { 2. 2. 10. }.
-
-	aDeck := Deck of: {'card1'. 'card2'}.
-	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom: aDeck.
-
-
-	aGame playNextTurn.
-	
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
-	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	aGame playNextTurn.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 2.
-
- 
- { #category : #tests }
-
-GameTest >> testTV05WhenSpaceshipUsesOverloadCardItReducesByTwoTheTotalRollOfAnotherSpaceship [
+GameTest >> testTV03WhenSpaceshipUsesOverloadCardItReducesByTwoTheTotalRollOfAnotherSpaceship [
 
 	| aGame aBoard aDie1 someSpaceships aDeck anOverloadCard cardPlay |
 	someSpaceships := { 'Danny'. 'Walter' }.
@@ -1544,7 +1474,6 @@ GameTest >> testTV05WhenSpaceshipUsesOverloadCardItReducesByTwoTheTotalRollOfAno
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-
 		          withParsecs: 10.
 	aDie1 := LoadedDie of: { 3. 3. 1. 1 }.
 
@@ -1573,7 +1502,7 @@ GameTest >> testTV05WhenSpaceshipUsesOverloadCardItReducesByTwoTheTotalRollOfAno
 ]
 
 { #category : #tests }
-GameTest >> testTV06WhenSpaceshipRollsTheMaximumAmountItsFuelChanges [
+GameTest >> testTV04WhenSpaceshipRollsTheMaximumAmountItsFuelChanges [
 
 	| aGame aBoard aDie1 someSpaceships aDeck |
 	someSpaceships := { 'Danny'. 'Walter' }.

@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #playing }
-CardGiver >> triggeredBy: aSpaceship on: anEffectManager [
+CardGiver >> triggeredBy: aSpaceship on: aGame [
 
-	anEffectManager giveCardFromDeckTo:aSpaceship. 
+aGame giveCardFromDeckTo:aSpaceship. 
 ]
