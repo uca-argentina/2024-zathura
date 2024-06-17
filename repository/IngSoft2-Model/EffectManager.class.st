@@ -17,8 +17,7 @@ EffectManager class >> usedIn: aGame with: aBoard affecting:someShips [
 
 { #category : #initialization }
 EffectManager >> applyEffectOnLandingShip: aSpaceship [
-
-	| effectToApply |
+|effectToApply|
 	effectToApply := board tiles at: aSpaceship position.
 	effectToApply triggeredBy: aSpaceship on: self 
 ]
@@ -29,7 +28,10 @@ EffectManager >> applyMoonwalkMoving: anAmountOfTiles notAffecting:aShip [
 	filteredShips :=  spaceships select: [ :spaceship |
 		                 spaceship ~= aShip ].
 	filteredShips do: [ :spaceship |
-		board move: spaceship by: anAmountOfTiles ]
+		board move: spaceship by: anAmountOfTiles ].
+
+
+
 ]
 
 { #category : #initialization }

@@ -1741,3 +1741,44 @@ GameTest >> testTV09WhenSpaceshipUsesReDoCardItHasTheEffectOfTheLastPlayedCard [
 	
 	self assert:(aGame spaceshipCalled:'Danny') position equals:5.
 ]
+
+{ #category : #tests }
+GameTest >> testTV10WhenSpaceshipUsesRepeatCardItHasTheEffectOfTheLastPlayedTile [
+
+	| aGame aBoard aDie1 someSpaceships aDeck aRepeatCard cardPlay |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null create.
+				          (MoonWalk backwardDistance:1).
+				          Null create.
+				          Null create.
+							 Null create. }
+		          finishingAfter: 2
+		          withParsecs: 10.
+	aDie1 := LoadedDie of: { 2. 2. 1. 1. 6.}.
+	
+	aRepeatCard:=RepeatCard new.
+
+	aDeck := LoadedDeck of: {aRepeatCard. aRepeatCard. aRepeatCard. aRepeatCard.}.
+	
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom: aDeck.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame spaceshipCalled:'Danny') position equals:3.
+	self assert:(aGame spaceshipCalled:'Walter') position equals:3.
+	
+	aGame playNextTurn.
+	self assert:(aGame spaceshipCalled:'Danny') position equals:4.
+	self assert:(aGame spaceshipCalled:'Walter') position equals:2.
+	
+	cardPlay:=aRepeatCard playedBy:'Danny'targetting:'Walter'.
+	aGame apply:cardPlay.
+	
+	self assert:(aGame spaceshipCalled:'Danny') position equals:4.
+	self assert:(aGame spaceshipCalled:'Walter') position equals:1.
+]

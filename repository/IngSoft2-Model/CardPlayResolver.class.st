@@ -61,6 +61,21 @@ CardPlayResolver >> resolveARedoCardPlay [
 	game removeFromHand: card to: playedBy
 ]
 
+{ #category : #visiting }
+CardPlayResolver >> resolveARepeatCardPlay [
+
+| playedBy card effectToApply effectManager |
+	playedBy := cardPlay playedBy.
+	card := cardPlay card.
+	
+	effectToApply:=game effectToApply.
+	effectManager:=game effectManager.
+
+	effectToApply triggeredBy: (game spaceshipCalled:playedBy) on: effectManager.
+	lastCardPlayed := card.
+	game removeFromHand: card to: playedBy
+]
+
 { #category : #'as yet unclassified' }
 CardPlayResolver >> resolveAnAccelerationCardPlay [
 

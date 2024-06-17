@@ -10,7 +10,8 @@ Class {
 		'deck',
 		'cardHands',
 		'cardPlayResolver',
-		'effectManager'
+		'effectManager',
+		'effectToApply'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -88,6 +89,16 @@ Game >> cardsHands [
 
 ]
 
+{ #category : #accessing }
+Game >> effectManager [ 
+^effectManager
+]
+
+{ #category : #accessing }
+Game >> effectToApply [
+^effectToApply
+]
+
 { #category : #asserting }
 Game >> endGameIfPossible [
 
@@ -137,6 +148,7 @@ Game >> playNextTurn [
 	board
 		move: spaceshipTurn
 		by: rollingResult + rollModifier.
+	effectToApply:=board tiles at:(spaceshipTurn position).
 	effectManager applyEffectOnLandingShip: spaceshipTurn.
 	self endGameIfPossible
 ]

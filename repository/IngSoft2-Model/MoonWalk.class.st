@@ -22,5 +22,6 @@ MoonWalk >> initializedWith: anAmountOfTiles [
 { #category : #playing }
 MoonWalk >> triggeredBy: aSpaceship on: anEffectManager [
 
-	anEffectManager applyMoonwalkMoving: tilesToMove  notAffecting: aSpaceship  
+	anEffectManager applyMoonwalkMoving: tilesToMove  notAffecting: aSpaceship.  
+
 ]
