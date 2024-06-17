@@ -52,6 +52,12 @@ SpaceShip >> fuel: amountOfFuel [
 	fuel := amountOfFuel
 ]
 
+{ #category : #playing }
+SpaceShip >> fuelPenalty [
+
+	fuel := fuel - 1
+]
+
 { #category : #initialization }
 SpaceShip >> initialize: aName [
 
@@ -121,8 +127,8 @@ SpaceShip >> position [
 ]
 
 { #category : #asserting }
-SpaceShip >> rewardToMaxFuel: anAmount [
-	maxFuel:=maxFuel+anAmount
+SpaceShip >> rewardToMaxFuel [
+	maxFuel:=maxFuel+1
 ]
 
 { #category : #accessing }

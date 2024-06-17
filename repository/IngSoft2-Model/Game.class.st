@@ -65,7 +65,9 @@ Game >> assignRewardForMaxRollFor: aSpaceship [
 	|adjustmentDistribution randomNumber |
 	adjustmentDistribution := { 1. 1. 1. 1. 1. 1. 1. 1. -1. -1 }.
 	randomNumber:= adjustmentDistribution atRandom.
-	aSpaceship rewardToMaxFuel: randomNumber
+	randomNumber=1
+	ifTrue:[aSpaceship rewardToMaxFuel]
+	ifFalse:[aSpaceship fuelPenalty]
 
 ]
 
