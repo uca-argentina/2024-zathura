@@ -1607,3 +1607,40 @@ GameTest >> testTV06HyperGravityCanBeUsedInParsecsAndLightYears [
 	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 2.
 
 ]
+
+{ #category : #tests }
+GameTest >> testTV07WhenSpaceshipUsesAccelerationCardItAddsOneToTheTotalRollOfAllSpaceships [
+
+	| aGame aBoard aDie1 someSpaceships aDeck anAccelerationCard cardPlay |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          CardGiver new.
+				          Null create.
+				          Null create.
+				          Null create }
+		          finishingAfter: 2
+		          withParsecs: 10.
+	aDie1 := LoadedDie of: { 3. 3.}.
+	
+	anAccelerationCard:=AccelerationCard new.
+
+	aDeck := Deck of: {anAccelerationCard. anAccelerationCard.}.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom: aDeck.
+		
+	self assert:(aGame spaceshipCalled:'Danny') position equals:1.
+	self assert:(aGame spaceshipCalled:'Walter') position equals:1.
+	
+	cardPlay:=anAccelerationCard playedBy:'Danny'targetting:aGame spaceships.
+	
+	aGame apply:cardPlay.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame spaceshipCalled:'Danny') position equals:5.
+	self assert:(aGame spaceshipCalled:'Walter') position equals:5.
+
+]

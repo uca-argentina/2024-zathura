@@ -28,6 +28,19 @@ cardPlay:=aCardPlay.
 ^aCardPlay card uses:self
 ]
 
+{ #category : #'as yet unclassified' }
+CardPlayResolver >> resolveAnAccelerationCardPlay [
+
+| playedBy card |
+	playedBy := cardPlay playedBy.
+	card := cardPlay card.
+	game spaceships do: [ :aSpaceship | 
+		(game cardsHandOf: aSpaceship) addEffectOf: card ].
+	lastCardPlayed := card.
+	game removeFromHand: card to: playedBy
+
+]
+
 { #category : #visiting }
 CardPlayResolver >> resolveAnOverloadCardPlay [
 

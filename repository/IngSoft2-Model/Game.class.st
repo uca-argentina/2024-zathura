@@ -168,6 +168,11 @@ Game >> spaceshipCalled: aName [
 ^ spaceships detect: [ :spaceship | spaceship name = aName ]
 ]
 
+{ #category : #accessing }
+Game >> spaceships [ 
+^spaceships
+]
+
 { #category : #asserting }
 Game >> winner [
 
