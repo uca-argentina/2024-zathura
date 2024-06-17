@@ -9,7 +9,9 @@ Class {
 		'turnHandler',
 		'deck',
 		'cardHands',
-		'effectManager'
+		'effectManager',
+		'cardPlayResolver'
+
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -46,6 +48,30 @@ Game >> anySpaceShipAtLastTileAndLap [
 		  board laps + 1 = aSpaceship lap and: [ 1 = aSpaceship position ] ]
 ]
 
+
+{ #category : #'target resize' }
+Game >> apply:aCardPlay [
+^cardPlayResolver resolve:aCardPlay
+]
+
+{ #category : #accessing }
+Game >> applyEffectOnLandingShip: aSpaceship [
+
+	| effectToApply |
+	effectToApply := board tiles at: aSpaceship position.
+	effectToApply triggeredBy: aSpaceship on: self
+]
+
+{ #category : #asserting }
+Game >> assignRewardForMaxRollFor: aSpaceship [
+
+	|adjustmentDistribution randomNumber |
+	adjustmentDistribution := { 1. 1. 1. 1. 1. 1. 1. 1. -1. -1 }.
+	randomNumber:= adjustmentDistribution atRandom.
+	aSpaceship rewardToMaxFuel: randomNumber
+
+]
+
 { #category : #'as yet unclassified' }
 Game >> cardsHandLengthOf: aSpaceship [
 
@@ -62,6 +88,12 @@ Game >> cardsHandOf: aSpaceship [
 	spaceshipCardHandler := cardHands
 		detect: [ :handler | handler spaceship = aSpaceship].
 	^ spaceshipCardHandler
+]
+
+{ #category : #'as yet unclassified' }
+Game >> cardsHands [
+
+	^ cardHands.
 ]
 
 { #category : #asserting }
@@ -93,7 +125,6 @@ Game >> initializePlayedBy: someSpaceShips on: aBoard rolling: dice usingCardsFr
 	deck:=aDeck.
 	cardHands:=spaceships collect:[:spaceShip|CardsHand of:spaceShip using:aDeck].
 	turnHandler := TurnHandler withPlayers: someSpaceShips.
-	effectManager:=EffectManager usedIn: self with:aBoard affecting: someSpaceShips. 
 	spaceships do: [ :aSpaceShip |
 		aSpaceShip fuel: 2 * diceCollection maxRoll ]
 	
@@ -106,14 +137,46 @@ Game >> move: aSpaceShip by: anAmountOfTiles [
 ]
 
 { #category : #playing }
+Game >> move: aSpaceship jumping: aQuantityOfParsec [
+	| tilesToMove |
+
+	tilesToMove := (aQuantityOfParsec
+	                // (board parsecs  / board amountOfTiles  )) truncated.
+
+	self move:  aSpaceship by:  tilesToMove .
+]
+
+{ #category : #playing }
+Game >> move: aSpaceship withRollingResult: aResult [
+
+	board move: aSpaceship by: aResult
+]
+
+{ #category : #playing }
+Game >> moveAllSpaceshipsToFirstPosition [
+
+	spaceships do: [ :aSpaceship |
+		aSpaceship
+			movePositionBy: 1 - aSpaceship position
+			lapBy: 0
+			neededFuel: 0 ]
+]
+
+{ #category : #playing }
 Game >> playNextTurn [
 
 	| rollingResult spaceshipTurn |
 	self hasEnded ifTrue: [ Error signal: 'Game has already ended' ].
 	spaceshipTurn := turnHandler nextSpaceshipTurn.
 	rollingResult := spaceshipTurn rollDiceUsing: diceCollection.
-	board move: spaceshipTurn by: rollingResult.
+	rollingResult = diceCollection maxRoll ifTrue: [
+		self assignRewardForMaxRollFor: spaceshipTurn ].
+	rollModifier := self rollModifierFor: spaceshipTurn.
+	self
+		move: spaceshipTurn
+		withRollingResult: rollingResult + rollModifier.
 	effectManager applyEffectOnLandingShip: spaceshipTurn.
+
 	self endGameIfPossible
 ]
 
@@ -138,6 +201,11 @@ Game >> spaceShipsPositionsRanking [
 { #category : #asserting }
 Game >> spaceshipCalled: aName [
 ^ spaceships detect: [ :spaceship | spaceship name = aName ]
+]
+
+{ #category : #asserting }
+Game >> spaceships [ 
+^spaceships
 ]
 
 { #category : #asserting }

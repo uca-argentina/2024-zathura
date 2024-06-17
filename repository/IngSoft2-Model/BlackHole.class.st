@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #playing }
-BlackHole >> triggeredBy: aSpaceship on: anEffectManager [
+BlackHole >> triggeredBy: aSpaceship on: aGame [
 
-	anEffectManager move: aSpaceship by: -4
+	aGame move: aSpaceship by: -4
 ]
