@@ -1502,7 +1502,7 @@ GameTest >> testTV03WhenSpaceshipUsesOverloadCardItReducesByTwoTheTotalRollOfAno
 ]
 
 { #category : #tests }
-GameTest >> testTV04WhenSpaceshipRollsTheMaximumAmountItsFuelChanges [
+GameTest >> testTV04WhenSpaceshipRollsTheMaximumRollItsMaxFuelGoesUpOrItsFuelGoesDown [
 
 	| aGame aBoard aDie1 someSpaceships aDeck |
 	someSpaceships := { 'Danny'. 'Walter' }.
@@ -1542,8 +1542,8 @@ GameTest >> testTV04WhenSpaceshipRollsTheMaximumAmountItsFuelChanges [
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (((aGame spaceshipCalled: 'Danny') maxFuel = 9) or: ((aGame spaceshipCalled:'Danny') amountOfFuel < 2)).
-	self assert: (((aGame spaceshipCalled: 'Walter') maxFuel = 9) or: ((aGame spaceshipCalled:'Walter') amountOfFuel < 2)).
+	self assert: (((aGame spaceshipCalled: 'Danny') maxFuel = 9) or: ((aGame spaceshipCalled:'Danny') amountOfFuel = 1)).
+	self assert: (((aGame spaceshipCalled: 'Walter') maxFuel = 9) or: ((aGame spaceshipCalled:'Walter') amountOfFuel = 1)).
 ]
 
 { #category : #tests }
