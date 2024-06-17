@@ -89,6 +89,23 @@ CardPlayResolver >> resolveAnAccelerationCardPlay [
 
 ]
 
+{ #category : #'as yet unclassified' }
+CardPlayResolver >> resolveAnAllyCardPlay [
+
+| playedBy target card spaceship1 spaceship2 |
+	playedBy := cardPlay playedBy.
+	target := cardPlay target.
+	card := cardPlay card.
+	
+	spaceship1:=game spaceshipCalled:playedBy.
+	spaceship2:=game spaceshipCalled:target.
+	
+	spaceship1 isAlliedWith:spaceship2.
+	spaceship2 isAlliedWith:spaceship1.
+	lastCardPlayed := card.
+	game removeFromHand: card to: playedBy
+]
+
 { #category : #visiting }
 CardPlayResolver >> resolveAnOverloadCardPlay [
 

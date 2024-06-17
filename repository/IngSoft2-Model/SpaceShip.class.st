@@ -8,7 +8,8 @@ Class {
 		'fuel',
 		'maxFuel',
 		'turnsToLose',
-		'needsToThrow'
+		'needsToThrow',
+		'ally'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -25,6 +26,11 @@ SpaceShip class >> named: aName [
 
 	self assertValidNameFor: aName.
 	^ self new initialize: aName
+]
+
+{ #category : #playing }
+SpaceShip >> ally [
+^ally
 ]
 
 { #category : #accessing }
@@ -53,7 +59,14 @@ SpaceShip >> initialize: aName [
 	position := 1.
 	lap := 1.
 	turnsToLose := 0.
-	needsToThrow := 0
+	needsToThrow := 0.
+	ally:=nil.
+]
+
+{ #category : #testing }
+SpaceShip >> isAlliedWith:anotherSpaceship [
+
+ally:=anotherSpaceship
 ]
 
 { #category : #'accessing - arguments' }
@@ -83,9 +96,16 @@ SpaceShip >> movePositionBy: aNumber lapBy: quantityOfLapsToMove neededFuel: aFu
 			position := position + aNumber.
 			lap := lap + quantityOfLapsToMove ]
 		ifFalse: [
+			self ally ifNil:[	
 			position := 1.
 			fuel := maxFuel.
 			self losesTurns: 2 ]
+			ifNotNil:[
+				ally fuel:(ally amountOfFuel - fuel abs).
+				fuel:=0.
+				position := position + aNumber.
+				lap := lap + quantityOfLapsToMove.
+			]].
 ]
 
 { #category : #accessing }

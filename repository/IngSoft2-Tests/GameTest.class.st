@@ -1782,3 +1782,51 @@ GameTest >> testTV10WhenSpaceshipUsesRepeatCardItHasTheEffectOfTheLastPlayedTile
 	self assert:(aGame spaceshipCalled:'Danny') position equals:4.
 	self assert:(aGame spaceshipCalled:'Walter') position equals:1.
 ]
+
+{ #category : #tests }
+GameTest >> testTV11WhenSpaceshipUsesAllyCardItSharesFuelWithAnotherSpaceship [
+
+	| aGame aBoard aDie1 someSpaceships aDeck cardPlay anAllyCard |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+							 Null create. }
+		          finishingAfter: 2
+		          withParsecs: 10.
+	aDie1 := LoadedDie of: { 2. 1. 2. 1. 1.}.
+	
+	anAllyCard:=AllyCard new.
+
+	aDeck := LoadedDeck of: {anAllyCard. anAllyCard. anAllyCard. anAllyCard.}.
+	
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom: aDeck.
+	
+	self assert:(aGame spaceshipCalled:'Danny') position equals:1.
+	self assert:(aGame spaceshipCalled:'Walter') position equals:1.
+	
+	cardPlay:=anAllyCard playedBy:'Danny'targetting:'Walter'.
+	aGame apply:cardPlay.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame spaceshipCalled:'Danny') position equals:5.
+	self assert:(aGame spaceshipCalled:'Walter') position equals:3.
+	self assert:(aGame spaceshipCalled:'Danny') amountOfFuel equals:0.
+	self assert:(aGame spaceshipCalled:'Walter') amountOfFuel equals:2.
+	
+	aGame playNextTurn. 
+	
+	self assert:(aGame spaceshipCalled:'Danny') position equals:6.
+	self assert:(aGame spaceshipCalled:'Walter') position equals:3.
+	self assert:(aGame spaceshipCalled:'Danny') amountOfFuel equals:0.
+	self assert:(aGame spaceshipCalled:'Walter') amountOfFuel equals:1.
+]
