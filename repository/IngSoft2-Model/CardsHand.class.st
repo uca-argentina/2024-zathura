@@ -28,6 +28,12 @@ cardsInHand add:aCard
 
 ]
 
+{ #category : #'as yet unclassified' }
+CardsHand >> affectsSpaceShip: aCard [
+
+	^ cardsAffecting includes: aCard
+]
+
 { #category : #accessing }
 CardsHand >> cardsInHand [ 
 ^cardsInHand
@@ -48,6 +54,13 @@ spaceship:=aSpaceship.
 cardsInHand:=OrderedCollection new.
 cardsAffecting:=OrderedCollection new.
 self distributeCardsFrom:aDeck
+
+]
+
+{ #category : #removing }
+CardsHand >> removeEffectOf: aCard [
+
+	cardsAffecting := cardsAffecting reject: [ :each | each = aCard ]
 
 ]
 

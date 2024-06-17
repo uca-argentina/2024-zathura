@@ -1644,3 +1644,52 @@ GameTest >> testTV07WhenSpaceshipUsesAccelerationCardItAddsOneToTheTotalRollOfAl
 	self assert:(aGame spaceshipCalled:'Walter') position equals:5.
 
 ]
+
+{ #category : #tests }
+GameTest >> testTV08WhenSpaceshipUsesCancellationCardItRemovesAChosenActivePermanentCard [
+
+	| aGame aBoard aDie1 someSpaceships aDeck anAccelerationCard cardPlay1 cardPlay2 aCancellationCard |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          CardGiver new.
+				          Null create.
+				          Null create.
+				          Null create.
+							 Null create. }
+		          finishingAfter: 2
+		          withParsecs: 10.
+	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6.}.
+	
+	anAccelerationCard:=AccelerationCard new.
+	aCancellationCard:=CancellationCard new.
+
+	aDeck := LoadedDeck of: {anAccelerationCard. aCancellationCard. anAccelerationCard. aCancellationCard}.
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom: aDeck.
+		
+	self assert:(aGame spaceshipCalled:'Danny') position equals:1.
+	self assert:(aGame spaceshipCalled:'Walter') position equals:1.
+	
+	cardPlay1:=anAccelerationCard playedBy:'Danny'targetting:aGame spaceships.
+	
+	aGame apply:cardPlay1.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame spaceshipCalled:'Danny') position equals:4.
+	self assert:(aGame spaceshipCalled:'Walter') position equals:4.
+	
+	cardPlay2:=aCancellationCard playedBy:'Danny'targetting:anAccelerationCard.
+	
+	aGame apply:cardPlay2.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert:(aGame spaceshipCalled:'Danny') position equals:6.
+	self assert:(aGame spaceshipCalled:'Walter') position equals:6.
+	
+]

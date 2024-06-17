@@ -80,6 +80,14 @@ Game >> cardsHandOf: aSpaceship [
 	^ spaceshipCardHandler
 ]
 
+{ #category : #'as yet unclassified' }
+Game >> cardsHands [ 
+
+	^ cardHands
+
+
+]
+
 { #category : #asserting }
 Game >> endGameIfPossible [
 
