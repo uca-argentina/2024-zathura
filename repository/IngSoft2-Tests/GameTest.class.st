@@ -1693,3 +1693,51 @@ GameTest >> testTV08WhenSpaceshipUsesCancellationCardItRemovesAChosenActivePerma
 	self assert:(aGame spaceshipCalled:'Walter') position equals:6.
 	
 ]
+
+{ #category : #tests }
+GameTest >> testTV09WhenSpaceshipUsesReDoCardItHasTheEffectOfTheLastPlayedCard [
+
+	| aGame aBoard aDie1 someSpaceships aDeck cardPlay1 cardPlay2 anOverloadCard aRedoCard |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          CardGiver new.
+				          Null create.
+				          Null create.
+				          Null create.
+							 Null create. }
+		          finishingAfter: 2
+		          withParsecs: 10.
+	aDie1 := LoadedDie of: { 3. 3. 3. 3. 6.}.
+	
+	anOverloadCard:=OverloadCard new.
+	aRedoCard:=RedoCard new.
+
+	aDeck := LoadedDeck of: {anOverloadCard. aRedoCard. anOverloadCard. aRedoCard. aRedoCard. aRedoCard.}.
+	
+	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom: aDeck.
+	
+	self assert:(aGame spaceshipCalled:'Danny') position equals:1.
+	self assert:(aGame spaceshipCalled:'Walter') position equals:1.
+	
+	cardPlay1:=anOverloadCard playedBy:'Danny'targetting:'Walter'.
+	
+	aGame apply:cardPlay1.
+	
+	aGame playNextTurn.
+	
+	cardPlay2:=aRedoCard playedBy:'Walter'targetting:'Danny'.
+	
+	aGame apply:cardPlay2.
+	
+	aGame playNextTurn.
+	
+	self assert:(aGame spaceshipCalled:'Danny') position equals:4.
+	self assert:(aGame spaceshipCalled:'Walter') position equals:2.
+	
+	aGame playNextTurn.
+	
+	self assert:(aGame spaceshipCalled:'Danny') position equals:5.
+]

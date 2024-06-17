@@ -46,6 +46,22 @@ CardPlayResolver >> resolveACancellationCardPlay [
 ]
 
 { #category : #'as yet unclassified' }
+CardPlayResolver >> resolveARedoCardPlay [
+
+	| newCardPlay playedBy target card |
+	playedBy := cardPlay playedBy.
+	target := cardPlay target.
+	card := cardPlay card.
+
+	newCardPlay := CardPlay
+		               with: lastCardPlayed
+		               appliedTo: target
+		               by: playedBy.
+	game apply: newCardPlay.
+	game removeFromHand: card to: playedBy
+]
+
+{ #category : #'as yet unclassified' }
 CardPlayResolver >> resolveAnAccelerationCardPlay [
 
 | playedBy card |
