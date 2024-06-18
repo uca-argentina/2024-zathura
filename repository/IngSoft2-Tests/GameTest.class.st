@@ -21,51 +21,6 @@ GameTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage
 ]
 
 { #category : #tests }
-GameTest >> testBanana [
-
-| aGame aBoard aDie1 someSpaceships aDeck cardPlay anAllyCard |
-	someSpaceships := { 'Danny'. 'Walter' }.
-	aBoard := Board
-		          of: {
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create.
-				          Null create }
-		          finishingAfter: 2
-		          withParsecs: 10.
-	aDie1 := LoadedDie of: { 1. 1. 6.}.
-
-	anAllyCard := AllyCard new.
-
-	aDeck := LoadedDeck of: {
-			         anAllyCard.
-			         anAllyCard.
-			         anAllyCard.
-			         anAllyCard }.
-
-	aGame := Game
-		         playedBy: someSpaceships
-		         on: aBoard
-		         rolling: aDie1
-		         usingCardsFrom: aDeck.
-
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-
-	aGame playNextTurn.
-	aGame playNextTurn.
-	
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.
-	
-
-]
-
-{ #category : #tests }
 GameTest >> testFV01GameMustHaveAtLeastOnePlayer [
 
 	| aBoard aDie1 |
