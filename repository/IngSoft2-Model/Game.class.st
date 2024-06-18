@@ -71,8 +71,8 @@ Game >> assignRewardForMaxRollFor: aSpaceship [
 	adjustmentDistribution := { 1. 1. 1. 1. 1. 1. 1. 1. -1. -1 }.
 	randomNumber := adjustmentDistribution atRandom.
 	randomNumber = 1
-		ifTrue: [ aSpaceship rewardToMaxFuel ]
-		ifFalse: [ aSpaceship decreaseFuelBy: 1 ]
+		ifTrue: [ aSpaceship fuelTank increaseMaxFuelByOne ]
+		ifFalse: [ aSpaceship fuelTank decreaseFuelBy: 1 ]
 ]
 
 { #category : #accessing }
