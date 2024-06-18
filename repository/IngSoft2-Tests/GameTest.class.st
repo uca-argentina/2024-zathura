@@ -34,7 +34,7 @@ GameTest >> testFV01GameMustHaveAtLeastOnePlayer [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 	aDie1 := LoadedDie of: 3.
 
@@ -60,7 +60,7 @@ GameTest >> testFV02SpaceshipsStartAtFirstTile [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 	aDie1 := LoadedDie of: 3.
 
@@ -93,7 +93,7 @@ GameTest >> testFV03GameHasEndedAsOneSpaceshipReachTheEnd [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 	aDie1 := LoadedDie of: { 9. 9. 9. 10 }.
 
@@ -136,7 +136,7 @@ GameTest >> testFV04CantRollAfterGameEnded [
 				          Null create.
 				          Null create }
 		          finishingAfter: 1
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 	aDie1 := LoadedDie of: { 9. 10 }.
 	someSpaceships := { 'Danny'. 'Walter' }.
@@ -175,7 +175,7 @@ GameTest >> testFV05IsValidWhenTheWinnerIsAssignedCorrectly [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 	aDie1 := LoadedDie of: { 8. 8. 8. 9 }.
 	someSpacheships := { 'Danny'. 'Walter' }.
@@ -210,7 +210,7 @@ GameTest >> testFV06GameIsPlayedWithTwoDice [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 	aDie1 := LoadedDie of: 3.
 	aDie2 := LoadedDie of: 3.
@@ -247,7 +247,7 @@ GameTest >> testFV07GameWithRandomDie [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 	aDie1 := Die of: 3.
 
@@ -281,7 +281,7 @@ GameTest >> testFV08GameWithTwoRandomDice [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 	aDie1 := Die of: 3.
 	aDie2 := Die of: 5.
 
@@ -320,7 +320,7 @@ GameTest >> testFV09PlayerOneCanRollTheDiceAfterPlayerTwoTurn [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 	aDie1 := LoadedDie of: {3. 3. 3. 3. 4.}.
 
@@ -351,7 +351,7 @@ GameTest >> testFV10TurnsWhenThreePlayersArePLaying [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 	aDie1 := LoadedDie of: 3.
 
@@ -385,7 +385,7 @@ GameTest >> testFV11WormholeGoesBackwards [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 	aDie1 := LoadedDie of: 4.
 
@@ -419,7 +419,7 @@ GameTest >> testFV12WormholeGoesForward [
 				          wormholeTile12.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 	aDie1 := LoadedDie of: 7.
 
 	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
@@ -446,7 +446,7 @@ GameTest >> testFV13WormholeIsNotOnANormalTile [
 				          Null create.
 				          wormholeTile7 }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 	aDie1 := LoadedDie of: 4.
 
@@ -471,7 +471,7 @@ GameTest >> testSV01PlayersStartAtLapOne [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 	aDie1 := LoadedDie of: 3.
 	someSpaceships := { 'Danny'. 'Walter' }.
@@ -498,7 +498,7 @@ GameTest >> testSV02PlayerChangesLapAfterPassingTheLastTile [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 	aDie1 := LoadedDie of: { 6. 6. 2. 2 }.
 	someSpaceships := { 'Danny'. 'Walter' }.
@@ -540,7 +540,7 @@ GameTest >> testSV03PlayersWinsAfterCompletingAnAmountOfLaps [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 	aDie1 := LoadedDie of: { 6. 3. 6. 3. 6. 3. 6. 3. 6. 15}.
 	someSpaceships := { 'Danny'. 'Walter' }.
@@ -579,7 +579,7 @@ GameTest >> testSV04GameMustHaveOneOrMoreLaps [
 						Null create.
 						Null create }
 				finishingAfter: 0
-				withParsecs: 10 ]
+				withUnitsOfMeasurement: 10 ]
 		raise: Error
 		withMessage: 'Game must have one or more laps!'
 ]
@@ -600,7 +600,7 @@ GameTest >> testSV05EverySpaceshipStartsWithAmountOfFuelEqualToTheDoubleOfTheDic
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 	aDie1 := LoadedDie of: 3.
 	aDie2 := LoadedDie of: 3.
@@ -637,7 +637,7 @@ GameTest >> testSV06WhenASpaceshipMovesItHasLessFuel [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 	aDie1 := LoadedDie of: 3.
 	aDie2 := LoadedDie of: 3.
@@ -676,7 +676,7 @@ GameTest >> testSV07WhenASpaceshipRunsOutOfFuelItGoesBackToTileOneInLapBeforeMov
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 	aDie1 := LoadedDie of: { 2. 3. 2. 3. 2. 3.  4.}.
 
@@ -737,7 +737,7 @@ GameTest >> testSV08WhenASpaceshipRunsOutOfFuelAlsoItLosesTwoTurns [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 	aDie1 := LoadedDie of: { 2. 1. 2. 1. 2. 1. 2. 1. 1. 1. 3. }.
 
@@ -799,7 +799,7 @@ GameTest >> testSV09SpaceshipSkipsTheirTurnToHaveMaxFuel [
 				          Null create.
 				          Null create }
 		          finishingAfter: 3
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 
 	aDie1 := LoadedDie of: { 2. 2. 2. 3. 2. 2 }.
@@ -843,7 +843,7 @@ GameTest >> testSV10LandingInAnEffectTileAfterBeingMovedByAnEffectDoesNotCauseAn
 				          Null create.
 				          Null create }
 		          finishingAfter: 3
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 
 	aDie1 := LoadedDie of: {5. 5. 10.}.
@@ -876,7 +876,7 @@ GameTest >> testSV11Spaceship2IsTheFirstSpaceShipAtSpaceShipsRankingAsHisPositio
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 	aDie1 := LoadedDie of: { 1. 3. 3. 3. 3. 4. 1. 1. }.
 
@@ -921,7 +921,7 @@ GameTest >> testSV12BlackHoleEffectWhenSpaceShipHasEnoughFuelItGoesFourTilesBack
 				          Null new.
 				          Null new }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 	aDie1 := LoadedDie of: {5. 5. 10}.
 
@@ -960,7 +960,7 @@ GameTest >> testSV13BlackHoleEffectWhenSpaceShipRunsOutOfFuelItGoesToTheFirstTil
 				          Null new.
 				          Null new }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 	aDie1 := LoadedDie of: { 1. 1. 4. 4 }.
 
@@ -1002,7 +1002,7 @@ GameTest >> testSV14BlackHoleEffectWhenSpaceShipIsInTheFirstThreeTilesItGoesBack
 				          Null new.
 				          Null new }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 	aDie1 := LoadedDie of: { 6. 6. 1. 1. 7}.
 
@@ -1047,7 +1047,7 @@ GameTest >> testSV15SpaceshipEscapesOfTheHyperGravityEffectWhenItGetsACertainNum
 				          Null new.
 				          Null new }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 
 	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
@@ -1085,7 +1085,7 @@ GameTest >> testSV16SpaceshipCannotEscapeFromTheHyperGravityEffectIfItDoesNotGet
 				          Null new.
 				          Null new }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
 
@@ -1121,7 +1121,7 @@ GameTest >> testSV17MoonWalkEffectWhenSpaceShipHasEnoughFuelItGoesNTilesBackward
 				          Null new.
 				          Null new }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 	aDie1 := LoadedDie of: { 2. 3. 3. 4 . 30.}.
 	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
@@ -1156,7 +1156,7 @@ GameTest >> testSV18MoonWalkEffectWhenSpaceShipRunsOutOfFuelItGoesToTheFirstTile
 				          (MoonWalk backwardDistance: 4).
 				          Null new }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 	aDie1 := LoadedDie of: { 2. 3. 3. 3. 1. 4. }.
 
@@ -1194,7 +1194,7 @@ GameTest >> testSV19MoonWalkEffectWhenSpaceShipIsInTheFirstThreeTilesItGoesBackT
 				          Null new.
 				          Null new }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 	aDie1 := LoadedDie of: { 6. 6. 1. 1 }.
 
@@ -1239,7 +1239,7 @@ GameTest >> testSV20HyperJumpEffectAssignsParsecsToSpaceshipAndItGoesForward [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 	aDie1 := LoadedDie of: { 3. 3. 3. 4}.
 
 	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
@@ -1271,7 +1271,7 @@ GameTest >> testSV21AtomicBombEffectSendsAllSpaceshipsBackToTheFirstTile [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 	aDie1 := LoadedDie of: { 6. 4. 3. 3. 6. 6. 20 }.
 
 	aGame := Game playedBy: someSpaceships on: aBoard rolling: aDie1 usingCardsFrom:(Deck of: {'card1'. 'card2'}).
@@ -1319,7 +1319,7 @@ GameTest >> testSV22SequenceDie [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 	aDie1 := LoadedDie of: { 4. 3. 3. 5}.
 	someSpaceships := { 'Danny'. 'Walter' }.
@@ -1382,7 +1382,7 @@ GameTest >> testSV23GameWithRandomBoardAndRandomDie [
 	aBoard := Board
 		          of: randomCollection
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 
 	someSpaceships := { 'Danny'. 'Walter' }.
 
@@ -1411,7 +1411,7 @@ GameTest >> testTV01EverySpaceshipStartsWithTwoCards [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 	aDie1 := LoadedDie of: { 6. 4. 3. 3. 6. 6. 20 }.
 
 	aDeck := Deck of: {'card1'. 'card2'}.
@@ -1438,7 +1438,7 @@ GameTest >> testTV02WhenSpaceshipLandsInCardGiverTileItReceivesACard [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 	aDie1 := LoadedDie of: { 2. 2. }.
 
 	aDeck := Deck of: {'card1'. 'card2'}.
@@ -1468,7 +1468,7 @@ GameTest >> testTV03WhenSpaceshipUsesOverloadCardItReducesByTwoTheTotalRollOfAno
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 	aDie1 := LoadedDie of: { 3. 3. 1. 1 }.
 
 	anOverloadCard := OverloadCard new.
@@ -1509,7 +1509,7 @@ GameTest >> testTV04WhenSpaceshipRollsTheMaximumRollItsMaxFuelGoesUpOrItsFuelGoe
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 	aDie1 := LoadedDie of: { 2. 2. 4. 4.}.
 
 
@@ -1556,7 +1556,7 @@ GameTest >> testTV05HyperGravityMeasuredInLightYearsItMovesForward [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 6.
+		          withUnitsOfMeasurement: (Parsecs with:6).
 	aDie1 := LoadedDie of: { 2. 2. 10. }.
 
 	aDeck := Deck of: {'card1'. 'card2'}.
@@ -1586,7 +1586,7 @@ GameTest >> testTV06HyperGravityCanBeUsedInParsecsAndLightYears [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 6.
+		          withUnitsOfMeasurement: (Parsecs with:6).
 	aDie1 := LoadedDie of: { 2. 2. 10. }.
 
 	aDeck := Deck of: {'card1'. 'card2'}.
@@ -1618,7 +1618,7 @@ GameTest >> testTV07WhenSpaceshipUsesAccelerationCardItAddsOneToTheTotalRollOfAl
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 	aDie1 := LoadedDie of: { 3. 3.}.
 	
 	anAccelerationCard:=AccelerationCard new.
@@ -1656,7 +1656,7 @@ GameTest >> testTV08WhenSpaceshipUsesCancellationCardItRemovesAChosenActivePerma
 				          Null create.
 							 Null create. }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6.}.
 	
 	anAccelerationCard:=AccelerationCard new.
@@ -1705,7 +1705,7 @@ GameTest >> testTV09WhenSpaceshipUsesReDoCardItHasTheEffectOfTheLastPlayedCard [
 				          Null create.
 							 Null create. }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 	aDie1 := LoadedDie of: { 3. 3. 3. 3. 6.}.
 	
 	anOverloadCard:=OverloadCard new.
@@ -1753,7 +1753,7 @@ GameTest >> testTV10WhenSpaceshipUsesRepeatCardItHasTheEffectOfTheLastPlayedTile
 				          Null create.
 							 Null create. }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 	aDie1 := LoadedDie of: { 2. 2. 1. 1. 6.}.
 	
 	aRepeatCard:=RepeatCard new.
@@ -1795,7 +1795,7 @@ GameTest >> testTV11WhenSpaceshipUsesAllyCardItSharesFuelWithAnotherSpaceship [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 	aDie1 := LoadedDie of: { 2. 1. 2. 1. 2. 1. 1. 3 }.
 
 	anAllyCard := AllyCard new.
@@ -1853,7 +1853,7 @@ GameTest >> testTV12SpaceshipCannotUseAPermanentCardWhenItIsNotItsTurn [
 				          Null create.
 							 Null create. }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 	aDie1 := LoadedDie of: { 2. 1. 2. 1. 1.}.
 	
 	anAllyCard:=AllyCard new.
@@ -1890,7 +1890,7 @@ GameTest >> testTV13SpaceshipCannotUseACardThatIsNotInItsHand [
 				          Null create.
 							 Null create. }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 	aDie1 := LoadedDie of: { 2. 1. 2. 1. 1.}.
 	
 	anAllyCard:=AllyCard new.
@@ -1929,7 +1929,7 @@ GameTest >> testTV14WhenSpaceshipUsesAllyCardAndNeitherOfTheHasEnoughFuelThenThe
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withParsecs: 10.
+		          withUnitsOfMeasurement: (Parsecs with:10).
 	aDie1 := LoadedDie of: { 3. 1. 3. 3. 3. 3. 3. 1. 1. 4 }.
 
 	anAllyCard := AllyCard new.

@@ -29,15 +29,15 @@ Board class >> isValid: tiles [
 ]
 
 { #category : #'instance creation' }
-Board class >> of: tiles finishingAfter: laps withParsecs: parsecs [
+Board class >> of: tiles finishingAfter: laps withUnitsOfMeasurement: units [
 
 	self isValid: tiles.
 	self assertValidNumberOfLaps: laps.
-	self assertValidQuantityOf: parsecs.
+	self assertValidQuantityOf: units  valueAsParsecs .
 	^ self new
 		  initializeOf: tiles
 		  finishingAfter: laps
-		  withDistance: parsecs
+		  withDistance: units
 ]
 
 { #category : #initialization }
@@ -75,11 +75,11 @@ Board >> calculatePositionToMoveWhen: aSpaceship moves: anAmountOfTilesToMove [
 ]
 
 { #category : #initialization }
-Board >> initializeOf: aTileCollection finishingAfter: numberOfLaps withDistance: distanceInParsecs [
+Board >> initializeOf: aTileCollection finishingAfter: numberOfLaps withDistance: aUnitOfDistance [
 
 	tiles := aTileCollection.
 	laps := numberOfLaps.
-	parsecs := distanceInParsecs
+	parsecs := aUnitOfDistance valueAsParsecs.
 ]
 
 { #category : #accessing }
