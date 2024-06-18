@@ -5,11 +5,10 @@ Class {
 		'name',
 		'position',
 		'lap',
-		'fuel',
-		'maxFuel',
 		'turnsToLose',
 		'needsToThrow',
-		'ally'
+		'ally',
+		'fuelTank'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -36,14 +35,14 @@ SpaceShip >> ally [
 { #category : #accessing }
 SpaceShip >> amountOfFuel [
 
-	^ fuel
+	^ fuelTank currentFuel .
 ]
 
 { #category : #abstract }
 SpaceShip >> applyPenaltyForEmptyFuelTank [
 
 	position := 1.
-	fuel := maxFuel.
+	fuelTank refuelToMax .
 	self losesTurns: 2
 ]
 
@@ -56,19 +55,19 @@ SpaceShip >> changeRollingResultNeededToMove: aNumber [
 { #category : #initialization }
 SpaceShip >> decreaseFuelBy: amountOfFuel [
 
-	fuel:= fuel - amountOfFuel.
+	fuelTank decreaseFuelBy: amountOfFuel .
 ]
 
 { #category : #playing }
 SpaceShip >> handleAllyFuelForMovePositionBy: aNumber lapBy: quantityOfLapsToMove [
-	ally amountOfFuel < fuel abs 
+	ally amountOfFuel < self amountOfFuel abs
 		ifTrue: [ 
 			ally applyPenaltyForEmptyFuelTank.
 			self applyPenaltyForEmptyFuelTank 
 		] 
 		ifFalse: [ 
-			ally decreaseFuelBy: fuel abs.
-			fuel := 0.
+			ally decreaseFuelBy: fuelTank currentFuel abs.
+			fuelTank fuel:0.
 			self moveToNextPositionBy: aNumber lapBy: quantityOfLapsToMove 
 		].
 ]
@@ -90,8 +89,7 @@ SpaceShip >> initialize: aName withMaxFuel: anAmount [
 	lap := 1.
 	turnsToLose := 0.
 	needsToThrow := 0.
-	maxFuel := anAmount .
-	fuel:=anAmount .
+	fuelTank:= FuelManager withMaxFuel: anAmount.
 	ally:=nil.
 ]
 
@@ -115,7 +113,7 @@ SpaceShip >> losesTurns: amountOfTurns [
 
 { #category : #playing }
 SpaceShip >> maxFuel [
-^maxFuel
+^fuelTank maxFuel 
 ]
 
 { #category : #playing }
@@ -125,12 +123,13 @@ SpaceShip >> movePositionBy: aNumber lapBy: quantityOfLapsToMove neededFuel: aFu
 	needsToThrow = 0 ifFalse: [ ^ self ].
 	self decreaseFuelBy: aFuelAmount.
 	
-	fuel > 0 
+	fuelTank isEmpty
 		ifTrue: [ 
-			self moveToNextPositionBy: aNumber lapBy: quantityOfLapsToMove 
+			
+			self handleEmptyFuelTankForMovePositionBy: aNumber lapBy: quantityOfLapsToMove
 		] 
 		ifFalse: [ 
-			self handleEmptyFuelTankForMovePositionBy: aNumber lapBy: quantityOfLapsToMove 
+			self moveToNextPositionBy: aNumber lapBy: quantityOfLapsToMove 
 		].
 ]
 
@@ -154,7 +153,7 @@ SpaceShip >> position [
 
 { #category : #asserting }
 SpaceShip >> rewardToMaxFuel [
-	maxFuel:=maxFuel+1
+	fuelTank increaseMaxFuelByOne.
 ]
 
 { #category : #accessing }
@@ -171,7 +170,7 @@ SpaceShip >> rollDiceUsing: aDiceRoller [
 SpaceShip >> skipTurn [
 
 	self losesTurns: 1.
-	fuel := maxFuel
+	fuelTank refuelToMax.
 ]
 
 { #category : #abstract }
