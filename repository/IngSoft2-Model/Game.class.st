@@ -25,7 +25,7 @@ Game class >> assertValidNumberOf: someSpaceShips [
 { #category : #asserting }
 Game class >> createSpaceshipsUsing: spaceshipNames withMaxFuel:anAmount [
 
-	^spaceshipNames collect: [ :spaceship | SpaceShip named: spaceship withMaxFuel:anAmount]
+	^spaceshipNames collect: [ :spaceship | SpaceShip named: spaceship withMaxFuel:2*anAmount]
 ]
 
 { #category : #asserting }
@@ -132,8 +132,7 @@ Game >> initializePlayedBy: someSpaceShips on: aBoard rolling: dice usingCardsFr
 	cardPlayResolver := CardPlayResolver with: self.
 	turnHandler := TurnHandler withPlayers: someSpaceShips.
 	effectManager:=EffectManager usedIn: self with:aBoard affecting: someSpaceShips.
-	spaceships do: [ :aSpaceShip |
-		aSpaceShip fuel: 2 * diceCollection maxRoll ]
+
 	
 ]
 
