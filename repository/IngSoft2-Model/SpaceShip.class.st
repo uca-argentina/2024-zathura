@@ -59,6 +59,29 @@ SpaceShip >> decreaseFuelBy: amountOfFuel [
 	fuel:= fuel - amountOfFuel.
 ]
 
+{ #category : #playing }
+SpaceShip >> handleAllyFuelForMovePositionBy: aNumber lapBy: quantityOfLapsToMove [
+	ally amountOfFuel < fuel abs 
+		ifTrue: [ 
+			ally applyPenaltyForEmptyFuelTank.
+			self applyPenaltyForEmptyFuelTank 
+		] 
+		ifFalse: [ 
+			ally decreaseFuelBy: fuel abs.
+			fuel := 0.
+			self moveToNextPositionBy: aNumber lapBy: quantityOfLapsToMove 
+		].
+]
+
+{ #category : #playing }
+SpaceShip >> handleEmptyFuelTankForMovePositionBy: aNumber lapBy: quantityOfLapsToMove [
+	self ally ifNil: [ 
+		self applyPenaltyForEmptyFuelTank 
+	] ifNotNil: [ 
+		self handleAllyFuelForMovePositionBy: aNumber lapBy: quantityOfLapsToMove 
+	].
+]
+
 { #category : #initialization }
 SpaceShip >> initialize: aName withMaxFuel: anAmount [
 
@@ -98,26 +121,23 @@ SpaceShip >> maxFuel [
 { #category : #playing }
 SpaceShip >> movePositionBy: aNumber lapBy: quantityOfLapsToMove neededFuel: aFuelAmount [
 
-	needsToThrow = 0 ifFalse: [ ^ self ].
-	self decreaseFuelBy: (aFuelAmount ).
-	fuel > 0
-		ifTrue: [
-			position := position + aNumber.
-			lap := lap + quantityOfLapsToMove ]
-		ifFalse: [
-			self ally ifNil:[	
-			self applyPenaltyForEmptyFuelTank ]
-			ifNotNil:[
-				ally amountOfFuel < fuel abs ifTrue:[
-					ally applyPenaltyForEmptyFuelTank.
-					self applyPenaltyForEmptyFuelTank .
-					]
-				ifFalse:[	ally decreaseFuelBy:fuel abs.
-				fuel:=0.
-				position := position + aNumber.
-				lap := lap + quantityOfLapsToMove.].
 
-			]].
+	needsToThrow = 0 ifFalse: [ ^ self ].
+	self decreaseFuelBy: aFuelAmount.
+	
+	fuel > 0 
+		ifTrue: [ 
+			self moveToNextPositionBy: aNumber lapBy: quantityOfLapsToMove 
+		] 
+		ifFalse: [ 
+			self handleEmptyFuelTankForMovePositionBy: aNumber lapBy: quantityOfLapsToMove 
+		].
+]
+
+{ #category : #playing }
+SpaceShip >> moveToNextPositionBy: aNumber lapBy: quantityOfLapsToMove [
+	position := position + aNumber.
+	lap := lap + quantityOfLapsToMove.
 ]
 
 { #category : #accessing }
