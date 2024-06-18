@@ -5,11 +5,13 @@ Class {
 }
 
 { #category : #initialization }
-AllyCard >> playedBy:aSpaceship targetting:anotherSpaceship [
-^CardPlay with:self appliedTo:anotherSpaceship by:aSpaceship.
+AllyCard >> playedBy: aSpaceship targetting: anotherSpaceship [
+
+	^ CardPlay with: self appliedTo: anotherSpaceship by: aSpaceship
 ]
 
-{ #category : #testing }
-AllyCard >> uses:cardPlayResolver [
-^cardPlayResolver resolveAnAllyCardPlay
+{ #category : #delegating }
+AllyCard >> uses: cardPlayResolver [
+
+	^ cardPlayResolver resolveAnAllyCardPlay
 ]

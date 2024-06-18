@@ -21,9 +21,10 @@ HyperJump >> initializeOf: collectionOfParsecs [
 
 { #category : #playing }
 HyperJump >> triggeredBy: aSpaceship on: anEffectManager [
-	|valueAsParsec|
-	valueAsParsec:=((parsecs at: 1) valueAsParsecs).
+
+	| valueAsParsec |
+	valueAsParsec := (parsecs at: 1) valueAsParsecs.
 	anEffectManager move: aSpaceship jumping: valueAsParsec.
 	parsecs add: parsecs first.
-	parsecs removeFirst.
+	parsecs removeFirst
 ]

@@ -8,49 +8,58 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 FuelManager class >> withMaxFuel: anAmountOfFuel [
-	^ self new initializeWithMaxFuel: anAmountOfFuel .
+
+	^ self new initializeWithMaxFuel: anAmountOfFuel
 ]
 
-{ #category : #initialization }
-FuelManager >> currentFuel [ 
-        ^currentFuel.
+{ #category : #accessing }
+FuelManager >> currentFuel [
+
+	^ currentFuel
+
 ]
 
-{ #category : #initialization }
-FuelManager >> decreaseFuelBy: amount [ 
-        currentFuel := currentFuel - amount.
+{ #category : #playing }
+FuelManager >> decreaseFuelBy: amount [
+
+	currentFuel := currentFuel - amount
 ]
 
-{ #category : #initialization }
+{ #category : #testing }
 FuelManager >> fuel: anAmountOfFuel [
-	currentFuel :=anAmountOfFuel.
+
+	currentFuel := anAmountOfFuel
 ]
 
-{ #category : #initialization }
+{ #category : #playing }
 FuelManager >> increaseMaxFuelByOne [
-	maxFuel :=maxFuel +1.
+
+	maxFuel := maxFuel + 1
 ]
 
 { #category : #initialization }
 FuelManager >> initializeWithMaxFuel: anAmountOfFuel [
 
 	maxFuel := anAmountOfFuel.
-	currentFuel := anAmountOfFuel.
+	currentFuel := anAmountOfFuel
 ]
 
-{ #category : #initialization }
-FuelManager >> isEmpty [ 
-        ^currentFuel < 0.
+{ #category : #asserting }
+FuelManager >> isEmpty [
+
+	^ currentFuel < 0
 ]
 
-{ #category : #initialization }
+{ #category : #accessing }
 FuelManager >> maxFuel [
-        ^maxFuel.
+
+	^ maxFuel
 ]
 
-{ #category : #initialization }
-FuelManager >> refuelToMax [ 
-        currentFuel := maxFuel.
+{ #category : #playing }
+FuelManager >> refuelToMax [
+
+	currentFuel := maxFuel
 ]

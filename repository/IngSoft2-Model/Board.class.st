@@ -22,7 +22,7 @@ Board class >> assertValidQuantityOf: parsecs [
 		Error signal: 'Parsecs cannot be a negative measure' ]
 ]
 
-{ #category : #'instance creation' }
+{ #category : #asserting }
 Board class >> isValid: tiles [
 
 	tiles size < 2 ifTrue: [ Error signal: 'Tiles should be 2 or more' ]
@@ -33,7 +33,7 @@ Board class >> of: tiles finishingAfter: laps withUnitsOfMeasurement: units [
 
 	self isValid: tiles.
 	self assertValidNumberOfLaps: laps.
-	self assertValidQuantityOf: units  valueAsParsecs .
+	self assertValidQuantityOf: units valueAsParsecs.
 	^ self new
 		  initializeOf: tiles
 		  finishingAfter: laps
@@ -79,7 +79,7 @@ Board >> initializeOf: aTileCollection finishingAfter: numberOfLaps withDistance
 
 	tiles := aTileCollection.
 	laps := numberOfLaps.
-	parsecs := aUnitOfDistance valueAsParsecs.
+	parsecs := aUnitOfDistance valueAsParsecs
 ]
 
 { #category : #accessing }
@@ -109,17 +109,22 @@ Board >> move: aSpaceship by: anAmountOfTilesToMove [
 
 { #category : #initialization }
 Board >> move: aSpaceship jumping: aQuantityOfParsec [
+
 	| tilesToMove |
+	tilesToMove := (aQuantityOfParsec // (parsecs / self amountOfTiles))
+		               truncated.
 
-	tilesToMove := (aQuantityOfParsec
-	                // ( parsecs  / self amountOfTiles  )) truncated.
-
-	self move:  aSpaceship by:  tilesToMove .
+	self move: aSpaceship by: tilesToMove
 ]
 
 { #category : #initialization }
 Board >> moveAllSpaceshipsToFirstPosition: allSpaceShips [
-	allSpaceShips do:[:spaceship | spaceship movePositionBy: 1-spaceship position lapBy:0  neededFuel:0  ].
+
+	allSpaceShips do: [ :spaceship |
+		spaceship
+			movePositionBy: 1 - spaceship position
+			lapBy: 0
+			neededFuel: 0 ]
 ]
 
 { #category : #accessing }

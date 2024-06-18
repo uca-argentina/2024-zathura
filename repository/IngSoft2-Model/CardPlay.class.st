@@ -9,34 +9,34 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
-CardPlay class >> with:aCard appliedTo:aTarget by:aSpaceship [
+{ #category : #'instance creation' }
+CardPlay class >> with: aCard appliedTo: aTarget by: aSpaceship [
 
-^self new initializeWith:aCard appliedTo:aTarget by:aSpaceship.
+	^ self new initializeWith: aCard appliedTo: aTarget by: aSpaceship
 ]
 
-{ #category : #initialization }
+{ #category : #accessing }
 CardPlay >> card [
-^card
 
+	^ card
 ]
 
 { #category : #initialization }
-CardPlay >> initializeWith:aCard appliedTo:aTarget by:aSpaceship [
+CardPlay >> initializeWith: aCard appliedTo: aTarget by: aSpaceship [
 
-card:=aCard.
-target:=aTarget.
-playedBy:=aSpaceship.
+	card := aCard.
+	target := aTarget.
+	playedBy := aSpaceship
 ]
 
-{ #category : #initialization }
+{ #category : #accessing }
 CardPlay >> playedBy [
-^playedBy
 
+	^ playedBy
 ]
 
-{ #category : #initialization }
+{ #category : #accessing }
 CardPlay >> target [
-^target
 
+	^ target
 ]

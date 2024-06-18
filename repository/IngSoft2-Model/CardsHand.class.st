@@ -10,41 +10,40 @@ Class {
 }
 
 { #category : #'instance creation' }
-CardsHand class >> of:aSpaceship using:aDeck [
+CardsHand class >> of: aSpaceship using: aDeck [
 
-^self new initializeOf:aSpaceship using:aDeck.
+	^ self new initializeOf: aSpaceship using: aDeck
 ]
 
 { #category : #adding }
-CardsHand >> addEffectOf:aCard [
+CardsHand >> addEffectOf: aCard [
 
-cardsAffecting add:aCard
+	cardsAffecting add: aCard
 ]
 
-{ #category : #initialization }
-CardsHand >> addToHand:aCard [
+{ #category : #adding }
+CardsHand >> addToHand: aCard [
 
-cardsInHand add:aCard
-
+	cardsInHand add: aCard
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #asserting }
 CardsHand >> affectsSpaceShip: aCard [
 
 	^ cardsAffecting includes: aCard
 ]
 
 { #category : #accessing }
-CardsHand >> cardsInHand [ 
-^cardsInHand
+CardsHand >> cardsInHand [
+
+	^ cardsInHand
 ]
 
 { #category : #initialization }
-CardsHand >> distributeCardsFrom:aDeck [
+CardsHand >> distributeCardsFrom: aDeck [
 
-self addToHand:aDeck pick.
-self addToHand:aDeck pick.
-
+	self addToHand: aDeck pick.
+	self addToHand: aDeck pick
 ]
 
 { #category : #accessing }
@@ -54,20 +53,18 @@ CardsHand >> hasInHand: aCard [
 ]
 
 { #category : #initialization }
-CardsHand >> initializeOf:aSpaceship using:aDeck [
+CardsHand >> initializeOf: aSpaceship using: aDeck [
 
-spaceship:=aSpaceship.
-cardsInHand:=OrderedCollection new.
-cardsAffecting:=OrderedCollection new.
-self distributeCardsFrom:aDeck
-
+	spaceship := aSpaceship.
+	cardsInHand := OrderedCollection new.
+	cardsAffecting := OrderedCollection new.
+	self distributeCardsFrom: aDeck
 ]
 
 { #category : #removing }
 CardsHand >> removeEffectOf: aCard [
 
 	cardsAffecting := cardsAffecting reject: [ :each | each = aCard ]
-
 ]
 
 { #category : #removing }
@@ -78,12 +75,13 @@ CardsHand >> removeFromHand: aCard [
 
 { #category : #accessing }
 CardsHand >> spaceship [
-^spaceship
+
+	^ spaceship
 ]
 
 { #category : #accessing }
 CardsHand >> totalEffectsOnSpaceShip [
-	
-	cardsAffecting isEmpty ifTrue: [ ^0 ].
+
+	cardsAffecting isEmpty ifTrue: [ ^ 0 ].
 	^ cardsAffecting sum: [ :card | card effect ]
 ]
