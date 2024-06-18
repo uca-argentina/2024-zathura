@@ -39,6 +39,14 @@ SpaceShip >> amountOfFuel [
 	^ fuel
 ]
 
+{ #category : #abstract }
+SpaceShip >> applyPenaltyForEmptyFuelTank [
+
+	position := 1.
+	fuel := maxFuel.
+	self losesTurns: 2
+]
+
 { #category : #accessing }
 SpaceShip >> changeRollingResultNeededToMove: aNumber [
 
@@ -49,13 +57,6 @@ SpaceShip >> changeRollingResultNeededToMove: aNumber [
 SpaceShip >> decreaseFuelBy: amountOfFuel [
 
 	fuel:= fuel - amountOfFuel.
-]
-
-{ #category : #initialization }
-SpaceShip >> fuel: amountOfFuel [
-
-	maxFuel := amountOfFuel.
-	fuel := amountOfFuel
 ]
 
 { #category : #initialization }
@@ -98,21 +99,24 @@ SpaceShip >> maxFuel [
 SpaceShip >> movePositionBy: aNumber lapBy: quantityOfLapsToMove neededFuel: aFuelAmount [
 
 	needsToThrow = 0 ifFalse: [ ^ self ].
-	fuel := fuel - aFuelAmount.
+	self decreaseFuelBy: (aFuelAmount ).
 	fuel > 0
 		ifTrue: [
 			position := position + aNumber.
 			lap := lap + quantityOfLapsToMove ]
 		ifFalse: [
 			self ally ifNil:[	
-			position := 1.
-			fuel := maxFuel.
-			self losesTurns: 2 ]
+			self applyPenaltyForEmptyFuelTank ]
 			ifNotNil:[
-				ally decreaseFuelBy:fuel abs.
+				ally amountOfFuel < fuel abs ifTrue:[
+					ally applyPenaltyForEmptyFuelTank.
+					self applyPenaltyForEmptyFuelTank .
+					]
+				ifFalse:[	ally decreaseFuelBy:fuel abs.
 				fuel:=0.
 				position := position + aNumber.
-				lap := lap + quantityOfLapsToMove.
+				lap := lap + quantityOfLapsToMove.].
+
 			]].
 ]
 
