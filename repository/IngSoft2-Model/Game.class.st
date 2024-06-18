@@ -66,7 +66,7 @@ Game >> assignRewardForMaxRollFor: aSpaceship [
 	randomNumber:= adjustmentDistribution atRandom.
 	randomNumber=1
 	ifTrue:[aSpaceship rewardToMaxFuel]
-	ifFalse:[aSpaceship fuelPenalty]
+	ifFalse:[aSpaceship decreaseFuelBy: 1]
 
 ]
 

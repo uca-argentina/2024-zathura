@@ -46,16 +46,16 @@ SpaceShip >> changeRollingResultNeededToMove: aNumber [
 ]
 
 { #category : #initialization }
+SpaceShip >> decreaseFuelBy: amountOfFuel [
+
+	fuel:= fuel - amountOfFuel.
+]
+
+{ #category : #initialization }
 SpaceShip >> fuel: amountOfFuel [
 
 	maxFuel := amountOfFuel.
 	fuel := amountOfFuel
-]
-
-{ #category : #playing }
-SpaceShip >> fuelPenalty [
-
-	fuel := fuel - 1
 ]
 
 { #category : #initialization }
@@ -109,7 +109,7 @@ SpaceShip >> movePositionBy: aNumber lapBy: quantityOfLapsToMove neededFuel: aFu
 			fuel := maxFuel.
 			self losesTurns: 2 ]
 			ifNotNil:[
-				ally fuel:(ally amountOfFuel - fuel abs).
+				ally decreaseFuelBy:fuel abs.
 				fuel:=0.
 				position := position + aNumber.
 				lap := lap + quantityOfLapsToMove.
