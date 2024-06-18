@@ -145,7 +145,9 @@ SpaceShip >> position [
 	^ position
 ]
 
+
 { #category : #playing }
+
 SpaceShip >> rollDiceUsing: aDiceRoller [
 
 	| rolledNumber |
