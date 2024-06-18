@@ -32,12 +32,6 @@ SpaceShip >> ally [
 ^ally
 ]
 
-{ #category : #accessing }
-SpaceShip >> amountOfFuel [
-
-	^ fuelTank currentFuel .
-]
-
 { #category : #abstract }
 SpaceShip >> applyPenaltyForEmptyFuelTank [
 
@@ -59,8 +53,13 @@ SpaceShip >> decreaseFuelBy: amountOfFuel [
 ]
 
 { #category : #playing }
+SpaceShip >> fuelTank [
+	^fuelTank .
+]
+
+{ #category : #playing }
 SpaceShip >> handleAllyFuelForMovePositionBy: aNumber lapBy: quantityOfLapsToMove [
-	ally amountOfFuel < self amountOfFuel abs
+	ally fuelTank currentFuel  < fuelTank currentFuel abs
 		ifTrue: [ 
 			ally applyPenaltyForEmptyFuelTank.
 			self applyPenaltyForEmptyFuelTank 
@@ -109,11 +108,6 @@ SpaceShip >> lap [
 SpaceShip >> losesTurns: amountOfTurns [
 
 	turnsToLose := turnsToLose + amountOfTurns
-]
-
-{ #category : #playing }
-SpaceShip >> maxFuel [
-^fuelTank maxFuel 
 ]
 
 { #category : #playing }
