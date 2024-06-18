@@ -9,16 +9,18 @@ Class {
 
 { #category : #'instance creation' }
 Parsecs class >> with: parsecs [
-	^ self new initialize: parsecs.
+
+	^ self new initialize: parsecs
 ]
 
 { #category : #initialization }
 Parsecs >> initialize: someParsecs [
 
-	parsecs  := someParsecs .
+	parsecs := someParsecs
 ]
 
-{ #category : #initialization }
+{ #category : #converting }
 Parsecs >> valueAsParsecs [
-	^ parsecs .
+
+	^ parsecs
 ]

@@ -39,8 +39,8 @@ WormHoleEffectTest >> testWormholeEffectMovesAShipBackwards [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withUnitsOfMeasurement: (Parsecs with:10).
-	aSpaceShip := SpaceShip named: 'Danny' withMaxFuel:20.
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aSpaceShip := SpaceShip named: 'Danny' withMaxFuel: 20.
 	aSpaceShip movePositionBy: 6 lapBy: 0 neededFuel: 6.
 	aWormHoleTile2 triggeredBy: aSpaceShip on: aBoard.
 	self assert: aSpaceShip position equals: 2
@@ -62,8 +62,8 @@ WormHoleEffectTest >> testWormholeEffectMovesAShipFoward [
 				          Null create.
 				          Null create }
 		          finishingAfter: 2
-		          withUnitsOfMeasurement: (Parsecs with:10).
-	aSpaceShip := SpaceShip named: 'Danny' withMaxFuel:20.
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aSpaceShip := SpaceShip named: 'Danny' withMaxFuel: 20.
 	aSpaceShip movePositionBy: 1 lapBy: 0 neededFuel: 1.
 	aWormHoleTile1 triggeredBy: aSpaceShip on: aBoard.
 	self assert: aSpaceShip position equals: 5.

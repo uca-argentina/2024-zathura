@@ -18,7 +18,7 @@ SpaceShipTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMe
 SpaceShipTest >> testASpaceshipCanBeCreatedWithAName [
 
 	| aSpaceShip |
-	aSpaceShip := SpaceShip named: 'Danny' withMaxFuel:10.
+	aSpaceShip := SpaceShip named: 'Danny' withMaxFuel: 10.
 	self assert: aSpaceShip name equals: 'Danny'
 ]
 
@@ -26,7 +26,7 @@ SpaceShipTest >> testASpaceshipCanBeCreatedWithAName [
 SpaceShipTest >> testASpaceshipCanBeCreatedWithFuel [
 
 	| aSpaceShip |
-	aSpaceShip := SpaceShip named: 'Danny' withMaxFuel:10.
+	aSpaceShip := SpaceShip named: 'Danny' withMaxFuel: 10.
 	self assert: aSpaceShip fuelTank currentFuel equals: 10
 ]
 
@@ -34,7 +34,7 @@ SpaceShipTest >> testASpaceshipCanBeCreatedWithFuel [
 SpaceShipTest >> testASpaceshipCanMoveBackwards [
 
 	| aSpaceShip |
-	aSpaceShip := SpaceShip named: 'Danny' withMaxFuel:10.
+	aSpaceShip := SpaceShip named: 'Danny' withMaxFuel: 10.
 	aSpaceShip movePositionBy: 5 lapBy: 0 neededFuel: 0.
 	aSpaceShip movePositionBy: -2 lapBy: 0 neededFuel: 0.
 
@@ -47,7 +47,7 @@ SpaceShipTest >> testASpaceshipCannotBeCreatedWithoutAName [
 	| aName |
 	aName := ''.
 	self
-		should: [ SpaceShip named: aName withMaxFuel:10]
+		should: [ SpaceShip named: aName withMaxFuel: 10 ]
 		raise: Error
 		withMessage: 'Ship cant be created without a name'
 ]
@@ -56,7 +56,7 @@ SpaceShipTest >> testASpaceshipCannotBeCreatedWithoutAName [
 SpaceShipTest >> testASpaceshipIsMovedOnePosition [
 
 	| aSpaceShip |
-	aSpaceShip := SpaceShip named: 'Danny' withMaxFuel:10.
+	aSpaceShip := SpaceShip named: 'Danny' withMaxFuel: 10.
 	aSpaceShip movePositionBy: 1 lapBy: 0 neededFuel: 1.
 	self assert: aSpaceShip position equals: 2
 ]
@@ -65,7 +65,7 @@ SpaceShipTest >> testASpaceshipIsMovedOnePosition [
 SpaceShipTest >> testLostTurnsCanBeStacked [
 
 	| aSpaceShip |
-	aSpaceShip := SpaceShip named: 'Danny' withMaxFuel:10.
+	aSpaceShip := SpaceShip named: 'Danny' withMaxFuel: 10.
 	self assert: aSpaceShip turnsToLose equals: 0.
 	aSpaceShip losesTurns: 2.
 	self assert: aSpaceShip turnsToLose equals: 2.
