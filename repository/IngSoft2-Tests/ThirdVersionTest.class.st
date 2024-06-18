@@ -650,7 +650,7 @@ ThirdVersionTest >> testTV14WhenSpaceshipUsesAllyCardAndNeitherOfTheHasEnoughFue
 	aGame := Game
 		         playedBy: someSpaceships
 		         on: aBoard
-					finishingAfter:2
+		         finishingAfter: 2
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 

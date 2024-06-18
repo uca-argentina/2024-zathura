@@ -66,7 +66,7 @@ Board >> calculatePositionToMoveWhen: aSpaceship moves: anAmountOfTilesToMove [
 	^ newPosition - aSpaceship position
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #playing }
 Board >> finishesAfter: amountOfLaps [
 
 	laps := amountOfLaps
