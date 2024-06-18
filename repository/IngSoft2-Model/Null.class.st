@@ -4,7 +4,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #initializing }
+{ #category : #'instance creation' }
 Null class >> create [
 
 	^ self new initializeOf: OrderedCollection new
@@ -19,4 +19,5 @@ Null >> initializeOf: aCollection [
 { #category : #playing }
 Null >> triggeredBy: aSpaceship on: anEffectManager [
 
+	
 ]

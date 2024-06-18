@@ -7,7 +7,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'instance creation' }
+{ #category : #asserting }
 DiceRoller class >> hasValidNumberOfDice: dice [
 
 	dice size < 2 ifTrue: [

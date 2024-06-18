@@ -10,12 +10,14 @@ OverloadCard >> effect [
 	^ -2
 ]
 
-{ #category : #'as yet unclassified' }
-OverloadCard >> playedBy:aSpaceship targetting:anotherSpaceship [
-^CardPlay with:self appliedTo:anotherSpaceship by:aSpaceship.
+{ #category : #initialization }
+OverloadCard >> playedBy: aSpaceship targetting: anotherSpaceship [
+
+	^ CardPlay with: self appliedTo: anotherSpaceship by: aSpaceship
 ]
 
-{ #category : #visiting }
-OverloadCard >> uses:cardPlayResolver [
-^cardPlayResolver resolveAnOverloadCardPlay
+{ #category : #delegating }
+OverloadCard >> uses: cardPlayResolver [
+
+	^ cardPlayResolver resolveAnOverloadCardPlay
 ]

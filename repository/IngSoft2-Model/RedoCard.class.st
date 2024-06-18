@@ -5,11 +5,13 @@ Class {
 }
 
 { #category : #initialization }
-RedoCard >> playedBy:aSpaceship targetting:aCard [
-^CardPlay with:self appliedTo:aCard by:aSpaceship.
+RedoCard >> playedBy: aSpaceship targetting: aCard [
+
+	^ CardPlay with: self appliedTo: aCard by: aSpaceship
 ]
 
-{ #category : #testing }
-RedoCard >> uses:cardPlayResolver [
-^cardPlayResolver resolveARedoCardPlay
+{ #category : #delegating }
+RedoCard >> uses: cardPlayResolver [
+
+	^ cardPlayResolver resolveARedoCardPlay
 ]

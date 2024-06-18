@@ -7,7 +7,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'instance creation' }
+{ #category : #asserting }
 Deck class >> assertCardsIsNotEmpty: someCards [
 
 	someCards ifEmpty: [
@@ -24,11 +24,11 @@ Deck class >> of: someCards [
 { #category : #initialization }
 Deck >> initializeOf: someCards [
 
-cards:=someCards
+	cards := someCards
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #playing }
 Deck >> pick [
 
-^cards atRandom
+	^ cards atRandom
 ]

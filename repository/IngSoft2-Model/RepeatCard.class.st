@@ -5,11 +5,13 @@ Class {
 }
 
 { #category : #initialization }
-RepeatCard >> playedBy:aSpaceship targetting:anotherSpaceship [
-^CardPlay with:self appliedTo:anotherSpaceship by:aSpaceship.
+RepeatCard >> playedBy: aSpaceship targetting: anotherSpaceship [
+
+	^ CardPlay with: self appliedTo: anotherSpaceship by: aSpaceship
 ]
 
-{ #category : #testing }
-RepeatCard >> uses:cardPlayResolver [
-^cardPlayResolver resolveARepeatCardPlay
+{ #category : #delegating }
+RepeatCard >> uses: cardPlayResolver [
+
+	^ cardPlayResolver resolveARepeatCardPlay
 ]

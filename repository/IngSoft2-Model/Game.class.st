@@ -10,8 +10,7 @@ Class {
 		'deck',
 		'cardHands',
 		'cardPlayResolver',
-		'effectManager',
-		'effectToApply'
+		'effectManager'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -23,22 +22,26 @@ Game class >> assertValidNumberOf: someSpaceShips [
 		Error signal: 'Game must have at least one player' ]
 ]
 
-{ #category : #asserting }
-Game class >> createSpaceshipsUsing: spaceshipNames [
+{ #category : #'instance creation' }
+Game class >> createSpaceshipsUsing: spaceshipNames withMaxFuel: anAmount [
 
-	^spaceshipNames collect: [ :spaceship | SpaceShip named: spaceship]
+	^ spaceshipNames collect: [ :spaceship |
+		  SpaceShip named: spaceship withMaxFuel: 2 * anAmount ]
 ]
 
-{ #category : #asserting }
-Game class >> playedBy: someSpaceShips on: aBoard rolling: dice usingCardsFrom:aDeck [
-	|currentSpaceships|
-	currentSpaceships := self createSpaceshipsUsing: someSpaceShips.
+{ #category : #'instance creation' }
+Game class >> playedBy: someSpaceShips on: aBoard rolling: dice usingCardsFrom: aDeck [
+
+	| currentSpaceships |
+	currentSpaceships := self
+		                     createSpaceshipsUsing: someSpaceShips
+		                     withMaxFuel: dice maxRoll.
 	self assertValidNumberOf: currentSpaceships.
 	^ self new
 		  initializePlayedBy: currentSpaceships
 		  on: aBoard
 		  rolling: dice
-		  usingCardsFrom: aDeck.
+		  usingCardsFrom: aDeck
 ]
 
 { #category : #accessing }
@@ -49,62 +52,59 @@ Game >> anySpaceShipAtLastTileAndLap [
 ]
 
 { #category : #'target resize' }
-Game >> apply:aCardPlay [
-^cardPlayResolver resolve:aCardPlay
+Game >> apply: aCardPlay [
+
+	^ cardPlayResolver resolve: aCardPlay
 ]
 
 { #category : #asserting }
-Game >> assertIsTurnOf:spaceship [
+Game >> assertIsTurnOf: spaceship [
 
-(turnHandler nextTurn = spaceship)ifFalse:[Error signal:'It is not your turn'].
+	turnHandler nextTurn = spaceship ifFalse: [
+		Error signal: 'It is not your turn' ]
 ]
 
 { #category : #asserting }
 Game >> assignRewardForMaxRollFor: aSpaceship [
 
-	|adjustmentDistribution randomNumber |
+	| adjustmentDistribution randomNumber |
 	adjustmentDistribution := { 1. 1. 1. 1. 1. 1. 1. 1. -1. -1 }.
-	randomNumber:= adjustmentDistribution atRandom.
-	randomNumber=1
-	ifTrue:[aSpaceship rewardToMaxFuel]
-	ifFalse:[aSpaceship fuelPenalty]
+
+	randomNumber := adjustmentDistribution atRandom.
+	randomNumber = 1
+		ifTrue: [ aSpaceship fuelTank increaseMaxFuelByOne ]
+		ifFalse: [ aSpaceship fuelTank decreaseFuelBy: 1 ]
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Game >> cardsHandLengthOf: aSpaceship [
 
 	| spaceshipCardHandler |
-	spaceshipCardHandler := cardHands
-		detect: [ :handler | handler spaceship name = aSpaceship].
+	spaceshipCardHandler := cardHands detect: [ :handler |
+		                        handler spaceship name = aSpaceship ].
 	^ spaceshipCardHandler cardsInHand size
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Game >> cardsHandOf: aSpaceship [
 
 	| spaceshipCardHandler |
-	spaceshipCardHandler := cardHands
-		detect: [ :handler | handler spaceship = aSpaceship].
+	spaceshipCardHandler := cardHands detect: [ :handler |
+		                        handler spaceship = aSpaceship ].
 	^ spaceshipCardHandler
 ]
 
-{ #category : #'as yet unclassified' }
-Game >> cardsHands [ 
+{ #category : #accessing }
+Game >> cardsHands [
 
 	^ cardHands
-
-
 ]
 
 { #category : #accessing }
-Game >> effectManager [ 
-^effectManager
-]
+Game >> effectManager [
 
-{ #category : #accessing }
-Game >> effectToApply [
-^effectToApply
+	^ effectManager
 ]
 
 { #category : #asserting }
@@ -113,11 +113,12 @@ Game >> endGameIfPossible [
 	self anySpaceShipAtLastTileAndLap ifTrue: [ hasEnded := true ]
 ]
 
-{ #category : #'as yet unclassified' }
-Game >> giveCardFromDeckTo:aSpaceship [
-|card|
-card:=deck pick.
-(self cardsHandOf:aSpaceship)addToHand:card
+{ #category : #playing }
+Game >> giveCardFromDeckTo: aSpaceship [
+
+	| card |
+	card := deck pick.
+	(self cardsHandOf: aSpaceship) addToHand: card
 ]
 
 { #category : #testing }
@@ -127,20 +128,21 @@ Game >> hasEnded [
 ]
 
 { #category : #initialization }
-Game >> initializePlayedBy: someSpaceShips on: aBoard rolling: dice usingCardsFrom:aDeck [
+Game >> initializePlayedBy: someSpaceShips on: aBoard rolling: dice usingCardsFrom: aDeck [
 
 	board := aBoard.
 	diceCollection := dice.
 	spaceships := someSpaceShips.
 	hasEnded := false.
-	deck:=aDeck.
-	cardHands:=spaceships collect:[:spaceShip|CardsHand of:spaceShip using:aDeck].
+	deck := aDeck.
+	cardHands := spaceships collect: [ :spaceShip |
+		             CardsHand of: spaceShip using: aDeck ].
 	cardPlayResolver := CardPlayResolver with: self.
 	turnHandler := TurnHandler withPlayers: someSpaceShips.
-	effectManager:=EffectManager usedIn: self with:aBoard affecting: someSpaceShips.
-	spaceships do: [ :aSpaceShip |
-		aSpaceShip fuel: 2 * diceCollection maxRoll ]
-	
+	effectManager := EffectManager
+		                 usedIn: self
+		                 with: aBoard
+		                 affecting: someSpaceShips
 ]
 
 { #category : #playing }
@@ -153,10 +155,7 @@ Game >> playNextTurn [
 	rollingResult = diceCollection maxRoll ifTrue: [
 		self assignRewardForMaxRollFor: spaceshipTurn ].
 	rollModifier := self rollModifierFor: spaceshipTurn.
-	board
-		move: spaceshipTurn
-		by: rollingResult + rollModifier.
-	effectToApply:=board tiles at:(spaceshipTurn position).
+	board move: spaceshipTurn by: rollingResult + rollModifier.
 	effectManager applyEffectOnLandingShip: spaceshipTurn.
 	self endGameIfPossible
 ]
@@ -164,13 +163,14 @@ Game >> playNextTurn [
 { #category : #removing }
 Game >> removeFromHand: aCard to: aSpaceShip [
 
-	(self cardsHandOf: (self spaceshipCalled:aSpaceShip)) removeFromHand: aCard.
+	(self cardsHandOf: (self spaceshipCalled: aSpaceShip))
+		removeFromHand: aCard
 ]
 
 { #category : #playing }
 Game >> rollModifierFor: aSpaceShip [
 
-	^ (self cardsHandOf: aSpaceShip) totalEffectsOnSpaceShip.
+	^ (self cardsHandOf: aSpaceShip) totalEffectsOnSpaceShip
 ]
 
 { #category : #asserting }
@@ -186,19 +186,21 @@ Game >> spaceShipsPositionsRanking [
 	spaceShipsPositions := spaceships.
 
 	^ spaceShipsPositions asSortedCollection: [ :spaceShipA :spaceShipB |
-		  ((spaceShipA lap - 1) * board amountOfTiles + spaceShipA position)
+		  spaceShipA lap - 1 * board amountOfTiles + spaceShipA position
 		  >=
-		  ((spaceShipB lap - 1) * board amountOfTiles + spaceShipB position) ]
+		  (spaceShipB lap - 1 * board amountOfTiles + spaceShipB position) ]
 ]
 
 { #category : #asserting }
 Game >> spaceshipCalled: aName [
-^ spaceships detect: [ :spaceship | spaceship name = aName ]
+
+	^ spaceships detect: [ :spaceship | spaceship name = aName ]
 ]
 
 { #category : #accessing }
-Game >> spaceships [ 
-^spaceships
+Game >> spaceships [
+
+	^ spaceships
 ]
 
 { #category : #asserting }
