@@ -15,27 +15,24 @@ LoadedDeck class >> assertCardsIsNotEmpty: someCards [
 ]
 
 { #category : #'instance creation' }
-LoadedDeck class >> of: someCards [ 
+LoadedDeck class >> of: someCards [
 
 	self assertCardsIsNotEmpty: someCards.
-	^self new initializeOf:someCards
+	^ self new initializeOf: someCards
 ]
 
 { #category : #initialization }
 LoadedDeck >> initializeOf: someCards [
 
-cards:=someCards asOrderedCollection
+	cards := someCards asOrderedCollection
 ]
 
 { #category : #initialization }
 LoadedDeck >> pick [
 
-| cardToPick |
-cards isEmpty
-    ifTrue: [ Error signal: 'No cards to pick' ].
-cardToPick := cards first.
-cards remove: cardToPick.
-^ cardToPick
-
-
+	| cardToPick |
+	cards isEmpty ifTrue: [ Error signal: 'No cards to pick' ].
+	cardToPick := cards first.
+	cards remove: cardToPick.
+	^ cardToPick
 ]

@@ -18,7 +18,7 @@ TurnHandlerTest >> should: anErrorBlock raise: anErrorClass withMessage: anError
 TurnHandlerTest >> testATurnHandlerCanBeCreatedWithSomePlayers [
 
 	| aTurnHandler aSpaceShip |
-	aSpaceShip := SpaceShip named: 'Danny' withMaxFuel:10.
+	aSpaceShip := SpaceShip named: 'Danny' withMaxFuel: 10.
 	aTurnHandler := TurnHandler withPlayers: { aSpaceShip }.
 	self assert: aTurnHandler spaceships first name equals: 'Danny'
 ]
@@ -36,8 +36,8 @@ TurnHandlerTest >> testATurnHandlerCannotBeCreatedWithoutPlayers [
 TurnHandlerTest >> testPlayer1throwsfirst [
 
 	| aTurnHandler aSpaceShip1 aSpaceShip2 |
-	aSpaceShip1 := SpaceShip named: 'Danny' withMaxFuel:10.
-	aSpaceShip2 := SpaceShip named: 'Walter' withMaxFuel:10.
+	aSpaceShip1 := SpaceShip named: 'Danny' withMaxFuel: 10.
+	aSpaceShip2 := SpaceShip named: 'Walter' withMaxFuel: 10.
 	aTurnHandler := TurnHandler withPlayers: {
 			                aSpaceShip1.
 			                aSpaceShip2 }.
@@ -48,8 +48,8 @@ TurnHandlerTest >> testPlayer1throwsfirst [
 TurnHandlerTest >> testPlayer2throwsAfterPlayer1 [
 
 	| aTurnHandler aSpaceShip1 aSpaceShip2 |
-	aSpaceShip1 := SpaceShip named: 'Danny'withMaxFuel:10.
-	aSpaceShip2 := SpaceShip named: 'Walter'withMaxFuel:10.
+	aSpaceShip1 := SpaceShip named: 'Danny' withMaxFuel: 10.
+	aSpaceShip2 := SpaceShip named: 'Walter' withMaxFuel: 10.
 	aTurnHandler := TurnHandler withPlayers: {
 			                aSpaceShip1.
 			                aSpaceShip2 }.

@@ -22,22 +22,22 @@ Board class >> assertValidQuantityOf: parsecs [
 		Error signal: 'Parsecs cannot be a negative measure' ]
 ]
 
-{ #category : #'instance creation' }
+{ #category : #asserting }
 Board class >> isValid: tiles [
 
 	tiles size < 2 ifTrue: [ Error signal: 'Tiles should be 2 or more' ]
 ]
 
 { #category : #'instance creation' }
-Board class >> of: tiles finishingAfter: laps withParsecs: parsecs [
+Board class >> of: tiles finishingAfter: laps withUnitsOfMeasurement: units [
 
 	self isValid: tiles.
 	self assertValidNumberOfLaps: laps.
-	self assertValidQuantityOf: parsecs.
+	self assertValidQuantityOf: units valueAsParsecs.
 	^ self new
 		  initializeOf: tiles
 		  finishingAfter: laps
-		  withDistance: parsecs
+		  withDistance: units
 ]
 
 { #category : #initialization }
@@ -75,11 +75,11 @@ Board >> calculatePositionToMoveWhen: aSpaceship moves: anAmountOfTilesToMove [
 ]
 
 { #category : #initialization }
-Board >> initializeOf: aTileCollection finishingAfter: numberOfLaps withDistance: distanceInParsecs [
+Board >> initializeOf: aTileCollection finishingAfter: numberOfLaps withDistance: aUnitOfDistance [
 
 	tiles := aTileCollection.
 	laps := numberOfLaps.
-	parsecs := distanceInParsecs
+	parsecs := aUnitOfDistance valueAsParsecs
 ]
 
 { #category : #accessing }
@@ -109,17 +109,22 @@ Board >> move: aSpaceship by: anAmountOfTilesToMove [
 
 { #category : #initialization }
 Board >> move: aSpaceship jumping: aQuantityOfParsec [
+
 	| tilesToMove |
+	tilesToMove := (aQuantityOfParsec // (parsecs / self amountOfTiles))
+		               truncated.
 
-	tilesToMove := (aQuantityOfParsec
-	                // ( parsecs  / self amountOfTiles  )) truncated.
-
-	self move:  aSpaceship by:  tilesToMove .
+	self move: aSpaceship by: tilesToMove
 ]
 
 { #category : #initialization }
 Board >> moveAllSpaceshipsToFirstPosition: allSpaceShips [
-	allSpaceShips do:[:spaceship | spaceship movePositionBy: 1-spaceship position lapBy:0  neededFuel:0  ].
+
+	allSpaceShips do: [ :spaceship |
+		spaceship
+			movePositionBy: 1 - spaceship position
+			lapBy: 0
+			neededFuel: 0 ]
 ]
 
 { #category : #accessing }

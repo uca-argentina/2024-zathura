@@ -7,5 +7,5 @@ Class {
 { #category : #playing }
 Effect >> triggeredBy: aPlayer on: anEffectManager [
 
-	self subclassResponsibility. 
+	self subclassResponsibility
 ]

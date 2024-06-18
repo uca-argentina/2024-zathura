@@ -23,7 +23,7 @@ ProbabilityEffectTile class >> with: effect and: probability [
 	^ self new initializeWith: effect and: probability
 ]
 
-{ #category : #initialization }
+{ #category : #accessing }
 ProbabilityEffectTile >> effect [
 
 	^ effect
@@ -36,7 +36,7 @@ ProbabilityEffectTile >> initializeWith: anEffect and: aProbability [
 	probability := aProbability
 ]
 
-{ #category : #initialization }
+{ #category : #accessing }
 ProbabilityEffectTile >> probability [
 
 	^ probability

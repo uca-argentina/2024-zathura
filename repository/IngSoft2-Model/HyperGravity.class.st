@@ -7,7 +7,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #testing }
+{ #category : #'instance creation' }
 HyperGravity class >> needsToThrow: aRollingResult [
 
 	^ self new initializedWith: aRollingResult

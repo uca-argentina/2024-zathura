@@ -10,16 +10,17 @@ Class {
 { #category : #'instance creation' }
 LightYear class >> with: lightYears [
 
-	^ self new initialize: lightYears.
+	^ self new initialize: lightYears
 ]
 
 { #category : #initialization }
 LightYear >> initialize: someLightYear [
 
-	lightYears := someLightYear.
+	lightYears := someLightYear
 ]
 
-{ #category : #initialization }
+{ #category : #converting }
 LightYear >> valueAsParsecs [
-	^ (lightYears/3) .
+
+	^ lightYears / 3
 ]

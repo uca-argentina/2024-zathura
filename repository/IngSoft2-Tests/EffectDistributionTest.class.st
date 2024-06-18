@@ -21,7 +21,9 @@ EffectDistributionTest >> testEffectDistributionSumOfProbabilitiesMustBeEqualToO
 	self
 		should: [
 			effectDistribution := EffectDistribution with: {
-					                      (ProbabilityEffectTile with: Null new and: 0.30).
+					                      (ProbabilityEffectTile
+						                       with: Null new
+						                       and: 0.30).
 					                      (ProbabilityEffectTile
 						                       with: BlackHole new
 						                       and: 0.20).
@@ -31,7 +33,7 @@ EffectDistributionTest >> testEffectDistributionSumOfProbabilitiesMustBeEqualToO
 					                      (ProbabilityEffectTile
 						                       with: (MoonWalk backwardDistance: 3)
 						                       and: 0.10).
-												(ProbabilityEffectTile
+					                      (ProbabilityEffectTile
 						                       with: CardGiver new
 						                       and: 0.10).
 					                      (ProbabilityEffectTile
@@ -63,11 +65,15 @@ EffectDistributionTest >> testThatIfAtomicBombEffectHasTwoPercentProbabilityItHa
 	moonWalkEffect := MoonWalk backwardDistance: 3.
 	hyperJumpEffect := HyperJump of: { 3. 2. 1 }.
 	atomicBombEffect := AtomicBomb new.
-	cardGiverEffect:=CardGiver new.
+	cardGiverEffect := CardGiver new.
 
 	effectDistribution := EffectDistribution with: {
-			                      (ProbabilityEffectTile with: nullEffect and: 0.30).
-										(ProbabilityEffectTile with: cardGiverEffect and: 0.10).
+			                      (ProbabilityEffectTile
+				                       with: nullEffect
+				                       and: 0.30).
+			                      (ProbabilityEffectTile
+				                       with: cardGiverEffect
+				                       and: 0.10).
 			                      (ProbabilityEffectTile
 				                       with: blackHoleEffect
 				                       and: 0.2).
@@ -102,11 +108,15 @@ EffectDistributionTest >> testThatIfBlackHoleEffectHasTwentyPercentProbabilityIt
 	moonWalkEffect := MoonWalk backwardDistance: 3.
 	hyperJumpEffect := HyperJump of: { 3. 2. 1 }.
 	atomicBombEffect := AtomicBomb new.
-	cardGiverEffect:=CardGiver new.
+	cardGiverEffect := CardGiver new.
 
 	effectDistribution := EffectDistribution with: {
-			                      (ProbabilityEffectTile with: nullEffect and: 0.30).
-										(ProbabilityEffectTile with: cardGiverEffect and: 0.10).
+			                      (ProbabilityEffectTile
+				                       with: nullEffect
+				                       and: 0.30).
+			                      (ProbabilityEffectTile
+				                       with: cardGiverEffect
+				                       and: 0.10).
 			                      (ProbabilityEffectTile
 				                       with: blackHoleEffect
 				                       and: 0.2).
@@ -141,11 +151,15 @@ EffectDistributionTest >> testThatIfHyperGravityEffectHasTwentyPercentProbabilit
 	moonWalkEffect := MoonWalk backwardDistance: 3.
 	hyperJumpEffect := HyperJump of: { 3. 2. 1 }.
 	atomicBombEffect := AtomicBomb new.
-	cardGiverEffect:=CardGiver new.
+	cardGiverEffect := CardGiver new.
 
 	effectDistribution := EffectDistribution with: {
-			                      (ProbabilityEffectTile with: nullEffect and: 0.30).
-										(ProbabilityEffectTile with: cardGiverEffect and: 0.10).
+			                      (ProbabilityEffectTile
+				                       with: nullEffect
+				                       and: 0.30).
+			                      (ProbabilityEffectTile
+				                       with: cardGiverEffect
+				                       and: 0.10).
 			                      (ProbabilityEffectTile
 				                       with: blackHoleEffect
 				                       and: 0.2).
@@ -180,11 +194,15 @@ EffectDistributionTest >> testThatIfHyperJumpEffectHasEightPercentProbabilityItH
 	moonWalkEffect := MoonWalk backwardDistance: 3.
 	hyperJumpEffect := HyperJump of: { 3. 2. 1 }.
 	atomicBombEffect := AtomicBomb new.
-	cardGiverEffect:=CardGiver new.
+	cardGiverEffect := CardGiver new.
 
 	effectDistribution := EffectDistribution with: {
-			                      (ProbabilityEffectTile with: nullEffect and: 0.30).
-										(ProbabilityEffectTile with: cardGiverEffect and: 0.10).
+			                      (ProbabilityEffectTile
+				                       with: nullEffect
+				                       and: 0.30).
+			                      (ProbabilityEffectTile
+				                       with: cardGiverEffect
+				                       and: 0.10).
 			                      (ProbabilityEffectTile
 				                       with: blackHoleEffect
 				                       and: 0.2).
@@ -219,11 +237,15 @@ EffectDistributionTest >> testThatIfMoonWalkEffectHasTenPercentProbabilityItHasB
 	moonWalkEffect := MoonWalk backwardDistance: 3.
 	hyperJumpEffect := HyperJump of: { 3. 2. 1 }.
 	atomicBombEffect := AtomicBomb new.
-	cardGiverEffect:=CardGiver new.
+	cardGiverEffect := CardGiver new.
 
 	effectDistribution := EffectDistribution with: {
-			                      (ProbabilityEffectTile with: nullEffect and: 0.30).
-										(ProbabilityEffectTile with: cardGiverEffect and: 0.10).
+			                      (ProbabilityEffectTile
+				                       with: nullEffect
+				                       and: 0.30).
+			                      (ProbabilityEffectTile
+				                       with: cardGiverEffect
+				                       and: 0.10).
 			                      (ProbabilityEffectTile
 				                       with: blackHoleEffect
 				                       and: 0.2).
@@ -258,11 +280,15 @@ EffectDistributionTest >> testThatIfNullEffectHasFortyPercentProbabilityItHasBet
 	moonWalkEffect := MoonWalk backwardDistance: 3.
 	hyperJumpEffect := HyperJump of: { 3. 2. 1 }.
 	atomicBombEffect := AtomicBomb new.
-	cardGiverEffect:=CardGiver new.
+	cardGiverEffect := CardGiver new.
 
 	effectDistribution := EffectDistribution with: {
-			                      (ProbabilityEffectTile with: nullEffect and: 0.30).
-										(ProbabilityEffectTile with: cardGiverEffect and: 0.10).
+			                      (ProbabilityEffectTile
+				                       with: nullEffect
+				                       and: 0.30).
+			                      (ProbabilityEffectTile
+				                       with: cardGiverEffect
+				                       and: 0.10).
 			                      (ProbabilityEffectTile
 				                       with: blackHoleEffect
 				                       and: 0.2).

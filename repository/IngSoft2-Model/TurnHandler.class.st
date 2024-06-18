@@ -55,7 +55,7 @@ TurnHandler >> nextTurn [
 	^ spaceshipTurn
 ]
 
-{ #category : #initialization }
+{ #category : #accessing }
 TurnHandler >> spaceships [
 
 	^ spaceships
