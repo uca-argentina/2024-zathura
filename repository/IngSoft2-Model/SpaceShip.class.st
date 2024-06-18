@@ -146,12 +146,6 @@ SpaceShip >> position [
 ]
 
 { #category : #playing }
-SpaceShip >> rewardToMaxFuel [
-
-	fuelTank increaseMaxFuelByOne
-]
-
-{ #category : #playing }
 SpaceShip >> rollDiceUsing: aDiceRoller [
 
 	| rolledNumber |
