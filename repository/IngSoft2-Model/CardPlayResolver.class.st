@@ -68,16 +68,16 @@ CardPlayResolver >> resolveARedoCardPlay [
 { #category : #visiting }
 CardPlayResolver >> resolveARepeatCardPlay [
 
-| playedBy card effectToApply effectManager |
+| playedBy card effectManager |
 	playedBy := cardPlay playedBy.
 	card := cardPlay card.
 	
 	self validate:(game spaceshipCalled:playedBy) has: card.
 	
-	effectToApply:=game effectToApply.
-	effectManager:=game effectManager.
 
-	effectToApply triggeredBy: (game spaceshipCalled:playedBy) on: effectManager.
+	effectManager:=game effectManager.
+	effectManager repeatLastEffectAppliedOn: (game spaceshipCalled:playedBy).
+	
 	lastCardPlayed := card.
 	game removeFromHand: card to: playedBy
 ]

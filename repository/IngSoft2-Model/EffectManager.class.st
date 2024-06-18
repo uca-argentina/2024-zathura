@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'game',
 		'board',
-		'spaceships'
+		'spaceships',
+		'lastEffectApplied'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -19,6 +20,7 @@ EffectManager class >> usedIn: aGame with: aBoard affecting:someShips [
 EffectManager >> applyEffectOnLandingShip: aSpaceship [
 |effectToApply|
 	effectToApply := board tiles at: aSpaceship position.
+	lastEffectApplied := effectToApply .
 	effectToApply triggeredBy: aSpaceship on: self 
 ]
 
@@ -44,6 +46,7 @@ EffectManager >> initializeIn: aGame using:aBoard affecting: someShips [
 	game:=aGame.
 	board:=aBoard.
 	spaceships:=someShips.
+	lastEffectApplied:= Null create.
 ]
 
 { #category : #initialization }
@@ -60,4 +63,9 @@ EffectManager >> move: aSpaceship jumping: aQuantityOfParsec [
 EffectManager >> moveAllSpaceshipsToFirstPosition [
 
 	board moveAllSpaceshipsToFirstPosition:spaceships.
+]
+
+{ #category : #initialization }
+EffectManager >> repeatLastEffectAppliedOn: aSpaceship [
+	lastEffectApplied triggeredBy: aSpaceship on: self  
 ]
