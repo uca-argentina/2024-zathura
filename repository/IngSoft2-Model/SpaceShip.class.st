@@ -145,11 +145,6 @@ SpaceShip >> position [
 	^ position
 ]
 
-{ #category : #asserting }
-SpaceShip >> rewardToMaxFuel [
-	fuelTank increaseMaxFuelByOne.
-]
-
 { #category : #accessing }
 SpaceShip >> rollDiceUsing: aDiceRoller [
 

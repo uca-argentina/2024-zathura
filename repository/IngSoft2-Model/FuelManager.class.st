@@ -14,11 +14,6 @@ FuelManager class >> withMaxFuel: anAmountOfFuel [
 ]
 
 { #category : #initialization }
-FuelManager >> IncreaseMaxFuelByOne [
-	maxFuel :=maxFuel +1.
-]
-
-{ #category : #initialization }
 FuelManager >> currentFuel [ 
         ^currentFuel.
 ]
