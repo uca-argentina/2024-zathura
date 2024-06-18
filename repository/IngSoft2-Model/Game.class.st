@@ -23,6 +23,12 @@ Game class >> assertValidNumberOf: someSpaceShips [
 ]
 
 { #category : #'instance creation' }
+Game class >> assertValidNumberOfLaps: laps [
+
+	laps <= 0 ifTrue: [ Error signal: 'Game must have one or more laps!' ]
+]
+
+{ #category : #'instance creation' }
 Game class >> createSpaceshipsUsing: spaceshipNames withMaxFuel: anAmount [
 
 	^ spaceshipNames collect: [ :spaceship |
@@ -30,16 +36,18 @@ Game class >> createSpaceshipsUsing: spaceshipNames withMaxFuel: anAmount [
 ]
 
 { #category : #'instance creation' }
-Game class >> playedBy: someSpaceShips on: aBoard rolling: dice usingCardsFrom: aDeck [
+Game class >> playedBy: someSpaceShips on: aBoard finishingAfter: laps rolling: dice usingCardsFrom: aDeck [
 
 	| currentSpaceships |
 	currentSpaceships := self
 		                     createSpaceshipsUsing: someSpaceShips
 		                     withMaxFuel: dice maxRoll.
 	self assertValidNumberOf: currentSpaceships.
+	self assertValidNumberOfLaps: laps.
 	^ self new
 		  initializePlayedBy: currentSpaceships
 		  on: aBoard
+		  finishingAfter: laps
 		  rolling: dice
 		  usingCardsFrom: aDeck
 ]
@@ -128,13 +136,14 @@ Game >> hasEnded [
 ]
 
 { #category : #initialization }
-Game >> initializePlayedBy: someSpaceShips on: aBoard rolling: dice usingCardsFrom: aDeck [
+Game >> initializePlayedBy: someSpaceShips on: aBoard finishingAfter: laps rolling: dice usingCardsFrom: aDeck [
 
 	board := aBoard.
 	diceCollection := dice.
 	spaceships := someSpaceShips.
 	hasEnded := false.
 	deck := aDeck.
+	board finishesAfter: laps.
 	cardHands := spaceships collect: [ :spaceShip |
 		             CardsHand of: spaceShip using: aDeck ].
 	cardPlayResolver := CardPlayResolver with: self.

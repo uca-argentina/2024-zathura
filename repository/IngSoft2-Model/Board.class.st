@@ -10,12 +10,6 @@ Class {
 }
 
 { #category : #asserting }
-Board class >> assertValidNumberOfLaps: laps [
-
-	laps <= 0 ifTrue: [ Error signal: 'Game must have one or more laps!' ]
-]
-
-{ #category : #asserting }
 Board class >> assertValidQuantityOf: parsecs [
 
 	parsecs < 0 ifTrue: [
@@ -29,14 +23,12 @@ Board class >> isValid: tiles [
 ]
 
 { #category : #'instance creation' }
-Board class >> of: tiles finishingAfter: laps withUnitsOfMeasurement: units [
+Board class >> of: tiles withUnitsOfMeasurement: units [
 
 	self isValid: tiles.
-	self assertValidNumberOfLaps: laps.
 	self assertValidQuantityOf: units valueAsParsecs.
 	^ self new
 		  initializeOf: tiles
-		  finishingAfter: laps
 		  withDistance: units
 ]
 
@@ -74,11 +66,16 @@ Board >> calculatePositionToMoveWhen: aSpaceship moves: anAmountOfTilesToMove [
 	^ newPosition - aSpaceship position
 ]
 
+{ #category : #'as yet unclassified' }
+Board >> finishesAfter: amountOfLaps [
+
+	laps := amountOfLaps
+]
+
 { #category : #initialization }
-Board >> initializeOf: aTileCollection finishingAfter: numberOfLaps withDistance: aUnitOfDistance [
+Board >> initializeOf: aTileCollection withDistance: aUnitOfDistance [
 
 	tiles := aTileCollection.
-	laps := numberOfLaps.
 	parsecs := aUnitOfDistance valueAsParsecs
 ]
 

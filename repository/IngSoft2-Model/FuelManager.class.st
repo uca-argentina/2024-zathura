@@ -18,7 +18,6 @@ FuelManager class >> withMaxFuel: anAmountOfFuel [
 FuelManager >> currentFuel [
 
 	^ currentFuel
-
 ]
 
 { #category : #playing }
