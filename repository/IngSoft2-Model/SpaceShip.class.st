@@ -22,10 +22,10 @@ SpaceShip class >> assertValidNameFor: aName [
 ]
 
 { #category : #'instance creation' }
-SpaceShip class >> named: aName [
+SpaceShip class >> named: aName withMaxFuel: anAmount [
 
 	self assertValidNameFor: aName.
-	^ self new initialize: aName
+	^ self new initialize: aName withMaxFuel:anAmount.
 ]
 
 { #category : #playing }
@@ -59,13 +59,15 @@ SpaceShip >> fuelPenalty [
 ]
 
 { #category : #initialization }
-SpaceShip >> initialize: aName [
+SpaceShip >> initialize: aName withMaxFuel: anAmount [
 
 	name := aName.
 	position := 1.
 	lap := 1.
 	turnsToLose := 0.
 	needsToThrow := 0.
+	maxFuel := anAmount .
+	fuel:=anAmount .
 	ally:=nil.
 ]
 

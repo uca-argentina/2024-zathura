@@ -23,15 +23,15 @@ Game class >> assertValidNumberOf: someSpaceShips [
 ]
 
 { #category : #asserting }
-Game class >> createSpaceshipsUsing: spaceshipNames [
+Game class >> createSpaceshipsUsing: spaceshipNames withMaxFuel:anAmount [
 
-	^spaceshipNames collect: [ :spaceship | SpaceShip named: spaceship]
+	^spaceshipNames collect: [ :spaceship | SpaceShip named: spaceship withMaxFuel:anAmount]
 ]
 
 { #category : #asserting }
 Game class >> playedBy: someSpaceShips on: aBoard rolling: dice usingCardsFrom:aDeck [
 	|currentSpaceships|
-	currentSpaceships := self createSpaceshipsUsing: someSpaceShips.
+	currentSpaceships := self createSpaceshipsUsing: someSpaceShips withMaxFuel: dice maxRoll .
 	self assertValidNumberOf: currentSpaceships.
 	^ self new
 		  initializePlayedBy: currentSpaceships

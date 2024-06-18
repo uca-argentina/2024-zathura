@@ -61,13 +61,12 @@ BoardTest >> testBoardCannotMoveSpaceshipOutOfIndex [
 	| firstTile secondTile tiles board aSpaceShip |
 	firstTile := Null create.
 	secondTile := Null create.
-	aSpaceShip := SpaceShip named: 'Walter'.
+	aSpaceShip := SpaceShip named: 'Walter' withMaxFuel:12.
 	tiles := {
 		         firstTile.
 		         secondTile }.
 
 	board := Board of: tiles finishingAfter: 2 withParsecs: 10.
-	aSpaceShip fuel: 12.
 	board move: aSpaceShip by: 7.
 	self assert: aSpaceShip lap equals: 3.
 	self assert: aSpaceShip position equals: 1.
@@ -80,14 +79,13 @@ BoardTest >> testBoardTracksSpaceshipPositions [
 	| firstTile secondTile tiles board spaceShip1 spaceShip2 |
 	firstTile := Null create.
 	secondTile := Null create.
-	spaceShip1 := SpaceShip named: 'Danny'.
-	spaceShip2 := SpaceShip named: 'Walter'.
+	spaceShip1 := SpaceShip named: 'Danny' withMaxFuel:12.
+	spaceShip2 := SpaceShip named: 'Walter' withMaxFuel:12.
 	tiles := {
 		         firstTile.
 		         secondTile }.
 	board := Board of: tiles finishingAfter: 2 withParsecs: 10.
-	spaceShip1 fuel: 12.
-	spaceShip2 fuel: 12.
+
 	board move: spaceShip1 by: 1.
 	self assert: (spaceShip1  lap )equals: 1.
 	self assert: (board positionOf: spaceShip1) equals: 2.
