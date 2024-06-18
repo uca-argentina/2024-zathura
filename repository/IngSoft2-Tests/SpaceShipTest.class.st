@@ -27,7 +27,7 @@ SpaceShipTest >> testASpaceshipCanBeCreatedWithFuel [
 
 	| aSpaceShip |
 	aSpaceShip := SpaceShip named: 'Danny' withMaxFuel:10.
-	self assert: aSpaceShip currentFuel equals: 10
+	self assert: aSpaceShip fuelTank currentFuel equals: 10
 ]
 
 { #category : #running }
