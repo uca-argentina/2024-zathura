@@ -10,34 +10,26 @@ Class {
 }
 
 { #category : #asserting }
-Board class >> assertValidNumberOfLaps: laps [
-
-	laps <= 0 ifTrue: [ Error signal: 'Game must have one or more laps!' ]
-]
-
-{ #category : #asserting }
 Board class >> assertValidQuantityOf: parsecs [
 
 	parsecs < 0 ifTrue: [
 		Error signal: 'Parsecs cannot be a negative measure' ]
 ]
 
-{ #category : #'instance creation' }
+{ #category : #asserting }
 Board class >> isValid: tiles [
 
 	tiles size < 2 ifTrue: [ Error signal: 'Tiles should be 2 or more' ]
 ]
 
 { #category : #'instance creation' }
-Board class >> of: tiles finishingAfter: laps withParsecs: parsecs [
+Board class >> of: tiles withUnitsOfMeasurement: units [
 
 	self isValid: tiles.
-	self assertValidNumberOfLaps: laps.
-	self assertValidQuantityOf: parsecs.
+	self assertValidQuantityOf: units valueAsParsecs.
 	^ self new
 		  initializeOf: tiles
-		  finishingAfter: laps
-		  withDistance: parsecs
+		  withDistance: units
 ]
 
 { #category : #initialization }
@@ -74,12 +66,17 @@ Board >> calculatePositionToMoveWhen: aSpaceship moves: anAmountOfTilesToMove [
 	^ newPosition - aSpaceship position
 ]
 
+{ #category : #playing }
+Board >> finishesAfter: amountOfLaps [
+
+	laps := amountOfLaps
+]
+
 { #category : #initialization }
-Board >> initializeOf: aTileCollection finishingAfter: numberOfLaps withDistance: distanceInParsecs [
+Board >> initializeOf: aTileCollection withDistance: aUnitOfDistance [
 
 	tiles := aTileCollection.
-	laps := numberOfLaps.
-	parsecs := distanceInParsecs
+	parsecs := aUnitOfDistance valueAsParsecs
 ]
 
 { #category : #accessing }
@@ -108,8 +105,23 @@ Board >> move: aSpaceship by: anAmountOfTilesToMove [
 ]
 
 { #category : #initialization }
-Board >> parsecs [
-^parsecs 
+Board >> move: aSpaceship jumping: aQuantityOfParsec [
+
+	| tilesToMove |
+	tilesToMove := (aQuantityOfParsec // (parsecs / self amountOfTiles))
+		               truncated.
+
+	self move: aSpaceship by: tilesToMove
+]
+
+{ #category : #initialization }
+Board >> moveAllSpaceshipsToFirstPosition: allSpaceShips [
+
+	allSpaceShips do: [ :spaceship |
+		spaceship
+			movePositionBy: 1 - spaceship position
+			lapBy: 0
+			neededFuel: 0 ]
 ]
 
 { #category : #accessing }

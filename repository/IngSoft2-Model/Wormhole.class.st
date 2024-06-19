@@ -29,7 +29,7 @@ Wormhole >> initialize: aNumberOfTilesToMove [
 ]
 
 { #category : #playing }
-Wormhole >> triggeredBy: aSpaceship on: aGame [
+Wormhole >> triggeredBy: aSpaceship on: anEffectManager [
 
-	aGame move: aSpaceship by: tilesToMove
+	anEffectManager move: aSpaceship by: tilesToMove
 ]

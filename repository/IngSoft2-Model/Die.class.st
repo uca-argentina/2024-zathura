@@ -7,7 +7,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'instance creation' }
+{ #category : #asserting }
 Die class >> isValid: anAmountOfFaces [
 
 	anAmountOfFaces < 3 ifTrue: [

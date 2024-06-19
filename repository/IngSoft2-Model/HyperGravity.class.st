@@ -7,7 +7,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #testing }
+{ #category : #'instance creation' }
 HyperGravity class >> needsToThrow: aRollingResult [
 
 	^ self new initializedWith: aRollingResult
@@ -20,7 +20,7 @@ HyperGravity >> initializedWith: aNumber [
 ]
 
 { #category : #playing }
-HyperGravity >> triggeredBy: aSpaceship on: aGame [
+HyperGravity >> triggeredBy: aSpaceship on: anEffectManager [
 
 	aSpaceship changeRollingResultNeededToMove: needsToThrow
 ]
