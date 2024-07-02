@@ -53,6 +53,13 @@ Game class >> playedBy: someSpaceShips on: aBoard finishingAfter: laps rolling: 
 ]
 
 { #category : #accessing }
+Game >> addNewCard: aCard to:aSpaceship [
+	|spaceship|
+	spaceship :=self spaceshipCalled: aSpaceship.
+	(self cardsHandOf: spaceship)  addToHand: aCard.
+]
+
+{ #category : #accessing }
 Game >> anySpaceShipAtLastTileAndLap [
 
 	^ spaceships anySatisfy: [ :aSpaceship |
@@ -109,12 +116,6 @@ Game >> cardsHands [
 	^ cardHands
 ]
 
-{ #category : #accessing }
-Game >> effectManager [
-
-	^ effectManager
-]
-
 { #category : #asserting }
 Game >> endGameIfPossible [
 
@@ -126,7 +127,7 @@ Game >> giveCardFromDeckTo: aSpaceship [
 
 	| card |
 	card := deck pick.
-	(self cardsHandOf: aSpaceship) addToHand: card
+	self addNewCard:  card to: aSpaceship name.
 ]
 
 { #category : #testing }
@@ -174,6 +175,11 @@ Game >> removeFromHand: aCard to: aSpaceShip [
 
 	(self cardsHandOf: (self spaceshipCalled: aSpaceShip))
 		removeFromHand: aCard
+]
+
+{ #category : #accessing }
+Game >> repeatLastEffectAppliedOn: aSpaceshipName [
+	effectManager repeatLastEffectAppliedOn: (self spaceshipCalled: aSpaceshipName).
 ]
 
 { #category : #playing }

@@ -89,7 +89,7 @@ SpaceShip >> initialize: aName withMaxFuel: anAmount [
 	lap := 1.
 	turnsToLose := 0.
 	needsToThrow := 0.
-	fuelTank := FuelManager withMaxFuel: anAmount.
+	fuelTank := FuelTank withMaxFuel: anAmount.
 	ally := nil
 ]
 
