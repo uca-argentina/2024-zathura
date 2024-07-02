@@ -104,6 +104,16 @@ Game >> assignRewardForMaxRollFor: aSpaceship [
 ]
 
 { #category : #accessing }
+Game >> cancelTheEffectOf: aPermanentCard [
+	|filteredCardsHands|
+	filteredCardsHands := self cardsHands select: [ :cardsHand |
+		                      cardsHand affectsSpaceShip: aPermanentCard ].
+	self validateIfIsPossibleToCancelACard: filteredCardsHands.
+	filteredCardsHands do: [ :cardsHand |
+		cardsHand removeEffectOf: aPermanentCard ].
+]
+
+{ #category : #accessing }
 Game >> cardsHandLengthOf: aSpaceship [
 
 	| spaceshipCardHandler |
@@ -199,6 +209,16 @@ Game >> rollModifierFor: aSpaceShip [
 	^ (self cardsHandOf: aSpaceShip) totalEffectsOnSpaceShip
 ]
 
+{ #category : #'target resize' }
+Game >> setAnAllianceBewtween: aSpaceShip and: anotherSpaceShip [
+	|spaceship1 spaceship2|
+	spaceship1 := self spaceshipCalled: aSpaceShip.
+	spaceship2 := self spaceshipCalled: anotherSpaceShip.
+
+	spaceship1 isAlliedWith: spaceship2.
+	spaceship2 isAlliedWith: spaceship1.
+]
+
 { #category : #asserting }
 Game >> skipTurnFor: aSpaceship [
 
@@ -237,6 +257,13 @@ Game >> validate: aSpaceship has: aCard [
 	(cardsHand hasInHand: aCard) ifFalse: [
 		Error signal:
 			'Spaceship cannot throw this card because he does not have it' ]
+]
+
+{ #category : #asserting }
+Game >> validateIfIsPossibleToCancelACard: cardsHandCollection [
+
+	cardsHandCollection isEmpty ifTrue: [
+		Error signal: 'There is no CardsHand with the card to be removed' ]
 ]
 
 { #category : #asserting }
