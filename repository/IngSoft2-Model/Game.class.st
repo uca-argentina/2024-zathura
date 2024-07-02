@@ -219,6 +219,16 @@ Game >> spaceships [
 ]
 
 { #category : #asserting }
+Game >> validate: aSpaceship has: aCard [
+
+	| cardsHand |
+	cardsHand := self cardsHandOf: (self spaceshipCalled: aSpaceship) .
+	(cardsHand hasInHand: aCard) ifFalse: [
+		Error signal:
+			'Spaceship cannot throw this card because he does not have it' ]
+]
+
+{ #category : #asserting }
 Game >> winner [
 
 	| winner |

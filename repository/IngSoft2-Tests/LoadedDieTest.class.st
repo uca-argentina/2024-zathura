@@ -18,7 +18,7 @@ LoadedDieTest >> should: aErrorBlock raise: anErrorClass withMessage: anErrorMes
 LoadedDieTest >> testALoadedDieCanBeCreatedWithAnAmountOfFaces [
 
 	| aDie |
-	aDie := LoadedDie of: 1.
+	aDie := LoadedDie of: {1}.
 
 	self assert: aDie roll equals: 1.
 	self assert: aDie roll equals: 1.
@@ -42,7 +42,7 @@ LoadedDieTest >> testALoadedDieCanThrowASequenceOfDifferentRolls [
 LoadedDieTest >> testLoadedDieCannotYieldNumbersBelow1 [
 
 	self
-		should: [ LoadedDie of: -1 ]
+		should: [ LoadedDie of: {-1} ]
 		raise: Error
 		withMessage: 'No roll can be lower than 1'
 ]

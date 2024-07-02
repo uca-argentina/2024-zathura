@@ -35,8 +35,7 @@ CardPlayResolver >> resolveACancellationCardPlay [
 	playedBy := cardPlay playedBy.
 	target := cardPlay target.
 	card := cardPlay card.
-
-	self validate: (game spaceshipCalled: playedBy) has: card.
+	game validate: playedBy  has: card.
 
 	filteredCardsHands := game cardsHands select: [ :cardsHand |
 		                      cardsHand affectsSpaceShip: target ].
@@ -55,7 +54,7 @@ CardPlayResolver >> resolveARedoCardPlay [
 	target := cardPlay target.
 	card := cardPlay card.
 
-	self validate: (game spaceshipCalled: playedBy) has: card.
+	game validate: playedBy  has: card.
 
 	newCardPlay := CardPlay
 		               with: lastCardPlayed
@@ -74,7 +73,7 @@ CardPlayResolver >> resolveARepeatCardPlay [
 	target:=cardPlay target.
 	card := cardPlay card.
 
-	self validate: (game spaceshipCalled: playedBy) has: card.
+	game validate: playedBy  has: card.
 	
 	game repeatLastEffectAppliedOn:target.
 
@@ -89,7 +88,7 @@ CardPlayResolver >> resolveAnAccelerationCardPlay [
 	playedBy := cardPlay playedBy.
 	card := cardPlay card.
 
-	self validate: (game spaceshipCalled: playedBy) has: card.
+	game validate: playedBy  has: card.
 
 	game assertIsTurnOf: (game spaceshipCalled: playedBy).
 
@@ -107,7 +106,7 @@ CardPlayResolver >> resolveAnAllyCardPlay [
 	target := cardPlay target.
 	card := cardPlay card.
 
-	self validate: (game spaceshipCalled: playedBy) has: card.
+	game validate: playedBy  has: card.
 
 	game assertIsTurnOf: (game spaceshipCalled: playedBy).
 
@@ -128,7 +127,7 @@ CardPlayResolver >> resolveAnOverloadCardPlay [
 	target := cardPlay target.
 	card := cardPlay card.
 
-	self validate: (game spaceshipCalled: playedBy) has: card.
+	game validate: playedBy  has: card.
 
 	game assertIsTurnOf: (game spaceshipCalled: playedBy).
 
@@ -136,16 +135,6 @@ CardPlayResolver >> resolveAnOverloadCardPlay [
 		cardPlay card.
 	lastCardPlayed := card.
 	game removeFromHand: card to: playedBy
-]
-
-{ #category : #asserting }
-CardPlayResolver >> validate: aSpaceship has: aCard [
-
-	| cardsHand |
-	cardsHand := game cardsHandOf: aSpaceship.
-	(cardsHand hasInHand: aCard) ifFalse: [
-		Error signal:
-			'Spaceship cannot throw this card because he does not have it' ]
 ]
 
 { #category : #asserting }
