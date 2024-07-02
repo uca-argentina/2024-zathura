@@ -176,7 +176,7 @@ ThirdVersionTest >> testTV04WhenSpaceshipRollsTheMaximumRollItsMaxFuelGoesUpOrIt
 ]
 
 { #category : #tests }
-ThirdVersionTest >> testTV05HyperGravityMeasuredInLightYearsItMovesForward [
+ThirdVersionTest >> testTV05HyperJumpMeasuredInLightYearsItMovesForward [
 
 	| aGame aBoard aDie1 someSpaceships aDeck lightYears |
 	someSpaceships := { 'Danny'. 'Walter' }.
@@ -212,7 +212,7 @@ ThirdVersionTest >> testTV05HyperGravityMeasuredInLightYearsItMovesForward [
 ]
 
 { #category : #tests }
-ThirdVersionTest >> testTV06HyperGravityCanBeUsedInParsecsAndLightYears [
+ThirdVersionTest >> testTV06HyperJumpCanBeUsedInParsecsAndLightYears [
 
 	| aGame aBoard aDie1 someSpaceships aDeck unitsToMove |
 	someSpaceships := { 'Danny'. 'Walter' }.
@@ -996,6 +996,406 @@ ThirdVersionTest >> testTV19WhenSpaceshipUsesReDoCardAfterACancelationCardItCopi
 
 	
 
+
+
+]
+
+{ #category : #tests }
+ThirdVersionTest >> testTV20WhenSpaceshipUsesRepeatCardAfterANullEffecItDoesNothong [
+
+	| aGame aBoard aDie1 someSpaceships aDeck cardPlay1 aRepeatCard |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 6. 5. 3. 3. 20 }.
+
+	aRepeatCard := RepeatCard new.
+
+	aDeck := LoadedDeck of: {
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard }.
+
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+
+
+	aGame playNextTurn.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 7.
+	aGame playNextTurn.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 7.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 6.	
+
+	cardPlay1 := aRepeatCard playedBy: 'Walter' targetting: 'Danny'.
+	aGame apply: cardPlay1.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 7.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 6.
+
+
+
+]
+
+{ #category : #tests }
+ThirdVersionTest >> testTV21WhenSpaceshipUsesRepeatCardAfterAnatomicBombItTriggersIt [
+
+	| aGame aBoard aDie1 someSpaceships aDeck cardPlay1 aRepeatCard |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          AtomicBomb new.
+				          Null create }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 6. 5. 3. 3. 20 }.
+
+	aRepeatCard := RepeatCard new.
+
+	aDeck := LoadedDeck of: {
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard }.
+
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+
+
+	aGame playNextTurn.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 7.
+	aGame playNextTurn.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.	
+	
+	(aGame spaceshipCalled: 'Walter') movePositionBy: 4 lapBy:0  neededFuel:0  .
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 5.
+	cardPlay1 := aRepeatCard playedBy: 'Walter' targetting: 'Danny'.
+	aGame apply: cardPlay1.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+
+
+
+]
+
+{ #category : #tests }
+ThirdVersionTest >> testTV22WhenSpaceshipUsesRepeatCardAfterABlackHoleItTriggersIt [
+
+	| aGame aBoard aDie1 someSpaceships aDeck cardPlay1 aRepeatCard |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          BlackHole new.
+				          Null create }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 6. 5. 3. 3. 20 }.
+
+	aRepeatCard := RepeatCard new.
+
+	aDeck := LoadedDeck of: {
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard }.
+
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+
+
+	aGame playNextTurn.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 7.
+	aGame playNextTurn.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 7.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.	
+
+	cardPlay1 := aRepeatCard playedBy: 'Walter' targetting: 'Danny'.
+	aGame apply: cardPlay1.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.
+
+
+
+]
+
+{ #category : #tests }
+ThirdVersionTest >> testTV23WhenSpaceshipUsesRepeatCardAfterAHyperJumpItTriggersIt [
+
+	| aGame aBoard aDie1 someSpaceships aDeck cardPlay1 aRepeatCard unitsToMove |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	unitsToMove := OrderedCollection
+		               with: (Parsecs with: 3)
+		               with: (Parsecs with: 2).
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null create.
+				          (HyperJump of: unitsToMove).
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 5. 3. 3. 3. 20 }.
+
+	aRepeatCard := RepeatCard new.
+
+	aDeck := LoadedDeck of: {
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard }.
+
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+
+
+	aGame playNextTurn.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
+	aGame playNextTurn.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 7.
+
+	cardPlay1 := aRepeatCard playedBy: 'Walter' targetting: 'Walter'.
+	aGame apply: cardPlay1.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 9.
+	
+
+
+]
+
+{ #category : #tests }
+ThirdVersionTest >> testTV24WhenSpaceshipUsesRepeatCardAfterAHyperGravityItTriggersIt [
+
+	| aGame aBoard aDie1 someSpaceships aDeck cardPlay1 aRepeatCard |
+	someSpaceships := { 'Danny'. 'Walter' }.
+
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null create.
+				          (HyperGravity needsToThrow: 4).
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 3. 5. 6. 3. 4. 4. 20 }.
+
+	aRepeatCard := RepeatCard new.
+
+	aDeck := LoadedDeck of: {
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard }.
+
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+
+
+	aGame playNextTurn.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	cardPlay1 := aRepeatCard playedBy: 'Walter' targetting: 'Walter'.
+	aGame apply: cardPlay1.
+	aGame playNextTurn.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	aGame playNextTurn.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	aGame playNextTurn.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	aGame playNextTurn.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 8.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	aGame playNextTurn.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 8.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 5.
+
+
+
+]
+
+{ #category : #tests }
+ThirdVersionTest >> testTV25WhenSpaceshipUsesRepeatCardAfterACardGiverItTriggersIt [
+
+	| aGame aBoard aDie1 someSpaceships aDeck cardPlay1 aRepeatCard  |
+	someSpaceships := { 'Danny'. 'Walter' }.
+
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null create.
+				          CardGiver new.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 3. 3. 3. 3. 20 }.
+
+	aRepeatCard := RepeatCard new.
+
+	aDeck := LoadedDeck of: {
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard }.
+
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+
+
+	aGame playNextTurn.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
+	self assert: (aGame cardsHandLengthOf:'Danny')   equals: 3.
+	self assert: (aGame cardsHandLengthOf:'Walter')   equals: 2.
+
+	cardPlay1 := aRepeatCard playedBy: 'Walter' targetting: 'Walter'.
+	aGame apply: cardPlay1.
+	self assert: (aGame cardsHandLengthOf:'Danny')   equals: 3.
+	self assert: (aGame cardsHandLengthOf:'Walter')   equals: 2.
+	
+
+
+]
+
+{ #category : #tests }
+ThirdVersionTest >> testTV26WhenSpaceshipUsesRepeatCardAfterWormHoleItTriggersIt [
+
+	| aGame aBoard aDie1 someSpaceships aDeck cardPlay1 aRepeatCard wormholeTile3 wormholeTile5|
+	someSpaceships := { 'Danny'. 'Walter' }.
+	wormholeTile3 := Wormhole betweenTiles: { 3. 5 }.
+	wormholeTile5 := Wormhole betweenTiles: { 5. 3 }.
+
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          wormholeTile3.
+				          Null  create.
+				          wormholeTile5.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 2. 3. 3. 3. 20 }.
+
+	aRepeatCard := RepeatCard new.
+
+	aDeck := LoadedDeck of: {
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard.
+			         aRepeatCard }.
+
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+
+
+	aGame playNextTurn.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 5.
+
+
+	cardPlay1 := aRepeatCard playedBy: 'Walter' targetting: 'Walter'.
+	aGame apply: cardPlay1.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 5.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
+	
 
 
 ]
