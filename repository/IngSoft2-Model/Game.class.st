@@ -72,10 +72,21 @@ Game >> apply: aCardPlay [
 	^ cardPlayResolver resolve: aCardPlay
 ]
 
+{ #category : #testing }
+Game >> applyACardEffect: aCard to:aSpaceship [
+	(self cardsHandOf: (self spaceshipCalled: aSpaceship)) addEffectOf: aCard.
+]
+
+{ #category : #testing }
+Game >> applyToAllSpaceShips: aCardEffect [
+	cardHands do: [ :cardHand |
+		cardHand addEffectOf: aCardEffect ]
+]
+
 { #category : #asserting }
 Game >> assertIsTurnOf: spaceship [
 
-	turnHandler nextTurn = spaceship ifFalse: [
+	turnHandler nextTurn = (self spaceshipCalled: spaceship) ifFalse: [
 		Error signal: 'It is not your turn' ]
 ]
 

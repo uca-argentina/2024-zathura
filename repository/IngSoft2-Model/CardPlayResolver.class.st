@@ -88,12 +88,9 @@ CardPlayResolver >> resolveAnAccelerationCardPlay [
 	playedBy := cardPlay playedBy.
 	card := cardPlay card.
 
-	game validate: playedBy  has: card.
-
-	game assertIsTurnOf: (game spaceshipCalled: playedBy).
-
-	game spaceships do: [ :aSpaceship |
-		(game cardsHandOf: aSpaceship) addEffectOf: card ].
+	game validate: playedBy has: card.
+	game assertIsTurnOf: playedBy.
+	game applyToAllSpaceShips: card.
 	lastCardPlayed := card.
 	game removeFromHand: card to: playedBy
 ]
@@ -108,7 +105,7 @@ CardPlayResolver >> resolveAnAllyCardPlay [
 
 	game validate: playedBy  has: card.
 
-	game assertIsTurnOf: (game spaceshipCalled: playedBy).
+	game assertIsTurnOf: playedBy .
 
 	spaceship1 := game spaceshipCalled: playedBy.
 	spaceship2 := game spaceshipCalled: target.
@@ -129,10 +126,8 @@ CardPlayResolver >> resolveAnOverloadCardPlay [
 
 	game validate: playedBy  has: card.
 
-	game assertIsTurnOf: (game spaceshipCalled: playedBy).
-
-	(game cardsHandOf: (game spaceshipCalled: target)) addEffectOf:
-		cardPlay card.
+	game assertIsTurnOf: playedBy .
+	game applyACardEffect: card to: target .
 	lastCardPlayed := card.
 	game removeFromHand: card to: playedBy
 ]
