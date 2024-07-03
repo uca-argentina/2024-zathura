@@ -66,12 +66,6 @@ Game >> anySpaceShipAtLastTileAndLap [
 		  board laps + 1 = aSpaceship lap and: [ 1 = aSpaceship position ] ]
 ]
 
-{ #category : #'target resize' }
-Game >> apply: aCardPlay [
-
-	^ cardPlayResolver resolve: aCardPlay
-]
-
 { #category : #testing }
 Game >> applyACardEffect: aCard to:aSpaceship [
 	(self cardsHandOf: (self spaceshipCalled: aSpaceship)) addEffectOf: aCard.
@@ -106,7 +100,7 @@ Game >> assignRewardForMaxRollFor: aSpaceship [
 { #category : #accessing }
 Game >> cancelTheEffectOf: aPermanentCard [
 	|filteredCardsHands|
-	filteredCardsHands := self cardsHands select: [ :cardsHand |
+	filteredCardsHands := cardHands select: [ :cardsHand |
 		                      cardsHand affectsSpaceShip: aPermanentCard ].
 	self validateIfIsPossibleToCancelACard: filteredCardsHands.
 	filteredCardsHands do: [ :cardsHand |
@@ -129,12 +123,6 @@ Game >> cardsHandOf: aSpaceship [
 	spaceshipCardHandler := cardHands detect: [ :handler |
 		                        handler spaceship = aSpaceship ].
 	^ spaceshipCardHandler
-]
-
-{ #category : #accessing }
-Game >> cardsHands [
-
-	^ cardHands
 ]
 
 { #category : #asserting }
@@ -174,6 +162,13 @@ Game >> initializePlayedBy: someSpaceShips on: aBoard finishingAfter: laps rolli
 		                 usedIn: self
 		                 with: aBoard
 		                 affecting: someSpaceShips
+]
+
+{ #category : #'target resize' }
+Game >> play: aCard by:aPlayer targetting: anotherPlayer [
+	self validate: aPlayer  has: aCard .
+	cardPlayResolver resolve: aCard by: aPlayer  targetting: anotherPlayer.
+	
 ]
 
 { #category : #playing }
