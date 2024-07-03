@@ -2,7 +2,6 @@ Class {
 	#name : #CardPlayResolver,
 	#superclass : #Object,
 	#instVars : [
-		'cardPlay',
 		'game',
 		'lastCardPlayed',
 		'cardPlayer',
