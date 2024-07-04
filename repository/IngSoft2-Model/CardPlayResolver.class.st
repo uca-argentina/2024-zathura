@@ -5,7 +5,7 @@ Class {
 		'game',
 		'lastCardPlayed',
 		'cardPlayer',
-		'targetPlayer'
+		'cardTarget'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -26,14 +26,14 @@ CardPlayResolver >> initializeWith: aGame [
 CardPlayResolver >> resolve: aCardPlayed by: aPlayer targetting: anotherPalyer [
 
 	cardPlayer := aPlayer.
-	targetPlayer := anotherPalyer.
+	cardTarget := anotherPalyer.
 	aCardPlayed uses: self
 ]
 
 { #category : #resolving }
 CardPlayResolver >> resolveACancellationCardPlay: aCard [
 
-	game cancelTheEffectOf: targetPlayer.
+	game cancelTheEffectOf: cardTarget.
 	lastCardPlayed := aCard.
 	game removeFromHand: aCard to: cardPlayer
 ]
@@ -42,14 +42,14 @@ CardPlayResolver >> resolveACancellationCardPlay: aCard [
 CardPlayResolver >> resolveARedoCardPlay: aCard [
 
 	game addNewCard: lastCardPlayed to: cardPlayer.
-	game play: lastCardPlayed by: cardPlayer targetting: targetPlayer.
+	game play: lastCardPlayed by: cardPlayer targetting: cardTarget.
 	game removeFromHand: aCard to: cardPlayer
 ]
 
 { #category : #resolving }
 CardPlayResolver >> resolveARepeatCardPlay: aCard [
 
-	game repeatLastEffectAppliedOn: targetPlayer.
+	game repeatLastEffectAppliedOn: cardTarget.
 	lastCardPlayed := aCard.
 	game removeFromHand: aCard to: cardPlayer
 ]
@@ -68,7 +68,7 @@ CardPlayResolver >> resolveAnAccelerationCardPlay:aCard [
 CardPlayResolver >> resolveAnAllyCardPlay: aCard [
 
 	game assertIsTurnOf: cardPlayer.
-	game setAnAllianceBewtween: cardPlayer and: targetPlayer.
+	game setAnAllianceBewtween: cardPlayer and: cardTarget.
 	lastCardPlayed := aCard.
 	game removeFromHand: aCard to: cardPlayer
 ]
@@ -77,7 +77,7 @@ CardPlayResolver >> resolveAnAllyCardPlay: aCard [
 CardPlayResolver >> resolveAnOverloadCardPlay: aCard [
 
 	game assertIsTurnOf: cardPlayer.
-	game applyACardEffect: aCard to: targetPlayer.
+	game applyACardEffect: aCard to: cardTarget.
 	lastCardPlayed := aCard.
 	game removeFromHand: aCard to: cardPlayer
 ]
