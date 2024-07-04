@@ -2,9 +2,10 @@ Class {
 	#name : #CardPlayResolver,
 	#superclass : #Object,
 	#instVars : [
-		'cardPlay',
 		'game',
-		'lastCardPlayed'
+		'lastCardPlayed',
+		'cardPlayer',
+		'cardTarget'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -22,105 +23,61 @@ CardPlayResolver >> initializeWith: aGame [
 ]
 
 { #category : #resolving }
-CardPlayResolver >> resolve: aCardPlay [
+CardPlayResolver >> resolve: aCardPlayed by: aPlayer targetting: anotherPalyer [
 
-	cardPlay := aCardPlay.
-	^ aCardPlay card uses: self
+	cardPlayer := aPlayer.
+	cardTarget := anotherPalyer.
+	aCardPlayed uses: self
 ]
 
 { #category : #resolving }
-CardPlayResolver >> resolveACancellationCardPlay [
+CardPlayResolver >> resolveACancellationCardPlay: aCard [
 
-	| playedBy target card |
-	playedBy := cardPlay playedBy.
-	target := cardPlay target.
-	card := cardPlay card.
-	game validate: playedBy  has: card.
-
-	game cancelTheEffectOf: target.
-	lastCardPlayed := card.
-	game removeFromHand: card to: playedBy
+	game cancelTheEffectOf: cardTarget.
+	lastCardPlayed := aCard.
+	game removeFromHand: aCard to: cardPlayer
 ]
 
 { #category : #resolving }
-CardPlayResolver >> resolveARedoCardPlay [
+CardPlayResolver >> resolveARedoCardPlay: aCard [
 
-	| newCardPlay playedBy target card |
-	playedBy := cardPlay playedBy.
-	target := cardPlay target.
-	card := cardPlay card.
-
-	game validate: playedBy  has: card.
-
-	newCardPlay := CardPlay
-		               with: lastCardPlayed
-		               appliedTo: target
-		               by: playedBy.
-	game addNewCard: lastCardPlayed to:playedBy.
-	game apply: newCardPlay.
-	game removeFromHand: card to: playedBy
+	game addNewCard: lastCardPlayed to: cardPlayer.
+	game play: lastCardPlayed by: cardPlayer targetting: cardTarget.
+	game removeFromHand: aCard to: cardPlayer
 ]
 
 { #category : #resolving }
-CardPlayResolver >> resolveARepeatCardPlay [
+CardPlayResolver >> resolveARepeatCardPlay: aCard [
 
-	| playedBy card target|
-	playedBy := cardPlay playedBy.
-	target:=cardPlay target.
-	card := cardPlay card.
+	game repeatLastEffectAppliedOn: cardTarget.
+	lastCardPlayed := aCard.
+	game removeFromHand: aCard to: cardPlayer
+]
 
-	game validate: playedBy  has: card.
+{ #category : #resolving }
+CardPlayResolver >> resolveAnAccelerationCardPlay:aCard [
 	
-	game repeatLastEffectAppliedOn:target.
-
-	lastCardPlayed := card.
-	game removeFromHand: card to: playedBy
-]
-
-{ #category : #resolving }
-CardPlayResolver >> resolveAnAccelerationCardPlay [
-
-	| playedBy card |
-	playedBy := cardPlay playedBy.
-	card := cardPlay card.
-
-	game validate: playedBy has: card.
-	game assertIsTurnOf: playedBy.
-	game applyToAllSpaceShips: card.
-	lastCardPlayed := card.
-	game removeFromHand: card to: playedBy
-]
-
-{ #category : #resolving }
-CardPlayResolver >> resolveAnAllyCardPlay [
-
-	| playedBy target card   |
-	playedBy := cardPlay playedBy.
-	target := cardPlay target.
-	card := cardPlay card.
-
-	game validate: playedBy  has: card.
-
-	game assertIsTurnOf: playedBy .
 	
-	game setAnAllianceBewtween: playedBy  and: target . 
-
-	lastCardPlayed := card.
-	game removeFromHand: card to: playedBy
+	game assertIsTurnOf: cardPlayer.
+	game applyToAllSpaceShips: aCard.
+	lastCardPlayed := aCard.
+	game removeFromHand: aCard to: cardPlayer.
 ]
 
 { #category : #resolving }
-CardPlayResolver >> resolveAnOverloadCardPlay [
+CardPlayResolver >> resolveAnAllyCardPlay: aCard [
 
-	| playedBy target card |
-	playedBy := cardPlay playedBy.
-	target := cardPlay target.
-	card := cardPlay card.
+	game assertIsTurnOf: cardPlayer.
+	game setAnAllianceBewtween: cardPlayer and: cardTarget.
+	lastCardPlayed := aCard.
+	game removeFromHand: aCard to: cardPlayer
+]
 
-	game validate: playedBy  has: card.
+{ #category : #resolving }
+CardPlayResolver >> resolveAnOverloadCardPlay: aCard [
 
-	game assertIsTurnOf: playedBy .
-	game applyACardEffect: card to: target .
-	lastCardPlayed := card.
-	game removeFromHand: card to: playedBy
+	game assertIsTurnOf: cardPlayer.
+	game applyACardEffect: aCard to: cardTarget.
+	lastCardPlayed := aCard.
+	game removeFromHand: aCard to: cardPlayer
 ]
