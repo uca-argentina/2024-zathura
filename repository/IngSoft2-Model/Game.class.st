@@ -53,10 +53,8 @@ Game class >> playedBy: someSpaceShips on: aBoard finishingAfter: laps rolling: 
 ]
 
 { #category : #accessing }
-Game >> addNewCard: aCard to:aSpaceship [
-	|spaceship|
-	spaceship :=self spaceshipCalled: aSpaceship.
-	(self cardsHandOf: spaceship)  addToHand: aCard.
+Game >> addNewCard: aCard to:aPlayer [
+	(self cardsHandOf: aPlayer)  addToHand: aCard.
 ]
 
 { #category : #accessing }
@@ -68,7 +66,7 @@ Game >> anySpaceShipAtLastTileAndLap [
 
 { #category : #testing }
 Game >> applyACardEffect: aCard to:aSpaceship [
-	(self cardsHandOf: (self spaceshipCalled: aSpaceship)) addEffectOf: aCard.
+	(self cardsHandOf: aSpaceship) addEffectOf: aCard.
 ]
 
 { #category : #testing }
@@ -108,20 +106,11 @@ Game >> cancelTheEffectOf: aPermanentCard [
 ]
 
 { #category : #accessing }
-Game >> cardsHandLengthOf: aSpaceship [
-
-	| spaceshipCardHandler |
-	spaceshipCardHandler := cardHands detect: [ :handler |
-		                        handler spaceship name = aSpaceship ].
-	^ spaceshipCardHandler cardsInHand size
-]
-
-{ #category : #accessing }
 Game >> cardsHandOf: aSpaceship [
 
 	| spaceshipCardHandler |
 	spaceshipCardHandler := cardHands detect: [ :handler |
-		                        handler spaceship = aSpaceship ].
+		                        handler spaceship name = aSpaceship ].
 	^ spaceshipCardHandler
 ]
 
@@ -189,7 +178,7 @@ Game >> playNextTurn [
 { #category : #removing }
 Game >> removeFromHand: aCard to: aSpaceShip [
 
-	(self cardsHandOf: (self spaceshipCalled: aSpaceShip))
+	(self cardsHandOf:  aSpaceShip)
 		removeFromHand: aCard
 ]
 
@@ -201,7 +190,7 @@ Game >> repeatLastEffectAppliedOn: aSpaceshipName [
 { #category : #playing }
 Game >> rollModifierFor: aSpaceShip [
 
-	^ (self cardsHandOf: aSpaceShip) totalEffectsOnSpaceShip
+	^ (self cardsHandOf: aSpaceShip name) totalEffectsOnSpaceShip
 ]
 
 { #category : #'target resize' }
@@ -238,17 +227,11 @@ Game >> spaceshipCalled: aName [
 	^ spaceships detect: [ :spaceship | spaceship name = aName ]
 ]
 
-{ #category : #accessing }
-Game >> spaceships [
-
-	^ spaceships
-]
-
 { #category : #asserting }
 Game >> validate: aSpaceship has: aCard [
 
 	| cardsHand |
-	cardsHand := self cardsHandOf: (self spaceshipCalled: aSpaceship) .
+	cardsHand := self cardsHandOf: aSpaceship .
 	(cardsHand hasInHand: aCard) ifFalse: [
 		Error signal:
 			'Spaceship cannot throw this card because he does not have it' ]

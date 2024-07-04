@@ -28,8 +28,8 @@ ThirdVersionTest >> testTV01EverySpaceshipStartsWithTwoCards [
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame cardsHandLengthOf: 'Danny') equals: 2.
-	self assert: (aGame cardsHandLengthOf: 'Walter') equals: 2.
+	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size  equals: 2.
+	self assert: (aGame cardsHandOf: 'Walter') cardsInHand size equals: 2.
 
 	aGame playNextTurn.
 	aGame playNextTurn
@@ -59,14 +59,14 @@ ThirdVersionTest >> testTV02WhenSpaceshipLandsInCardGiverTileItReceivesACard [
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame cardsHandLengthOf: 'Danny') equals: 2.
-	self assert: (aGame cardsHandLengthOf: 'Walter') equals: 2.
+	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size equals: 2.
+	self assert: (aGame cardsHandOf: 'Walter') cardsInHand size equals: 2.
 
 	aGame playNextTurn.
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
-	self assert: (aGame cardsHandLengthOf: 'Danny') equals: 3.
-	self assert: (aGame cardsHandLengthOf: 'Walter') equals: 2
+	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size equals: 3.
+	self assert: (aGame cardsHandOf: 'Walter') cardsInHand size equals: 2
 ]
 
 { #category : #tests }
@@ -282,12 +282,8 @@ ThirdVersionTest >> testTV07WhenSpaceshipUsesAccelerationCardItAddsOneToTheTotal
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 1.
-"
-	cardPlay := anAccelerationCard
-		            playedBy: 'Danny'
-		            targetting: aGame spaceships.
-"
-	aGame play: anAccelerationCard  by:'Danny'  targetting: aGame spaceships.
+
+	aGame play: anAccelerationCard  by:'Danny'  targetting: 'all'.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
@@ -333,7 +329,7 @@ ThirdVersionTest >> testTV08WhenSpaceshipUsesCancellationCardOnAnAccelerationCar
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
 
-	aGame play: anAccelerationCard by: 'Danny' targetting: aGame spaceships. 
+	aGame play: anAccelerationCard by: 'Danny' targetting: 'all'. 
 
 	aGame playNextTurn.
 	aGame playNextTurn.
@@ -949,7 +945,7 @@ ThirdVersionTest >> testTV19WhenSpaceshipUsesReDoCardAfterACancelationCardItCopi
 		         usingCardsFrom: aDeck.
 
 	
-	aGame play: anAccelerationCard by: 'Danny' targetting: aGame spaceships .
+	aGame play: anAccelerationCard by: 'Danny' targetting: 'all' .
 	aGame play: anOverloadCard by:'Danny'  targetting:'Walter'. 
 	aGame playNextTurn .
 	aGame playNextTurn .
@@ -1311,13 +1307,13 @@ ThirdVersionTest >> testTV25WhenSpaceshipUsesRepeatCardAfterACardGiverItTriggers
 
 	aGame playNextTurn.
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
-	self assert: (aGame cardsHandLengthOf:'Danny')   equals: 3.
-	self assert: (aGame cardsHandLengthOf:'Walter')   equals: 2.
+	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size   equals: 3.
+	self assert: (aGame cardsHandOf: 'Walter') cardsInHand size  equals: 2.
 
 
 	aGame play: aRepeatCard by: 'Walter' targetting: 'Walter'.
-	self assert: (aGame cardsHandLengthOf:'Danny')   equals: 3.
-	self assert: (aGame cardsHandLengthOf:'Walter')   equals: 2.
+	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size   equals: 3.
+	self assert: (aGame cardsHandOf: 'Walter') cardsInHand size   equals: 2.
 	
 
 
@@ -1416,13 +1412,13 @@ ThirdVersionTest >> testTV27WhenSpaceshipUsesReDoCardAfterAReDoCardItCopiesTheLa
 		         usingCardsFrom: aDeck.
 
 	
-	aGame play: anAccelerationCard by: 'Danny' targetting: aGame spaceships .
-	aGame play: aRedoCard   by:'Danny'  targetting:aGame spaceships.
+	aGame play: anAccelerationCard by: 'Danny' targetting: 'all' .
+	aGame play: aRedoCard   by:'Danny'  targetting:'all'.
 	aGame playNextTurn .
 	self assert:(aGame spaceshipCalled: 'Danny') position equals: 5.
 	self assert:(aGame spaceshipCalled: 'Walter') position equals: 1.
 	
-	aGame play: aRedoCard   by:'Walter'  targetting:aGame spaceships.
+	aGame play: aRedoCard   by:'Walter'  targetting:'all'.
 	aGame playNextTurn .
 	self assert:(aGame spaceshipCalled: 'Danny') position equals: 5.
 	self assert:(aGame spaceshipCalled: 'Walter') position equals: 7.

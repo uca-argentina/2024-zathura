@@ -20,7 +20,7 @@ EffectManager class >> usedIn: aGame with: aBoard affecting: someShips [
 EffectManager >> applyEffectOnLandingShip: aSpaceship [
 
 	| effectToApply |
-	effectToApply := board tiles at: aSpaceship position.
+	effectToApply := board effectToApplyTo: aSpaceship .
 	lastEffectApplied := effectToApply.
 	effectToApply triggeredBy: aSpaceship on: self
 ]
