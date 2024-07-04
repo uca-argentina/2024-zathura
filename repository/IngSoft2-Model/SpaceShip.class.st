@@ -75,7 +75,7 @@ SpaceShip >> handleAllyFuelForMovePositionBy: aNumber lapBy: quantityOfLapsToMov
 { #category : #playing }
 SpaceShip >> handleEmptyFuelTankForMovePositionBy: aNumber lapBy: quantityOfLapsToMove [
 
-	self ally ifNil: [ self applyPenaltyForEmptyFuelTank ] ifNotNil: [
+	ally ifNil: [ self applyPenaltyForEmptyFuelTank ] ifNotNil: [
 		self
 			handleAllyFuelForMovePositionBy: aNumber
 			lapBy: quantityOfLapsToMove ]
