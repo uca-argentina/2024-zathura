@@ -1,5 +1,5 @@
 Class {
-	#name : #FuelManager,
+	#name : #FuelTank,
 	#superclass : #Object,
 	#instVars : [
 		'maxFuel',
@@ -9,56 +9,56 @@ Class {
 }
 
 { #category : #'instance creation' }
-FuelManager class >> withMaxFuel: anAmountOfFuel [
+FuelTank class >> withMaxFuel: anAmountOfFuel [
 
 	^ self new initializeWithMaxFuel: anAmountOfFuel
 ]
 
 { #category : #accessing }
-FuelManager >> currentFuel [
+FuelTank >> currentFuel [
 
 	^ currentFuel
 ]
 
 { #category : #playing }
-FuelManager >> decreaseFuelBy: amount [
+FuelTank >> decreaseFuelBy: amount [
 
 	currentFuel := currentFuel - amount
 ]
 
 { #category : #testing }
-FuelManager >> fuel: anAmountOfFuel [
+FuelTank >> fuel: anAmountOfFuel [
 
 	currentFuel := anAmountOfFuel
 ]
 
 { #category : #playing }
-FuelManager >> increaseMaxFuelByOne [
+FuelTank >> increaseMaxFuelByOne [
 
 	maxFuel := maxFuel + 1
 ]
 
 { #category : #initialization }
-FuelManager >> initializeWithMaxFuel: anAmountOfFuel [
+FuelTank >> initializeWithMaxFuel: anAmountOfFuel [
 
 	maxFuel := anAmountOfFuel.
 	currentFuel := anAmountOfFuel
 ]
 
 { #category : #asserting }
-FuelManager >> isEmpty [
+FuelTank >> isEmpty [
 
 	^ currentFuel < 0
 ]
 
 { #category : #accessing }
-FuelManager >> maxFuel [
+FuelTank >> maxFuel [
 
 	^ maxFuel
 ]
 
 { #category : #playing }
-FuelManager >> refuelToMax [
+FuelTank >> refuelToMax [
 
 	currentFuel := maxFuel
 ]

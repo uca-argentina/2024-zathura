@@ -4,20 +4,20 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
+{ #category : #delegating }
+OverloadCard >> cancelEffectUsing: cardPlayResolver [
+
+	cardPlayResolver cancelAnOverloadCard: self
+]
+
 { #category : #initialization }
 OverloadCard >> effect [
 
 	^ -2
 ]
 
-{ #category : #initialization }
-OverloadCard >> playedBy: aSpaceship targetting: anotherSpaceship [
-
-	^ CardPlay with: self appliedTo: anotherSpaceship by: aSpaceship
-]
-
 { #category : #delegating }
 OverloadCard >> uses: cardPlayResolver [
 
-	^ cardPlayResolver resolveAnOverloadCardPlay
+	cardPlayResolver resolveAnOverloadCardPlay: self
 ]

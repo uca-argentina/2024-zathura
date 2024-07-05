@@ -75,7 +75,7 @@ SpaceShip >> handleAllyFuelForMovePositionBy: aNumber lapBy: quantityOfLapsToMov
 { #category : #playing }
 SpaceShip >> handleEmptyFuelTankForMovePositionBy: aNumber lapBy: quantityOfLapsToMove [
 
-	self ally ifNil: [ self applyPenaltyForEmptyFuelTank ] ifNotNil: [
+	ally ifNil: [ self applyPenaltyForEmptyFuelTank ] ifNotNil: [
 		self
 			handleAllyFuelForMovePositionBy: aNumber
 			lapBy: quantityOfLapsToMove ]
@@ -89,7 +89,7 @@ SpaceShip >> initialize: aName withMaxFuel: anAmount [
 	lap := 1.
 	turnsToLose := 0.
 	needsToThrow := 0.
-	fuelTank := FuelManager withMaxFuel: anAmount.
+	fuelTank := FuelTank withMaxFuel: anAmount.
 	ally := nil
 ]
 
@@ -153,6 +153,12 @@ SpaceShip >> rollDiceUsing: aDiceRoller [
 	(needsToThrow = 0 or: [ rolledNumber = needsToThrow ]) ifTrue: [
 		needsToThrow := 0 ].
 	^ rolledNumber
+]
+
+{ #category : #asserting }
+SpaceShip >> setAllyToNil [
+
+	ally := nil
 ]
 
 { #category : #playing }
