@@ -106,6 +106,11 @@ Game >> cancelTheEffectOf: aPermanentCard [
 ]
 
 { #category : #accessing }
+Game >> cardHands [ 
+^cardHands
+]
+
+{ #category : #accessing }
 Game >> cardsHandOf: aSpaceship [
 
 	| spaceshipCardHandler |
@@ -225,6 +230,11 @@ Game >> spaceShipsPositionsRanking [
 Game >> spaceshipCalled: aName [
 
 	^ spaceships detect: [ :spaceship | spaceship name = aName ]
+]
+
+{ #category : #accessing }
+Game >> spaceships [ 
+^spaceships
 ]
 
 { #category : #asserting }

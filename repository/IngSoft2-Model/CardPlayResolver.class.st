@@ -16,6 +16,32 @@ CardPlayResolver class >> with: aGame [
 	^ self new initializeWith: aGame
 ]
 
+{ #category : #resolving }
+CardPlayResolver >> cancelAnAccelerationCard: aCard [
+	|filteredCardsHands|
+	filteredCardsHands := game cardHands select: [ :cardsHand |
+		                      cardsHand affectsSpaceShip: aCard ].
+	game validateIfIsPossibleToCancelACard: filteredCardsHands.
+	filteredCardsHands do: [ :cardsHand |
+		cardsHand removeEffectOf: aCard ].
+]
+
+{ #category : #resolving }
+CardPlayResolver >> cancelAnAllyCard: aCard [
+
+game spaceships do:[:spaceship|spaceship setAllyToNil].
+]
+
+{ #category : #resolving }
+CardPlayResolver >> cancelAnOverloadCard: aCard [
+	|filteredCardsHands|
+	filteredCardsHands := game cardHands select: [ :cardsHand |
+		                      cardsHand affectsSpaceShip: aCard ].
+	game validateIfIsPossibleToCancelACard: filteredCardsHands.
+	filteredCardsHands do: [ :cardsHand |
+		cardsHand removeEffectOf: aCard ].
+]
+
 { #category : #initialization }
 CardPlayResolver >> initializeWith: aGame [
 
@@ -33,7 +59,8 @@ CardPlayResolver >> resolve: aCardPlayed by: aPlayer targetting: anotherPalyer [
 { #category : #resolving }
 CardPlayResolver >> resolveACancellationCardPlay: aCard [
 
-	game cancelTheEffectOf: cardTarget.
+	"game cancelTheEffectOf: cardTarget."
+	cardTarget cancelEffectUsing:self.
 	lastCardPlayed := aCard.
 	game removeFromHand: aCard to: cardPlayer
 ]
@@ -69,6 +96,8 @@ CardPlayResolver >> resolveAnAllyCardPlay: aCard [
 
 	game assertIsTurnOf: cardPlayer.
 	game setAnAllianceBewtween: cardPlayer and: cardTarget.
+	game applyACardEffect: aCard to: cardPlayer.
+	game applyACardEffect: aCard to: cardTarget.
 	lastCardPlayed := aCard.
 	game removeFromHand: aCard to: cardPlayer
 ]

@@ -4,6 +4,12 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
+{ #category : #delegating }
+AccelerationCard >> cancelEffectUsing: cardPlayResolver [
+
+	cardPlayResolver cancelAnAccelerationCard: self
+]
+
 { #category : #initialization }
 AccelerationCard >> effect [
 
