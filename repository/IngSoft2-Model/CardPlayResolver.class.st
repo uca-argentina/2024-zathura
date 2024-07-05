@@ -16,6 +16,22 @@ CardPlayResolver class >> with: aGame [
 	^ self new initializeWith: aGame
 ]
 
+{ #category : #resolving }
+CardPlayResolver >> cancelAnAccelerationCard: aCard [
+	game cancelTheEffectOf: aCard
+]
+
+{ #category : #resolving }
+CardPlayResolver >> cancelAnAllyCard: aCard [
+
+game setAllyToNil.
+]
+
+{ #category : #resolving }
+CardPlayResolver >> cancelAnOverloadCard: aCard [
+	game cancelTheEffectOf:aCard
+]
+
 { #category : #initialization }
 CardPlayResolver >> initializeWith: aGame [
 
@@ -33,7 +49,8 @@ CardPlayResolver >> resolve: aCardPlayed by: aPlayer targetting: anotherPalyer [
 { #category : #resolving }
 CardPlayResolver >> resolveACancellationCardPlay: aCard [
 
-	game cancelTheEffectOf: cardTarget.
+	"game cancelTheEffectOf: cardTarget."
+	cardTarget cancelEffectUsing:self.
 	lastCardPlayed := aCard.
 	game removeFromHand: aCard to: cardPlayer
 ]
@@ -69,6 +86,8 @@ CardPlayResolver >> resolveAnAllyCardPlay: aCard [
 
 	game assertIsTurnOf: cardPlayer.
 	game setAnAllianceBewtween: cardPlayer and: cardTarget.
+	game applyACardEffect: aCard to: cardPlayer.
+	game applyACardEffect: aCard to: cardTarget.
 	lastCardPlayed := aCard.
 	game removeFromHand: aCard to: cardPlayer
 ]

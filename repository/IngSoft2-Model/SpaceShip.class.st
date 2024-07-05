@@ -155,6 +155,12 @@ SpaceShip >> rollDiceUsing: aDiceRoller [
 	^ rolledNumber
 ]
 
+{ #category : #asserting }
+SpaceShip >> setAllyToNil [
+
+	ally := nil
+]
+
 { #category : #playing }
 SpaceShip >> skipTurn [
 

@@ -4,6 +4,12 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
+{ #category : #delegating }
+OverloadCard >> cancelEffectUsing: cardPlayResolver [
+
+	cardPlayResolver cancelAnOverloadCard: self
+]
+
 { #category : #initialization }
 OverloadCard >> effect [
 

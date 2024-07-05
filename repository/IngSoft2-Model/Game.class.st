@@ -193,6 +193,13 @@ Game >> rollModifierFor: aSpaceShip [
 	^ (self cardsHandOf: aSpaceShip name) totalEffectsOnSpaceShip
 ]
 
+{ #category : #initialization }
+Game >> setAllyToNil [
+
+	spaceships do: [ :spaceship | spaceship setAllyToNil ]
+
+]
+
 { #category : #'target resize' }
 Game >> setAnAllianceBewtween: aSpaceShip and: anotherSpaceShip [
 	|spaceship1 spaceship2|
