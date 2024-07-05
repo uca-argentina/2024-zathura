@@ -42,7 +42,7 @@ Board >> amountOfTiles [
 Board >> calculateLapToMoveWhen: aSpaceship advances: anAmountOfTilesToMove [
 
 	| tilesSinceBeginning |
-	tilesSinceBeginning := (self positionOf: aSpaceship)
+	tilesSinceBeginning := (aSpaceship position)
 	                       + anAmountOfTilesToMove
 	                       + (aSpaceship lap - 1 * self amountOfTiles).
 	^ tilesSinceBeginning - 1 // self amountOfTiles + 1
@@ -55,7 +55,7 @@ Board >> calculatePositionToMoveWhen: aSpaceship moves: anAmountOfTilesToMove [
 	lapAfterMovement := self
 		                    calculateLapToMoveWhen: aSpaceship
 		                    advances: anAmountOfTilesToMove.
-	tilesSinceBeginning := (self positionOf: aSpaceship)
+	tilesSinceBeginning := (aSpaceship position)
 	                       + anAmountOfTilesToMove
 	                       + (aSpaceship lap - 1 * self amountOfTiles).
 	newPosition := tilesSinceBeginning % self amountOfTiles.
@@ -64,6 +64,11 @@ Board >> calculatePositionToMoveWhen: aSpaceship moves: anAmountOfTilesToMove [
 	newPosition = 0 ifTrue: [ ^ self amountOfTiles - aSpaceship position ].
 
 	^ newPosition - aSpaceship position
+]
+
+{ #category : #initialization }
+Board >> effectToApplyTo: aSpaceship [
+	^ tiles at: (aSpaceship position).
 ]
 
 { #category : #playing }
@@ -122,16 +127,4 @@ Board >> moveAllSpaceshipsToFirstPosition: allSpaceShips [
 			movePositionBy: 1 - spaceship position
 			lapBy: 0
 			neededFuel: 0 ]
-]
-
-{ #category : #accessing }
-Board >> positionOf: aSpaceship [
-
-	^ aSpaceship position
-]
-
-{ #category : #initialization }
-Board >> tiles [
-
-	^ tiles
 ]

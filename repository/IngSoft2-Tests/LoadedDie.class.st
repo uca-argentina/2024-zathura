@@ -18,12 +18,9 @@ LoadedDie class >> isValid: aDiceSequence [
 { #category : #'instance creation' }
 LoadedDie class >> of: rollValues [
 
-	| values |
-	values := (rollValues isKindOf: Integer)
-		          ifTrue: [ Array with: rollValues ]
-		          ifFalse: [ rollValues ].
-	self isValid: values.
-	^ self new initializeOf: values
+
+	self isValid: rollValues.
+	^ self new initializeOf: rollValues
 ]
 
 { #category : #initialization }

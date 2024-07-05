@@ -24,7 +24,7 @@ LoadedDeck class >> of: someCards [
 { #category : #initialization }
 LoadedDeck >> initializeOf: someCards [
 
-	cards := someCards asOrderedCollection
+	cards := someCards asOrderedCollection .
 ]
 
 { #category : #initialization }

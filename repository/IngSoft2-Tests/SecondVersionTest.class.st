@@ -19,7 +19,7 @@ SecondVersionTest >> testSV01PlayersStartAtLapOne [
 				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
-	aDie1 := LoadedDie of: 3.
+	aDie1 := LoadedDie of: {3}.
 	someSpaceships := { 'Danny'. 'Walter' }.
 
 	aGame := Game
@@ -173,8 +173,8 @@ SecondVersionTest >> testSV05EverySpaceshipStartsWithAmountOfFuelEqualToTheDoubl
 				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
-	aDie1 := LoadedDie of: 3.
-	aDie2 := LoadedDie of: 3.
+	aDie1 := LoadedDie of: {3}.
+	aDie2 := LoadedDie of: {3}.
 
 	aDiceRoller := DiceRoller of: {
 			               aDie1.
@@ -212,8 +212,8 @@ SecondVersionTest >> testSV06WhenASpaceshipMovesItHasLessFuel [
 				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
-	aDie1 := LoadedDie of: 3.
-	aDie2 := LoadedDie of: 3.
+	aDie1 := LoadedDie of: {3}.
+	aDie2 := LoadedDie of: {3}.
 
 	aDiceRoller := DiceRoller of: {
 			               aDie1.
@@ -708,7 +708,7 @@ SecondVersionTest >> testSV16SpaceshipCannotEscapeFromTheHyperGravityEffectIfItD
 
 	| aGame aBoard aDie1 someSpaceships |
 	someSpaceships := { 'Danny'. 'Walter' }.
-	aDie1 := LoadedDie of: 5.
+	aDie1 := LoadedDie of: {5}.
 	aBoard := Board
 		          of: {
 				          Null new.

@@ -4,14 +4,20 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #initialization }
-AllyCard >> playedBy: aSpaceship targetting: anotherSpaceship [
+{ #category : #delegating }
+AllyCard >> cancelEffectUsing: cardPlayResolver [
 
-	^ CardPlay with: self appliedTo: anotherSpaceship by: aSpaceship
+	cardPlayResolver cancelAnAllyCard: self
+]
+
+{ #category : #initialization }
+AllyCard >> effect [
+
+	^ 0
 ]
 
 { #category : #delegating }
 AllyCard >> uses: cardPlayResolver [
 
-	^ cardPlayResolver resolveAnAllyCardPlay
+	cardPlayResolver resolveAnAllyCardPlay: self
 ]

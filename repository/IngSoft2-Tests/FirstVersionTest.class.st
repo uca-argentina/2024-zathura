@@ -19,7 +19,7 @@ FirstVersionTest >> testFV01GameMustHaveAtLeastOnePlayer [
 				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
-	aDie1 := LoadedDie of: 3.
+	aDie1 := LoadedDie of: {3}.
 
 
 	self
@@ -50,7 +50,7 @@ FirstVersionTest >> testFV02SpaceshipsStartAtFirstTile [
 				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
-	aDie1 := LoadedDie of: 3.
+	aDie1 := LoadedDie of: {3}.
 
 	aGame := Game
 		         playedBy: someSpaceships
@@ -200,8 +200,8 @@ FirstVersionTest >> testFV06GameIsPlayedWithTwoDice [
 				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
-	aDie1 := LoadedDie of: 3.
-	aDie2 := LoadedDie of: 3.
+	aDie1 := LoadedDie of: {3}.
+	aDie2 := LoadedDie of: {3}.
 
 	aDiceRoller := DiceRoller of: {
 			               aDie1.
@@ -345,7 +345,7 @@ FirstVersionTest >> testFV10TurnsWhenThreePlayersArePLaying [
 				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
-	aDie1 := LoadedDie of: 3.
+	aDie1 := LoadedDie of: {3}.
 
 	aGame := Game
 		         playedBy: someSpaceships
@@ -383,7 +383,7 @@ FirstVersionTest >> testFV11WormholeGoesBackwards [
 				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
-	aDie1 := LoadedDie of: 4.
+	aDie1 := LoadedDie of: {4}.
 
 	aGame := Game
 		         playedBy: someSpaceships
@@ -420,7 +420,7 @@ FirstVersionTest >> testFV12WormholeGoesForward [
 				          wormholeTile12.
 				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
-	aDie1 := LoadedDie of: 7.
+	aDie1 := LoadedDie of: {7}.
 
 	aGame := Game
 		         playedBy: someSpaceships
@@ -452,7 +452,7 @@ FirstVersionTest >> testFV13WormholeIsNotOnANormalTile [
 				          wormholeTile7 }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
-	aDie1 := LoadedDie of: 4.
+	aDie1 := LoadedDie of: {4}.
 
 	aGame := Game
 		         playedBy: someSpaceships
