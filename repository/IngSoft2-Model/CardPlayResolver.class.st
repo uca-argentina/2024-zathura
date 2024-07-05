@@ -18,28 +18,18 @@ CardPlayResolver class >> with: aGame [
 
 { #category : #resolving }
 CardPlayResolver >> cancelAnAccelerationCard: aCard [
-	|filteredCardsHands|
-	filteredCardsHands := game cardHands select: [ :cardsHand |
-		                      cardsHand affectsSpaceShip: aCard ].
-	game validateIfIsPossibleToCancelACard: filteredCardsHands.
-	filteredCardsHands do: [ :cardsHand |
-		cardsHand removeEffectOf: aCard ].
+	game cancelTheEffectOf: aCard
 ]
 
 { #category : #resolving }
 CardPlayResolver >> cancelAnAllyCard: aCard [
 
-game spaceships do:[:spaceship|spaceship setAllyToNil].
+game setAllyToNil.
 ]
 
 { #category : #resolving }
 CardPlayResolver >> cancelAnOverloadCard: aCard [
-	|filteredCardsHands|
-	filteredCardsHands := game cardHands select: [ :cardsHand |
-		                      cardsHand affectsSpaceShip: aCard ].
-	game validateIfIsPossibleToCancelACard: filteredCardsHands.
-	filteredCardsHands do: [ :cardsHand |
-		cardsHand removeEffectOf: aCard ].
+	game cancelTheEffectOf:aCard
 ]
 
 { #category : #initialization }

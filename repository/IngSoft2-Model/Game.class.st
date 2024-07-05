@@ -106,11 +106,6 @@ Game >> cancelTheEffectOf: aPermanentCard [
 ]
 
 { #category : #accessing }
-Game >> cardHands [ 
-^cardHands
-]
-
-{ #category : #accessing }
 Game >> cardsHandOf: aSpaceship [
 
 	| spaceshipCardHandler |
@@ -198,6 +193,13 @@ Game >> rollModifierFor: aSpaceShip [
 	^ (self cardsHandOf: aSpaceShip name) totalEffectsOnSpaceShip
 ]
 
+{ #category : #initialization }
+Game >> setAllyToNil [
+
+	spaceships do: [ :spaceship | spaceship setAllyToNil ]
+
+]
+
 { #category : #'target resize' }
 Game >> setAnAllianceBewtween: aSpaceShip and: anotherSpaceShip [
 	|spaceship1 spaceship2|
@@ -230,11 +232,6 @@ Game >> spaceShipsPositionsRanking [
 Game >> spaceshipCalled: aName [
 
 	^ spaceships detect: [ :spaceship | spaceship name = aName ]
-]
-
-{ #category : #accessing }
-Game >> spaceships [ 
-^spaceships
 ]
 
 { #category : #asserting }
